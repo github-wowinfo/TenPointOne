@@ -3,7 +3,7 @@ import Button from "reactstrap/lib/Button"
 const OwnerDisplay = () => {
     return (
         <div>
-        <h1>hi</h1>
+        <h1>hi How are U</h1>
         <Button>Dashboard</Button>
              {/* <UncontrolledButtonDropdown>
               <DropdownToggle color='primary' size='lg' caret>
