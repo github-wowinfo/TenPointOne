@@ -5,6 +5,7 @@ import VerticalNavMenuSectionHeader from './VerticalNavMenuSectionHeader'
 
 // ** Utils
 import { resolveVerticalNavMenuItemComponent as resolveNavItemComponent } from '@layouts/utils'
+import OwnerDisplay from '../../../../../navigation/vertical/OwnerDisplay'
 
 const VerticalMenuNavItems = props => {
   // ** Components Object
@@ -21,7 +22,12 @@ const VerticalMenuNavItems = props => {
     return <TagName key={item.id || item.header} item={item} {...props} />
   })
 
-  return RenderNavItems
+  return (
+    <>
+    <OwnerDisplay/>
+    {RenderNavItems}
+    </>
+  )
 }
 
 export default VerticalMenuNavItems
