@@ -28,6 +28,10 @@ const Routes = [
     path: '/error',
     component: lazy(() => import('../../views/Error')),
     layout: 'BlankLayout'
+  },
+  {
+    path:'/asset',
+    component:lazy(() => import('../../views/Asset/AssetScreen'))
   }
 ]
 

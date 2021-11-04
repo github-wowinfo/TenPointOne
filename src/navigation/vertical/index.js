@@ -15,7 +15,7 @@ export default [
     id: "assests",
     title: "Assests",
     icon: <BsWallet2 size={20} />,
-    navLink: "#"
+    navLink: "/asset"
   },
   {
     id: "activity",
