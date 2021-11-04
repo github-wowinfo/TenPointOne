@@ -1,41 +1,64 @@
-import React, { useState } from 'react'
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Label, FormGroup, Input } from 'reactstrap'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import { Card, CardHeader, CardTitle, CardBody, Form, FormGroup, Label, Input, Button, Row, Col } from 'reactstrap'
+import {BsArrowDown, BsSafe2} from 'react-icons/bs'
+import {FaRegCopy} from 'react-icons/fa'
+import {GoLinkExternal} from 'react-icons/go'
+import Avatar from '@components/avatar'
+import qrcode from './qrcode_localhost.png'
 
 const Receive = () => {
-  const [formModal, setFormModal] = useState(false)
-
+  const cardStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    alighnItems: 'center'       
+}
+const data = [
+  {
+      icon: <BsSafe2 size={25} />,
+      color: 'light-danger'
+  }
+]
   return (
-      <div>
-      <Button.Ripple className="mt-1"   color='success' style={{fontSize: "1.5em"}} onClick={() => setFormModal(!formModal)} block>
-            RECOVER ACCOUNT
-        </Button.Ripple>
-        <Modal isOpen={formModal} toggle={() => setFormModal(!formModal)} className='modal-dialog-centered'>
-          {/* <ModalHeader style={{ textAlign: "center"}} toggle={() => setFormModal(!formModal)}>RECOVER VAULT</ModalHeader> */}
-          <div className="modal-header" style={{display:"flex", justifyContent: "center", fontSize:"2em"}}>
-          <div className="modal-title">RECOVER VAULT</div>
-          </div>
-          <ModalBody>
-            <FormGroup className="my-1">
-              <Label for='vaultadrs' style={{fontSize:"1.5em", textAlign: "center", minWidth: "100%"}}>VAULT ADDRESS TO RECOVER</Label>
-              <Input type='text' id='vaultadrs' placeholder='Vault Address' style={{textAlign: "center", fontSize:"1.5em"}} />
-            </FormGroup>
-            <FormGroup className="my-1">
-              <Label for='rcvradrs' style={{fontSize:"1.5em", textAlign: "center", minWidth: "100%"}}>RECOVERY BEING INITIATED BY</Label>
-              <Input type='text' id='rcvradrs' placeholder='Recovers Address' style={{textAlign: "center", fontSize:"1.5em"}}/>
-            </FormGroup>
-          </ModalBody>
-          <ModalFooter style={{ display: "flex", justifyContent: "space-between"}}>
-            <Button style={{fontSize:"1.5em", marginBottom: 15}} color='success'  onClick={() => setFormModal(!formModal)}>
-              RECOVER
-            </Button>
-            <Button style={{fontSize:"1.5em", marginBottom: 15}} color='danger'  onClick={() => setFormModal(!formModal)} >
-              CANCEL
-            </Button>
-          </ModalFooter>
-        </Modal>
-      </div>
-    )
+    <div style={cardStyle}>
+      <Card className='card-payment' style={{width: '43%'}}> 
+          <CardHeader>
+            <CardTitle style={{fontSize: '2em'}}>Receive Assests</CardTitle>
+          </CardHeader>
+          <hr/>
+          <CardBody>
+            <Row>
+              <Col style = {{backgroundColor: '#7367f0', textAlign: 'center', height:'5vh', width: '10vw', padding: '10px'}}>
+                <p style={{fontSize: '1.5em', color:'white'}}>Polygon Network - only send Polygon assests to this safe.</p>
+              </Col>
+            </Row>
+            <Col className='my-1' style={{fontSize:'1.5em', textAlign:'justify'}}>
+              <p>This is the address of your Safe. Deposit funds by scanning the QR code or copying the above address below. Only send MATIC and assest to this address (e.g. ETH, ERC20, ERC721)!  
+              </p>
+            </Col>
+            <Row style={{display:'flex', flexDirection: 'column'}}>
+              <Col style={{textAlign:'center', fontSize:'2em'}}><strong>SBI Vault</strong></Col>
+              <Col style={{textAlign: 'center'}}><img src={qrcode} style={{width: '200px', height:'200px'}}/></Col>
+            </Row>
+            <Row>
+            <Col md='2'><Avatar size='xl' color={data[0].color} icon={data[0].icon} className='m2' /></Col>
+            <Col style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+                <h4 style={{color: 'gray'}}>mt2jon6BFcMpzBHbFKCmY5HszSj6fRQjfJ
+                 <FaRegCopy style={{marginLeft: '35px', marginRight:'15px' }}  size={20}/>
+                <GoLinkExternal size={20}/>
+                </h4>
+            </Col>
+            </Row>            
+            <hr/>
+                <Row >
+                  <Col style={{display:'flex', justifyContent:'center'}}>
+                      <Button.Ripple style={{width:"50%"}} size='lg' color='success' block>
+                        Done
+                      </Button.Ripple>
+                  </Col>
+                </Row>
+          </CardBody>
+          </Card>
+    </div>
+  )
 }
 
 export default Receive
