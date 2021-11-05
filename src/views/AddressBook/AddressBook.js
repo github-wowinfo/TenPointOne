@@ -75,61 +75,62 @@ const AdddressBook = () => {
         <CardBody>
           <CardText style={{fontSize: '1.3em'}}>Give individual names to your Vaults, Segas and Counterparties. All names are stored locally on your computer and Risk Protocol does not have access to them.</CardText>
         </CardBody>
-      </Card>
-            <DataTable
-                className='react-dataTable'
-                customStyles={tablestyle}
-                noHeader
-                pagination
-                data={data}
-                columns={columns}
-                className='react-dataTable'
-                sortIcon={<ChevronDown size={10} />}
-                paginationPerPage = {5}
-                paginationRowsPerPageOptions={[5, 10, 15, 20]}
-            />
-            <Card>
+        </Card>
+        <Card>            
+                <DataTable
+                    className='react-dataTable'
+                    customStyles={tablestyle}
+                    noHeader
+                    pagination
+                    data={data}
+                    columns={columns}
+                    sortIcon={<ChevronDown size={10} />}
+                    paginationPerPage = {5}
+                    paginationRowsPerPageOptions={[5, 10, 15, 20]}
+                />
+        </Card>
+            <Card>            
             <CardHeader className='flex-md-row flex-column align-md-items-center align-items-start border-bottom'>
-          <div className='d-flex mt-md-0 mt-1'>
-            <UncontrolledButtonDropdown direction='up'>
-              <DropdownToggle color='success'  caret outline>
-                <CgExport size={15} />
-                <span className='align-middle ml-50'>Export</span>
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem className='w-100'>
-                  <Printer size={15} />
-                  <span className='align-middle ml-50'>Print</span>
-                </DropdownItem>
-                <DropdownItem className='w-100' onClick={() => downloadCSV(data)}>
-                  <FileText size={15} />
-                  <span className='align-middle ml-50'>CSV</span>
-                </DropdownItem>
-                <DropdownItem className='w-100'>
-                  <Grid size={15} />
-                  <span className='align-middle ml-50'>Excel</span>
-                </DropdownItem>
-                <DropdownItem className='w-100'>
-                  <File size={15} />
-                  <span className='align-middle ml-50'>PDF</span>
-                </DropdownItem>
-                <DropdownItem className='w-100'>
-                  <Copy size={15} />
-                  <span className='align-middle ml-50'>Copy</span>
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledButtonDropdown>
-            <Button className='ml-2' color='success' caret outline>
-              <CgImport size={15} />
-              <span className='align-middle ml-50'>Import</span>
-            </Button>
-            <Button className='ml-2' color='success' caret outline onClick={handleModal}>
-              <Plus size={15} />
-              <span className='align-middle ml-50'>Create Entry</span>
-            </Button>
-          </div>          
-        </CardHeader>
-    </Card>
+                    <div className='d-flex mt-md-0 mt-1'>
+                    <UncontrolledButtonDropdown direction='up'>
+                    <DropdownToggle color='success'  caret outline>
+                        <CgExport size={15} />
+                        <span className='align-middle ml-50'>Export</span>
+                    </DropdownToggle>
+                    <DropdownMenu right>
+                        <DropdownItem className='w-100'>
+                        <Printer size={15} />
+                        <span className='align-middle ml-50'>Print</span>
+                        </DropdownItem>
+                        <DropdownItem className='w-100' onClick={() => downloadCSV(data)}>
+                        <FileText size={15} />
+                        <span className='align-middle ml-50'>CSV</span>
+                        </DropdownItem>
+                        <DropdownItem className='w-100'>
+                        <Grid size={15} />
+                        <span className='align-middle ml-50'>Excel</span>
+                        </DropdownItem>
+                        <DropdownItem className='w-100'>
+                        <File size={15} />
+                        <span className='align-middle ml-50'>PDF</span>
+                        </DropdownItem>
+                        <DropdownItem className='w-100'>
+                        <Copy size={15} />
+                        <span className='align-middle ml-50'>Copy</span>
+                        </DropdownItem>
+                    </DropdownMenu>
+                    </UncontrolledButtonDropdown>
+                    <Button className='ml-2' color='success' caret outline>
+                    <CgImport size={15} />
+                    <span className='align-middle ml-50'>Import</span>
+                    </Button>
+                    <Button className='ml-2' color='success' caret outline onClick={handleModal}>
+                    <Plus size={15} />
+                    <span className='align-middle ml-50'>Create Entry</span>
+                    </Button>
+                </div>          
+            </CardHeader>
+        </Card>
     <AddNewModal open={modal} handleModal={handleModal} />
         </div>
     )
