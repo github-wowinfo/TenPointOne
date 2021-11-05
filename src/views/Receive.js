@@ -18,15 +18,15 @@ const data = [
   }
 ]
   return (
-    <div style={cardStyle}>
-      <Card className='card-payment' style={{width: '43%'}}> 
+    <Col style={cardStyle} md={{offset: 3, size: 6 }} sm="12">
+      <Card className='card-payment' > 
           <CardHeader>
             <CardTitle style={{fontSize: '2em'}}>Receive Assests</CardTitle>
           </CardHeader>
           <hr/>
           <CardBody>
             <Row>
-              <Col style = {{backgroundColor: '#7367f0', textAlign: 'center', height:'5vh', width: '10vw', padding: '10px'}}>
+              <Col style = {{backgroundColor: '#7367f0', textAlign: 'center', height:'100%', width: '10vw', padding: '10px', borderRadius:'10px'}}>
                 <p style={{fontSize: '1.5em', color:'white'}}>Polygon Network - only send Polygon assests to this safe.</p>
               </Col>
             </Row>
@@ -57,7 +57,7 @@ const data = [
                 </Row>
           </CardBody>
           </Card>
-    </div>
+    </Col>
   )
 }
 

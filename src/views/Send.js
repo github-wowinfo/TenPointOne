@@ -79,8 +79,8 @@ const Send = () => {
         }
       ]
   return (
-    <div style={cardStyle}>
-        <Card className='card-payment' style={{width: '43%'}}> 
+    <Col style={cardStyle} md={{offset: 3, size: 6 }} sm="12">
+        <Card className='card-payment' > 
           <CardHeader>
             <CardTitle style={{fontSize: '2em'}}>Send Funds</CardTitle>
           </CardHeader>
@@ -165,7 +165,7 @@ const Send = () => {
             </Form>
           </CardBody>
         </Card>
-    </div >
+    </Col >
   )
 }
 
