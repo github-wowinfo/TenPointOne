@@ -32,6 +32,10 @@ const Routes = [
   {
     path:'/asset',
     component:lazy(() => import('../../views/Asset/AssetScreen'))
+  },
+  {
+    path:'/activity',
+    component:lazy(() => import('../../views/Activity/ActivityScreen'))
   }
 ]
 

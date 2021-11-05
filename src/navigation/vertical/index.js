@@ -21,7 +21,7 @@ export default [
     id: "activity",
     title: "Activity",
     icon: <Activity size={20} />,
-    navLink: "#"
+    navLink: "/activity"
   },
   {
     id: 'send',
