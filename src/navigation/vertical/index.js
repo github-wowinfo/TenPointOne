@@ -27,13 +27,13 @@ export default [
     id: 'send',
     title: "Send",
     icon: <ArrowUpRight size={20} />,
-    navLink: "#"
+    navLink: "/send"
   },
   {
     id: 'receive',
     title: "Receive",
     icon: <ArrowDownLeft size={20} />,
-    navLink: "#"
+    navLink: "/receive"
   },
   {
     id: "defi",
@@ -45,7 +45,7 @@ export default [
     id: "addressbook",
     title: "Address Book",
     icon: <ImAddressBook size={20} />,
-    navLink: "#"
+    navLink: "/addressbook"
   },
   {
     id: "manager",

@@ -36,6 +36,18 @@ const Routes = [
   {
     path:'/activity',
     component:lazy(() => import('../../views/Activity/ActivityScreen'))
+  },
+  {
+    path:'/send',
+    component: lazy(() => import('../../views/Send/Send'))
+  },
+  {
+    path: '/receive',
+    component: lazy(() => import('../../views/Receive/Receive'))
+  },
+  {
+    path: '/addressbook',
+    component: lazy(() => import('../../views/AddressBook/AddressBook'))
   }
 ]
 
