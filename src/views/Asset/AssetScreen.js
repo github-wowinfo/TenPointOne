@@ -20,11 +20,6 @@ const currencyOptions = [
 
 const Asset = () => {
 
-    const topCardBody = {
-
-        backgroundColor: '#000'
-    }
-
 
     return (
         <>
