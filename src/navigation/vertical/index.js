@@ -3,7 +3,6 @@ import {BsWallet2} from "react-icons/bs"
 import {IoGitMergeOutline} from "react-icons/io5"
 import {VscTools} from "react-icons/vsc"
 import {ImAddressBook} from "react-icons/im"
-import Send from "../../views/Send"
 
 export default [
   {

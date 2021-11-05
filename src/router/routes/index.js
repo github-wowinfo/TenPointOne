@@ -35,11 +35,11 @@ const Routes = [
   },
   {
     path:'/send',
-    component: lazy(() => import('../../views/Send'))
+    component: lazy(() => import('../../views/Send/Send'))
   },
   {
     path: '/receive',
-    component: lazy(() => import('../../views/Receive'))
+    component: lazy(() => import('../../views/Receive/Receive'))
   }
 ]
 
