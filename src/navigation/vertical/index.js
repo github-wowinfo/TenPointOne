@@ -45,7 +45,7 @@ export default [
     id: "addressbook",
     title: "Address Book",
     icon: <ImAddressBook size={20} />,
-    navLink: "#"
+    navLink: "/addressbook"
   },
   {
     id: "manager",

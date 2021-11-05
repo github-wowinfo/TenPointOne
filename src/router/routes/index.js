@@ -40,6 +40,10 @@ const Routes = [
   {
     path: '/receive',
     component: lazy(() => import('../../views/Receive/Receive'))
+  },
+  {
+    path: '/addressbook',
+    component: lazy(() => import('../../views/AddressBook/AddressBook'))
   }
 ]
 
