@@ -13,10 +13,6 @@ const Routes = [
     component: lazy(() => import('../../views/Home'))
   },
   {
-    path: '/second-page',
-    component: lazy(() => import('../../views/SecondPage'))
-  },
-  {
     path: '/login',
     component: lazy(() => import('../../views/Login')),
     layout: 'BlankLayout',
@@ -48,6 +44,10 @@ const Routes = [
   {
     path: '/addressbook',
     component: lazy(() => import('../../views/AddressBook/AddressBook'))
+  },
+  {
+    path: '/manager',
+    component: lazy(() => import('../../views/Manager/Manager'))
   }
 ]
 
