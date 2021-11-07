@@ -48,7 +48,7 @@ const Routes = [
   {
     path: '/manager',
     component: lazy(() => import('../../views/Manager/Manager'))
-  }
+  } 
 ]
 
 export { DefaultRoute, TemplateTitle, Routes }

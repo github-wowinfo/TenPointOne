@@ -78,7 +78,7 @@ export default [
   },
   {
     id: "disconnet",
-    title: "Sign Out",
+    title: "Disconnect",
     icon: <Power size={20} />,
     navLink: "/login"
   }
