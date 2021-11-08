@@ -39,7 +39,7 @@ export default [
     id: "defi",
     title: "DeFi",
     icon: <IoGitMergeOutline size={20} />,
-    navLink: "#"
+    navLink: "/defi"
   },
   {
     id: "addressbook",

@@ -30,15 +30,15 @@ const Routes = [
     layout: 'BlankLayout'
   },
   {
-    path:'/asset',
-    component:lazy(() => import('../../views/Asset/AssetScreen'))
+    path: '/asset',
+    component: lazy(() => import('../../views/Asset/AssetScreen'))
   },
   {
-    path:'/activity',
-    component:lazy(() => import('../../views/Activity/ActivityScreen'))
+    path: '/activity',
+    component: lazy(() => import('../../views/Activity/ActivityScreen'))
   },
   {
-    path:'/send',
+    path: '/send',
     component: lazy(() => import('../../views/Send/Send'))
   },
   {
@@ -48,6 +48,10 @@ const Routes = [
   {
     path: '/addressbook',
     component: lazy(() => import('../../views/AddressBook/AddressBook'))
+  },
+  {
+    path: '/defi',
+    component: lazy(() => import('../../views/DeFi/DeFi'))
   }
 ]
 
