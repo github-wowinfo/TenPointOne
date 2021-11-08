@@ -24,8 +24,8 @@ const VerticalMenuNavItems = props => {
 
   return (
     <>
-    <OwnerDisplay/>
-    {RenderNavItems}
+      <OwnerDisplay />
+      {RenderNavItems}
     </>
   )
 }

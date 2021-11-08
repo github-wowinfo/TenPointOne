@@ -1,10 +1,10 @@
-import { BarChart2, Power, ArrowUpRight, ArrowDownLeft, Activity} from "react-feather"
-import {BsWallet2, BsSafe2} from "react-icons/bs"
-import {SiWebmoney} from "react-icons/si"
-import {IoGitMergeOutline} from "react-icons/io5"
-import {VscTools} from "react-icons/vsc"
-import {ImAddressBook} from "react-icons/im"
-import {randomHexColor} from 'random-hex-color-generator'
+import { BarChart2, Power, ArrowUpRight, ArrowDownLeft, Activity } from "react-feather"
+import { BsWallet2, BsSafe2 } from "react-icons/bs"
+import { SiWebmoney, SiGithubactions } from "react-icons/si"
+import { IoGitMergeOutline, IoQrCodeOutline } from "react-icons/io5"
+import { VscTools } from "react-icons/vsc"
+import { ImAddressBook } from "react-icons/im"
+import { randomHexColor } from 'random-hex-color-generator'
 
 export default [
   {
@@ -61,17 +61,17 @@ export default [
   {
     id: 'sbivault',
     title: 'SBI Vault',
-    icon: <BsSafe2 size={25}  style={{color: randomHexColor()}}/>
+    icon: <BsSafe2 size={25} style={{ color: randomHexColor() }} />
   },
   {
     id: 'sbicheck',
     title: 'SBI Checking',
-    icon: <SiWebmoney size={25}  style={{color: randomHexColor()}}/>
+    icon: <SiWebmoney size={25} style={{ color: randomHexColor() }} />
   },
   {
     id: 'hdfcfix',
     title: 'HDFC Fixed',
-    icon: <SiWebmoney size={25}  style={{color: randomHexColor()}}/>
+    icon: <SiWebmoney size={25} style={{ color: randomHexColor() }} />
   },
   {
     header: ' '

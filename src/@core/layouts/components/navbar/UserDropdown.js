@@ -13,8 +13,9 @@ import { useDispatch } from 'react-redux'
 import { handleLogout } from '@store/actions/auth'
 
 // ** Third Party Components
-import { UncontrolledDropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'reactstrap'
+import { UncontrolledDropdown, DropdownMenu, DropdownToggle, DropdownItem, Button, Row, Col } from 'reactstrap'
 import { User, Mail, CheckSquare, MessageSquare, Settings, CreditCard, HelpCircle, Power } from 'react-feather'
+import { GiFoxHead } from 'react-icons/gi'
 
 // ** Default Avatar Image
 import defaultAvatar from '@src/assets/images/portrait/small/avatar-s-11.jpg'
@@ -40,10 +41,11 @@ const UserDropdown = () => {
     <UncontrolledDropdown tag='li' className='dropdown-user nav-item'>
       <DropdownToggle href='/' tag='a' className='nav-link dropdown-user-link' onClick={e => e.preventDefault()}>
         <div className='user-nav d-sm-flex d-none'>
-          <span className='user-name font-weight-bold'>{(userData && userData['username']) || 'John Doe'}</span>
-          <span className='user-status'>{(userData && userData.role) || 'Admin'}</span>
+          <span className='user-name font-weight-bold'>{(userData && userData['username']) || 'Metamask @ Polygon'}</span>
+          <span className='user-status'>{(userData && userData.role) || '0x12D8....7474'}</span>
         </div>
-        <Avatar img={userAvatar} imgHeight='40' imgWidth='40' status='online' />
+        {/* <Avatar img={userAvatar} imgHeight='40' imgWidth='40' status='online' /> */}
+        <Avatar color='light-warning' icon={<GiFoxHead size={40} />} status='online' />
       </DropdownToggle>
       <DropdownMenu right>
         <DropdownItem tag={Link} to='#' onClick={e => e.preventDefault()}>
@@ -63,8 +65,7 @@ const UserDropdown = () => {
           <span className='align-middle'>Chats</span>
         </DropdownItem>
         <DropdownItem tag={Link} to='/login' onClick={() => dispatch(handleLogout())}>
-          <Power size={14} className='mr-75' />
-          <span className='align-middle'>Logout</span>
+          <span className='align-middle'><Power size={14} className='mr-75' />Disconnect</span>
         </DropdownItem>
       </DropdownMenu>
     </UncontrolledDropdown>

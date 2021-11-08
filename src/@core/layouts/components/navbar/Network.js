@@ -23,27 +23,28 @@ const Network = () => {
       id: '4',
       name: 'Arbitrum'
     }
-    
+
   ]
 
   const [network, setNetwork] = useState('Polygon Network')
 
-  const toggleNetwork = i => {
+  const toggleNetwork = (e, i) => {
+    e.preventDefault()
     setNetwork(i)
   }
 
   const networkItems = data.map(i => {
     return (
-      <DropdownItem href='/' tag='a' onClick={() => { toggleNetwork(i.name) }} >{i.name}</DropdownItem>
+      <DropdownItem href='/' tag='a' onClick={(e) => { toggleNetwork(e, i.name) }} >{i.name}</DropdownItem>
     )
   })
 
   return (
-    <UncontrolledButtonDropdown style={{marginLeft:20, marginRight:20}}>
-      <DropdownToggle color='primary' caret>
+    <UncontrolledButtonDropdown style={{ marginLeft: 20, marginRight: 20 }}>
+      <DropdownToggle style={{ width: '15em' }} color='primary' caret>
         {network}
       </DropdownToggle>
-      <DropdownMenu style={{relative: 'relative'}}>
+      <DropdownMenu style={{ relative: 'relative' }}>
         {networkItems}
       </DropdownMenu>
     </UncontrolledButtonDropdown>
