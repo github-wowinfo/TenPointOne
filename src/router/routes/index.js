@@ -48,7 +48,8 @@ const Routes = [
   {
     path: '/defi',
     component: lazy(() => import('../../views/DeFi/DeFi'))
-  }
+  },
+  {
     path: '/manager',
     component: lazy(() => import('../../views/Manager/Manager'))
   } 
