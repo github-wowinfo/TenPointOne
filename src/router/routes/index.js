@@ -13,10 +13,6 @@ const Routes = [
     component: lazy(() => import('../../views/Home'))
   },
   {
-    path: '/second-page',
-    component: lazy(() => import('../../views/SecondPage'))
-  },
-  {
     path: '/login',
     component: lazy(() => import('../../views/Login')),
     layout: 'BlankLayout',
@@ -53,6 +49,9 @@ const Routes = [
     path: '/defi',
     component: lazy(() => import('../../views/DeFi/DeFi'))
   }
+    path: '/manager',
+    component: lazy(() => import('../../views/Manager/Manager'))
+  } 
 ]
 
 export { DefaultRoute, TemplateTitle, Routes }

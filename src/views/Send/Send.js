@@ -6,7 +6,7 @@ import {FaRegCopy} from 'react-icons/fa'
 import {GoLinkExternal} from 'react-icons/go'
 import {BsArrowDown, BsSafe2} from 'react-icons/bs'
 import {IoQrCodeOutline} from 'react-icons/io5'
-import { Card, CardHeader, CardTitle, CardBody, Form, FormGroup, Label, Input, Button, Row, Col } from 'reactstrap'
+import { Card, CardHeader, CardTitle, CardBody, CardFooter, Form, FormGroup, Label, Input, Button, Row, Col } from 'reactstrap'
 import Badge from 'reactstrap/lib/Badge'
 import Icon from 'react-crypto-icons'
 
@@ -81,10 +81,10 @@ const Send = () => {
   return (
     <Col style={cardStyle} md={{offset: 3, size: 6 }} sm="12">
         <Card className='card-payment' > 
-          <CardHeader>
-            <CardTitle style={{fontSize: '2em'}}>Send Funds</CardTitle>
+          <CardHeader style={{ paddingBottom: '.3em'}}>
+            <CardTitle style={{fontSize: '1.5em'}}>Send Funds</CardTitle>
           </CardHeader>
-          <hr/>
+            <hr/>
           <CardBody>
           <Row>
             <Col md='2'><Avatar size='xl' color={data[0].color} icon={data[0].icon} className='m2' /></Col>
@@ -149,21 +149,22 @@ const Send = () => {
                     <Col>
                     </Col>
               </Row>
-                        <hr/>
-                <Row >
+              </Form>
+          </CardBody>
+          <CardFooter>
+          <Row >
                   <Col>
-                      <Button.Ripple size='lg' color='flat-success' block>
+                      <Button.Ripple size='lg' color='success' outline block>
                         Review
                       </Button.Ripple>
                   </Col>
                   <Col>
-                      <Button.Ripple size='lg' color='flat-success'  block>
+                      <Button.Ripple size='lg' color='success' outline block>
                         Clear
                       </Button.Ripple>
                   </Col>
                 </Row>
-            </Form>
-          </CardBody>
+          </CardFooter>
         </Card>
     </Col >
   )
