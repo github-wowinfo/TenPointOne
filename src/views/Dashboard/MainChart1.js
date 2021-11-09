@@ -84,7 +84,7 @@ const MainChart1 = ({ warning }) => {
       <CardHeader>
         <div>
           <CardTitle tag='h4'>Balance</CardTitle>
-          <small className='text-muted'>Commercial networks & enterprises</small>
+          <small className='text-muted'>Bitcoin Exchange network.</small>
         </div>
         <div className='d-flex align-items-center flex-wrap mt-sm-0 mt-1'>
           <h5 className='font-weight-bold mb-0 mr-1'>$ 100,000</h5>
@@ -96,14 +96,14 @@ const MainChart1 = ({ warning }) => {
       </CardHeader>
 
       <CardBody>
-        <div className='recharts-wrapper' style={{height: "350px"}}>
+        <div className='recharts-wrapper' style={{ height: "350px" }}>
           <ResponsiveContainer>
             <LineChart height={300} data={data}>
               <CartesianGrid />
               <XAxis dataKey='name' />
               <YAxis />
               <Tooltip content={CustomTooltip} />
-              <Line dataKey='pv' stroke={warning} strokeWidth={3} />
+              <Line dataKey='pv' stroke={warning} strokeWidth={2} />
             </LineChart>
           </ResponsiveContainer>
         </div>

@@ -1,20 +1,42 @@
 import { useSkin } from '@hooks/useSkin'
 import { Link, Redirect } from 'react-router-dom'
-import { Facebook, Twitter, Mail, GitHub } from 'react-feather'
 import InputPasswordToggle from '@components/input-password-toggle'
 import { Row, Col, CardTitle, CardText, Form, FormGroup, Label, Input, CustomInput, Button } from 'reactstrap'
-import SmallLogo from "../assets/images/pages/smalllogo.png"
 import RecoverModal from "./RecoverModal"
+import { Fragment } from 'react'
+import { toast } from 'react-toastify'
+import Avatar from '@components/avatar'
+import { Check } from 'react-feather'
 import '@styles/base/pages/page-auth.scss'
+
+const SuccessProgressToast = () => (
+  <Fragment>
+    <div className='toastify-header'>
+      <div className='title-wrapper'>
+        <Avatar size='sm' color='success' icon={<Check size={12} />} />
+        <h5 className='toast-title'>Hi, there OwnerName! 👋</h5>
+      </div>
+      <small className='text-muted'></small>
+    </div>
+    {/* <div className='toastify-body'>
+      <span role='img' aria-label='toast-text'>
+        👋 Jelly-o macaroon brownie tart ice cream croissant jelly-o apple pie.
+      </span>
+    </div> */}
+  </Fragment>
+)
+
+const notifySuccessProgress = () => toast.success(<SuccessProgressToast />)
 
 const Login = () => {
   const [skin, setSkin] = useSkin()
 
-  const illustration = skin === 'dark' ? 'mlogo.png' : 'mlogo.png',
+  const illustration = skin === 'dark' ? 'newlogo.png' : 'newlogo.png',
     source = require(`@src/assets/images/pages/${illustration}`).default
 
+
   return (
-    <div className='auth-wrapper auth-v2'>
+    < div className='auth-wrapper auth-v2' >
       <Row className='auth-inner m-0'>
         {/* <Link className='brand-logo' to='/'>
           <svg viewBox='0 0 139 95' version='1.1' height='28'>
@@ -65,10 +87,10 @@ const Login = () => {
               </g>
             </g>
           </svg> */}
-          {/* <img src={SmallLogo} alt="small-logo" /> */}
-          {/* <h2 className='brand-text text-primary ml-1'>TEN-POINT-ONE</h2>
+        {/* <img src={SmallLogo} alt="small-logo" /> */}
+        {/* <h2 className='brand-text text-primary ml-1'>TEN-POINT-ONE</h2>
         </Link> */}
-        <Col style={{backgroundColor: "black"}} className='d-none d-lg-flex align-items-center p-5' lg='8' sm='12'>
+        <Col style={{ backgroundColor: "black" }} className='d-none d-lg-flex align-items-center p-5' lg='8' sm='12'>
           <div className='w-100 d-lg-flex align-items-center justify-content-center px-5'>
             <img className='img-fluid' src={source} alt='Login V2' />
           </div>
@@ -100,10 +122,10 @@ const Login = () => {
               <FormGroup>
                 <CustomInput type='checkbox' className='custom-control-Primary' id='remember-me' label='Remember Me' />
               </FormGroup> */}
-              <Button.Ripple  tag={Link} to='/' color='info' style={{fontSize: "1.5em", marginBottom: 10}}  block>
-                CONNECT WALLET
-              </Button.Ripple>
-              {/* <RecoverModal />
+            <Button.Ripple tag={Link} to='/' color='info' style={{ fontSize: "1.5em", marginBottom: 10 }} onClick={notifySuccessProgress} block>
+              CONNECT WALLET
+            </Button.Ripple>
+            {/* <RecoverModal />
             </Form> */}
             {/* <p className='text-center mt-2'>
               <span className='mr-25'>New on our platform?</span>
@@ -131,7 +153,7 @@ const Login = () => {
           </Col>
         </Col>
       </Row>
-    </div>
+    </div >
   )
 }
 
