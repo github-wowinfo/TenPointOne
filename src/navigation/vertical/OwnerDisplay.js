@@ -7,6 +7,7 @@ import { BsSafe2 } from 'react-icons/bs'
 import { PlusCircle } from "react-feather"
 import { randomHexColor } from 'random-hex-color-generator'
 import Avatar from '@components/avatar'
+import { Link } from "react-router-dom"
 
 const OwnerDisplay = () => {
   const stylecontainer = {
@@ -22,7 +23,9 @@ const OwnerDisplay = () => {
           </Button.Ripple>
         </Col>
         <Col>
-          <Avatar size='xl' color='light-danger' icon={<BsSafe2 size={25} />} />
+          <Link to='/home'>
+            <Avatar size='xl' color='light-danger' title='SBI Vault' icon={<BsSafe2 size={25} />} href='/home' />
+          </Link>
         </Col>
         <Col>
           <UncontrolledButtonDropdown style={{ minWidth: "90%" }}>

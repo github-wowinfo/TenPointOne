@@ -61,17 +61,20 @@ export default [
   {
     id: 'sbivault',
     title: 'SBI Vault',
-    icon: <BsSafe2 size={25} style={{ color: randomHexColor() }} />
+    icon: <BsSafe2 size={25} style={{ color: randomHexColor() }} />,
+    navLink: '#'
   },
   {
     id: 'sbicheck',
     title: 'SBI Checking',
-    icon: <SiWebmoney size={25} style={{ color: randomHexColor() }} />
+    icon: <SiWebmoney size={25} style={{ color: randomHexColor() }} />,
+    navLink: '#'
   },
   {
     id: 'hdfcfix',
     title: 'HDFC Fixed',
-    icon: <SiWebmoney size={25} style={{ color: randomHexColor() }} />
+    icon: <SiWebmoney size={25} style={{ color: randomHexColor() }} />,
+    navLink: '#'
   },
   {
     header: ' '
