@@ -23,7 +23,7 @@ const ActivityScreen = ({ message, dispatch }) => {
     const setMessage = () => {
         dispatch(AppData.setAppMessages('Hi Redux 1'))
         console.log('hit button')
-        // console.log('redux select', appMessage)
+
     }
 
     useEffect(() => {
@@ -144,7 +144,7 @@ const ActivityScreen = ({ message, dispatch }) => {
                                 </span>
                             </td>
                             <td>
-                                <span style={{ color: 'red' }}>Faild</span>
+                                <span style={{ color: 'red' }}>Failed</span>
                             </td>
                             <td>
                                 <span>35,483.38738 UNI</span>
@@ -174,7 +174,7 @@ const ActivityScreen = ({ message, dispatch }) => {
                                 </span>
                             </td>
                             <td>
-                                <span style={{ color: 'red' }}>Faild</span>
+                                <span style={{ color: 'red' }}>Failed</span>
                             </td>
                             <td>
                                 <span>26,770.62416 UNI</span>
