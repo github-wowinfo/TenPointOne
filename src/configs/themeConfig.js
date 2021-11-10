@@ -4,7 +4,7 @@
 const themeConfig = {
   app: {
     appName: 'TenPointOne',
-    appLogoImage: require('@src/assets/images/logo/newlogoshort.png').default
+    appLogoImage: require('@src/assets/images/logo/newlogoblue.png').default
   },
   layout: {
     isRTL: false,

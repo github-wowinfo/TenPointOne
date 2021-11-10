@@ -1,9 +1,9 @@
 // ** Logo
-import logo from '@src/assets/images/logo/logo.png'
+import logo from '@src/assets/images/logo/newlogoblue.png'
 
 const SpinnerComponent = () => {
   return (
-    <div className='fallback-spinner vh-100'>
+    <div className='fallback-spinner '>
       <img className='fallback-logo' src={logo} alt='logo' />
       <div className='loading'>
         <div className='effect-1 effects'></div>
