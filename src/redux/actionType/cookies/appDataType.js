@@ -1,0 +1,1 @@
+export const SET_APP_MESSAGES = 'SET_APP_MESSAGES'

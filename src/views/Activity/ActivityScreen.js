@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Card, CardBody, Col, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row, Table } from 'reactstrap'
 import { HiDownload } from 'react-icons/hi'
 import { BsArrowUpCircle, BsArrowDownCircle, BsBoxArrowUpRight } from 'react-icons/bs'
@@ -6,15 +6,31 @@ import { GrClose } from 'react-icons/gr'
 import { IoMdCopy } from 'react-icons/io'
 import "./ActivityScreenStyles.css"
 import CustomModal from './AddNewModal'
+import { useSelector, useDispatch, connect } from 'react-redux'
+import * as AppData from '../../redux/actions/cookies/appDataType'
 
+const ActivityScreen = ({ message, dispatch }) => {
 
-const ActivityScreen = () => {
+    // const dispatch = useDispatch()
+    // const appMessage = useSelector((state) => state.appData.appMessages)
 
     const [modalVisible, setModalVisible] = useState(false)
 
     const handleModal = () => {
         setModalVisible(!modalVisible)
     }
+
+    const setMessage = () => {
+        dispatch(AppData.setAppMessages('Hi Redux 1'))
+        console.log('hit button')
+
+    }
+
+    useEffect(() => {
+        console.log('redux', message)
+        return () => {
+        }
+    }, [message])
 
     return (
         <>
@@ -29,7 +45,9 @@ const ActivityScreen = () => {
 
                         <Col className='mb-1' md='2' sm='12'>
 
-                            <Button.Ripple color='primary'>
+                            <Button.Ripple color='primary'
+                                onClick={setMessage}
+                            >
                                 <Row>
                                     Export
                                     <HiDownload style={{ marginLeft: 5 }} />
@@ -126,7 +144,7 @@ const ActivityScreen = () => {
                                 </span>
                             </td>
                             <td>
-                                <span style={{ color: 'red' }}>Faild</span>
+                                <span style={{ color: 'red' }}>Failed</span>
                             </td>
                             <td>
                                 <span>35,483.38738 UNI</span>
@@ -156,7 +174,7 @@ const ActivityScreen = () => {
                                 </span>
                             </td>
                             <td>
-                                <span style={{ color: 'red' }}>Faild</span>
+                                <span style={{ color: 'red' }}>Failed</span>
                             </td>
                             <td>
                                 <span>26,770.62416 UNI</span>
@@ -239,4 +257,9 @@ const ActivityScreen = () => {
     )
 }
 
-export default ActivityScreen
+const mapStateToProps = (state) => ({
+    message: state.appData.appMessages
+})
+const mapDispatchToProp = dispatch => ({ dispatch })
+
+export default connect(mapStateToProps, mapDispatchToProp)(ActivityScreen)

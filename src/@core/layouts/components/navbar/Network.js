@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { connect } from 'react-redux'
 import { UncontrolledButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap'
 
 const Network = () => {
@@ -50,4 +51,5 @@ const Network = () => {
     </UncontrolledButtonDropdown>
   )
 }
-export default Network
+const mapDispatchToProps = dispatch => ({ dispatch })
+export default connect(null, mapDispatchToProps)(Network)

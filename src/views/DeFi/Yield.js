@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import Icon from 'react-crypto-icons'
 import DataTable from 'react-data-table-component'
 import { ChevronDown } from 'react-feather'
+import { Card, CardHeader, CardTitle, Col, Row } from 'reactstrap'
+// ** Styles
+import '@styles/react/libs/tables/react-dataTable-component.scss'
 
 const Yield = () => {
     const tablestyle = {
@@ -128,12 +131,12 @@ const Yield = () => {
     return (
         <>
             <DataTable
-                className='react-dataTable'
-                customStyles={tablestyle}
                 noHeader
                 pagination
                 data={data}
                 columns={columns}
+                customStyles={tablestyle}
+                className='react-dataTable'
                 sortIcon={<ChevronDown size={10} />}
                 paginationPerPage={10}
                 paginationRowsPerPageOptions={[5, 10, 15, 20]}

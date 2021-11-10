@@ -119,7 +119,7 @@ const SellBTC = () => {
 
             <h6 style={{ marginTop: 10, textAlign: 'end' }}>1 ETH = 4432.04 USD</h6>
 
-            <div style={{ backgroundColor: '#ffffffaa', display: 'flex', justifyContent: 'center', marginTop: 10, marginBottom: 10 }}>
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: 10, marginBottom: 10 }}>
                 <Button.Ripple color='primary'>Sell</Button.Ripple>
             </div>
         </>
