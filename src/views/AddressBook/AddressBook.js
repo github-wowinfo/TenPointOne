@@ -74,8 +74,6 @@ const AdddressBook = () => {
     const tablestyle = {
         headCells: {
             style: {
-                display: 'flex',
-                justifyContent: 'center',
                 fontSize: '1.5em'
             }
         },

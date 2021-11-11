@@ -19,7 +19,6 @@ const Home = () => {
         <Col>
           <Card className='my-1'>
             <CardHeader className='d-flex justify-content-start my-0'>
-              Graphs -
               <Avatar className='mx-1' title='wave graph' content='1' size='sm' color='warning' onClick={() => setChart(true)} />
               <Avatar className='mx-1' title='line graph' content='2' size='sm' color='info' onClick={() => setChart(false)} />
               {/* <Badge className='mx-1' color='primary' pill href='#' onClick={() => setChart(true)}>

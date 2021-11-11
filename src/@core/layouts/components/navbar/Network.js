@@ -1,48 +1,50 @@
 import { useState } from 'react'
 import { connect } from 'react-redux'
+import Icon from 'react-crypto-icons'
 import { UncontrolledButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap'
 
 const Network = () => {
   const data = [
     {
       id: '0',
-      name: 'Etherum'
+      icon: <label><Icon className='mx-1' name='eth' size={20} />Etherum</label>
     },
     {
       id: '1',
-      name: 'BSC Mainet'
+      icon: <span><Icon className='mx-1' name='matic' size={20} />BSC Mainet</span>
     },
     {
       id: '2',
-      name: 'Polygon Network'
+      icon: <span><Icon className='mx-1' name='arg' size={20} />Polygon Network</span>
     },
     {
       id: '3',
-      name: 'Optimism'
+      icon: <span><Icon className='mx-1' name='poly' size={20} />Optimism</span>
     },
     {
       id: '4',
-      name: 'Arbitrum'
+      icon: <span><Icon className='mx-1' name='tnc' size={20} />Arbitrum</span>
     }
 
   ]
 
-  const [network, setNetwork] = useState('Polygon Network')
+  const [network, setNetwork] = useState(<span><Icon className='mx-1' name='arg' size={20} />Polygon Network</span>)
 
-  const toggleNetwork = (e, i) => {
+
+  const handleNetwork = (e, i) => {
     e.preventDefault()
     setNetwork(i)
   }
 
   const networkItems = data.map(i => {
     return (
-      <DropdownItem href='/' tag='a' onClick={(e) => { toggleNetwork(e, i.name) }} >{i.name}</DropdownItem>
+      <DropdownItem href='/' key={i.id} style={{ backgroundColor: i.color }} onClick={(e) => { handleNetwork(e, i.icon) }}>{i.icon}</DropdownItem>
     )
   })
 
   return (
     <UncontrolledButtonDropdown style={{ marginLeft: 20, marginRight: 20 }}>
-      <DropdownToggle style={{ width: '15em' }} color='primary' caret>
+      <DropdownToggle style={{ width: '18em' }} color='primary' outline caret>
         {network}
       </DropdownToggle>
       <DropdownMenu style={{ relative: 'relative' }}>

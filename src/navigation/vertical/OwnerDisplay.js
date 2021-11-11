@@ -14,13 +14,20 @@ const OwnerDisplay = () => {
     textAlign: 'center',
     display: 'flex'
   }
+  const networkstyle = {
+    backgroundColor: 'blue',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: '2em',
+    color: 'white',
+    fontSize: '1.5em'
+  }
   return (
     <div style={stylecontainer}>
-      <Row style={{ flexShrink: 1, flexGrow: 1 }} className='d-flex flex-column'>
-        <Col className='my-1'>
-          <Button.Ripple size='lg' outline color='success' disabled>
-            <span className='align-middle '>Polygon Network</span>
-          </Button.Ripple>
+      <Row className='d-flex flex-column'>
+        <Col style={networkstyle} className='my-1'>
+          Polygon Network
         </Col>
         <Col>
           <Link to='/home'>
