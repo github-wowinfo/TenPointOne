@@ -119,7 +119,7 @@ const ActivityScreen = ({ message, dispatch }) => {
                             <td>
                                 <span>35,483.38738 UNI</span>
                                 <br />
-                                <span>-$739,221.86</span>
+                                <span style={{ fontSize: 12 }}>-$739,221.86</span>
                             </td>
                             <td>
                                 <Button.Ripple color='flat-primary' onClick={() => setModalVisible(!modalVisible)}>Quick View</Button.Ripple>
