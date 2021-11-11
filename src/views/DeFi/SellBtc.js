@@ -33,7 +33,7 @@ const SellBTC = () => {
     return (
         <>
 
-            <h6 style={{ marginTop: 10 }}>YOU SPENG</h6>
+            <h6 style={{ marginTop: 10 }}>YOU SPEND</h6>
             <div style={{
 
                 borderWidth: 1,
@@ -76,7 +76,7 @@ const SellBTC = () => {
 
             </div>
 
-            <h6 style={{ marginTop: 20 }}>YOU GET (ROUGH EXTIMATE)</h6>
+            <h6 style={{ marginTop: 20 }}>YOU GET (ROUGH ESTIMATE)</h6>
             <div style={{
 
                 borderWidth: 1,

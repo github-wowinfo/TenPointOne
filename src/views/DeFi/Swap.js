@@ -34,7 +34,7 @@ const Swap = () => {
             <div className='row' style={{ marginTop: 20, flex: 1, justifyContent: 'center' }}>
 
                 <Col md='4'>
-                    <Card className='p-1'>
+                    <Card className='p-3'>
                         <div style={{
                             display: 'flex',
                             flex: 1,
