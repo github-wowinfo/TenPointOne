@@ -33,7 +33,7 @@ const BuyCrypto = () => {
     return (
         <>
 
-            <h6 style={{ marginTop: 10 }}>YOU SPENG</h6>
+            <h6 style={{ marginTop: 10 }}>YOU SPEND</h6>
             <div style={{
 
                 borderWidth: 1,

@@ -7,7 +7,7 @@ const Network = () => {
   const data = [
     {
       id: '0',
-      icon: <label><Icon className='mx-1' name='eth' size={20} />Etherum</label>
+      icon: <span><Icon className='mx-1' name='eth' size={20} />Etherum</span>
     },
     {
       id: '1',
