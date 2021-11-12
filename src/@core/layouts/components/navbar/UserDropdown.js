@@ -44,6 +44,15 @@ const UserDropdown = () => {
   //** Vars
   const userAvatar = (userData && userData.avatar) || defaultAvatar
 
+  const circle = {
+    height: 10,
+    width: 10,
+    borderRadius: '50%',
+    borderWidth: 10,
+    backgroundColor: 'orange',
+    marginLeft: 2
+  }
+
   return (
     <>
       <Dropdown isOpen={dropdownOpen} toggle={toggle} tag='li' className='nav-item'>
@@ -111,9 +120,9 @@ const UserDropdown = () => {
             <div className='d-flex justify-content-between p-1'>
               <label>Connected network</label>
 
-              <div>
-                {/* <div className='circle'></div> */}
-                <label>Rinkeby</label>
+              <div className='row d-flex justify-content-center align-items-center' style={{ marginRight: 0 }}>
+                <div style={circle}></div>
+                <label style={{ marginLeft: 2 }}>Rinkeby</label>
               </div>
             </div>
           </li>
