@@ -17,7 +17,7 @@
   position: absolute;
   display: table-cell;
   height: 100%;
-  overflow: hidden;
+  overflow: visible;
 
   &.menu-light {
     @include menu-theme($body-color, $white);
@@ -113,7 +113,7 @@
     padding: 0;
 
     &.navigation-main {
-      overflow-x: hidden;
+      overflow-x: visible;
       padding-bottom: .75rem;
       > li:first-child {
         margin-top: 0.5rem;
@@ -136,7 +136,7 @@
   font-size: 1.1rem;
   font-family: $font-family-monospace;
   font-weight: 400;
-  overflow-y: hidden;
+  overflow-y: visible;
   padding-bottom: 20px;
 
   .navigation-header {

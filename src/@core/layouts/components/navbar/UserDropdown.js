@@ -128,7 +128,7 @@ const UserDropdown = () => {
           </li>
           <div className='d-flex justify-content-center p-1'>
 
-            <Button.Ripple color='danger'>Disconnect</Button.Ripple>
+            <Button.Ripple href='/login' color='danger'>Disconnect</Button.Ripple>
           </div>
         </DropdownMenu>
       </Dropdown>
