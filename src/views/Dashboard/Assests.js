@@ -1,5 +1,6 @@
 import classnames from 'classnames'
 import Avatar from '@components/avatar'
+import { Link } from 'react-router-dom'
 import { TrendingUp, User, Box, DollarSign } from 'react-feather'
 import { Card, CardHeader, CardTitle, CardBody, CardText, Row, Col, Media, Badge } from 'reactstrap'
 import Icon from 'react-crypto-icons'
@@ -59,7 +60,10 @@ const Assests = ({ cols = 0 }) => {
     <Card className='card-statistics' style={{ height: "100%" }}>
       <CardHeader>
         <CardTitle tag='h4'>Assests</CardTitle>
-        <CardText className='card-text font-small-2 mr-25 mb-0'><Badge style={{ fontSize: "1.3em" }} color="primary" href='/asset'>View All</Badge></CardText>
+        <CardText className='card-text font-small-2 mr-25 mb-0'>
+          <Link to='/asset'>
+            <Badge style={{ fontSize: "1.3em" }} color="primary" >View All</Badge>
+          </Link></CardText>
       </CardHeader>
       <CardBody className='statistics-body'>
         <Row>{renderData()}</Row>
