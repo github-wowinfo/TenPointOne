@@ -11,7 +11,7 @@ export default [
     id: "home",
     title: "Dashboard",
     icon: <BarChart2 size={20} />,
-    navLink: "/home"
+    navLink: "/home",
   },
   {
     id: "assests",

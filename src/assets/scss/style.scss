@@ -13,3 +13,17 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 .ps {
 	overflow: visible !important;
 }
+
+// $orange : #ffa600;
+// $blue : #82d2e5;
+// $green: #c1d72e;
+
+// $list1 : $blue, $orange, $green;
+
+// @mixin gradient {
+//     background: linear-gradient(top, $list1 );
+// }
+
+// .card{
+//     @include gradient();
+// }

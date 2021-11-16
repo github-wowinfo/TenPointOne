@@ -3,7 +3,6 @@ import { Fragment } from 'react'
 
 // ** Custom Components
 import NavbarUser from './NavbarUser'
-import Network from './Network'
 
 const ThemeNavbar = props => {
   // ** Props
@@ -12,9 +11,6 @@ const ThemeNavbar = props => {
   return (
     <Fragment>
       <NavbarUser skin={skin} setSkin={setSkin} setMenuVisibility={setMenuVisibility} />
-      <div>
-        <Network />
-      </div>
     </Fragment>
   )
 }

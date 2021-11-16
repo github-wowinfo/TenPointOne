@@ -1,51 +1,59 @@
 import { useState } from 'react'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch, connect } from 'react-redux'
 import Icon from 'react-crypto-icons'
 import { UncontrolledButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap'
+import * as AppData from '../../../../redux/actions/cookies/appDataType'
 
-const Network = () => {
+const Network = ({ networkC, dispatch }) => {
   const data = [
     {
       id: '0',
-      icon: <span><Icon className='mx-1' name='eth' size={20} />Etherum</span>
+      name: 'Etherum',
+      icon: 'eth'
     },
     {
       id: '1',
-      icon: <span><Icon className='mx-1' name='matic' size={20} />BSC Mainet</span>
+      name: 'BSC Mainet',
+      icon: 'matic'
     },
     {
       id: '2',
-      icon: <span><Icon className='mx-1' name='arg' size={20} />Polygon Network</span>
+      name: 'Polygon Network',
+      icon: 'arg'
     },
     {
       id: '3',
-      icon: <span><Icon className='mx-1' name='poly' size={20} />Optimism</span>
+      name: 'Optimism',
+      icon: 'poly'
     },
     {
       id: '4',
-      icon: <span><Icon className='mx-1' name='tnc' size={20} />Arbitrum</span>
+      name: 'Arbitrum',
+      icon: 'tnc'
     }
 
   ]
 
-  const [network, setNetwork] = useState(<span><Icon className='mx-1' name='arg' size={20} />Polygon Network</span>)
+  const [network, setNetwork] = useState({ icon: 'arg', name: 'Polygon Network' })
 
 
-  const handleNetwork = (e, i) => {
+  const handleNetwork = (e, icon, name) => {
     e.preventDefault()
-    setNetwork(i)
+    setNetwork({ icon, name })
+    dispatch(AppData.networkChange({ icon, name }))
+    // console.log('name', i)
   }
 
   const networkItems = data.map(i => {
     return (
-      <DropdownItem href='/' key={i.id} style={{ backgroundColor: i.color }} onClick={(e) => { handleNetwork(e, i.icon) }}>{i.icon}</DropdownItem>
+      <DropdownItem href='/' key={i.id} onClick={(e) => { handleNetwork(e, i.icon, i.name) }}><span><Icon className='mx-1' name={i.icon} size={20} />{i.name}</span></DropdownItem>
     )
   })
 
   return (
     <UncontrolledButtonDropdown style={{ marginLeft: 20, marginRight: 20 }}>
-      <DropdownToggle style={{ width: '18em' }} color='primary' outline caret>
-        {network}
+      <DropdownToggle color='primary' outline caret>
+        <span><Icon className='mx-1' name={network.icon} size={20} />{network.name}</span>
       </DropdownToggle>
       <DropdownMenu style={{ relative: 'relative' }}>
         {networkItems}
@@ -53,5 +61,11 @@ const Network = () => {
     </UncontrolledButtonDropdown>
   )
 }
-const mapDispatchToProps = dispatch => ({ dispatch })
-export default connect(null, mapDispatchToProps)(Network)
+// const mapDispatchToProps = dispatch => ({ dispatch })
+// export default connect(null, mapDispatchToProps)(Network)
+const mapStateToProps = (state) => ({
+  message: state.appData.network
+})
+const mapDispatchToProp = dispatch => ({ dispatch })
+
+export default connect(mapStateToProps, mapDispatchToProp)(Network)

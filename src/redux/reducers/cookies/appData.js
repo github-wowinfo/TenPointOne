@@ -1,7 +1,8 @@
 import * as AppDataTypes from '../../actionType/cookies/appDataType'
 
 const initialState = {
-  appMessages: ''
+  appMessages: '',
+  network: { icon: 'arg', name: 'Polygon Network' }
 }
 
 const appData = (state = initialState, action) => {
@@ -13,6 +14,13 @@ const appData = (state = initialState, action) => {
       return {
         ...state,
         appMessages: payload,
+      }
+    }
+
+    case AppDataTypes.NETWORK_CHANGE: {
+      return {
+        ...state,
+        network: payload,
       }
     }
 
