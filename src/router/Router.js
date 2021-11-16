@@ -8,7 +8,7 @@ import { AbilityContext } from '@src/utility/context/Can'
 import { useRouterTransition } from '@hooks/useRouterTransition'
 
 // ** Custom Components
-// import Spinner from '@components/spinner/Loading-spinner' // Uncomment if your require content fallback
+import Spinner from '@components/spinner/Loading-spinner' // Uncomment if your require content fallback
 import LayoutWrapper from '@layouts/components/layout-wrapper'
 
 // ** Router Components
@@ -143,7 +143,7 @@ const Router = () => {
                       })
 
                       return (
-                        <Suspense fallback={null}>
+                        <Suspense fallback={<Spinner />}>
                           {/* Layout Wrapper to add classes based on route's layout, appLayout and className */}
                           <LayoutWrapper
                             layout={DefaultLayout}
@@ -153,20 +153,20 @@ const Router = () => {
                             /*eslint-disable */
                             {...(route.appLayout
                               ? {
-                                  appLayout: route.appLayout
-                                }
+                                appLayout: route.appLayout
+                              }
                               : {})}
                             {...(route.meta
                               ? {
-                                  routeMeta: route.meta
-                                }
+                                routeMeta: route.meta
+                              }
                               : {})}
                             {...(route.className
                               ? {
-                                  wrapperClass: route.className
-                                }
+                                wrapperClass: route.className
+                              }
                               : {})}
-                            /*eslint-enable */
+                          /*eslint-enable */
                           >
                             <route.component {...props} />
                             {/* <FinalRoute route={route} {...props} /> */}

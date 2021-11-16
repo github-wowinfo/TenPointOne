@@ -10,6 +10,7 @@ import { MoreVertical, Edit, Trash, ArrowUp, ArrowDown } from 'react-feather'
 import { Table, Badge, UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle, Card } from 'reactstrap'
 import CardHeader from 'reactstrap/lib/CardHeader'
 import CardTitle from 'reactstrap/lib/CardTitle'
+import { Link } from 'react-router-dom'
 
 const avatarGroupData1 = [
   {
@@ -100,7 +101,9 @@ const RecentTrans = () => {
     <Card style={{ height: "100%" }}>
       <CardHeader>
         <CardTitle>Recent Transactions</CardTitle>
-        <Badge style={{ fontSize: "1.05em" }} color="primary" href='/activity'>View All</Badge>
+        <Link to='/activity'>
+          <Badge style={{ fontSize: "1.05em" }} color="primary">View All</Badge>
+        </Link>
       </CardHeader>
       <Table className='table-hover-animation' responsive>
         {/* <thead style={{backgroundColor: "white"}}>
