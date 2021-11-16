@@ -121,7 +121,7 @@ const UserDropdown = () => {
               <label>Connected network</label>
 
               <div className='row d-flex justify-content-center align-items-center' style={{ marginRight: 0 }}>
-                <div style={circle}></div>
+                <div className='circle' style={{backgroundColor:'orange'}}></div>
                 <label style={{ marginLeft: 2 }}>Rinkeby</label>
               </div>
             </div>
