@@ -17,6 +17,7 @@ const VerticalMenuNavItems = props => {
 
   // ** Render Nav Menu Items
   const RenderNavItems = props.items.map((item, index) => {
+
     const TagName = Components[resolveNavItemComponent(item)]
 
     return <TagName key={item.id || item.header} item={item} {...props} />
@@ -24,7 +25,7 @@ const VerticalMenuNavItems = props => {
 
   return (
     <>
-      <OwnerDisplay />
+      <OwnerDisplay menuCollapsed={props.menuCollapsed} menuHover={props.menuHover} />
       {RenderNavItems}
     </>
   )

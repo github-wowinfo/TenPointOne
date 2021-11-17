@@ -13,7 +13,8 @@ import { connect } from 'react-redux'
 import { Fragment } from 'react'
 import Icon from 'react-crypto-icons'
 
-const OwnerDisplay = ({ networkC }) => {
+const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
+
   const stylecontainer = {
     textAlign: 'center',
     display: 'flex',
@@ -42,135 +43,149 @@ const OwnerDisplay = ({ networkC }) => {
 
   const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
 
-  return (
-    <Row style={stylecontainer}>
-      <Col style={{ padding: '0px 0px' }}>
-        <Col style={{ ...networkstyle, ...backgroundChange, fontSize: '1.2em', marginBottom: '0px' }} className='my-1 d-flex flex-row flex-nowrap align-self-center '>
-          <Icon className='mr-1' name={networkC.icon} size={20} />{networkC.name}
+  const renderItem = () => {
+    return (
+      <>
+        <Col style={{ padding: '0px 0px' }}>
+          <Col style={{ ...networkstyle, ...backgroundChange, fontSize: '1.2em', marginBottom: '0px' }} className='my-1 d-flex flex-row flex-nowrap align-self-center '>
+            <Icon className='mr-1' name={networkC.icon} size={20} />{networkC.name}
+          </Col>
+          <Link to='/home'>
+            <Avatar size='xl' color='light-danger' title='SBI Vault' icon={<BsSafe2 size={25} />} href='/home' />
+          </Link>
         </Col>
-        <Link to='/home'>
-          <Avatar size='xl' color='light-danger' title='SBI Vault' icon={<BsSafe2 size={25} />} href='/home' />
-        </Link>
-      </Col>
-      <Col style={{ padding: '0px 0px' }}>
-        <UncontrolledButtonDropdown style={{ minWidth: "90%" }} direction='right'>
-          <DropdownToggle size="lg" className='my-1' color='primary' outline caret>
-            SBI Vault
-          </DropdownToggle>
-          <DropdownMenu >
-            <Link to='/manager'>
-              <DropdownItem tag='a' ><PlusCircle className='mr-1' size={25} />Add Vault or Sega</DropdownItem>
-            </Link>
-            <DropdownItem href='#' tag='a' >
-              <Row className='d-flex flex-row justify-content-between flex-nowrap ' >
-                <Col className='d-flex flex-row'>
-                  <BsSafe2 style={{ color: randomHexColor() }} size={20} />
-                  <Col>
-                    <dl>
-                      <dt>HDFC Vault</dt> <dd>mxt3AjNu1ddQH3vgghfk7VaSLcbfnpMf5p</dd>
-                    </dl></Col>
-                </Col>
-                <Col className='text-right'>0 MATIC</Col>
-              </Row>
-              <DropdownItem>
-                <Row className='d-flex flex-row justify-content-between flex-nowrap '>
-                  <Col className='d-flex flex-row'>
-                    <SiWebmoney style={{ color: randomHexColor() }} size={20} />
-                    <Col><dl><dt>HDFC Fixed</dt> <dd>mpTdJWDkGhxvBxNVaFaC4M43K5SrUStFED</dd></dl></Col>
-                  </Col>
-                  <Col className='text-right'>0 MATIC</Col>
-                </Row>
-              </DropdownItem>
-              <DropdownItem>
-                <Row className='d-flex flex-row justify-content-between flex-nowrap '>
-                  <Col className='d-flex flex-row'>
-                    <SiWebmoney style={{ color: randomHexColor() }} size={20} />
-                    <Col><dl><dt>HDFC Savings</dt> <dd>muV7tYEeEsw6K1XGGtfVXVsfRkkSYXbavB</dd></dl></Col>
-                  </Col>
-                  <Col className='text-right'>0 MATIC</Col>
-                </Row>
-              </DropdownItem>
-            </DropdownItem>
-            <DropdownItem href='#' tag='a'>
-              <Row className='d-flex flex-row justify-content-between flex-nowrap '>
-                <Col className='d-flex flex-row'>
-                  <BsSafe2 style={{ color: randomHexColor() }} size={20} />
-                  <Col><dl><dt>SBI Vault</dt> <dd>miMMmeXPLjEwz9Ycx4RPSFrQm9k7DbRXhT</dd></dl></Col>
-                </Col>
-                <Col className='text-right'>0 MATIC</Col>
-              </Row>
-              <DropdownItem>
-                <Row className='d-flex flex-row justify-content-between flex-nowrap '>
-                  <Col className='d-flex flex-row'>
-                    <SiWebmoney style={{ color: randomHexColor() }} size={20} />
-                    <Col><dl><dt>SBI Checking</dt> <dd>muV7tYEeEsw6K1XGGtfVXVsfRkkSYXbavB</dd></dl></Col>
-                  </Col>
-                  <Col className='text-right'>0 MATIC</Col>
-                </Row>
-              </DropdownItem>
-            </DropdownItem>
-            <DropdownItem href='#' tag='a'>
-              <Row className='d-flex flex-row justify-content-between flex-nowrap '>
-                <Col className='d-flex flex-row'>
-                  <BsSafe2 style={{ color: randomHexColor() }} size={20} />
-                  <Col><dl><dt>ICICI Vault</dt> <dd>mxCuUj9nwZW5jW4XRYgRzGSM9SHzwysS5g</dd></dl></Col>
-                </Col>
-                <Col className='text-right'>0 MATIC</Col>
-              </Row>
-              <DropdownItem>
-                <Row className='d-flex flex-row justify-content-between flex-nowrap '>
-                  <Col className='d-flex flex-row'>
-                    <SiWebmoney style={{ color: randomHexColor() }} size={20} />
-                    <Col><dl><dt>ICICI Savings</dt> <dd>mn6xBdNukvvTCux9qenZRcbvFBWmW5hESM</dd></dl></Col>
-                  </Col>
-                  <Col className='text-right'>0 MATIC</Col>
-                </Row>
-              </DropdownItem>
-            </DropdownItem>
-          </DropdownMenu>
-        </UncontrolledButtonDropdown>
-        <UncontrolledButtonDropdown style={{ minWidth: "90%" }}>
-          <DropdownToggle size="lg" className='mb-1' color='primary' outline caret>
-            Quick Actions
-          </DropdownToggle>
-          <DropdownMenu style={{ minWidth: '25em' }} >
-            <DropdownItem href='#' tag='a' className='px-1' style={{ overflow: 'auto' }}>
-              <dl>
-                <dt>SBI Vault</dt>
-                <dd><h6>moG7B3g4UqqhswCN2sN5kRRJd8B32Emgbj</h6></dd>
-              </dl>
-            </DropdownItem>
-            <DropdownItem divider></DropdownItem>
-            <DropdownItem style={{ display: 'flex', justifyContent: 'space-between' }} href='#' tag='a'>
-              <IoQrCodeOutline size={25} />
-              <FaRegCopy size={25} onClick={notifySuccess} />
-              <GoLinkExternal size={25} />
-            </DropdownItem>
-            <DropdownItem divider></DropdownItem>
-            <DropdownItem className='text-center' tag='a'>
-              <Link to='/send'>
-                <Button.Ripple color='primary' style={{ width: '120px' }}>SEND</Button.Ripple>
-              </Link>
-              {/* <Link to='/send'>SEND</Link> */}
-            </DropdownItem>
-            <DropdownItem divider></DropdownItem>
-            <DropdownItem className='text-center' tag='a'>
-              <Link to='/receive'>
-                <Button.Ripple color='primary' style={{ width: '120px' }}>RECEIVE</Button.Ripple>
-              </Link>
-              {/* <Link to='/receive'>RECEIVE</Link> */}
-            </DropdownItem>
-            <DropdownItem divider></DropdownItem>
-            <DropdownItem className='text-center' href='/manager' tag='a'>
+
+        <Col style={{ padding: '0px 0px' }}>
+          <UncontrolledButtonDropdown style={{ minWidth: "90%" }} direction='right'>
+            <DropdownToggle size="lg" className='my-1' color='primary' outline caret>
+              SBI Vault
+            </DropdownToggle>
+            <DropdownMenu >
               <Link to='/manager'>
-                <Button.Ripple color='primary' style={{ width: '120px' }}>MANAGE</Button.Ripple>
+                <DropdownItem tag='a' ><PlusCircle className='mr-1' size={25} />Add Vault or Sega</DropdownItem>
               </Link>
-              {/* <Link to='/manager'>MANAGE</Link> */}
-            </DropdownItem>
-          </DropdownMenu>
-        </UncontrolledButtonDropdown>
-      </Col>
-    </Row >
+              <DropdownItem href='#' tag='a' >
+                <Row className='d-flex flex-row justify-content-between flex-nowrap ' >
+                  <Col className='d-flex flex-row'>
+                    <BsSafe2 style={{ color: randomHexColor() }} size={20} />
+                    <Col>
+                      <dl>
+                        <dt>HDFC Vault</dt> <dd>mxt3AjNu1ddQH3vgghfk7VaSLcbfnpMf5p</dd>
+                      </dl></Col>
+                  </Col>
+                  <Col className='text-right'>0 MATIC</Col>
+                </Row>
+                <DropdownItem>
+                  <Row className='d-flex flex-row justify-content-between flex-nowrap '>
+                    <Col className='d-flex flex-row'>
+                      <SiWebmoney style={{ color: randomHexColor() }} size={20} />
+                      <Col><dl><dt>HDFC Fixed</dt> <dd>mpTdJWDkGhxvBxNVaFaC4M43K5SrUStFED</dd></dl></Col>
+                    </Col>
+                    <Col className='text-right'>0 MATIC</Col>
+                  </Row>
+                </DropdownItem>
+                <DropdownItem>
+                  <Row className='d-flex flex-row justify-content-between flex-nowrap '>
+                    <Col className='d-flex flex-row'>
+                      <SiWebmoney style={{ color: randomHexColor() }} size={20} />
+                      <Col><dl><dt>HDFC Savings</dt> <dd>muV7tYEeEsw6K1XGGtfVXVsfRkkSYXbavB</dd></dl></Col>
+                    </Col>
+                    <Col className='text-right'>0 MATIC</Col>
+                  </Row>
+                </DropdownItem>
+              </DropdownItem>
+              <DropdownItem href='#' tag='a'>
+                <Row className='d-flex flex-row justify-content-between flex-nowrap '>
+                  <Col className='d-flex flex-row'>
+                    <BsSafe2 style={{ color: randomHexColor() }} size={20} />
+                    <Col><dl><dt>SBI Vault</dt> <dd>miMMmeXPLjEwz9Ycx4RPSFrQm9k7DbRXhT</dd></dl></Col>
+                  </Col>
+                  <Col className='text-right'>0 MATIC</Col>
+                </Row>
+                <DropdownItem>
+                  <Row className='d-flex flex-row justify-content-between flex-nowrap '>
+                    <Col className='d-flex flex-row'>
+                      <SiWebmoney style={{ color: randomHexColor() }} size={20} />
+                      <Col><dl><dt>SBI Checking</dt> <dd>muV7tYEeEsw6K1XGGtfVXVsfRkkSYXbavB</dd></dl></Col>
+                    </Col>
+                    <Col className='text-right'>0 MATIC</Col>
+                  </Row>
+                </DropdownItem>
+              </DropdownItem>
+              <DropdownItem href='#' tag='a'>
+                <Row className='d-flex flex-row justify-content-between flex-nowrap '>
+                  <Col className='d-flex flex-row'>
+                    <BsSafe2 style={{ color: randomHexColor() }} size={20} />
+                    <Col><dl><dt>ICICI Vault</dt> <dd>mxCuUj9nwZW5jW4XRYgRzGSM9SHzwysS5g</dd></dl></Col>
+                  </Col>
+                  <Col className='text-right'>0 MATIC</Col>
+                </Row>
+                <DropdownItem>
+                  <Row className='d-flex flex-row justify-content-between flex-nowrap '>
+                    <Col className='d-flex flex-row'>
+                      <SiWebmoney style={{ color: randomHexColor() }} size={20} />
+                      <Col><dl><dt>ICICI Savings</dt> <dd>mn6xBdNukvvTCux9qenZRcbvFBWmW5hESM</dd></dl></Col>
+                    </Col>
+                    <Col className='text-right'>0 MATIC</Col>
+                  </Row>
+                </DropdownItem>
+              </DropdownItem>
+            </DropdownMenu>
+          </UncontrolledButtonDropdown>
+          <UncontrolledButtonDropdown style={{ minWidth: "90%" }}>
+            <DropdownToggle size="lg" className='mb-1' color='primary' outline caret>
+              Quick Actions
+            </DropdownToggle>
+            <DropdownMenu style={{ minWidth: '25em' }} >
+              <DropdownItem href='#' tag='a' className='px-1' style={{ overflow: 'auto' }}>
+                <dl>
+                  <dt>SBI Vault</dt>
+                  <dd style={{ color: '#D0CAB2' }}>moG7B3g4UqqhswCN2sN5kRRJd8B32Emgbj</dd>
+                </dl>
+              </DropdownItem>
+              <DropdownItem divider></DropdownItem>
+              <DropdownItem style={{ display: 'flex', justifyContent: 'space-between' }} href='#' tag='a'>
+                <IoQrCodeOutline size={25} />
+                <FaRegCopy size={25} onClick={notifySuccess} />
+                <GoLinkExternal size={25} />
+              </DropdownItem>
+              <DropdownItem divider></DropdownItem>
+              <DropdownItem className='text-center' tag='a'>
+                <Link to='/send'>
+                  <Button.Ripple color='primary' style={{ width: '120px' }}>SEND</Button.Ripple>
+                </Link>
+                {/* <Link to='/send'>SEND</Link> */}
+              </DropdownItem>
+              <DropdownItem divider></DropdownItem>
+              <DropdownItem className='text-center' tag='a'>
+                <Link to='/receive'>
+                  <Button.Ripple color='primary' style={{ width: '120px' }}>RECEIVE</Button.Ripple>
+                </Link>
+                {/* <Link to='/receive'>RECEIVE</Link> */}
+              </DropdownItem>
+              <DropdownItem divider></DropdownItem>
+              <DropdownItem className='text-center' href='/manager' tag='a'>
+                <Link to='/manager'>
+                  <Button.Ripple color='primary' style={{ width: '120px' }}>MANAGE</Button.Ripple>
+                </Link>
+                {/* <Link to='/manager'>MANAGE</Link> */}
+              </DropdownItem>
+            </DropdownMenu>
+          </UncontrolledButtonDropdown>
+        </Col>
+
+      </>
+    )
+  }
+
+  return (
+    <>
+      <Row style={stylecontainer}>
+        {
+          menuCollapsed ? menuHover ? renderItem() : null : renderItem()
+        }
+      </Row>
+    </>
   )
 }
 
