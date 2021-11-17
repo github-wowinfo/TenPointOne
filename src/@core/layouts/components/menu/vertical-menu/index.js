@@ -72,7 +72,7 @@ const Sidebar = props => {
               options={{ wheelPropagation: false }}
               onScrollY={container => scrollMenu(container)}
             >
-              <ul className='navigation navigation-main'>
+              <ul className='navigation navigation-main pt-1'>
                 <VerticalNavMenuItems
                   items={navigation}
                   groupActive={groupActive}
