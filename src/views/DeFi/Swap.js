@@ -33,7 +33,7 @@ const Swap = () => {
         <>
             <div className='row' style={{ marginTop: 20, flex: 1, justifyContent: 'center' }}>
 
-                <Col md='4'>
+                <Col md='5'>
                     <Card className='p-3'>
                         <div style={{
                             display: 'flex',
@@ -44,7 +44,7 @@ const Swap = () => {
                             <label style={{
                                 marginTop: 10,
                                 fontWeight: 'bold',
-                                fontSize: 10,
+                                fontSize: 15,
                                 color: 'red'
                             }}>Balance: 0.503768158 ETH</label>
                         </div>
@@ -117,7 +117,7 @@ const Swap = () => {
                             <label style={{
                                 marginTop: 10,
                                 fontWeight: 'bold',
-                                fontSize: 10
+                                fontSize: 15
                             }}>Balance: 0 DAI</label>
                         </div>
 

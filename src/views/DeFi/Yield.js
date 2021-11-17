@@ -130,17 +130,19 @@ const Yield = () => {
 
     return (
         <>
-            <DataTable
-                noHeader
-                pagination
-                data={data}
-                columns={columns}
-                customStyles={tablestyle}
-                className='react-dataTable'
-                sortIcon={<ChevronDown size={10} />}
-                paginationPerPage={10}
-                paginationRowsPerPageOptions={[5, 10, 15, 20]}
-            />
+            <Card>
+                <DataTable
+                    noHeader
+                    pagination
+                    data={data}
+                    columns={columns}
+                    customStyles={tablestyle}
+                    className='react-dataTable'
+                    sortIcon={<ChevronDown size={10} />}
+                    paginationPerPage={10}
+                    paginationRowsPerPageOptions={[5, 10, 15, 20]}
+                />
+            </Card>
         </>
     )
 }

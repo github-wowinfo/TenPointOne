@@ -137,7 +137,7 @@ const OwnerDisplay = ({ networkC }) => {
             <DropdownItem href='#' tag='a' className='px-1' style={{ overflow: 'auto' }}>
               <dl>
                 <dt>SBI Vault</dt>
-                <dd style={{ color: '#D0CAB2' }}>moG7B3g4UqqhswCN2sN5kRRJd8B32Emgbj</dd>
+                <dd><h6>moG7B3g4UqqhswCN2sN5kRRJd8B32Emgbj</h6></dd>
               </dl>
             </DropdownItem>
             <DropdownItem divider></DropdownItem>

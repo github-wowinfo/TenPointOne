@@ -2,7 +2,69 @@
 //  ? TIP:  It is recommended to use this file for overriding component variables.
 //  ================================================================================================
 
+
+
+//Cards
 .dark-layout .card {
-    background: linear-gradient(0, #ab2ee3, transparent);
-    
+    // background: linear-gradient(0, #ab2ee3, transparent);    
+    // background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0), transparent) ;
+    background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0)); 
+}
+
+//Navbar
+.dark-layout .navbar-container {
+    // background: linear-gradient(0, #ab2ee3, transparent);  
+    // background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0), transparent) ; 
+    background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0));    
+}
+
+//Receive component
+.dark-layout h4{
+    color: white !important;
+}
+
+//Table
+.dark-layout .react-dataTable .rdt_Table {
+    background: transparent !important;
+}
+
+.dark-layout .react-dataTable .rdt_TableBody .rdt_TableRow {
+    border-color: #ffff !important;
+}
+
+//Sidebar
+.dark-layout .main-menu {
+    background: #006277 !important;
+}
+
+// .dark-layout .main-menu-content .navigation-main{
+//     background-color: transparent !important;
+// }
+
+.dark-layout .main-menu-content .navigation-main {
+    // background: linear-gradient(0, #ab2ee3, transparent); 
+    // background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0), transparent) ; 
+    background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0)); 
+}
+
+//login Page
+.dark-layout .auth-wrapper .auth-bg {
+    background-color: transparent;
+    background: linear-gradient(rgba(4, 85, 104, 0.3), rgba(0, 210, 255, 0)); 
+}
+
+//Modals
+.dark-layout .modal .modal-content, [dir] .dark-layout .modal .modal-body, [dir] .dark-layout .modal .modal-footer{
+    // background: linear-gradient(0, #ab2ee3, transparent); 
+    background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0)); 
+}
+
+.dark-layout .dropdown-menu {
+    background-color: rgba(0, 210, 255, 0.95);
+}
+
+.dark-layout .nav-tabs .nav-item .nav-link.active, 
+[dir] .dark-layout .nav-pills .nav-item .nav-link.active, 
+[dir] .dark-layout .nav-tabs.nav-justified .nav-item .nav-link.active{
+    background-color: transparent !important;
 }
