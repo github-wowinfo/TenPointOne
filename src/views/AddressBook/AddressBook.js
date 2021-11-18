@@ -51,7 +51,7 @@ const AdddressBook = () => {
         {
             name: 'Network',
             selector: 'ntwrk',
-            maxWidth: '250px',
+            maxWidth: '120px',
             center: true,
             cell: row => (
                 <div>
@@ -61,7 +61,7 @@ const AdddressBook = () => {
         },
         {
             name: ' ',
-            maxWidth: '250px',
+            maxWidth: '120px',
             right: true,
             selector: row => (
                 <div className='text-center'>

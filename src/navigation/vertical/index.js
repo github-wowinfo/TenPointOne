@@ -77,9 +77,6 @@ export default [
     navLink: '#'
   },
   {
-    header: ' '
-  },
-  {
     id: "disconnet",
     title: "Disconnect",
     icon: <Power size={20} />,

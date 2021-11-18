@@ -15,7 +15,7 @@ const Buy = () => {
 
     return (
         <>
-            <div className='row' style={{ flex: 1, justifyContent: 'center' }}>
+            {/* <div className='row' style={{ flex: 1, justifyContent: 'center' }}>
                 <Card>
                     <div style={{ textAlign: 'center', padding: 5, borderRadius: 5 }}>
                         <label style={{ fontSize: 8, fontWeight: 'bold' }}>POWERED BY</label>
@@ -24,7 +24,7 @@ const Buy = () => {
 
                     </div>
                 </Card>
-            </div>
+            </div> */}
 
             <div className='row' style={{ marginTop: 20, flex: 1, justifyContent: 'center' }}>
 
