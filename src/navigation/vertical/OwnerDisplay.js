@@ -5,6 +5,7 @@ import { SiWebmoney, SiGithubactions } from "react-icons/si"
 import { FaRegCopy } from 'react-icons/fa'
 import { GoLinkExternal } from 'react-icons/go'
 import { BsSafe2 } from 'react-icons/bs'
+import { BiChevronDown } from 'react-icons/bi'
 import { PlusCircle, Clipboard } from "react-feather"
 import { randomHexColor } from 'random-hex-color-generator'
 import { toast } from 'react-toastify'
@@ -137,14 +138,14 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
               Quick Actions
             </DropdownToggle>
             <DropdownMenu style={{ minWidth: '25em' }} >
-              <DropdownItem href='#' tag='a' className='px-1' style={{ overflow: 'auto' }}>
+              <DropdownItem className='px-1' style={{ overflow: 'auto' }}>
                 <dl>
                   <dt>SBI Vault</dt>
                   <dd>moG7B3g4UqqhswCN2sN5kRRJd8B32Emgbj</dd>
                 </dl>
               </DropdownItem>
               <DropdownItem divider></DropdownItem>
-              <DropdownItem style={{ display: 'flex', justifyContent: 'space-between' }} href='#' tag='a'>
+              <DropdownItem style={{ display: 'flex', justifyContent: 'space-between' }} href='#'>
                 <IoQrCodeOutline size={25} />
                 <FaRegCopy size={25} onClick={notifySuccess} />
                 <GoLinkExternal size={25} />
@@ -178,11 +179,30 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
     )
   }
 
+  const renderItemCollapse = () => {
+    return (
+      <>
+        <Col className='my-1 align-self-center' style={{ ...backgroundChange, minHeight: '3em' }} >
+          <Icon className='mt-1' name={networkC.icon} size={20} />
+        </Col>
+        <Col className='my-1 pl-0'>
+          <Avatar size='lg' color='light-danger' title='SBI Vault' icon={<BsSafe2 size={25} />} href='/home' />
+        </Col>
+        <Col className='my-1 px-0'>
+          <Button.Ripple style={{ width: '35px', padding: ' 10px 6px' }} color='primary'>SBI</Button.Ripple>
+        </Col>
+        <Col className='my-1 px-0'>
+          <Button.Ripple style={{ width: '35px', padding: ' 8px 6px' }} color='primary'><BiChevronDown size={20} /></Button.Ripple>
+        </Col>
+      </>
+    )
+  }
+
   return (
     <>
       <Row style={stylecontainer}>
         {
-          menuCollapsed ? menuHover ? renderItem() : null : renderItem()
+          menuCollapsed ? menuHover ? renderItem() : renderItemCollapse() : renderItem()
         }
       </Row>
     </>
