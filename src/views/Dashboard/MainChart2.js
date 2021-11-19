@@ -95,7 +95,7 @@ const MainChart2 = props => {
     ]
   return (
     <Card>
-      <CardHeader className='d-flex flex-column align-items-end' >
+      <CardHeader className='d-flex flex-column align-items-end pb-0' >
         <div>
           <CardTitle className='mb-25' tag='h4'>
             $51,786.91

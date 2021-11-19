@@ -47,7 +47,7 @@ const Assests = ({ cols = 0 }) => {
           <Media>
             <Avatar color={item.color} icon={item.icon} className='mx-2' />
             <Media className='my-auto' body>
-              <h4 className='font-weight-bolder mb-0'>{item.title}</h4>
+              <h5 className='font-weight-bolder mb-0'>{item.title}</h5>
               <CardText className='font-small-3 mb-0'>{item.subtitle}</CardText>
             </Media>
           </Media>
@@ -59,7 +59,7 @@ const Assests = ({ cols = 0 }) => {
   return (
     <Card className='card-statistics' style={{ height: "100%" }}>
       <CardHeader>
-        <CardTitle tag='h4'>Assests</CardTitle>
+        <CardTitle >Assests</CardTitle>
         <CardText className='card-text font-small-2 mr-25 mb-0'>
           <Link to='/asset'>
             <Badge style={{ fontSize: "1.3em" }} color="primary" >View All</Badge>

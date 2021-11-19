@@ -80,25 +80,25 @@ const Send = () => {
   ]
   return (
     <Col style={cardStyle} md={{ offset: 3, size: 6 }} sm="12">
-      <Card className='card-payment' >
+      <Card className='card-payment'>
         <CardHeader style={{ paddingBottom: '.3em' }}>
-          <CardTitle style={{ fontSize: '1.5em' }}>Send Funds</CardTitle>
+          <CardTitle style={{ fontSize: '1.2em' }}>Send Funds</CardTitle>
         </CardHeader>
         <hr />
         <CardBody>
           <Row>
-            <Col md='2'><Avatar size='xl' color={data[0].color} icon={data[0].icon} className='m2' /></Col>
-            <Col style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
-              <h3>SBI Vault</h3>
-              <h4 style={{ color: 'gray' }}>mt2jon6BFcMpzBHbFKCmY5HszSj6fRQjfJ
-                <FaRegCopy style={{ marginLeft: '35px', marginRight: '15px' }} size={20} />
-                <GoLinkExternal size={20} />
-              </h4>
+            <Col md='2'><Avatar size='lg' color={data[0].color} icon={data[0].icon} /></Col>
+            <Col className='d-flex flex-column justify-content-start'>
+              <h4>SBI Vault</h4>
+              <p style={{ color: 'gray', fontSize: '.9rem' }}>mt2jon6BFcMpzBHbFKCmY5HszSj6fRQjfJ
+                <FaRegCopy className='ml-1 mr-1' size={15} />
+                <GoLinkExternal size={15} />
+              </p>
               <Badge style={{ width: '130px' }} color='secondary'>Balance: <strong>0 MATIC</strong></Badge>
             </Col>
           </Row>
           <Row className='mt-1' style={{ display: 'flex', flexDirection: 'row' }}>
-            <Col md='1' className='mx-1'><BsArrowDown size={40} /></Col>
+            <Col md='1' className='mx-1'><BsArrowDown size={30} /></Col>
             <Col>
               <hr />
             </Col>
@@ -107,7 +107,7 @@ const Send = () => {
             <Row>
               <Col sm='12'>
                 <FormGroup className='mb-2'>
-                  <Label for='recepient' style={{ fontSize: '1.5em' }}>Recepient</Label>
+                  <Label for='recepient' style={{ fontSize: '1.2em' }}>Recepient</Label>
                   <Row>
                     <Col md='10'>
                       <Cleave
@@ -117,12 +117,12 @@ const Send = () => {
                       />
                     </Col>
                     <Col>
-                      <IoQrCodeOutline href='#' size={35} />
+                      <IoQrCodeOutline href='#' size={30} />
                     </Col>
                   </Row>
                 </FormGroup>
               </Col>
-              <Col style={{ fontSize: '1.5em' }} className='mb-1' md='12' >
+              <Col style={{ fontSize: '1.2em' }} className='mb-1' md='12' >
                 <Select
                   options={iconOptions}
                   className='react-select'
@@ -134,13 +134,13 @@ const Send = () => {
                 />
               </Col>
               <Col sm='12'>
-                <FormGroup className='mb-2'>
+                <FormGroup className='mb-1'>
                   <Row >
                     <Col>
-                      <Label for='amount' style={{ fontSize: '1.5em' }}>Amount</Label>
+                      <Label for='amount' style={{ fontSize: '1.2em' }}>Amount</Label>
                     </Col>
                     <Col style={{ textAlign: 'end' }}>
-                      <Badge style={{ fontSize: "1.05em" }} color="primary" href='#' pill>Send Max</Badge>
+                      <Badge style={{ fontSize: ".9rem" }} color="primary" href='#' pill>Send Max</Badge>
                     </Col>
                   </Row>
                   <Input placeholder='Amount' id='amount' />
@@ -154,12 +154,12 @@ const Send = () => {
         <CardFooter>
           <Row >
             <Col>
-              <Button.Ripple size='lg' color='success' outline block>
+              <Button.Ripple color='success' outline block>
                 Review
               </Button.Ripple>
             </Col>
             <Col>
-              <Button.Ripple size='lg' color='success' outline block>
+              <Button.Ripple color='success' outline block>
                 Clear
               </Button.Ripple>
             </Col>

@@ -18,7 +18,7 @@ const Home = () => {
       <Row>
         <Col>
           <Card className='my-1'>
-            <CardHeader className='d-flex justify-content-start my-0'>
+            <CardHeader className='d-flex justify-content-start my-0 pb-0'>
               <Avatar className='mx-1' title='wave graph' content='1' size='sm' color='warning' onClick={() => setChart(true)} />
               <Avatar className='mx-1' title='line graph' content='2' size='sm' color='info' onClick={() => setChart(false)} />
               {/* <Badge className='mx-1' color='primary' pill href='#' onClick={() => setChart(true)}>
@@ -32,11 +32,11 @@ const Home = () => {
               {chart ? <MainChart2 /> : <MainChart1 />}
             </CardBody>
           </Card>
-          <Row style={{ minHeight: "150px" }}>
-            <Col>
+          <Row >
+            <Col md='4' className='my-1'>
               <Assests />
             </Col>
-            <Col>
+            <Col md='8' className='my-1'>
               <RecentTrans />
             </Col>
           </Row>
