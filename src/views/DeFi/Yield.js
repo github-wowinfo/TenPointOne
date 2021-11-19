@@ -52,14 +52,23 @@ const Yield = () => {
         {
             name: 'APY',
             selector: 'apy',
+            sortable: true,
             cell: row => (
                 <div >
                     <h6>{row.apy}</h6>
-                    {row.apy1 && <label style={{
+                </div>
+            )
+        },
+        {
+            name: '',
+            selector: 'apy1',
+            cell: row => (
+                <div>
+                    <label style={{
                         padding: 2,
                         borderStyle: 'solid',
                         borderWidth: 1
-                    }}>$ {row.apy1}</label>}
+                    }}><Icon name='matic' size={8} /> <strong>{row.apy1}</strong></label>
                 </div>
             )
         }

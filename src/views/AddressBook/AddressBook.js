@@ -38,13 +38,12 @@ const AdddressBook = () => {
         {
             name: 'Address',
             selector: 'adrs',
+            minWidth: '600px',
             sortable: true,
             cell: row => (
-                <div>
+                <div className='d-flex flex-row flex-nowrap justify-center'>
                     {row.avatar}
                     <label style={{ fontSize: '1.2em' }} className='font-weight-bold mx-1'>{row.adrs}</label>
-                    {row.icon1}
-                    {row.icon2}
                 </div>
             )
         },
@@ -60,8 +59,19 @@ const AdddressBook = () => {
             )
         },
         {
+            name: '',
+            maxWidth: '150px',
+            right: true,
+            cell: row => (
+                <div>
+                    {row.icon1}
+                    {row.icon2}
+                </div>
+            )
+        },
+        {
             name: ' ',
-            maxWidth: '120px',
+            maxWidth: '100px',
             right: true,
             selector: row => (
                 <div className='text-center'>

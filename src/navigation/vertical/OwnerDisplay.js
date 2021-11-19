@@ -137,11 +137,11 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
             <DropdownToggle size="lg" className='mb-1' color='primary' outline caret>
               Quick Actions
             </DropdownToggle>
-            <DropdownMenu style={{ minWidth: '25em' }} >
+            <DropdownMenu style={{ minWidth: '200px' }} >
               <DropdownItem className='px-1' style={{ overflow: 'auto' }}>
                 <dl>
                   <dt>SBI Vault</dt>
-                  <dd>moG7B3g4UqqhswCN2sN5kRRJd8B32Emgbj</dd>
+                  <dd>moG7...mgbj</dd>
                 </dl>
               </DropdownItem>
               <DropdownItem divider></DropdownItem>
@@ -151,23 +151,23 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
                 <GoLinkExternal size={25} />
               </DropdownItem>
               <DropdownItem divider></DropdownItem>
-              <DropdownItem className='text-center' tag='a'>
+              <DropdownItem className='text-center py-0' tag='a'>
                 <Link to='/send'>
-                  <Button.Ripple color='primary' style={{ width: '120px' }}>SEND</Button.Ripple>
+                  <Button.Ripple color='primary' style={{ minWidth: '120px' }}>SEND</Button.Ripple>
                 </Link>
                 {/* <Link to='/send'>SEND</Link> */}
               </DropdownItem>
               <DropdownItem divider></DropdownItem>
-              <DropdownItem className='text-center' tag='a'>
+              <DropdownItem className='text-center py-0' tag='a'>
                 <Link to='/receive'>
-                  <Button.Ripple color='primary' style={{ width: '120px' }}>RECEIVE</Button.Ripple>
+                  <Button.Ripple color='primary' style={{ minWidth: '120px' }}>RECEIVE</Button.Ripple>
                 </Link>
                 {/* <Link to='/receive'>RECEIVE</Link> */}
               </DropdownItem>
               <DropdownItem divider></DropdownItem>
-              <DropdownItem className='text-center' href='/manager' tag='a'>
+              <DropdownItem className='text-center py-0' href='/manager' tag='a'>
                 <Link to='/manager'>
-                  <Button.Ripple color='primary' style={{ width: '120px' }}>MANAGE</Button.Ripple>
+                  <Button.Ripple color='primary' style={{ minWidth: '120px' }}>MANAGE</Button.Ripple>
                 </Link>
                 {/* <Link to='/manager'>MANAGE</Link> */}
               </DropdownItem>

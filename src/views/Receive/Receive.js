@@ -25,7 +25,7 @@ const Receive = ({ networkC }) => {
     <Col style={cardStyle} md={{ offset: 3, size: 6 }} sm="12">
       <Card className='card-payment' >
         <CardHeader style={{ paddingBottom: '.3em' }}>
-          <CardTitle style={{ fontSize: '1.5em' }}>Receive Assests</CardTitle>
+          <CardTitle style={{ fontSize: '1.2em' }}>Receive Assests</CardTitle>
         </CardHeader>
         <hr />
         <CardBody style={{ padding: '1em' }}>
@@ -34,28 +34,28 @@ const Receive = ({ networkC }) => {
               <p style={{ fontSize: '1.5em', color: 'white' }}><Icon className='mr-1' name={networkC.icon} size={20} />{networkC.name} - only send {networkC.name} assests to this safe.</p>
             </Col>
           </Row>
-          <Col className='my-3' style={{ fontSize: '1.5em', textAlign: 'justify' }}>
+          <Col className='my-2' style={{ fontSize: '1.2em', textAlign: 'justify' }}>
             <p>This is the address of your Safe. Deposit funds by scanning the QR code or copying the above address below. Only send MATIC and assest to this address (e.g. ETH, ERC20, ERC721)!
             </p>
           </Col>
           <Row className='my-1' style={{ display: 'flex', flexDirection: 'column' }}>
-            <Col style={{ textAlign: 'center', fontSize: '2.5em' }}><strong>SBI Vault</strong></Col>
+            <Col style={{ textAlign: 'center', fontSize: '2.2em' }}><strong>SBI Vault</strong></Col>
             <Col style={{ textAlign: 'center' }}><img src={qrcode} style={{ width: '200px', height: '200px' }} /></Col>
           </Row>
           <Row>
-            <Col md='2' className="mx-1"><Avatar size='xl' color={data[0].color} icon={data[0].icon} className='mx-2' /></Col>
-            <Col style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <h4 style={{ color: 'gray' }}>mt2jon6BFcMpzBHbFKCmY5HszSj6fRQjfJ
-                <FaRegCopy style={{ marginLeft: '35px', marginRight: '15px' }} size={20} />
-                <GoLinkExternal size={20} />
-              </h4>
+            <Col md='2' className="pr-0 mr-1"><Avatar size='lg' color={data[0].color} icon={data[0].icon} className='mx-1' /></Col>
+            <Col className='pl-0 d-flex flex-column justify-content-center align-items-center'>
+              <p style={{ color: 'gray', fontSize: '.9em', marginBottom: '0px' }}><strong>mt2jon6BFcMpzBHbFKCmY5HszSj6fRQjfJ</strong>
+                <FaRegCopy className='ml-1 mr-1' size={15} />
+                <GoLinkExternal size={15} />
+              </p>
             </Col>
           </Row>
         </CardBody>
         <CardFooter>
           <Row>
             <Col style={{ display: 'flex', justifyContent: 'center' }}>
-              <Button.Ripple style={{ width: "50%" }} color='success' block>
+              <Button.Ripple style={{ maxWidth: "50%" }} color='success' block>
                 Done
               </Button.Ripple>
             </Col>

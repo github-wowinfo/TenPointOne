@@ -1,14 +1,14 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import {
-    Card, 
+    Card,
     CardHeader,
     CardTitle,
     CardBody,
     Button,
     Row,
     Col
-  } from 'reactstrap'
-  import { Tool } from "react-feather"
+} from 'reactstrap'
+import { Tool } from "react-feather"
 import CardText from 'reactstrap/lib/CardText'
 import VaultSecurity from './VaultSecurity/VaultSecurity'
 import SegaSecurity from './SegaSecurity/SegaSecurity'
@@ -23,24 +23,24 @@ const ManageSecurity = () => {
         <div>
             <Card>
                 <CardBody>
-                    <Row style={{display:'flex', flexDirection: 'row'}}>
+                    <Row style={{ display: 'flex', flexDirection: 'row' }}>
                         <Col md='6'>
                             <CardHeader>
                                 <CardTitle>Manage Security Settings</CardTitle>
                             </CardHeader>
                             <CardBody>
-                                <CardText>Modify security and recovery parameters of your accounts.</CardText>                                
+                                <CardText>Modify security and recovery parameters of your accounts.</CardText>
                             </CardBody>
                         </Col>
-                        <Col  md='6' style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center'}}>
-                            <Button.Ripple className='mr-1 mb-1' size='lg' color='primary' style={{fontSize: '1.7em'}} onClick={handleVaultSecModal}><Tool className='mr-1' size={25}/>Vault</Button.Ripple>
-                            <Button.Ripple className='mr-1 mb-1' size='lg' color='primary' style={{fontSize: '1.7em'}} onClick={handleSegaSecModal}><Tool className='mr-1' size={25}/>Sega</Button.Ripple>
+                        <Col md='6' style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+                            <Button.Ripple className='mr-1 mb-1' color='primary' style={{ fontSize: '1.7em' }} onClick={handleSegaSecModal}><Tool className='mr-1' size={25} />Sega</Button.Ripple>
+                            <Button.Ripple className='mr-1 mb-1' color='primary' style={{ fontSize: '1.7em' }} onClick={handleVaultSecModal}><Tool className='mr-1' size={25} />Vault</Button.Ripple>
                         </Col>
                     </Row>
                 </CardBody>
             </Card>
             <VaultSecurity openvaultsec={vaultsecmodal} handleVaultSecModal={handleVaultSecModal} />
-            <SegaSecurity opensegasec={segasecmodal}  handleSegaSecModal={handleSegaSecModal}/>
+            <SegaSecurity opensegasec={segasecmodal} handleSegaSecModal={handleSegaSecModal} />
         </div>
     )
 }
