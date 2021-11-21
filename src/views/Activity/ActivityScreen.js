@@ -10,13 +10,13 @@ import { useSelector, useDispatch, connect } from 'react-redux'
 import * as AppData from '../../redux/actions/cookies/appDataType'
 import DataTable from 'react-data-table-component'
 import '@styles/react/libs/tables/react-dataTable-component.scss'
+import axios from 'axios'
 
 const ActivityScreen = ({ message, dispatch }) => {
 
-    // const dispatch = useDispatch()
-    // const appMessage = useSelector((state) => state.appData.appMessages)
-
     const [modalVisible, setModalVisible] = useState(false)
+    const [getTransaction, setTransaction] = useState([])
+    const [trxnId, setTrxnId] = useState('')
 
     const handleModal = () => {
         setModalVisible(!modalVisible)
@@ -28,36 +28,66 @@ const ActivityScreen = ({ message, dispatch }) => {
 
     }
 
+    const getTokenTransaction = async () => {
+        try {
+
+            const response = await axios.get(`https://stg-api.unmarshal.io/v1/matic/address/0x989923d33bE0612680064Dc7223a9f292C89A538/transactions?page=1&pageSize=20&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+            setTransaction(response.data)
+
+        } catch (error) {
+            console.log(`Activity [getTokenTransaction]`, error)
+        }
+    }
+
     useEffect(() => {
-        console.log('redux', message)
+        getTokenTransaction()
         return () => {
         }
-    }, [message])
+    }, [])
 
     const columns = [
+        {
+            name: '',
+            width: '80px',
+            selector: row => (
+                <div>
+                    {row.type === 'receive' && <BsArrowDownCircle size={30} />}
+                    {row.type === 'send' && <BsArrowUpCircle size={30} />}
+
+                </div>
+            )
+        },
         {
             name: 'Transaction',
             selector: row => (
                 <div>
-                    {row.transicon}
-                    {row.transaction}
+                    {/* {row.type === 'receive' && <BsArrowDownCircle size={30} />}
+                    {row.type === 'send' && <BsArrowUpCircle size={30} />} */}
+                    <span><span className='align-middle font-weight-bold'  >{row.id}</span> <br /> <span className='align-middle' >{new Date(row.date).getDate()}</span> </span>
                 </div>
             )
         },
         {
             name: 'Total Amount',
             maxWidth: '300px',
-            selector: row => row.amount
+            selector: row => row.value
         },
         {
             name: 'Status',
             maxWidth: '200px',
-            selector: row => row.status
+            selector: row => (
+                <Badge pill color='light-success' className='mr-1'> {row.status} </Badge>
+            )
         },
         {
             name: 'More Details',
             maxWidth: '200px',
-            selector: row => row.details
+            selector: row => (
+                <Button.Ripple color='flat-primary' onClick={() => {
+                    setModalVisible(!modalVisible)
+                    setTrxnId(row.id)
+                }}>Quick View</Button.Ripple>
+            )
         }
     ]
 
@@ -161,11 +191,11 @@ const ActivityScreen = ({ message, dispatch }) => {
                     className='react-dataTable'
                     customStyles={tablestyle}
                     noHeader
-                    data={data}
+                    data={getTransaction.transactions}
                     columns={columns}
                 />
             </Card>
-            <CustomModal open={modalVisible} handleModal={handleModal} />
+            <CustomModal open={modalVisible} handleModal={handleModal} trxnId={trxnId} />
 
         </>
     )

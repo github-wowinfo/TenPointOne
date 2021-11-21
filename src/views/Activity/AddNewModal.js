@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 // ** Third Party Components
 import Flatpickr from 'react-flatpickr'
@@ -24,13 +24,35 @@ import '@styles/react/libs/flatpickr/flatpickr.scss'
 import './ActivityScreenStyles.css'
 import { IoMdCopy } from 'react-icons/io'
 import { BsBoxArrowUpRight } from 'react-icons/bs'
+import axios from 'axios'
 
-const AddNewModal = ({ open, handleModal }) => {
+const AddNewModal = ({ open, handleModal, trxnId }) => {
   // ** State
   const [Picker, setPicker] = useState(new Date())
+  const [details, setDetails] = useState({})
 
   // ** Custom close btn
   const CloseBtn = <X className='cursor-pointer' size={15} onClick={handleModal} />
+
+  const getTransactionDetails = async () => {
+    try {
+      const response = await axios.get(`https://stg-api.unmarshal.io/v1/matic/transactions/${trxnId}?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+      setDetails(response.data)
+    } catch (error) {
+      console.log(`AddNewModal [getTransactionDetails]`, error)
+    }
+  }
+
+  useEffect(() => {
+
+    if (trxnId) {
+      getTransactionDetails()
+
+    }
+    return () => {
+
+    }
+  }, [trxnId])
 
   return (
     <Modal
@@ -49,7 +71,7 @@ const AddNewModal = ({ open, handleModal }) => {
         <FormGroup>
           <label className='label'>Transaction Hash</label>
           <br />
-          <label className='text'>0x814af7f...e0a1</label>
+          <label className='text w-25'>{details.id}</label>
 
           <div>
             <Row>
@@ -67,24 +89,24 @@ const AddNewModal = ({ open, handleModal }) => {
         <FormGroup>
           <label className='label'>Total Amount</label>
           <br />
-          <label className='text'>US $739,221.86 (35,483.38738 UNI)</label>
+          <label className='text w-50'>{details.value}</label>
 
         </FormGroup>
         <FormGroup>
           <label className='label'>Transaction Fee</label>
           <br />
-          <label className='text'>0.03082 ETH</label>
+          <label className='text'>{details.fee} ETH</label>
         </FormGroup>
         <FormGroup>
           <label className='label'>Created Date & Time</label>
           <br />
-          <label className='text'>Sep-22-2021 12:53:44</label>
+          <label className='text'>{details.date}</label>
         </FormGroup>
         <FormGroup>
           <label className='label'>Status</label>
           <br />
           <div className='row' style={{ marginLeft: 1, alignItems: 'center' }}>
-            <label className='text'>Completed </label>
+            <label className='text'>{details.status} </label>
 
             <div className='circle'></div>
           </div>
