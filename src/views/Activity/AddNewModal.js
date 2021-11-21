@@ -72,7 +72,7 @@ const AddNewModal = ({ open, handleModal, trxnId }) => {
         <FormGroup>
           <label className='label'>Transaction Hash</label>
           <br />
-          <label className='text w-25'>{details.id}</label>
+          <label className='text w-25'>{details.id.slice(0, 18)}...{details.id.slice(details.id.length - 4, details.id.length)}</label>
 
           <div>
             <Row>
