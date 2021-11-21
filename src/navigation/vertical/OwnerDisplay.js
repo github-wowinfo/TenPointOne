@@ -58,7 +58,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
 
         <Col style={{ padding: '0px 0px' }}>
           <UncontrolledButtonDropdown style={{ minWidth: "90%" }} direction='right'>
-            <DropdownToggle size="lg" className='my-1' color='primary' outline caret>
+            <DropdownToggle size="sm" className='my-1 btn-gradient-primary' color='none' caret>
               SBI Vault
             </DropdownToggle>
             <DropdownMenu >
@@ -134,7 +134,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
             </DropdownMenu>
           </UncontrolledButtonDropdown>
           <UncontrolledButtonDropdown style={{ minWidth: "90%" }}>
-            <DropdownToggle size="lg" className='mb-1' color='primary' outline caret>
+            <DropdownToggle size="sm" className='mb-1 btn-gradient-primary' color='none' caret>
               Quick Actions
             </DropdownToggle>
             <DropdownMenu style={{ minWidth: '200px' }} >

@@ -4,7 +4,7 @@ import { lazy } from 'react'
 // const TemplateTitle = '%s - Vuexy React Admin Template'
 
 // ** Default Route
-const DefaultRoute = '/home'
+const DefaultRoute = '/login'
 
 // ** Merge Routes
 const Routes = [

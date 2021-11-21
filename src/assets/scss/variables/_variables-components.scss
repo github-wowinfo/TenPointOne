@@ -24,9 +24,9 @@
 }
 
 //Table
-.dark-layout .react-dataTable .rdt_Table {
-    background: transparent !important;
-}
+// .dark-layout .react-dataTable .rdt_Table {
+//     background: transparent !important;
+// }
 
 .dark-layout .react-dataTable .rdt_TableBody .rdt_TableRow {
     border-color: #ffff !important;
@@ -35,6 +35,8 @@
 //Sidebar
 .dark-layout .main-menu {
     background: #006277 !important;
+    // background: rgba(0,0,0,0.8);
+    // backdrop-filter: saturate(180%) blur(10px);
 }
 
 // .dark-layout .main-menu-content .navigation-main{
@@ -44,7 +46,9 @@
 .dark-layout .main-menu-content .navigation-main {
     // background: linear-gradient(0, #ab2ee3, transparent); 
     // background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0), transparent) ; 
-    background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0)); 
+    // background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0)); 
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: saturate(180%) blur(10px);
 }
 
 //login Page
