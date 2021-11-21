@@ -51,10 +51,12 @@ const ActivityScreen = ({ message, dispatch }) => {
         },
         {
             name: 'Status',
+            maxWidth: '200px',
             selector: row => row.status
         },
         {
             name: 'More Details',
+            maxWidth: '200px',
             selector: row => row.details
         }
     ]
@@ -63,7 +65,7 @@ const ActivityScreen = ({ message, dispatch }) => {
         {
             id: '1',
             transicon: <BsArrowUpCircle size={30} style={{ marginRight: 16 }} />,
-            transaction: <span><span className='align-middle font-weight-bold' >Gnosis</span> <br /> <span className='mx-4 align-middle' >Dec-31-1969 19:00:00</span> </span>,
+            transaction: <span><span className='align-middle font-weight-bold' >Gnosis</span> <br /> <span className='ml-4 align-middle' >Dec-31-1969 19:00:00</span> </span>,
             amount: '',
             status: <Badge pill color='light-warning' className='mr-1'> Pending </Badge>,
             details: ''

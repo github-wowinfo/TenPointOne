@@ -9,7 +9,7 @@ import DataTable from 'react-data-table-component'
 const RecentTrans = () => {
   const columns = [
     {
-      name: '',
+      name: 'Transaction',
       selector: row => (
         <div>
           {row.icon}
@@ -18,18 +18,18 @@ const RecentTrans = () => {
       )
     },
     {
-      name: '',
+      name: 'Status',
       center: true,
       maxWidth: '130px',
       selector: row => row.status
     },
     {
-      name: '',
+      name: 'Amount',
       maxWidth: '130px',
       selector: row => row.amount
     },
     {
-      name: '',
+      name: 'Date',
       maxWidth: '130px',
       selector: row => row.date
     }
