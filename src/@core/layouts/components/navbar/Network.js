@@ -8,33 +8,38 @@ const Network = ({ networkC, dispatch }) => {
   const data = [
     {
       id: '0',
-      name: 'Etherum',
-      icon: 'eth'
+      name: 'Ethereum',
+      icon: 'eth',
+      netid: '0x1'
     },
     {
       id: '1',
       name: 'BSC Mainet',
-      icon: 'matic'
+      icon: 'matic',
+      netid: '0x3'
     },
     {
       id: '2',
       name: 'Polygon Network',
-      icon: 'arg'
+      icon: 'arg',
+      netid: '0x4'
     },
     {
       id: '3',
       name: 'Optimism',
-      icon: 'poly'
+      icon: 'poly',
+      netid: '0x5'
     },
     {
       id: '4',
       name: 'Arbitrum',
-      icon: 'tnc'
+      icon: 'tnc',
+      netid: '0x2a'
     }
 
   ]
 
-  const [network, setNetwork] = useState({ icon: 'arg', name: 'Polygon Network' })
+  const [network, setNetwork] = useState({ icon: 'eth', name: 'Ethereum' })
 
 
   const handleNetwork = (e, icon, name) => {
@@ -43,10 +48,15 @@ const Network = ({ networkC, dispatch }) => {
     dispatch(AppData.networkChange({ icon, name }))
     // console.log('name', i)
   }
-
+  const netchange = async (netid) => {
+    await ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: `${netid}` }] })
+  }
   const networkItems = data.map(i => {
     return (
-      <DropdownItem href='/' key={i.id} onClick={(e) => { handleNetwork(e, i.icon, i.name) }}><span><Icon className='mx-1' name={i.icon} size={20} />{i.name}</span></DropdownItem>
+      <DropdownItem href='/' key={i.id} onClick={(e) => {
+        netchange(i.netid)
+        handleNetwork(e, i.icon, i.name)
+      }}><span><Icon className='mx-1' name={i.icon} size={20} />{i.name}</span></DropdownItem>
     )
   })
 

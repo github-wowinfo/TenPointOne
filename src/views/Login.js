@@ -30,10 +30,6 @@ const Login = () => {
   const illustration = skin === 'dark' ? 'newlogo.png' : 'newlogo.png',
     source = require(`@src/assets/images/pages/${illustration}`).default
 
-  const [web3Api, setWeb3Api] = useState({
-    provider: null,
-    web3: null
-  })
 
   // const setAccountListner = provider => {
   //   provider.on('chainChanged', _ => window.location.reload())
@@ -52,15 +48,11 @@ const Login = () => {
         window.alert('Non-Ethereum browser detected. Please install MetaMask!')
       }
 
-      setWeb3Api({
-        web3: new Web3(provider),
-        provider
-      })
+
     }
 
     loadProvider()
   }, [])
-  console.log(web3Api.web3)
 
   const history = useHistory()
   const handleRoute = () => {

@@ -2,7 +2,7 @@ import * as AppDataTypes from '../../actionType/cookies/appDataType'
 
 const initialState = {
   appMessages: '',
-  network: { icon: 'arg', name: 'Polygon Network' }
+  network: { icon: 'eth', name: 'Ethereum' }
 }
 
 const appData = (state = initialState, action) => {
