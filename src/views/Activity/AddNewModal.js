@@ -25,6 +25,7 @@ import './ActivityScreenStyles.css'
 import { IoMdCopy } from 'react-icons/io'
 import { BsBoxArrowUpRight } from 'react-icons/bs'
 import axios from 'axios'
+import moment from 'moment'
 
 const AddNewModal = ({ open, handleModal, trxnId }) => {
   // ** State
@@ -100,7 +101,7 @@ const AddNewModal = ({ open, handleModal, trxnId }) => {
         <FormGroup>
           <label className='label'>Created Date & Time</label>
           <br />
-          <label className='text'>{details.date}</label>
+          <label className='text'>{moment(details.date).format("MMM-DD-YYYY h:mm:ss")}</label>
         </FormGroup>
         <FormGroup>
           <label className='label'>Status</label>

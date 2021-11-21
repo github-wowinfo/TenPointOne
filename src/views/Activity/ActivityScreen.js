@@ -11,6 +11,7 @@ import * as AppData from '../../redux/actions/cookies/appDataType'
 import DataTable from 'react-data-table-component'
 import '@styles/react/libs/tables/react-dataTable-component.scss'
 import axios from 'axios'
+import moment from 'moment'
 
 const ActivityScreen = ({ message, dispatch }) => {
 
@@ -63,7 +64,7 @@ const ActivityScreen = ({ message, dispatch }) => {
                 <div>
                     {/* {row.type === 'receive' && <BsArrowDownCircle size={30} />}
                     {row.type === 'send' && <BsArrowUpCircle size={30} />} */}
-                    <span><span className='align-middle font-weight-bold'  >{row.id}</span> <br /> <span className='align-middle' >{new Date(row.date).getDate()}</span> </span>
+                    <span><span className='align-middle font-weight-bold'  >{row.id}</span> <br /> <span className='align-middle' >{moment(row.date).format("MMM-DD-YYYY h:mm:ss")}</span> </span>
                 </div>
             )
         },
