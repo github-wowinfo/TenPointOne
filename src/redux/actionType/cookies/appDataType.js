@@ -1,3 +1,5 @@
 export const SET_APP_MESSAGES = 'SET_APP_MESSAGES'
 
 export const NETWORK_CHANGE = 'NETWORK_CHANGE'
+
+export const ACCOUNT_ADRS = 'ACCOUNT_ADRS'
