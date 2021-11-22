@@ -18,7 +18,7 @@ import {
   Row,
   Col
 } from 'reactstrap'
-
+import Text from '../../views/CustomComponent/Text'
 // ** Styles
 import '@styles/react/libs/flatpickr/flatpickr.scss'
 import './ActivityScreenStyles.css'
@@ -31,6 +31,7 @@ const AddNewModal = ({ open, handleModal, trxnId }) => {
   // ** State
   const [Picker, setPicker] = useState(new Date())
   const [details, setDetails] = useState({})
+  const strText = ''
 
   // ** Custom close btn
   const CloseBtn = <X className='cursor-pointer' size={15} onClick={handleModal} />
@@ -72,7 +73,8 @@ const AddNewModal = ({ open, handleModal, trxnId }) => {
         <FormGroup>
           <label className='label'>Transaction Hash</label>
           <br />
-          <label className='text w-25'>{details.id.slice(0, 18)}...{details.id.slice(details.id.length - 4, details.id.length)}</label>
+          {/* <label className='text'>{details.length > 0 && strText.slice(0, 18)}...{strText.slice(strText.length - 4, strText.length)}</label> */}
+          <Text text={details?.id} />
 
           <div>
             <Row>

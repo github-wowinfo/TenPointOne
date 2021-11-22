@@ -173,7 +173,7 @@ const ActivityScreen = ({ message, dispatch }) => {
                         </Col>
 
                         <Col className='mb-1' md='2' sm='12'>
-
+                            
                             <Button.Ripple color='primary'
                                 onClick={setMessage}
                             >

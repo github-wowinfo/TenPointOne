@@ -1,5 +1,5 @@
 import { useSkin } from '@hooks/useSkin'
-import { Link, Redirect, useHistory } from 'react-router-dom'
+import { Link, Redirect, useHistory, useLocation } from 'react-router-dom'
 import InputPasswordToggle from '@components/input-password-toggle'
 import { Row, Col, CardTitle, CardText, Form, FormGroup, Label, Input, CustomInput, Button } from 'reactstrap'
 import RecoverModal from "./RecoverModal"
@@ -55,8 +55,11 @@ const Login = () => {
   }, [])
 
   const history = useHistory()
+
   const handleRoute = () => {
-    history.push('/home')
+    // history.replace('/home')
+    window.location.href = '/home'
+
   }
 
   return (
