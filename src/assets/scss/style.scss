@@ -11,12 +11,14 @@ PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER
 WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
 
 .circle {
-	height: 10px;
-	width: 10px;
+	height: 12px;
+	width: 12px;
 	border-radius: 50%;
 	border-width: 10px;
 	background-color: orange;
 	margin-left: 2px;
+	margin-bottom: 0.2857rem;
+
 }
 // .ps {
 // 	overflow: visible !important;

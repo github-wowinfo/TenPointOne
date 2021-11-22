@@ -9,13 +9,37 @@ import { IoQrCodeOutline } from 'react-icons/io5'
 import { Card, CardHeader, CardTitle, CardBody, CardFooter, Form, FormGroup, Label, Input, Button, Row, Col } from 'reactstrap'
 import Badge from 'reactstrap/lib/Badge'
 import Icon from 'react-crypto-icons'
+import { connect } from 'react-redux'
+import { toast } from 'react-toastify'
+import { Clipboard } from "react-feather"
+import { useState, Fragment } from 'react'
 
-const Send = () => {
+const Send = ({ accAdrs }) => {
   const cardStyle = {
     display: 'flex',
     justifyContent: 'center',
     alighnItems: 'center'
   }
+
+  const [text, setText] = useState(accAdrs)
+  const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
+  const copy = async () => {
+    await navigator.clipboard.writeText(text)
+    notifySuccess()
+  }
+
+  const SuccessToast = () => (
+    <Fragment>
+      <div className='toastify-header'>
+        <div className='title-wrapper'>
+          <Avatar size='sm' color='success' icon={<Clipboard size={12} />} />
+          <h6 className='toast-title'>Copied to Clipboard!</h6>
+        </div>
+      </div>
+    </Fragment>
+  )
+
+  const pathname = `https://etherscan.io/address/${accAdrs}`
   const data = [
     {
       icon: <BsSafe2 size={25} />,
@@ -90,9 +114,9 @@ const Send = () => {
             <Col md='2'><Avatar size='lg' color={data[0].color} icon={data[0].icon} /></Col>
             <Col className='d-flex flex-column justify-content-start'>
               <h4>SBI Vault</h4>
-              <p style={{ color: 'gray', fontSize: '.9rem' }}>mt2jon6BFcMpzBHbFKCmY5HszSj6fRQjfJ
-                <FaRegCopy className='ml-1 mr-1' size={15} />
-                <GoLinkExternal size={15} />
+              <p style={{ color: 'gray', fontSize: '.9rem' }}>{accAdrs}
+                <FaRegCopy className='ml-1 mr-1' color='grey' size={15} onClick={copy} />
+                <a href={pathname}><GoLinkExternal color='grey' size={15} /></a>
               </p>
               <Badge style={{ width: '130px' }} color='secondary'>Balance: <strong>0 MATIC</strong></Badge>
             </Col>
@@ -170,4 +194,8 @@ const Send = () => {
   )
 }
 
-export default Send
+const mapStateToProps = (state) => ({
+  networkC: state.appData.network,
+  accAdrs: state.appData.accAdrs
+})
+export default connect(mapStateToProps, null)(Send)

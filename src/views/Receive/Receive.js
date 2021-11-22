@@ -6,13 +6,36 @@ import { connect } from 'react-redux'
 import Avatar from '@components/avatar'
 import qrcode from './qrcode_localhost.png'
 import Icon from 'react-crypto-icons'
+import { toast } from 'react-toastify'
+import { Clipboard } from "react-feather"
+import { useState, Fragment } from 'react'
 
-const Receive = ({ networkC }) => {
+const Receive = ({ networkC, accAdrs }) => {
   const cardStyle = {
     display: 'flex',
     justifyContent: 'center',
     alighnItems: 'center'
   }
+
+  const [text, setText] = useState(accAdrs)
+  const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
+  const copy = async () => {
+    await navigator.clipboard.writeText(text)
+    notifySuccess()
+  }
+
+  const SuccessToast = () => (
+    <Fragment>
+      <div className='toastify-header'>
+        <div className='title-wrapper'>
+          <Avatar size='sm' color='success' icon={<Clipboard size={12} />} />
+          <h6 className='toast-title'>Copied to Clipboard!</h6>
+        </div>
+      </div>
+    </Fragment>
+  )
+  const pathname = `https://etherscan.io/address/${accAdrs}`
+
   const data = [
     {
       icon: <BsSafe2 size={25} />,
@@ -45,9 +68,9 @@ const Receive = ({ networkC }) => {
           <Row>
             <Col md='2' className="pr-0 mr-1"><Avatar size='lg' color={data[0].color} icon={data[0].icon} className='mx-1' /></Col>
             <Col className='pl-0 d-flex flex-column justify-content-center align-items-center'>
-              <p style={{ color: 'gray', fontSize: '.9em', marginBottom: '0px' }}><strong>mt2jon6BFcMpzBHbFKCmY5HszSj6fRQjfJ</strong>
-                <FaRegCopy className='ml-1 mr-1' size={15} />
-                <GoLinkExternal size={15} />
+              <p style={{ color: 'gray', fontSize: '.9em', marginBottom: '0px' }}><strong>{accAdrs}</strong>
+                <FaRegCopy className='ml-1 mr-1' color='grey' size={15} onClick={copy} />
+                <a href={pathname}><GoLinkExternal color='grey' size={15} /></a>
               </p>
             </Col>
           </Row>

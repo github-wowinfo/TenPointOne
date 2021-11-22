@@ -9,6 +9,8 @@ import Avatar from '@components/avatar'
 import { Check } from 'react-feather'
 import '@styles/base/pages/page-auth.scss'
 import Web3 from 'web3'
+import * as AppData from '../redux/actions/cookies/appDataType'
+import { connect } from 'react-redux'
 
 const SuccessProgressToast = () => (
   <Fragment>
@@ -24,7 +26,7 @@ const SuccessProgressToast = () => (
 
 const notifySuccessProgress = () => toast.success(<SuccessProgressToast />)
 
-const Login = () => {
+const Login = ({ dispatch }) => {
   const [skin, setSkin] = useSkin()
 
   const illustration = skin === 'dark' ? 'newlogo.png' : 'newlogo.png',
@@ -80,7 +82,8 @@ const Login = () => {
 
               onClick={async () => {
                 const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-                console.log('account', accounts)
+                // console.log('account', accounts)
+                dispatch(AppData.accAdrs(accounts[0]))
 
                 if (accounts !== null) {
                   handleRoute()
@@ -100,4 +103,9 @@ const Login = () => {
   )
 }
 
-export default Login
+const mapStateToProps = (state) => ({
+  message: state.appData.accAdrs
+})
+const mapDispatchToProp = dispatch => ({ dispatch })
+
+export default connect(mapStateToProps, mapDispatchToProp)(Login)

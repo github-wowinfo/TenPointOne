@@ -9,3 +9,8 @@ export const networkChange = payload => ({
   type: AppDataTypes.NETWORK_CHANGE,
   payload
 })
+
+export const accAdrs = payload => ({
+  type: AppDataTypes.ACCOUNT_ADRS,
+  payload
+})

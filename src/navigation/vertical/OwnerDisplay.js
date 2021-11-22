@@ -11,10 +11,19 @@ import { randomHexColor } from 'random-hex-color-generator'
 import { toast } from 'react-toastify'
 import Avatar from '@components/avatar'
 import { connect } from 'react-redux'
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import Icon from 'react-crypto-icons'
 
-const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
+const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, accAdrs }) => {
+
+  const [text, setText] = useState(accAdrs)
+  const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
+  const copy = async () => {
+    await navigator.clipboard.writeText(text)
+    notifySuccess()
+  }
+
+  const pathname = `https://etherscan.io/address/${accAdrs}`
 
   const stylecontainer = {
     textAlign: 'center',
@@ -42,7 +51,6 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
     </Fragment>
   )
 
-  const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
 
   const renderItem = () => {
     return (
@@ -138,17 +146,18 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
               Quick Actions
             </DropdownToggle>
             <DropdownMenu style={{ minWidth: '200px' }} >
-              <DropdownItem className='px-1' style={{ overflow: 'auto' }}>
+              <DropdownItem className='px-1' >
                 <dl>
                   <dt>SBI Vault</dt>
-                  <dd>moG7...mgbj</dd>
+                  <dd>{accAdrs.slice(0, 4)}...{accAdrs.slice(accAdrs.length - 4, accAdrs.length)}</dd>
+                  {/* <dd>{accAdrs}</dd> */}
                 </dl>
               </DropdownItem>
               <DropdownItem divider></DropdownItem>
               <DropdownItem style={{ display: 'flex', justifyContent: 'space-between' }} href='#'>
-                <IoQrCodeOutline size={25} />
-                <FaRegCopy size={25} onClick={notifySuccess} />
-                <GoLinkExternal size={25} />
+                <Link to='/receive'><IoQrCodeOutline color='grey' size={25} /></Link>
+                <FaRegCopy color='grey' size={25} onClick={copy} />
+                <a href={pathname}><GoLinkExternal color='grey' size={25} /></a>
               </DropdownItem>
               <DropdownItem divider></DropdownItem>
               <DropdownItem className='text-center py-0' tag='a'>
@@ -211,6 +220,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
 
 
 const mapStateToProps = (state) => ({
-  networkC: state.appData.network
+  networkC: state.appData.network,
+  accAdrs: state.appData.accAdrs
 })
 export default connect(mapStateToProps, null)(OwnerDisplay)

@@ -2,7 +2,8 @@ import * as AppDataTypes from '../../actionType/cookies/appDataType'
 
 const initialState = {
   appMessages: '',
-  network: { icon: 'eth', name: 'Ethereum' }
+  network: { icon: 'eth', name: 'Ethereum' },
+  accAdrs: ''
 }
 
 const appData = (state = initialState, action) => {
@@ -21,6 +22,13 @@ const appData = (state = initialState, action) => {
       return {
         ...state,
         network: payload,
+      }
+    }
+
+    case AppDataTypes.ACCOUNT_ADRS: {
+      return {
+        ...state,
+        accAdrs: payload,
       }
     }
 

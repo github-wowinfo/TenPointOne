@@ -1,6 +1,7 @@
 // ** React Imports
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Fragment } from 'react'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 // ** Custom Components
 import Avatar from '@components/avatar'
@@ -9,12 +10,12 @@ import Avatar from '@components/avatar'
 import { isUserLoggedIn } from '@utils'
 
 // ** Store & Actions
-import { useDispatch } from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
 import { handleLogout } from '@store/actions/auth'
 
 // ** Third Party Components
 import { UncontrolledDropdown, DropdownMenu, DropdownToggle, DropdownItem, Button, Row, Col, Dropdown, Card, CardBody, CardTitle, CardText, Badge } from 'reactstrap'
-import { User, Mail, CheckSquare, MessageSquare, Settings, CreditCard, HelpCircle, Power, ShoppingCart } from 'react-feather'
+import { User, Mail, CheckSquare, MessageSquare, Settings, CreditCard, HelpCircle, Power, ShoppingCart, Clipboard } from 'react-feather'
 import { GiFoxHead } from 'react-icons/gi'
 
 // ** Default Avatar Image
@@ -24,7 +25,24 @@ import { FaRegCopy } from 'react-icons/fa'
 import { GoLinkExternal } from 'react-icons/go'
 import { RiWallet3Line } from 'react-icons/ri'
 
-const UserDropdown = () => {
+const UserDropdown = ({ accAdrs, networkC }) => {
+
+  const [text, setText] = useState(accAdrs)
+  const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
+  const copy = async () => {
+    await navigator.clipboard.writeText(text)
+    notifySuccess()
+  }
+  const SuccessToast = () => (
+    <Fragment>
+      <div className='toastify-header'>
+        <div className='title-wrapper'>
+          <Avatar size='sm' color='success' icon={<Clipboard size={12} />} />
+          <h6 className='toast-title'>Copied to Clipboard!</h6>
+        </div>
+      </div>
+    </Fragment>
+  )
   // ** Store Vars
   const dispatch = useDispatch()
 
@@ -53,6 +71,10 @@ const UserDropdown = () => {
     marginLeft: 2
   }
 
+  const pathname = `https://etherscan.io/address/${accAdrs}`
+
+  const backgroundChange = { backgroundColor: networkC.name === 'BSC Mainet' ? '#cc9b00' : networkC.name === 'Etherum' ? '#627eea' : networkC.name === 'Optimism' ? '#ff0420' : networkC.name === 'Arbitrum' ? '#2d374b' : '#8247e5' }
+
   return (
     <>
       <Dropdown isOpen={dropdownOpen} toggle={toggle} tag='li' className='nav-item'>
@@ -70,9 +92,9 @@ const UserDropdown = () => {
               marginRight: 5,
               textAlign: 'right'
             }}>
-              <span className='user-name font-weight-bold'>{(userData && userData['username']) || 'Metamask @ Polygon'}</span>
+              <span className='user-name font-weight-bold'>{(userData && userData['username']) || `Metamask @  ${networkC.name}`}</span>
               <br />
-              <span className='user-status'>{(userData && userData.role) || '0x12D8....7474'}</span>
+              <span className='user-status'>{(userData && userData.role) || accAdrs.slice(0, 4)}...{accAdrs.slice(accAdrs.length - 4, accAdrs.length)}</span>
             </div>
             <div>
               <Avatar color='light-warning' icon={<GiFoxHead size={40} />} status='online' />
@@ -97,9 +119,9 @@ const UserDropdown = () => {
                   padding: 5,
                   backgroundColor: '#f9f9f9aa'
                 }}>
-                  <label className='mr-1'>{'0x12D8....7474'}</label>
-                  <FaRegCopy size={15} className='mr-1' />
-                  <GoLinkExternal size={15} />
+                  <label className='mr-1'>{accAdrs.slice(0, 4)}...{accAdrs.slice(accAdrs.length - 4, accAdrs.length)}</label>
+                  <FaRegCopy size={15} className='mr-1' onClick={copy} />
+                  <a href={pathname}><GoLinkExternal color='grey' size={15} /></a>
                 </div>
 
               </div>
@@ -121,8 +143,8 @@ const UserDropdown = () => {
               <label>Connected network</label>
 
               <div className='row d-flex justify-content-center align-items-center' style={{ marginRight: 0 }}>
-                <div className='circle' style={{backgroundColor:'orange'}}></div>
-                <label style={{ marginLeft: 2 }}>Rinkeby</label>
+                <div className='circle' style={{ ...backgroundChange }}></div>
+                <label style={{ marginLeft: 2 }}>{networkC.name}</label>
               </div>
             </div>
           </li>
@@ -138,4 +160,8 @@ const UserDropdown = () => {
   )
 }
 
-export default UserDropdown
+const mapStateToProps = (state) => ({
+  networkC: state.appData.network,
+  accAdrs: state.appData.accAdrs
+})
+export default connect(mapStateToProps, null)(UserDropdown)
