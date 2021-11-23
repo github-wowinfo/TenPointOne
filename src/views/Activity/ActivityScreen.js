@@ -62,20 +62,74 @@ const ActivityScreen = ({ message, dispatch }) => {
             name: 'Transaction',
             selector: row => (
                 <div>
-                    {/* {row.type === 'receive' && <BsArrowDownCircle size={30} />}
-                    {row.type === 'send' && <BsArrowUpCircle size={30} />} */}
-                    <span><span className='align-middle font-weight-bold'  >{row.id}</span> <br /> <span className='align-middle' >{moment(row.date).format("MMM-DD-YYYY h:mm:ss")}</span> </span>
+                    <span>
+                        <span className='align-middle font-weight-bold'  >{row.id.slice(0, 30)}...{row.id.slice(row.id.length - 4, row.id.length)}</span>
+
+                        <br />
+                        <span>
+                            {
+                                row.type === 'receive' ? (<span className='align-middle font-weight-bold'  >From :</span>) : (<span className='align-middle font-weight-bold'  >To :</span>)
+                            }
+                            <span className='align-middle font-weight-light'  >{row.to.slice(0, 8)}...{row.to.slice(row.to.length - 4, row.to.length)}</span>
+
+                        </span>
+                        <br />
+                        <span className='align-middle font-italic' style={{
+                            fontSize: 12
+                        }}>{row.description}</span>
+                        <br />
+                        <span className='align-middle' style={{
+                            fontSize: 10
+                        }} >{moment(row.date * 1000).format("MMM-DD-YYYY h:mm:ss")}</span>
+
+                    </span>
+
                 </div>
             )
         },
         {
             name: 'Total Amount',
             maxWidth: '300px',
-            selector: row => row.value
+            selector: row => (
+                <span>
+                    <span>
+                        {
+                            row.sent && row.sent[0].value / (10 ** row.sent[0].decimals)
+                        }
+                        <span className='ml-1'>{row.sent && row.sent[0].symbol}</span>
+                    </span>
+                    <br />
+                    <span>
+                        {
+                            row.received && row.received[0].value / (10 ** row.received[0].decimals)
+                        }
+                        <span className='ml-1'>{row.received && row.received[0].symbol}</span>
+                    </span>
+                </span>
+            )
+        },
+        {
+            name: '',
+            maxWidth: '150px',
+            selector: row => (
+                <span>
+                    <span>
+                        {
+                            row.sent && `$${row.sent[0].value / (10 ** row.sent[0].decimals)}`
+                        }
+                    </span>
+                    <br />
+                    <span>
+                        {
+                            row.received && `$${row.received[0].value / (10 ** row.received[0].decimals)}`
+                        }
+                    </span>
+                </span>
+            )
         },
         {
             name: 'Status',
-            maxWidth: '200px',
+            maxWidth: '150px',
             selector: row => (
                 <Badge pill color='light-success' className='mr-1'> {row.status} </Badge>
             )
@@ -161,6 +215,15 @@ const ActivityScreen = ({ message, dispatch }) => {
             }
         }
     }
+
+    const [active, setActive] = useState('1')
+
+    const toggle = tab => {
+        if (active !== tab) {
+            setActive(tab)
+        }
+    }
+
     return (
         <>
             <Card>
@@ -173,7 +236,7 @@ const ActivityScreen = ({ message, dispatch }) => {
                         </Col>
 
                         <Col className='mb-1' md='2' sm='12'>
-                            
+
                             <Button.Ripple color='primary'
                                 onClick={setMessage}
                             >
@@ -185,6 +248,34 @@ const ActivityScreen = ({ message, dispatch }) => {
                         </Col>
                     </Row>
                 </CardBody>
+            </Card>
+
+            <Card className='pt-2 align-items-center'>
+
+                <div className='col-4' style={{ display: 'flex', flex: 1, justifyContent: 'space-evenly' }}>
+
+                    <Col md={6} sm={12}>
+                        <div className='d-inline-block mr-1 mb-1'>
+                            <Button.Ripple outline color='primary' size='lg' active={active === '1'} onClick={() => {
+                                toggle('1')
+                            }}>
+                                Transactions
+                            </Button.Ripple>
+                        </div>
+                    </Col>
+
+                    <Col md={6} sm={12}>
+                        <div className='d-inline-block mr-1 mb-1'>
+                            <Button.Ripple outline color='primary' size='lg' active={active === '2'} onClick={() => {
+                                toggle('2')
+                            }}>
+                                Execution
+                            </Button.Ripple>
+                        </div>
+                    </Col>
+
+                </div>
+
             </Card>
 
             <Card>
