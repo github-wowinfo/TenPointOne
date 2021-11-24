@@ -65,10 +65,17 @@ const Login = () => {
 
   const handleRoute = () => {
     window.location.href = '/home'
-    localStorage.setItem("address", account)
-    console.warn(account)
+    // console.warn("account", account)
+    // localStorage.setItem("address", account)
   }
 
+  useEffect(() => {
+    localStorage.setItem("address", account)
+    console.warn("account", account)
+    return () => {
+      
+    }
+  }, [account])
 
   return (
     <div className='auth-wrapper auth-v2'>
@@ -87,7 +94,6 @@ const Login = () => {
               onClick={() => handleRoute()} block>WELCOME BACK!! </Button.Ripple>) : (<Button.Ripple color='info' style={{ fontSize: "1.5em", marginBottom: 10 }}
                 onClick={async () => {
                   await activateBrowserWallet()
-                  console.log('account Address:', account)
                   handleRoute()
                 }}
                 block>CONNECT WALLET
