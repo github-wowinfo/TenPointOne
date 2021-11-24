@@ -29,6 +29,7 @@ const Asset = () => {
     const getTokenBalance = async () => {
         try {
             const response = await axios.get(`https://api.unmarshal.com/v1/matic/address/0x989923d33bE0612680064Dc7223a9f292C89A538/assets?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+
             setAssetList(response.data)
 
         } catch (error) {
@@ -43,23 +44,43 @@ const Asset = () => {
         }
     }, [])
 
+    const addDefaultSrc = (ev) => {
+        ev.target.src = require(`@src/assets/images/logo/question.jpg`).default
+
+    }
+
     const columns = [
         {
             name: 'Asset',
             selector: row => (
                 <div>
-                    <img src={row.logo_url} alt={row.contract_ticker_symbol} style={{ height: 45, width: 45, marginRight: 10 }} />
+                    <img src={row.logo_url && row.logo_url} alt={row.contract_ticker_symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
                     {row.contract_ticker_symbol}
                 </div>
             )
         },
         {
             name: 'Balance',
-            selector: row => row.balance
+            selector: row => (
+                <span>
+                    {
+                        row.balance && row.balance / (10 ** row.contract_decimals)
+
+                    }
+                    <span className='ml-1'>{row.contract_ticker_symbol}</span>
+                </span>
+
+            )
         },
         {
             name: 'First value',
-            selector: row => row.quote
+            selector: row => (
+                <span>
+                    {
+                        row.balance && `$${(row.balance / (10 ** row.contract_decimals) * row.quote_rate)}`
+                    }
+                </span>
+            )
         }
     ]
 

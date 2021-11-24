@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Card, CardBody, Col, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row, Table, Badge } from 'reactstrap'
 import { HiDownload } from 'react-icons/hi'
-import { BsArrowUpCircle, BsArrowDownCircle, BsBoxArrowUpRight } from 'react-icons/bs'
+import { BsArrowUpCircle, BsArrowDownCircle, BsInfoCircle } from 'react-icons/bs'
 import { GrClose } from 'react-icons/gr'
 import { IoMdCopy } from 'react-icons/io'
 import "./ActivityScreenStyles.css"
@@ -18,6 +18,8 @@ const ActivityScreen = ({ message, dispatch }) => {
     const [modalVisible, setModalVisible] = useState(false)
     const [getTransaction, setTransaction] = useState([])
     const [trxnId, setTrxnId] = useState('')
+    const [dataList, setDataList] = useState([])
+    const [active, setActive] = useState('1')
 
     const handleModal = () => {
         setModalVisible(!modalVisible)
@@ -29,11 +31,33 @@ const ActivityScreen = ({ message, dispatch }) => {
 
     }
 
+    const getDataForList = (value) => {
+        if (value === '1') {
+
+            const data = getTransaction.transactions.filter((a) => a.type.includes('receive') || a.type.includes('send') || a.type.includes('approve'))
+            setDataList(data)
+        } else {
+            const data = getTransaction.transactions.filter((a) => !a.type.includes('receive') && !a.type.includes('send') && !a.type.includes('approve'))
+
+            setDataList(data)
+        }
+    }
+
+    const toggle = tab => {
+        if (active !== tab) {
+            setActive(tab)
+        }
+        getDataForList(tab)
+    }
+
     const getTokenTransaction = async () => {
         try {
 
             const response = await axios.get(`https://stg-api.unmarshal.io/v1/matic/address/0x989923d33bE0612680064Dc7223a9f292C89A538/transactions?page=1&pageSize=20&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
             setTransaction(response.data)
+
+            const data = response.data.transactions.filter((a) => a.type.includes('receive') || a.type.includes('send') || a.type.includes('approve'))
+            setDataList(data)
 
         } catch (error) {
             console.log(`Activity [getTokenTransaction]`, error)
@@ -49,11 +73,12 @@ const ActivityScreen = ({ message, dispatch }) => {
     const columns = [
         {
             name: '',
-            width: '80px',
+            width: '75px',
             selector: row => (
                 <div>
                     {row.type === 'receive' && <BsArrowDownCircle size={30} />}
                     {row.type === 'send' && <BsArrowUpCircle size={30} />}
+                    {row.type === 'approve' && <BsInfoCircle size={30} />}
 
                 </div>
             )
@@ -146,62 +171,6 @@ const ActivityScreen = ({ message, dispatch }) => {
         }
     ]
 
-    const data = [
-        {
-            id: '1',
-            transicon: <BsArrowUpCircle size={30} style={{ marginRight: 16 }} />,
-            transaction: <span><span className='align-middle font-weight-bold' >Gnosis</span> <br /> <span className='ml-4 align-middle' >Dec-31-1969 19:00:00</span> </span>,
-            amount: '',
-            status: <Badge pill color='light-warning' className='mr-1'> Pending </Badge>,
-            details: ''
-        },
-        {
-            id: '2',
-            transicon: <BsArrowUpCircle size={30} style={{ marginRight: 16 }} />,
-            transaction: <span> <span className='align-middle font-weight-bold' >Ken Comp (May & June) and 11 more</span> <br /> <span className='mx-4 align-middle' >Sep-22-2021 12:53:44</span>
-            </span>,
-            amount: <span> <span>35,483.38738 UNI</span> <br /> <span style={{ fontSize: 12 }}>-$739,221.86</span> </span>,
-            status: <Badge pill color='light-success' className='mr-1'> Complete </Badge>,
-            details: <Button.Ripple color='flat-primary' onClick={() => setModalVisible(!modalVisible)}>Quick View</Button.Ripple>
-        },
-        {
-            id: '3',
-            transicon: <BsArrowUpCircle size={30} style={{ marginRight: 16 }} />,
-            transaction: <span> <span className='align-middle font-weight-bold' >Ken Comp (May & June) and 11 more</span> <br /> <span className='mx-4 align-middle' >Sep-22-2021 12:53:44</span>
-            </span>,
-            amount: <span> <span>35,483.38738 UNI</span> <br /> <span style={{ fontSize: 12 }}>-$739,221.86</span> </span>,
-            status: <Badge pill color='light-danger' className='mr-1'> Failed </Badge>,
-            details: <Button.Ripple color='flat-primary' onClick={() => setModalVisible(!modalVisible)}>Quick View</Button.Ripple>
-        },
-        {
-            id: '4',
-            transicon: <BsArrowUpCircle size={30} style={{ marginRight: 16 }} />,
-            transaction: <span> <span className='align-middle font-weight-bold' >Ken Comp (May & June) and 11 more</span> <br /> <span className='mx-4 align-middle' >Sep-22-2021 12:53:44</span>
-            </span>,
-            amount: <span> <span>26,770.62416 UNI</span> <br /> <span style={{ fontSize: 12 }}>-$690,625.89</span> </span>,
-            status: <Badge pill color='light-danger' className='mr-1'> Failed </Badge>,
-            details: <Button.Ripple color='flat-primary' onClick={() => setModalVisible(!modalVisible)}>Quick View</Button.Ripple>
-        },
-        {
-            id: '5',
-            transicon: <BsArrowUpCircle size={30} style={{ marginRight: 16 }} />,
-            transaction: <span> <span className='align-middle font-weight-bold' >Hack Money and 12 more</span> <br /> <span className='mx-4 align-middle' >Aug-16-2021 21:29:04</span>
-            </span>,
-            amount: <span> <span>11,530.06293 UNI</span> <br /> <span style={{ fontSize: 12 }}>-$332,619.05</span> </span>,
-            status: <Badge pill color='light-success' className='mr-1'> Complete </Badge>,
-            details: <Button.Ripple color='flat-primary' onClick={() => setModalVisible(!modalVisible)}>Quick View</Button.Ripple>
-        },
-        {
-            id: '6',
-            transicon: <BsArrowDownCircle size={30} style={{ marginRight: 16 }} />,
-            transaction: <span> <span className='align-middle font-weight-bold' >Incoming</span> <br /> <span className='mx-4 align-middle' >Aug-16-2021 16:26:57</span>
-            </span>,
-            amount: <span> <span>0</span> <br /> <span style={{ fontSize: 12 }}>+$16.5</span> </span>,
-            status: <Badge pill color='light-success' className='mr-1'> Complete </Badge>,
-            details: <Button.Ripple color='flat-primary' onClick={() => setModalVisible(!modalVisible)}>Quick View</Button.Ripple>
-        }
-    ]
-
     const tablestyle = {
         cells: {
             style: {
@@ -213,14 +182,6 @@ const ActivityScreen = ({ message, dispatch }) => {
             style: {
                 minHeight: '5em'
             }
-        }
-    }
-
-    const [active, setActive] = useState('1')
-
-    const toggle = tab => {
-        if (active !== tab) {
-            setActive(tab)
         }
     }
 
@@ -258,6 +219,7 @@ const ActivityScreen = ({ message, dispatch }) => {
                         <div className='d-inline-block mr-1 mb-1'>
                             <Button.Ripple outline color='primary' size='lg' active={active === '1'} onClick={() => {
                                 toggle('1')
+
                             }}>
                                 Transactions
                             </Button.Ripple>
@@ -283,7 +245,7 @@ const ActivityScreen = ({ message, dispatch }) => {
                     className='react-dataTable'
                     customStyles={tablestyle}
                     noHeader
-                    data={getTransaction.transactions}
+                    data={dataList}
                     columns={columns}
                 />
             </Card>
