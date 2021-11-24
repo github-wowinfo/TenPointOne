@@ -14,8 +14,8 @@ import { connect } from 'react-redux'
 import { Fragment, useState } from 'react'
 import Icon from 'react-crypto-icons'
 
-const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, accAdrs }) => {
-
+const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
+  const accAdrs = localStorage.getItem('address')
   const [text, setText] = useState(accAdrs)
   const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
   const copy = async () => {
@@ -149,7 +149,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, accAdrs }) => {
               <DropdownItem className='px-1' >
                 <dl>
                   <dt>SBI Vault</dt>
-                  <dd>{accAdrs.slice(0, 4)}...{accAdrs.slice(accAdrs.length - 4, accAdrs.length)}</dd>
+                  <dd>{accAdrs.slice(0, 10)}...{accAdrs.slice(accAdrs.length - 4, accAdrs.length)}</dd>
                   {/* <dd>{accAdrs}</dd> */}
                 </dl>
               </DropdownItem>
@@ -220,7 +220,6 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, accAdrs }) => {
 
 
 const mapStateToProps = (state) => ({
-  networkC: state.appData.network,
-  accAdrs: state.appData.accAdrs
+  networkC: state.appData.network
 })
 export default connect(mapStateToProps, null)(OwnerDisplay)

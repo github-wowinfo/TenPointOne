@@ -1,5 +1,5 @@
 import { useSkin } from '@hooks/useSkin'
-import { Link, Redirect, useHistory, useLocation } from 'react-router-dom'
+import { Link, NavLink, Redirect, useHistory, useLocation } from 'react-router-dom'
 import InputPasswordToggle from '@components/input-password-toggle'
 import { Row, Col, CardTitle, CardText, Form, FormGroup, Label, Input, CustomInput, Button } from 'reactstrap'
 import RecoverModal from "./RecoverModal"
@@ -8,9 +8,8 @@ import { toast } from 'react-toastify'
 import Avatar from '@components/avatar'
 import { Check } from 'react-feather'
 import '@styles/base/pages/page-auth.scss'
-import Web3 from 'web3'
-import * as AppData from '../redux/actions/cookies/appDataType'
 import { connect } from 'react-redux'
+import { useEthers } from '@usedapp/core'
 
 const SuccessProgressToast = () => (
   <Fragment>
@@ -26,7 +25,7 @@ const SuccessProgressToast = () => (
 
 const notifySuccessProgress = () => toast.success(<SuccessProgressToast />)
 
-const Login = ({ dispatch }) => {
+const Login = () => {
   const [skin, setSkin] = useSkin()
 
   const illustration = skin === 'dark' ? 'newlogo.png' : 'newlogo.png',
@@ -38,31 +37,38 @@ const Login = ({ dispatch }) => {
   // }
 
 
-  useEffect(() => {
-    const loadProvider = async () => {
-      let provider = null
-      if (window.ethereum) {
-        provider = window.ethereum
-        // setAccountListner(provider)
-      } else if (window.web3) {
-        provider = window.web3.currentProvider
-      } else {
-        window.alert('Non-Ethereum browser detected. Please install MetaMask!')
-      }
+  // useEffect(() => {
+  //   const loadProvider = async () => {
+  //     let provider = null
+  //     if (window.ethereum) {
+  //       provider = window.ethereum
+  //       // setAccountListner(provider)
+  //     } else if (window.web3) {
+  //       provider = window.web3.currentProvider
+  //     } else {
+  //       window.alert('Non-Ethereum browser detected. Please install MetaMask!')
+  //     }
+  //   }
+  //   loadProvider()
+  // }, [])
 
+  // const history = useHistory()
+  // const handleRoute = () => {
+  //   history.push('/home')
+  //   // history.replace('/home')
+  //   // window.location.href = '/home'
+  // }
 
-    }
+  const { activateBrowserWallet, account } = useEthers()
 
-    loadProvider()
-  }, [])
-
-  const history = useHistory()
+  const isConnected = account !== undefined
 
   const handleRoute = () => {
-    // history.replace('/home')
     window.location.href = '/home'
-
+    localStorage.setItem("address", account)
+    console.warn(account)
   }
+
 
   return (
     <div className='auth-wrapper auth-v2'>
@@ -77,25 +83,36 @@ const Login = ({ dispatch }) => {
             <CardTitle tag='h2' className='font-weight-bold mb-3 px-1'>
               Welcome to TEN-POINT-ONE! 👋
             </CardTitle>
-
-            <Button.Ripple color='info' style={{ fontSize: "1.5em", marginBottom: 10 }}
-
-              onClick={async () => {
-                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-                // console.log('account', accounts)
-                dispatch(AppData.accAdrs(accounts[0]))
-
-                if (accounts !== null) {
+            {isConnected ? (<Button.Ripple color='info' style={{ fontSize: "1.5em", marginBottom: 10 }}
+              onClick={() => handleRoute()} block>WELCOME BACK!! </Button.Ripple>) : (<Button.Ripple color='info' style={{ fontSize: "1.5em", marginBottom: 10 }}
+                onClick={async () => {
+                  await activateBrowserWallet()
+                  console.log('account Address:', account)
                   handleRoute()
-                } else {
-                  window.alert('Error connecting to Metamask!')
-                }
-              }}
+                }}
+                block>CONNECT WALLET
+              </Button.Ripple>)}
 
-              block>
+            {<p>Account: {account}</p>}
+            {/* <Button.Ripple color='info' style={{ fontSize: "1.5em", marginBottom: 10 }}
+      
+                onClick={async () => {
+                  const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+                  console.log('account', accounts)
+                  dispatch(AppData.accAdrs(accounts[0]))
+      
+                  if (accounts !== null) {
+                    handleRoute()
+                  } else {
+                    window.alert('Error connecting to Metamask!')
+                  }
+                }}
+      
+                block>
+      
+                CONNECT WALLET
+              </Button.Ripple> */}
 
-              CONNECT WALLET
-            </Button.Ripple>
           </Col>
         </Col>
       </Row>
@@ -103,9 +120,4 @@ const Login = ({ dispatch }) => {
   )
 }
 
-const mapStateToProps = (state) => ({
-  message: state.appData.accAdrs
-})
-const mapDispatchToProp = dispatch => ({ dispatch })
-
-export default connect(mapStateToProps, mapDispatchToProp)(Login)
+export default Login

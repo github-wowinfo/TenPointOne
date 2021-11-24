@@ -9,12 +9,12 @@ import { IoQrCodeOutline } from 'react-icons/io5'
 import { Card, CardHeader, CardTitle, CardBody, CardFooter, Form, FormGroup, Label, Input, Button, Row, Col } from 'reactstrap'
 import Badge from 'reactstrap/lib/Badge'
 import Icon from 'react-crypto-icons'
-import { connect } from 'react-redux'
 import { toast } from 'react-toastify'
 import { Clipboard } from "react-feather"
 import { useState, Fragment } from 'react'
 
-const Send = ({ accAdrs }) => {
+const Send = () => {
+  const accAdrs = localStorage.getItem('address')
   const cardStyle = {
     display: 'flex',
     justifyContent: 'center',
@@ -194,8 +194,4 @@ const Send = ({ accAdrs }) => {
   )
 }
 
-const mapStateToProps = (state) => ({
-  networkC: state.appData.network,
-  accAdrs: state.appData.accAdrs
-})
-export default connect(mapStateToProps, null)(Send)
+export default Send

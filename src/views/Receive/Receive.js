@@ -10,7 +10,8 @@ import { toast } from 'react-toastify'
 import { Clipboard } from "react-feather"
 import { useState, Fragment } from 'react'
 
-const Receive = ({ networkC, accAdrs }) => {
+const Receive = ({ networkC }) => {
+  const accAdrs = localStorage.getItem('address')
   const cardStyle = {
     display: 'flex',
     justifyContent: 'center',
@@ -66,12 +67,14 @@ const Receive = ({ networkC, accAdrs }) => {
             <Col style={{ textAlign: 'center' }}><img src={qrcode} style={{ width: '200px', height: '200px' }} /></Col>
           </Row>
           <Row>
-            <Col md='2' className="pr-0 mr-1"><Avatar size='lg' color={data[0].color} icon={data[0].icon} className='mx-1' /></Col>
+            <Col sm='12' md='2' className="pr-0 mr-1"><Avatar size='lg' color={data[0].color} icon={data[0].icon} className='mx-1' /></Col>
             <Col className='pl-0 d-flex flex-column justify-content-center align-items-center'>
               <p style={{ color: 'gray', fontSize: '.9em', marginBottom: '0px' }}><strong>{accAdrs}</strong>
-                <FaRegCopy className='ml-1 mr-1' color='grey' size={15} onClick={copy} />
-                <a href={pathname}><GoLinkExternal color='grey' size={15} /></a>
               </p>
+              <span className='d-flex flex-row justify-content-center'>
+                <FaRegCopy className='mx-1 mt-1' color='grey' size={15} onClick={copy} />
+                <a href={pathname}><GoLinkExternal className='mx-1 mt-1' color='grey' size={15} /></a>
+              </span>
             </Col>
           </Row>
         </CardBody>

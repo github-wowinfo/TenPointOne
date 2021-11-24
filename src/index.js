@@ -37,12 +37,17 @@ import * as serviceWorker from './serviceWorker'
 
 // ** Lazy load app
 const LazyApp = lazy(() => import('./App'))
+import { DAppProvider, ChainId } from '@usedapp/core'
 
 ReactDOM.render(
   <Provider store={store}>
     <Suspense fallback={<Spinner />}>
       <ThemeContext>
-        <LazyApp />
+        <DAppProvider config={{
+          supportedChains: [ChainId.ethereum, ChainId.Kovan, ChainId.BSC, ChainId.Polygon, ChainId.Mainnet]
+        }}>
+          <LazyApp />
+        </DAppProvider>
         <ToastContainer newestOnTop />
       </ThemeContext>
     </Suspense>

@@ -25,12 +25,6 @@ const appData = (state = initialState, action) => {
       }
     }
 
-    case AppDataTypes.ACCOUNT_ADRS: {
-      return {
-        ...state,
-        accAdrs: payload,
-      }
-    }
 
     default:
       return state

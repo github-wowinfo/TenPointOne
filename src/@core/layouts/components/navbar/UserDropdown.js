@@ -25,14 +25,23 @@ import { FaRegCopy } from 'react-icons/fa'
 import { GoLinkExternal } from 'react-icons/go'
 import { RiWallet3Line } from 'react-icons/ri'
 
-const UserDropdown = ({ accAdrs, networkC }) => {
+// ** useDapp
+import { useEthers } from '@usedapp/core'
+
+const UserDropdown = ({ networkC }) => {
+
+  const accAdrs = localStorage.getItem('address')
+  console.log(accAdrs)
 
   const [text, setText] = useState(accAdrs)
+
   const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
+
   const copy = async () => {
     await navigator.clipboard.writeText(text)
     notifySuccess()
   }
+
   const SuccessToast = () => (
     <Fragment>
       <div className='toastify-header'>
@@ -70,6 +79,7 @@ const UserDropdown = ({ accAdrs, networkC }) => {
     backgroundColor: 'orange',
     marginLeft: 2
   }
+  const { account, deactivate } = useEthers()
 
   const pathname = `https://etherscan.io/address/${accAdrs}`
 
@@ -149,7 +159,6 @@ const UserDropdown = ({ accAdrs, networkC }) => {
             </div>
           </li>
           <div className='d-flex justify-content-center p-1'>
-
             <Button.Ripple href='/login' color='danger'>Disconnect</Button.Ripple>
           </div>
         </DropdownMenu>
@@ -161,7 +170,6 @@ const UserDropdown = ({ accAdrs, networkC }) => {
 }
 
 const mapStateToProps = (state) => ({
-  networkC: state.appData.network,
-  accAdrs: state.appData.accAdrs
+  networkC: state.appData.network
 })
 export default connect(mapStateToProps, null)(UserDropdown)

@@ -12,7 +12,6 @@ import Avatar from '@components/avatar'
 const Home = () => {
 
   const [chart, setChart] = useState(true)
-
   return (
     <div>
       <Row>
@@ -47,7 +46,7 @@ const Home = () => {
           </Row>
         </Col>
       </Row>
-    </div>
+    </div >
   )
 }
 
