@@ -59,14 +59,13 @@ const Login = () => {
   //   // window.location.href = '/home'
   // }
 
-  const { activateBrowserWallet, account } = useEthers()
+  const { activateBrowserWallet, account, deactivate } = useEthers()
 
   const isConnected = account !== undefined
 
   const handleRoute = () => {
-    window.location.href = '/home'
+    // window.location.href = '/home'
     localStorage.setItem("address", account)
-    console.warn(account)
   }
 
 
@@ -87,13 +86,15 @@ const Login = () => {
               onClick={() => handleRoute()} block>WELCOME BACK!! </Button.Ripple>) : (<Button.Ripple color='info' style={{ fontSize: "1.5em", marginBottom: 10 }}
                 onClick={async () => {
                   await activateBrowserWallet()
-                  console.log('account Address:', account)
-                  handleRoute()
+                  console.log(account)
+                  // handleRoute()
                 }}
                 block>CONNECT WALLET
               </Button.Ripple>)}
 
             {<p>Account: {account}</p>}
+            <Button size='sm' onClick={deactivate}>Deactivate</Button>
+            {isConnected ? <p>Connected</p> : <p>Disconnected</p>}
             {/* <Button.Ripple color='info' style={{ fontSize: "1.5em", marginBottom: 10 }}
       
                 onClick={async () => {

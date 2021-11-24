@@ -85,6 +85,7 @@ const UserDropdown = ({ networkC }) => {
 
   const backgroundChange = { backgroundColor: networkC.name === 'BSC Mainet' ? '#cc9b00' : networkC.name === 'Etherum' ? '#627eea' : networkC.name === 'Optimism' ? '#ff0420' : networkC.name === 'Arbitrum' ? '#2d374b' : '#8247e5' }
 
+
   return (
     <>
       <Dropdown isOpen={dropdownOpen} toggle={toggle} tag='li' className='nav-item'>
@@ -159,7 +160,7 @@ const UserDropdown = ({ networkC }) => {
             </div>
           </li>
           <div className='d-flex justify-content-center p-1'>
-            <Button.Ripple href='/login' color='danger'>Disconnect</Button.Ripple>
+            <Button.Ripple color='danger' href='/login'>Disconnect</Button.Ripple>
           </div>
         </DropdownMenu>
       </Dropdown>
