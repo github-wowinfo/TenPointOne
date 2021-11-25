@@ -213,9 +213,9 @@ const ActivityScreen = ({ message, dispatch }) => {
 
             <Card className='pt-2 align-items-center'>
 
-                <div className='col-4' style={{ display: 'flex', flex: 1, justifyContent: 'space-evenly' }}>
+                <div className='col-6' style={{ display: 'flex', flex: 1, justifyContent: 'space-evenly' }}>
 
-                    <Col md={6} sm={12}>
+                    <Col md={6} sm={6}>
                         <div className='d-inline-block mr-1 mb-1'>
                             <Button.Ripple outline color='primary' size='lg' active={active === '1'} onClick={() => {
                                 toggle('1')
@@ -226,7 +226,7 @@ const ActivityScreen = ({ message, dispatch }) => {
                         </div>
                     </Col>
 
-                    <Col md={6} sm={12}>
+                    <Col md={6} sm={6}>
                         <div className='d-inline-block mr-1 mb-1'>
                             <Button.Ripple outline color='primary' size='lg' active={active === '2'} onClick={() => {
                                 toggle('2')
