@@ -98,10 +98,8 @@ const Asset = () => {
         }
     ]
 
-
     return (
         <>
-<<<<<<< HEAD
             {isConnected ? (<>
                 <Card>
                     <CardBody>
@@ -122,35 +120,6 @@ const Asset = () => {
                         </Row>
                     </CardBody>
                 </Card>
-=======
-            <Card>
-                <CardBody>
-                    <Row>
-                        <Col >
-                            <label style={{ fontWeight: 'bold', fontSize: 16 }}>Assets</label>
-                            <br />
-                            <label>View all your assets here</label>
-                        </Col>
-
-                        <Col className='mb-1' md='2' sm='12'>
-                            <Input type='select' name='select' id='select-basic'>
-                                <option>USD</option>
-                                <option>INR</option>
-                                <option>SAR</option>
-                            </Input>
-
-                        </Col>
-                    </Row>
-                    <div className='d-flex flex-column align-items-end pb-0'>
-                        <CardTitle className='mb-25' tag='h4'>
-                            ${sum}
-                        </CardTitle>
-                        <CardText className='mb-0'>Total balance</CardText>
-                    </div>
-                </CardBody>
-
-            </Card>
->>>>>>> 0a467da3cb3182bb6757e28d517b0b6811549906
 
                 <Card>
                     <DataTable

@@ -258,7 +258,27 @@ const ActivityScreen = ({ message, dispatch }) => {
 
                 </Card>
 
-<<<<<<< HEAD
+                <Col md={6} sm={6}>
+                    <div className='d-inline-block mr-1 mb-1'>
+                        <Button.Ripple outline color='primary' size='lg' active={active === '1'} onClick={() => {
+                            toggle('1')
+
+                        }}>
+                            Transactions
+                        </Button.Ripple>
+                    </div>
+                </Col>
+
+                <Col md={6} sm={6}>
+                    <div className='d-inline-block mr-1 mb-1'>
+                        <Button.Ripple outline color='primary' size='lg' active={active === '2'} onClick={() => {
+                            toggle('2')
+                        }}>
+                            Contract Interaction
+                        </Button.Ripple>
+                    </div>
+                </Col>
+
                 <Card>
                     <DataTable
                         className='react-dataTable'
@@ -269,43 +289,6 @@ const ActivityScreen = ({ message, dispatch }) => {
                     />
                 </Card>
                 <CustomModal open={modalVisible} handleModal={handleModal} trxnId={trxnId} />
-=======
-                    <Col md={6} sm={6}>
-                        <div className='d-inline-block mr-1 mb-1'>
-                            <Button.Ripple outline color='primary' size='lg' active={active === '1'} onClick={() => {
-                                toggle('1')
-
-                            }}>
-                                Transactions
-                            </Button.Ripple>
-                        </div>
-                    </Col>
-
-                    <Col md={6} sm={6}>
-                        <div className='d-inline-block mr-1 mb-1'>
-                            <Button.Ripple outline color='primary' size='lg' active={active === '2'} onClick={() => {
-                                toggle('2')
-                            }}>
-                                Contract Interaction
-                            </Button.Ripple>
-                        </div>
-                    </Col>
-
-                </div>
-
-            </Card>
-
-            <Card>
-                <DataTable
-                    className='react-dataTable'
-                    customStyles={tablestyle}
-                    noHeader
-                    data={dataList}
-                    columns={columns}
-                />
-            </Card>
-            <CustomModal open={modalVisible} handleModal={handleModal} trxnId={trxnId} />
->>>>>>> 0a467da3cb3182bb6757e28d517b0b6811549906
 
             </>) : disconnect()}
         </>
