@@ -85,31 +85,38 @@ const ActivityScreen = ({ message, dispatch }) => {
         },
         {
             name: 'Transaction',
+            width: '450px',
             selector: row => (
                 <div>
                     <span>
-                        <span className='align-middle font-weight-bold'  >{row.id.slice(0, 30)}...{row.id.slice(row.id.length - 4, row.id.length)}</span>
-
-                        <br />
-                        <span>
-                            {
-                                row.type === 'receive' ? (<span className='align-middle font-weight-bold'  >From :</span>) : (<span className='align-middle font-weight-bold'  >To :</span>)
-                            }
-                            <span className='align-middle font-weight-light'  >{row.to.slice(0, 8)}...{row.to.slice(row.to.length - 4, row.to.length)}</span>
-
-                        </span>
+                        <span className='align-middle font-weight-bold'  >{row.description}</span>
                         <br />
                         <span className='align-middle font-italic' style={{
-                            fontSize: 12
-                        }}>{row.description}</span>
-                        <br />
-                        <span className='align-middle' style={{
-                            fontSize: 10
-                        }} >{moment(row.date * 1000).format("MMM-DD-YYYY h:mm:ss")}</span>
+                            fontSize: 15
+                        }}>{row.id.slice(0, 30)}...{row.id.slice(row.id.length - 4, row.id.length)}</span>
+
 
                     </span>
 
                 </div>
+            )
+        },
+        {
+            name: 'Recipient',
+            maxWidth: '200px',
+            selector: row => (
+                <span>
+                    <span>
+                        {
+                            row.type === 'receive' ? (<span className='align-middle font-weight-bold'  >From :</span>) : (<span className='align-middle font-weight-bold'  >To :</span>)
+                        }
+                        <span className='align-middle font-weight-light'  >{row.to}</span>
+                        <br />
+                        <span className='align-middle' style={{
+                            fontSize: 12
+                        }} >{moment(row.date * 1000).format("MMM-DD-YYYY h:mm:ss")}</span>
+                    </span>
+                </span>
             )
         },
         {
@@ -119,14 +126,14 @@ const ActivityScreen = ({ message, dispatch }) => {
                 <span>
                     <span>
                         {
-                            row.sent && row.sent[0].value / (10 ** row.sent[0].decimals)
+                            row.sent ? row.sent[0].value / (10 ** row.sent[0].decimals) : row.received ? '' : '-'
                         }
                         <span className='ml-1'>{row.sent && row.sent[0].symbol}</span>
                     </span>
                     <br />
                     <span>
                         {
-                            row.received && row.received[0].value / (10 ** row.received[0].decimals)
+                            row.received ? row.received[0].value / (10 ** row.received[0].decimals) : row.sent ? '' : '-'
                         }
                         <span className='ml-1'>{row.received && row.received[0].symbol}</span>
                     </span>
@@ -134,11 +141,12 @@ const ActivityScreen = ({ message, dispatch }) => {
             )
         },
         {
-            name: '',
+            name: '$',
             maxWidth: '150px',
             selector: row => (
                 <span>
-                    <span>
+                    0
+                    {/* <span>
                         {
                             row.sent && `$${row.sent[0].value / (10 ** row.sent[0].decimals)}`
                         }
@@ -148,7 +156,7 @@ const ActivityScreen = ({ message, dispatch }) => {
                         {
                             row.received && `$${row.received[0].value / (10 ** row.received[0].decimals)}`
                         }
-                    </span>
+                    </span> */}
                 </span>
             )
         },
@@ -231,7 +239,7 @@ const ActivityScreen = ({ message, dispatch }) => {
                             <Button.Ripple outline color='primary' size='lg' active={active === '2'} onClick={() => {
                                 toggle('2')
                             }}>
-                                Execution
+                                Contract Interaction
                             </Button.Ripple>
                         </div>
                     </Col>

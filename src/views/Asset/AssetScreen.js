@@ -7,7 +7,10 @@ import {
     CardBody,
     Row,
     Col,
-    Input
+    Input,
+    CardTitle,
+    CardText,
+    CardFooter
 } from 'reactstrap'
 import Icon from 'react-crypto-icons'
 import DataTable from 'react-data-table-component'
@@ -25,6 +28,7 @@ import axios from 'axios'
 
 const Asset = () => {
     const [assetList, setAssetList] = useState([])
+    const [sum, setSum] = useState(0)
 
     const getTokenBalance = async () => {
         try {
@@ -32,6 +36,8 @@ const Asset = () => {
 
             setAssetList(response.data)
 
+            const balance = response.data.map(item => Math.floor(item.balance / (10 ** item.contract_decimals) * item.quote_rate)).reduce((acc, curr) => acc + curr, 0)
+            setSum(balance)
         } catch (error) {
             console.log(`Asset [getTokkenBalance]`, error)
         }
@@ -39,10 +45,10 @@ const Asset = () => {
 
     useEffect(() => {
         getTokenBalance()
-        return () => {
 
+        return () => {
         }
-    }, [])
+    }, [sum])
 
     const addDefaultSrc = (ev) => {
         ev.target.src = require(`@src/assets/images/logo/question.jpg`).default
@@ -64,10 +70,9 @@ const Asset = () => {
             selector: row => (
                 <span>
                     {
-                        row.balance && row.balance / (10 ** row.contract_decimals)
+                        row.balance && (row.balance / (10 ** row.contract_decimals)).toFixed(6)
 
                     }
-                    <span className='ml-1'>{row.contract_ticker_symbol}</span>
                 </span>
 
             )
@@ -77,7 +82,7 @@ const Asset = () => {
             selector: row => (
                 <span>
                     {
-                        row.balance && `$${(row.balance / (10 ** row.contract_decimals) * row.quote_rate)}`
+                        row.balance && `$${Math.floor(row.balance / (10 ** row.contract_decimals) * row.quote_rate)}`
                     }
                 </span>
             )
@@ -91,7 +96,7 @@ const Asset = () => {
                 <CardBody>
                     <Row>
                         <Col >
-                            <label>Asset</label>
+                            <label style={{ fontWeight: 'bold', fontSize: 16 }}>Assets</label>
                             <br />
                             <label>View all your assets here</label>
                         </Col>
@@ -102,9 +107,17 @@ const Asset = () => {
                                 <option>INR</option>
                                 <option>SAR</option>
                             </Input>
+
                         </Col>
                     </Row>
+                    <div className='d-flex flex-column align-items-end pb-0'>
+                        <CardTitle className='mb-25' tag='h4'>
+                            ${sum}
+                        </CardTitle>
+                        <CardText className='mb-0'>Total balance</CardText>
+                    </div>
                 </CardBody>
+
             </Card>
 
             <Card>
