@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 
 // ** Custom Components
 import Avatar from '@components/avatar'
+import Text from '../../../../views/CustomComponent/Text'
 
 // ** Utils
 import { isUserLoggedIn } from '@utils'
@@ -105,7 +106,8 @@ const UserDropdown = ({ networkC }) => {
             }}>
               <span className='user-name font-weight-bold'>{(userData && userData['username']) || `Metamask @  ${networkC.name}`}</span>
               <br />
-              <span className='user-status'>{(userData && userData.role) || accAdrs.slice(0, 4)}...{accAdrs.slice(accAdrs.length - 4, accAdrs.length)}</span>
+              <span className='user-status'>{(userData && userData.role) || <Text name={accAdrs} fchar={4} lchar={4} />}</span>
+              {/* accAdrs.slice(0, 4)}...{accAdrs.slice(accAdrs.length - 4, accAdrs.length) */}
             </div>
             <div>
               <Avatar color='light-warning' icon={<GiFoxHead size={40} />} status='online' />
@@ -130,7 +132,8 @@ const UserDropdown = ({ networkC }) => {
                   padding: 5,
                   backgroundColor: '#f9f9f9aa'
                 }}>
-                  <label className='mr-1'>{accAdrs.slice(0, 4)}...{accAdrs.slice(accAdrs.length - 4, accAdrs.length)}</label>
+                  {/* <label className='mr-1'>{accAdrs.slice(0, 4)}...{accAdrs.slice(accAdrs.length - 4, accAdrs.length)}</label> */}
+                  <Text name={accAdrs} fchar={4} lchar={4} />
                   <FaRegCopy size={15} className='mr-1' onClick={copy} />
                   <a href={pathname}><GoLinkExternal color='grey' size={15} /></a>
                 </div>
