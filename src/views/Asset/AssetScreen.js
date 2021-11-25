@@ -7,7 +7,10 @@ import {
     CardBody,
     Row,
     Col,
-    Input
+    Input,
+    CardTitle,
+    CardText,
+    CardFooter
 } from 'reactstrap'
 import Icon from 'react-crypto-icons'
 import DataTable from 'react-data-table-component'
@@ -34,6 +37,7 @@ const Asset = () => {
     }
 
     const [assetList, setAssetList] = useState([])
+    const [sum, setSum] = useState(0)
 
     const getTokenBalance = async () => {
         try {
@@ -41,6 +45,8 @@ const Asset = () => {
 
             setAssetList(response.data)
 
+            const balance = response.data.map(item => Math.floor(item.balance / (10 ** item.contract_decimals) * item.quote_rate)).reduce((acc, curr) => acc + curr, 0)
+            setSum(balance)
         } catch (error) {
             console.log(`Asset [getTokkenBalance]`, error)
         }
@@ -48,10 +54,10 @@ const Asset = () => {
 
     useEffect(() => {
         getTokenBalance()
-        return () => {
 
+        return () => {
         }
-    }, [])
+    }, [sum])
 
     const addDefaultSrc = (ev) => {
         ev.target.src = require(`@src/assets/images/logo/question.jpg`).default
@@ -73,10 +79,9 @@ const Asset = () => {
             selector: row => (
                 <span>
                     {
-                        row.balance && row.balance / (10 ** row.contract_decimals)
+                        row.balance && (row.balance / (10 ** row.contract_decimals)).toFixed(6)
 
                     }
-                    <span className='ml-1'>{row.contract_ticker_symbol}</span>
                 </span>
 
             )
@@ -86,7 +91,7 @@ const Asset = () => {
             selector: row => (
                 <span>
                     {
-                        row.balance && `$${(row.balance / (10 ** row.contract_decimals) * row.quote_rate)}`
+                        row.balance && `$${Math.floor(row.balance / (10 ** row.contract_decimals) * row.quote_rate)}`
                     }
                 </span>
             )
@@ -96,6 +101,7 @@ const Asset = () => {
 
     return (
         <>
+<<<<<<< HEAD
             {isConnected ? (<>
                 <Card>
                     <CardBody>
@@ -116,6 +122,35 @@ const Asset = () => {
                         </Row>
                     </CardBody>
                 </Card>
+=======
+            <Card>
+                <CardBody>
+                    <Row>
+                        <Col >
+                            <label style={{ fontWeight: 'bold', fontSize: 16 }}>Assets</label>
+                            <br />
+                            <label>View all your assets here</label>
+                        </Col>
+
+                        <Col className='mb-1' md='2' sm='12'>
+                            <Input type='select' name='select' id='select-basic'>
+                                <option>USD</option>
+                                <option>INR</option>
+                                <option>SAR</option>
+                            </Input>
+
+                        </Col>
+                    </Row>
+                    <div className='d-flex flex-column align-items-end pb-0'>
+                        <CardTitle className='mb-25' tag='h4'>
+                            ${sum}
+                        </CardTitle>
+                        <CardText className='mb-0'>Total balance</CardText>
+                    </div>
+                </CardBody>
+
+            </Card>
+>>>>>>> 0a467da3cb3182bb6757e28d517b0b6811549906
 
                 <Card>
                     <DataTable
