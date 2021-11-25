@@ -63,7 +63,8 @@ const Assests = ({ cols = 0 }) => {
         <CardText className='card-text font-small-2 mr-25 mb-0'>
           <Link to='/asset'>
             <Badge style={{ fontSize: "1.3em" }} color="primary" >View All</Badge>
-          </Link></CardText>
+          </Link>
+        </CardText>
       </CardHeader>
       <CardBody className='statistics-body'>
         <Row>{renderData()}</Row>

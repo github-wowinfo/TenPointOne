@@ -1,6 +1,4 @@
 import { useSkin } from '@hooks/useSkin'
-import { Link, NavLink, Redirect, useHistory, useLocation } from 'react-router-dom'
-import InputPasswordToggle from '@components/input-password-toggle'
 import { Row, Col, CardTitle, CardText, Form, FormGroup, Label, Input, CustomInput, Button } from 'reactstrap'
 import RecoverModal from "./RecoverModal"
 import { Fragment, useEffect, useState } from 'react'
@@ -31,51 +29,13 @@ const Login = () => {
   const illustration = skin === 'dark' ? 'newlogo.png' : 'newlogo.png',
     source = require(`@src/assets/images/pages/${illustration}`).default
 
-
-  // const setAccountListner = provider => {
-  //   provider.on('chainChanged', _ => window.location.reload())
-  // }
-
-
-  // useEffect(() => {
-  //   const loadProvider = async () => {
-  //     let provider = null
-  //     if (window.ethereum) {
-  //       provider = window.ethereum
-  //       // setAccountListner(provider)
-  //     } else if (window.web3) {
-  //       provider = window.web3.currentProvider
-  //     } else {
-  //       window.alert('Non-Ethereum browser detected. Please install MetaMask!')
-  //     }
-  //   }
-  //   loadProvider()
-  // }, [])
-
-  // const history = useHistory()
-  // const handleRoute = () => {
-  //   history.push('/home')
-  //   // history.replace('/home')
-  //   // window.location.href = '/home'
-  // }
-
   const { activateBrowserWallet, account, deactivate } = useEthers()
 
   const isConnected = account !== undefined
 
   const handleRoute = () => {
     window.location.href = '/home'
-    // console.warn("account", account)
-    // localStorage.setItem("address", account)
   }
-
-  // useEffect(() => {
-  //   // localStorage.setItem("address", account)
-  //   console.warn("account", account)
-  //   return () => {
-
-  //   }
-  // }, [account])
 
   return (
     <div className='auth-wrapper auth-v2'>
@@ -98,33 +58,14 @@ const Login = () => {
                 }}
                 block>CONNECT WALLET
               </Button.Ripple>)}
-
+            {console.log(account)}
             {<p>Account: {account}</p>}
             <Button size='sm' onClick={deactivate}>Deactivate</Button>
             {isConnected ? <p>Connected</p> : <p>Disconnected</p>}
-            {/* <Button.Ripple color='info' style={{ fontSize: "1.5em", marginBottom: 10 }}
-      
-                onClick={async () => {
-                  const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-                  console.log('account', accounts)
-                  dispatch(AppData.accAdrs(accounts[0]))
-      
-                  if (accounts !== null) {
-                    handleRoute()
-                  } else {
-                    window.alert('Error connecting to Metamask!')
-                  }
-                }}
-      
-                block>
-      
-                CONNECT WALLET
-              </Button.Ripple> */}
-
           </Col>
         </Col>
       </Row>
-    </div >
+    </div>
   )
 }
 

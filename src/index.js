@@ -44,7 +44,7 @@ ReactDOM.render(
     <Suspense fallback={<Spinner />}>
       <ThemeContext>
         <DAppProvider config={{
-          supportedChains: [ChainId.ethereum, ChainId.Kovan, ChainId.BSC, ChainId.Polygon, ChainId.Mainnet]
+          supportedChains: [ChainId.ethereum, ChainId.Kovan, ChainId.BSC, ChainId.Polygon, ChainId.Mainnet, ChainId.Ropsten, ChainId.Goerli, ChainId.Localhost]
         }}>
           <LazyApp />
         </DAppProvider>
