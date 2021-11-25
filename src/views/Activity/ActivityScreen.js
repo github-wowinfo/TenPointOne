@@ -249,7 +249,7 @@ const ActivityScreen = ({ message, dispatch }) => {
                                 <Button.Ripple outline color='primary' size='lg' active={active === '2'} onClick={() => {
                                     toggle('2')
                                 }}>
-                                    Execution
+                                    Contract Interaction
                                 </Button.Ripple>
                             </div>
                         </Col>
@@ -257,27 +257,6 @@ const ActivityScreen = ({ message, dispatch }) => {
                     </div>
 
                 </Card>
-
-                <Col md={6} sm={6}>
-                    <div className='d-inline-block mr-1 mb-1'>
-                        <Button.Ripple outline color='primary' size='lg' active={active === '1'} onClick={() => {
-                            toggle('1')
-
-                        }}>
-                            Transactions
-                        </Button.Ripple>
-                    </div>
-                </Col>
-
-                <Col md={6} sm={6}>
-                    <div className='d-inline-block mr-1 mb-1'>
-                        <Button.Ripple outline color='primary' size='lg' active={active === '2'} onClick={() => {
-                            toggle('2')
-                        }}>
-                            Contract Interaction
-                        </Button.Ripple>
-                    </div>
-                </Col>
 
                 <Card>
                     <DataTable
