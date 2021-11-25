@@ -12,8 +12,17 @@ import DataTable from 'react-data-table-component'
 import '@styles/react/libs/tables/react-dataTable-component.scss'
 import axios from 'axios'
 import moment from 'moment'
+import { useEthers } from '@usedapp/core'
 
 const ActivityScreen = ({ message, dispatch }) => {
+
+    const { account } = useEthers()
+
+    const isConnected = account !== undefined
+
+    const disconnect = () => {
+        window.location.href = '/login'
+    }
 
     const [modalVisible, setModalVisible] = useState(false)
     const [getTransaction, setTransaction] = useState([])
@@ -187,71 +196,74 @@ const ActivityScreen = ({ message, dispatch }) => {
 
     return (
         <>
-            <Card>
-                <CardBody>
-                    <Row>
-                        <Col >
-                            <label style={{ fontWeight: 'bold', fontSize: 16 }}>Transaction</label>
-                            <br />
-                            <label>Track your transaction status here</label>
+            {isConnected ? (<>
+                <Card>
+                    <CardBody>
+                        <Row>
+                            <Col >
+                                <label style={{ fontWeight: 'bold', fontSize: 16 }}>Transaction</label>
+                                <br />
+                                <label>Track your transaction status here</label>
+                            </Col>
+
+                            <Col className='mb-1' md='2' sm='12'>
+
+                                <Button.Ripple color='primary'
+                                    onClick={setMessage}
+                                >
+                                    <Row>
+                                        Export
+                                        <HiDownload style={{ marginLeft: 5 }} />
+                                    </Row>
+                                </Button.Ripple>
+                            </Col>
+                        </Row>
+                    </CardBody>
+                </Card>
+
+                <Card className='pt-2 align-items-center'>
+
+                    <div className='col-6' style={{ display: 'flex', flex: 1, justifyContent: 'space-evenly' }}>
+
+                        <Col md={6} sm={6}>
+                            <div className='d-inline-block mr-1 mb-1'>
+                                <Button.Ripple outline color='primary' size='lg' active={active === '1'} onClick={() => {
+                                    toggle('1')
+
+                                }}>
+                                    Transactions
+                                </Button.Ripple>
+                            </div>
                         </Col>
 
-                        <Col className='mb-1' md='2' sm='12'>
-
-                            <Button.Ripple color='primary'
-                                onClick={setMessage}
-                            >
-                                <Row>
-                                    Export
-                                    <HiDownload style={{ marginLeft: 5 }} />
-                                </Row>
-                            </Button.Ripple>
+                        <Col md={6} sm={6}>
+                            <div className='d-inline-block mr-1 mb-1'>
+                                <Button.Ripple outline color='primary' size='lg' active={active === '2'} onClick={() => {
+                                    toggle('2')
+                                }}>
+                                    Execution
+                                </Button.Ripple>
+                            </div>
                         </Col>
-                    </Row>
-                </CardBody>
-            </Card>
 
-            <Card className='pt-2 align-items-center'>
+                    </div>
 
-                <div className='col-6' style={{ display: 'flex', flex: 1, justifyContent: 'space-evenly' }}>
+                </Card>
 
-                    <Col md={6} sm={6}>
-                        <div className='d-inline-block mr-1 mb-1'>
-                            <Button.Ripple outline color='primary' size='lg' active={active === '1'} onClick={() => {
-                                toggle('1')
+                <Card>
+                    <DataTable
+                        className='react-dataTable'
+                        customStyles={tablestyle}
+                        noHeader
+                        data={dataList}
+                        columns={columns}
+                    />
+                </Card>
+                <CustomModal open={modalVisible} handleModal={handleModal} trxnId={trxnId} />
 
-                            }}>
-                                Transactions
-                            </Button.Ripple>
-                        </div>
-                    </Col>
-
-                    <Col md={6} sm={6}>
-                        <div className='d-inline-block mr-1 mb-1'>
-                            <Button.Ripple outline color='primary' size='lg' active={active === '2'} onClick={() => {
-                                toggle('2')
-                            }}>
-                                Execution
-                            </Button.Ripple>
-                        </div>
-                    </Col>
-
-                </div>
-
-            </Card>
-
-            <Card>
-                <DataTable
-                    className='react-dataTable'
-                    customStyles={tablestyle}
-                    noHeader
-                    data={dataList}
-                    columns={columns}
-                />
-            </Card>
-            <CustomModal open={modalVisible} handleModal={handleModal} trxnId={trxnId} />
-
+            </>) : disconnect()}
         </>
+
     )
 }
 

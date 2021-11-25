@@ -12,19 +12,24 @@ import { toast } from 'react-toastify'
 import Avatar from '@components/avatar'
 import { connect } from 'react-redux'
 import { Fragment, useState } from 'react'
+import { useEthers } from "@usedapp/core"
 import Icon from 'react-crypto-icons'
 import Text from '../../views/CustomComponent/Text'
 
 const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
-  const accAdrs = localStorage.getItem('address')
-  const [text, setText] = useState(accAdrs)
+
+  const { account } = useEthers()
+
+  const [text, setText] = useState(account)
+
   const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
+
   const copy = async () => {
     await navigator.clipboard.writeText(text)
     notifySuccess()
   }
 
-  const pathname = `https://etherscan.io/address/${accAdrs}`
+  const pathname = `https://etherscan.io/address/${account}`
 
   const stylecontainer = {
     textAlign: 'center',
@@ -150,8 +155,8 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
               <DropdownItem className='px-1' >
                 <dl>
                   <dt>SBI Vault</dt>
-                  {/* <dd>{accAdrs.slice(0, 10)}...{accAdrs.slice(accAdrs.length - 4, accAdrs.length)}</dd> */}
-                  <Text name={accAdrs} fchar={10} lchar={4} />
+                  <dd>{account.slice(0, 10)}...{account.slice(account.length - 4, account.length)}</dd>
+                  {/* <Text name={account} fchar={10} lchar={4} /> */}
                   {/* <dd>{accAdrs}</dd> */}
                 </dl>
               </DropdownItem>

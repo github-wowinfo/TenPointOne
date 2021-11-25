@@ -15,7 +15,7 @@ import data from './data'
 import { ChevronDown } from 'react-feather'
 import Avatar from '@components/avatar'
 import '@styles/react/libs/tables/react-dataTable-component.scss'
-
+import { useEthers } from '@usedapp/core'
 import axios from 'axios'
 
 // const currencyOptions = [
@@ -24,6 +24,15 @@ import axios from 'axios'
 // ]
 
 const Asset = () => {
+
+    const { account } = useEthers()
+
+    const isConnected = account !== undefined
+
+    const disconnect = () => {
+        window.location.href = '/login'
+    }
+
     const [assetList, setAssetList] = useState([])
 
     const getTokenBalance = async () => {
@@ -87,36 +96,39 @@ const Asset = () => {
 
     return (
         <>
-            <Card>
-                <CardBody>
-                    <Row>
-                        <Col >
-                            <label>Asset</label>
-                            <br />
-                            <label>View all your assets here</label>
-                        </Col>
+            {isConnected ? (<>
+                <Card>
+                    <CardBody>
+                        <Row>
+                            <Col >
+                                <label>Asset</label>
+                                <br />
+                                <label>View all your assets here</label>
+                            </Col>
 
-                        <Col className='mb-1' md='2' sm='12'>
-                            <Input type='select' name='select' id='select-basic'>
-                                <option>USD</option>
-                                <option>INR</option>
-                                <option>SAR</option>
-                            </Input>
-                        </Col>
-                    </Row>
-                </CardBody>
-            </Card>
+                            <Col className='mb-1' md='2' sm='12'>
+                                <Input type='select' name='select' id='select-basic'>
+                                    <option>USD</option>
+                                    <option>INR</option>
+                                    <option>SAR</option>
+                                </Input>
+                            </Col>
+                        </Row>
+                    </CardBody>
+                </Card>
 
-            <Card>
-                <DataTable
-                    className='react-dataTable'
-                    noHeader
-                    data={assetList}
-                    columns={columns}
-                    sortIcon={<ChevronDown size={10} />}
-                />
-            </Card>
+                <Card>
+                    <DataTable
+                        className='react-dataTable'
+                        noHeader
+                        data={assetList}
+                        columns={columns}
+                        sortIcon={<ChevronDown size={10} />}
+                    />
+                </Card>
+            </>) : disconnect()}
         </>
+
     )
 }
 export default Asset

@@ -8,13 +8,23 @@ import Assests from "./Dashboard/Assests"
 import RecentTrans from "./Dashboard/RecentTrans"
 import SegaDisplay from './Dashboard/SegaDisplay'
 import Avatar from '@components/avatar'
+import { useEthers } from '@usedapp/core/dist/esm/src/hooks/useEthers'
 
 const Home = () => {
 
+  const { account } = useEthers()
+
+  const isConnected = account !== undefined
+
+  const disconnect = () => {
+    window.location.href = '/login'
+  }
+
   const [chart, setChart] = useState(true)
   return (
+
     <div>
-      <Row>
+      {isConnected ? (<Row>
         <Col>
           <Card className='my-1'>
             <CardHeader className='d-flex justify-content-start my-0 pb-0'>
@@ -45,8 +55,9 @@ const Home = () => {
             </Col>
           </Row>
         </Col>
-      </Row>
-    </div >
+      </Row>) : disconnect()}
+    </div>
+
   )
 }
 
