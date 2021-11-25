@@ -30,10 +30,9 @@ import { useEthers } from '@usedapp/core'
 
 const UserDropdown = ({ networkC }) => {
 
-  const accAdrs = localStorage.getItem('address')
-  console.log(accAdrs)
+  const { account, deactivate } = useEthers()
 
-  const [text, setText] = useState(accAdrs)
+  const [text, setText] = useState(account)
 
   const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
 
@@ -79,9 +78,9 @@ const UserDropdown = ({ networkC }) => {
     backgroundColor: 'orange',
     marginLeft: 2
   }
-  const { account, deactivate } = useEthers()
 
-  const pathname = `https://etherscan.io/address/${accAdrs}`
+
+  const pathname = `https://etherscan.io/address/${account}`
 
   const backgroundChange = { backgroundColor: networkC.name === 'BSC Mainet' ? '#cc9b00' : networkC.name === 'Etherum' ? '#627eea' : networkC.name === 'Optimism' ? '#ff0420' : networkC.name === 'Arbitrum' ? '#2d374b' : '#8247e5' }
 
@@ -105,7 +104,7 @@ const UserDropdown = ({ networkC }) => {
             }}>
               <span className='user-name font-weight-bold'>{(userData && userData['username']) || `Metamask @  ${networkC.name}`}</span>
               <br />
-              <span className='user-status'>{(userData && userData.role) || accAdrs.slice(0, 4)}...{accAdrs.slice(accAdrs.length - 4, accAdrs.length)}</span>
+              <span className='user-status'>{(userData && userData.role) || account.slice(0, 4)}...{account.slice(account.length - 4, account.length)}</span>
             </div>
             <div>
               <Avatar color='light-warning' icon={<GiFoxHead size={40} />} status='online' />
@@ -130,7 +129,7 @@ const UserDropdown = ({ networkC }) => {
                   padding: 5,
                   backgroundColor: '#f9f9f9aa'
                 }}>
-                  <label className='mr-1'>{accAdrs.slice(0, 4)}...{accAdrs.slice(accAdrs.length - 4, accAdrs.length)}</label>
+                  <label className='mr-1'>{account.slice(0, 4)}...{account.slice(account.length - 4, account.length)}</label>
                   <FaRegCopy size={15} className='mr-1' onClick={copy} />
                   <a href={pathname}><GoLinkExternal color='grey' size={15} /></a>
                 </div>
