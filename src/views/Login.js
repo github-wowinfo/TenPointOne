@@ -69,6 +69,7 @@ const Login = () => {
     // localStorage.setItem("address", account)
   }
 
+<<<<<<< HEAD
   // useEffect(() => {
   //   // localStorage.setItem("address", account)
   //   console.warn("account", account)
@@ -76,6 +77,15 @@ const Login = () => {
 
   //   }
   // }, [account])
+=======
+  useEffect(() => {
+    localStorage.setItem("address", account)
+    console.warn("account", account)
+    return () => {
+      
+    }
+  }, [account])
+>>>>>>> c8cdc5fb0099437f8d93169a9e22de05b4ef45c3
 
   return (
     <div className='auth-wrapper auth-v2'>
