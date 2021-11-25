@@ -98,7 +98,6 @@ const Asset = () => {
         }
     ]
 
-
     return (
         <>
             {isConnected ? (<>

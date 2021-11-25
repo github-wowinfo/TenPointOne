@@ -279,7 +279,6 @@ const ActivityScreen = ({ message, dispatch }) => {
                     </div>
                 </Col>
 
-
                 <Card>
                     <DataTable
                         className='react-dataTable'
