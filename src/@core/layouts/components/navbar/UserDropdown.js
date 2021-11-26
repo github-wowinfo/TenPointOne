@@ -28,10 +28,11 @@ import { RiWallet3Line } from 'react-icons/ri'
 
 // ** useDapp
 import { useEthers } from '@usedapp/core'
+import helperConfig from '../../../../helper-config.json'
 
 const UserDropdown = ({ networkC }) => {
 
-  const { account, deactivate } = useEthers()
+  const { account, deactivate, chainId } = useEthers()
 
   const [text, setText] = useState(account)
 
@@ -85,6 +86,7 @@ const UserDropdown = ({ networkC }) => {
 
   const backgroundChange = { backgroundColor: networkC.name === 'BSC Mainet' ? '#cc9b00' : networkC.name === 'Etherum' ? '#627eea' : networkC.name === 'Optimism' ? '#ff0420' : networkC.name === 'Arbitrum' ? '#2d374b' : '#8247e5' }
 
+  const networkName = chainId ? helperConfig[chainId] : "Not Connected"
 
   return (
     <>
@@ -103,7 +105,7 @@ const UserDropdown = ({ networkC }) => {
               marginRight: 5,
               textAlign: 'right'
             }}>
-              <span className='user-name font-weight-bold'>{(userData && userData['username']) || `Metamask @  ${networkC.name}`}</span>
+              <span className='user-name font-weight-bold'>{(userData && userData['username']) || `Metamask @  ${networkName}`}</span>
               <br />
               <span className='user-status'>{(userData && userData.role) || (account && account.slice(0, 4))}...{account && account.slice(account.length - 4, account.length)}</span>
               {/* <Text name={account} fchar={4} lchar={4} /> */}
@@ -136,7 +138,7 @@ const UserDropdown = ({ networkC }) => {
                   {/* {account.slice(0, 4)}...{account.slice(account.length - 4, account.length)} */}
                   {/* <Text name={account} fchar={4} lchar={4} /> */}
                   <FaRegCopy size={15} className='mr-1' onClick={copy} />
-                  <a href={pathname}><GoLinkExternal color='grey' size={15} /></a>
+                  <a href={pathname} target='_blank'><GoLinkExternal color='grey' size={15} /></a>
                 </div>
 
               </div>
@@ -159,7 +161,7 @@ const UserDropdown = ({ networkC }) => {
 
               <div className='row d-flex justify-content-center align-items-center' style={{ marginRight: 0 }}>
                 <div className='circle' style={{ ...backgroundChange }}></div>
-                <label style={{ marginLeft: 2 }}>{networkC.name}</label>
+                <label style={{ marginLeft: 2 }}>{networkName.toUpperCase()}</label>
               </div>
             </div>
           </li>

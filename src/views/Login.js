@@ -53,8 +53,13 @@ const Login = () => {
             {isConnected ? (<Button.Ripple color='info' style={{ fontSize: "1.5em", marginBottom: 10 }}
               onClick={() => handleRoute()} block>WELCOME BACK!! </Button.Ripple>) : (<Button.Ripple color='info' style={{ fontSize: "1.5em", marginBottom: 10 }}
                 onClick={async () => {
-                  await activateBrowserWallet()
-                  handleRoute()
+                  try {
+                    await activateBrowserWallet(undefined, true)
+                    handleRoute()
+                  } catch (error) {
+                    alert(error.message)
+                  }
+
                 }}
                 block>CONNECT WALLET
               </Button.Ripple>)}

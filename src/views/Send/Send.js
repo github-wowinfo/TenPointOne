@@ -126,7 +126,7 @@ const Send = () => {
                 <h4>SBI Vault</h4>
                 <p style={{ color: 'gray', fontSize: '.9rem' }}>{account}
                   <FaRegCopy className='ml-1 mr-1' color='grey' size={15} onClick={copy} />
-                  <a href={pathname}><GoLinkExternal color='grey' size={15} /></a>
+                  <a href={pathname} target='_blank'><GoLinkExternal color='grey' size={15} /></a>
                 </p>
                 <Badge style={{ width: '130px' }} color='secondary'>Balance: <strong>0 MATIC</strong></Badge>
               </Col>

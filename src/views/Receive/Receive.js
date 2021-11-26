@@ -83,7 +83,7 @@ const Receive = ({ networkC }) => {
                 </p>
                 <span className='d-flex flex-row justify-content-center'>
                   <FaRegCopy className='mx-1 mt-1' color='grey' size={15} onClick={copy} />
-                  <a href={pathname}><GoLinkExternal className='mx-1 mt-1' color='grey' size={15} /></a>
+                  <a href={pathname} target='_blank'><GoLinkExternal className='mx-1 mt-1' color='grey' size={15} /></a>
                 </span>
               </Col>
             </Row>
