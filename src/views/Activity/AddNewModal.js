@@ -1,9 +1,9 @@
 // ** React Imports
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Fragment } from 'react'
 
 // ** Third Party Components
 import Flatpickr from 'react-flatpickr'
-import { User, Briefcase, Mail, Calendar, DollarSign, X } from 'react-feather'
+import { User, Briefcase, Mail, Calendar, DollarSign, X, Clipboard } from 'react-feather'
 import {
   Button,
   Modal,
@@ -26,6 +26,9 @@ import { IoMdCopy } from 'react-icons/io'
 import { BsBoxArrowUpRight } from 'react-icons/bs'
 import axios from 'axios'
 import moment from 'moment'
+import { FaRegCopy } from 'react-icons/fa'
+import { toast } from 'react-toastify'
+import Avatar from '@components/avatar'
 
 const AddNewModal = ({ open, handleModal, trxnId }) => {
   // ** State
@@ -44,6 +47,22 @@ const AddNewModal = ({ open, handleModal, trxnId }) => {
       console.log(`AddNewModal [getTransactionDetails]`, error)
     }
   }
+
+  const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
+  const copy = async () => {
+    await navigator.clipboard.writeText(details?.id)
+    notifySuccess()
+  }
+  const SuccessToast = () => (
+    <Fragment>
+      <div className='toastify-header'>
+        <div className='title-wrapper'>
+          <Avatar size='sm' color='success' icon={<Clipboard size={12} />} />
+          <h6 className='toast-title'>Copied to Clipboard!</h6>
+        </div>
+      </div>
+    </Fragment>
+  )
 
   useEffect(() => {
 
@@ -67,20 +86,18 @@ const AddNewModal = ({ open, handleModal, trxnId }) => {
       <ModalHeader className='mb-3' toggle={handleModal} close={CloseBtn} tag='div'>
         <label style={{ fontSize: 15, fontWeight: 'bold' }}>Transaction Details</label>
         <br />
-        <label style={{ fontSize: 15, fontWeight: 'bold', color: 'blue' }}>More Details</label>
+        <label style={{ fontSize: 15, fontWeight: 'normal' }}>{details?.description}</label>
       </ModalHeader>
       <ModalBody className='flex-grow-1'>
         <FormGroup>
           <label className='label'>Transaction Hash</label>
           <br />
-          {/* <label className='text'>{details.length > 0 && strText.slice(0, 18)}...{strText.slice(strText.length - 4, strText.length)}</label> */}
-          <Text text={details?.id} />
-
+          <label className='text' style={{ lineBreak: 'anywhere' }}>{details?.id}</label>
           <div>
             <Row>
               <Col md='1' >
 
-                <IoMdCopy size={20} />
+                <FaRegCopy size={15} className='mr-1' onClick={copy} />
               </Col>
               <Col md='1'>
 
@@ -90,20 +107,30 @@ const AddNewModal = ({ open, handleModal, trxnId }) => {
           </div>
         </FormGroup>
         <FormGroup>
+          <label className='label'  >From</label>
+          <br />
+          <Text text={details?.from} />
+        </FormGroup>
+        <FormGroup>
+          <label className='label'  >To</label>
+          <br />
+          <Text text={details?.to} />
+        </FormGroup>
+        <FormGroup>
           <label className='label'>Total Amount</label>
           <br />
-          <label className='text w-50'>{details.value}</label>
+          <label className='text w-50'>{details?.sent ? details?.sent[0].value / (10 ** details?.sent[0].decimals) : details?.received ? '' : '-'}</label>
 
         </FormGroup>
         <FormGroup>
           <label className='label'>Transaction Fee</label>
           <br />
-          <label className='text'>{details.fee} ETH</label>
+          <label className='text'>{details.fee / (10 ** 18)} MATIC</label>
         </FormGroup>
         <FormGroup>
           <label className='label'>Created Date & Time</label>
           <br />
-          <label className='text'>{moment(details.date).format("MMM-DD-YYYY h:mm:ss")}</label>
+          <label className='text'>{moment(details.date * 1000).format("MMM-DD-YYYY h:mm:ss")}</label>
         </FormGroup>
         <FormGroup>
           <label className='label'>Status</label>
@@ -117,7 +144,7 @@ const AddNewModal = ({ open, handleModal, trxnId }) => {
         <FormGroup>
           <label className='label'>Note</label>
           <br />
-          <Input type='textarea' name='text' id='exampleText' rows='3' placeholder='Enter Note' />
+          <Input type='text' name='text' id='exampleText' rows='3' placeholder='Enter Note' />
         </FormGroup>
         <div className='row' style={{ flex: 1, justifyContent: 'flex-end', marginRight: 0 }}>
           <Button color='primary' onClick={handleModal} className='right'>
