@@ -155,7 +155,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
               <DropdownItem className='px-1' >
                 <dl>
                   <dt>SBI Vault</dt>
-                  <dd>{account.slice(0, 10)}...{account.slice(account.length - 4, account.length)}</dd>
+                  <dd>{account && account.slice(0, 10)}...{account && account.slice(account.length - 4, account.length)}</dd>
                   {/* <Text name={account} fchar={10} lchar={4} /> */}
                   {/* <dd>{accAdrs}</dd> */}
                 </dl>
