@@ -18,8 +18,9 @@ import data from './data'
 import { ChevronDown } from 'react-feather'
 import Avatar from '@components/avatar'
 import '@styles/react/libs/tables/react-dataTable-component.scss'
-import { useEthers } from '@usedapp/core'
 import axios from 'axios'
+import { useEthers } from '@usedapp/core'
+import { useCoingeckoPrice } from '@usedapp/coingecko'
 
 // const currencyOptions = [
 //     { value: 'usd', label: 'USD' },
@@ -98,9 +99,16 @@ const Asset = () => {
         }
     ]
 
+    const etherPrice = useCoingeckoPrice('dinoswap', 'usd')
+
     return (
         <>
             {isConnected ? (<>
+                <Row>
+                    <Col>
+                        <p>${etherPrice}</p>
+                    </Col>
+                </Row>
                 <Card>
                     <CardBody>
                         <Row>

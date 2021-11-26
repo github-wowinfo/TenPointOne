@@ -51,7 +51,7 @@ const Login = () => {
               Welcome to TEN-POINT-ONE! 👋
             </CardTitle>
             {isConnected ? (<Button.Ripple color='info' style={{ fontSize: "1.5em", marginBottom: 10 }}
-              onClick={() => handleRoute()} block>WELCOME BACK!! </Button.Ripple>) : (<Button.Ripple color='info' style={{ fontSize: "1.5em", marginBottom: 10 }}
+              onClick={() => handleRoute()} block>WELCOME..!! </Button.Ripple>) : (<Button.Ripple color='info' style={{ fontSize: "1.5em", marginBottom: 10 }}
                 onClick={async () => {
                   try {
                     await activateBrowserWallet(undefined, true)
