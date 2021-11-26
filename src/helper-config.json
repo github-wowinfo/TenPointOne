@@ -1,0 +1,13 @@
+{
+    "1":"mainnet",
+    "42":"kovan",
+    "3" : "ropsten",
+    "4":"rinkeby",
+    "5":"goerli",
+    "100":"xdai",
+    "137":"polygon",
+    "80001":"polygon-test",
+    "56":"bsc",
+    "97":"bsc-test",
+    "1337":"dev2"
+}

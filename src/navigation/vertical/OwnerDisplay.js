@@ -164,7 +164,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
               <DropdownItem style={{ display: 'flex', justifyContent: 'space-between' }} href='#'>
                 <Link to='/receive'><IoQrCodeOutline color='grey' size={25} /></Link>
                 <FaRegCopy color='grey' size={25} onClick={copy} />
-                <a href={pathname}><GoLinkExternal color='grey' size={25} /></a>
+                <a href={pathname} target='_blank'><GoLinkExternal color='grey' size={25} /></a>
               </DropdownItem>
               <DropdownItem divider></DropdownItem>
               <DropdownItem className='text-center py-0' tag='a'>
