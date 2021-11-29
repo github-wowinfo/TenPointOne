@@ -30,6 +30,7 @@
     "cleave.js": "1.6.0",
     "draft-js": "0.11.7",
     "draftjs-to-html": "0.9.1",
+    "ethers": "^5.5.1",
     "file-saver": "2.0.2",
     "flatpickr": "4.6.3",
     "gh-pages": "^3.2.3",

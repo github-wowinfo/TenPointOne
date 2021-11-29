@@ -1,0 +1,50 @@
+{
+    "dependencies": [
+        "OpenZeppelin/openzeppelin-contracts@4.2.0"
+    ],
+    "compiler": {
+        "solc": {
+            "remappings": [
+                "@openzeppelin=OpenZeppelin/openzeppelin-contracts@4.2.0"
+            ]
+        }
+    },
+    "networks": {
+        "polygon-main": {
+            "risk_token": "",
+            "sFact": "",
+            "vFact": "",
+            "RCU": ""
+        },
+        "kovan": {
+            "fau_token": "0x64e356DdD6E240b865d1F6Fc0Ad029fC32b2fb6F",
+            "risk_token": "",
+            "sFact": "0x840bcE37c4DeAdeDfEC18399a6Da068b39f53346",
+            "vFact": "0x856ee621B08263B2E1248c3d2175473c5c0A77E2",
+            "RCU": "0xA3650a19526B524099b054580FF0cF77cbBEF99c"
+        },
+        "polygon-test": {
+            "risk_token": "",
+            "sFact": "0x8216CbcF9e0B2C7cFEC53Ee144BF41436AB4e626",
+            "vFact": "0x8679d207d57B919F8C4EDb91603D6dC3E852bf12",
+            "RCU": "0xD8730e9FbFDD0D61DA3327989Dab93Db8Ac1F5c2"
+        },
+        "bsc-test": {
+            "risk_token": "",
+            "sFact": "0x840bcE37c4DeAdeDfEC18399a6Da068b39f53346",
+            "vFact": "0x856ee621B08263B2E1248c3d2175473c5c0A77E2",
+            "RCU": "0xA3650a19526B524099b054580FF0cF77cbBEF99c"
+        },
+        "dev2": {
+            "risk_token": "",
+            "sFact": "0x840bcE37c4DeAdeDfEC18399a6Da068b39f53346",
+            "vFact": "0x856ee621B08263B2E1248c3d2175473c5c0A77E2",
+            "RCU": "0xA3650a19526B524099b054580FF0cF77cbBEF99c"
+        }
+    },
+    "dotenv": ".env",
+    "wallets": {
+        "from_key": "${PRIVATE_KEY}",
+        "from_mnemonic": "${MNEMONIC}"
+    }
+}
