@@ -13,6 +13,7 @@ import '@styles/react/libs/tables/react-dataTable-component.scss'
 import axios from 'axios'
 import moment from 'moment'
 import { useEthers } from '@usedapp/core'
+import ReactPaginate from 'react-paginate'
 
 const ActivityScreen = ({ message, dispatch }) => {
 
@@ -29,6 +30,7 @@ const ActivityScreen = ({ message, dispatch }) => {
     const [trxnId, setTrxnId] = useState('')
     const [dataList, setDataList] = useState([])
     const [active, setActive] = useState('1')
+    const [currentPage, setCurrentPage] = useState(0)
 
     const handleModal = () => {
         setModalVisible(!modalVisible)
@@ -41,12 +43,13 @@ const ActivityScreen = ({ message, dispatch }) => {
     }
 
     const getDataForList = (value) => {
+        let data = []
         if (value === '1') {
 
-            const data = getTransaction.transactions.filter((a) => a.type.includes('receive') || a.type.includes('send') || a.type.includes('approve'))
+            data = getTransaction.length > 0 && getTransaction.transactions.filter((a) => a.type.includes('receive') || a.type.includes('send') || a.type.includes('approve'))
             setDataList(data)
         } else {
-            const data = getTransaction.transactions.filter((a) => !a.type.includes('receive') && !a.type.includes('send') && !a.type.includes('approve'))
+            data = getTransaction.length > 0 && getTransaction.transactions.filter((a) => !a.type.includes('receive') && !a.type.includes('send') && !a.type.includes('approve'))
 
             setDataList(data)
         }
@@ -62,7 +65,7 @@ const ActivityScreen = ({ message, dispatch }) => {
     const getTokenTransaction = async () => {
         try {
 
-            const response = await axios.get(`https://stg-api.unmarshal.io/v1/matic/address/0x989923d33bE0612680064Dc7223a9f292C89A538/transactions?page=1&pageSize=20&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+            const response = await axios.get(`https://stg-api.unmarshal.io/v1/matic/address/0x989923d33bE0612680064Dc7223a9f292C89A538/transactions?page=${currentPage}&pageSize=20&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
             setTransaction(response.data)
 
             const data = response.data.transactions.filter((a) => a.type.includes('receive') || a.type.includes('send') || a.type.includes('approve'))
@@ -77,7 +80,7 @@ const ActivityScreen = ({ message, dispatch }) => {
         getTokenTransaction()
         return () => {
         }
-    }, [])
+    }, [currentPage])
 
     const columns = [
         {
@@ -202,6 +205,31 @@ const ActivityScreen = ({ message, dispatch }) => {
         }
     }
 
+    const handlePagination = page => { setCurrentPage(page.selected) }
+
+    const CustomPagination = () => (
+        <ReactPaginate
+            previousLabel={''}
+            nextLabel={''}
+            forcePage={currentPage}
+            onPageChange={page => handlePagination(page)}
+            pageCount={getTransaction.total_pages || 1}
+            breakLabel={'...'}
+            pageRangeDisplayed={2}
+            marginPagesDisplayed={2}
+            activeClassName={'active'}
+            pageClassName={'page-item'}
+            nextLinkClassName={'page-link'}
+            nextClassName={'page-item next'}
+            previousClassName={'page-item prev'}
+            previousLinkClassName={'page-link'}
+            pageLinkClassName={'page-link'}
+            breakClassName='page-item'
+            breakLinkClassName='page-link'
+            containerClassName={'pagination react-paginate separated-pagination pagination-sm justify-content-end pr-1 mt-1'}
+        />
+    )
+
     return (
         <>
             {isConnected ? (<>
@@ -265,6 +293,10 @@ const ActivityScreen = ({ message, dispatch }) => {
                         noHeader
                         data={dataList}
                         columns={columns}
+                        pagination
+                        paginationPerPage={20}
+                        paginationDefaultPage={currentPage + 1}
+                        paginationComponent={CustomPagination}
                     />
                 </Card>
                 <CustomModal open={modalVisible} handleModal={handleModal} trxnId={trxnId} />
