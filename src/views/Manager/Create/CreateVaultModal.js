@@ -29,40 +29,29 @@ const CreateVaultModal = ({ openvault, handleVaultModal }) => {
 
     }
 
+    // Smart Contract Handle Functions from useRCU.ts file
+    const { getRPAdmin, getVaultFactory, getSegaFactory,
+        getVaultList, getSegaList,
+        changeAdmin, changeAdminState,
+        changeVFact, changeVFactState,
+        changeSFact, changeSFactState,
+        launchVault, launchVaultState,
+    } = useRCU()
+
     // Smart Contract Handle Functions
-    const { launchVault, launchVaultState } = useRCU()
     const isLaunchInProgress = (launchVaultState.status === "Mining")
     const handleLaunchVault = () => {
         console.log("Trying to Launch Vault :")
         return launchVault()
     }
 
-    const { getVaultList } = useRCU()
-    const handleGetVaults = () => {
+    // const { getVaultList } = useRCU()
+    const handleGetAllVaults = () => {
         const x = getVaultList()
         setVaultList(x)
         console.log("Vault-List", x)
         return x
     }
-
-    const InfoToast = () => (
-        <Fragment>
-            <div className='toastify-header'>
-                <div className='title-wrapper'>
-                    <Avatar size='sm' color='info' icon={<Info size={12} />} />
-                    <h6 className='toast-title'>Info!</h6>
-                </div>
-            </div>
-            <div className='toastify-body'>
-                <span role='img' aria-label='toast-text'>
-                    <strong>{`${VaultList.length} Vaults found - Check Console!`}</strong>
-                    {/* <strong>{VaultList.length > 0 ? `${VaultList.length} Vaults found - Check Console!` : `Create New Vault`}</strong> */}
-                </span>
-            </div>
-        </Fragment>
-    )
-
-    const notifyInfo = () => toast.info(<InfoToast />, { hideProgressBar: false })
 
     useEffect(() => {
         if (launchVaultState.status === "Mining") {
@@ -115,19 +104,19 @@ const CreateVaultModal = ({ openvault, handleVaultModal }) => {
                             <Input type='text' id='nickname' />
                         </FormGroup>
                     </Col>
+                    <Col>
+                        <Button.Ripple className='mx-1' onClick={handleGetAllVaults}>Show All Vaults</Button.Ripple>
+                        <span>
+                            {VaultList.length > 0 ? `${VaultList.length} Vaults - see console` : "Get List of All Vaults"}
+                        </span>
+                    </Col>
                 </Row>
             </ModalBody>
-            <ModalFooter className='justify-content-center'>
+            <ModalFooter className='d-flex flex-column align-items-center justify-content-center'>
                 <Button.Ripple color='primary' id='controlledPopover' onClick={handleLaunchVault}>
                     {isLaunchInProgress ? <Spinner color='light' size='sm' /> : <span><PlusCircle className='mr-1' size={17} />Create</span>}
                 </Button.Ripple>
-                <Button.Ripple color='primary' onClick={() => {
-                    handleGetVaults()
-                    notifyInfo()
-                }}>
-                    Refresh Count
-                </Button.Ripple>
-                <div>
+                <div className='d-flex flex-column justify-content-center'>
                     <Alert isOpen={showLaunchingSnack} toggle={() => handleSnackClose()} color="info">
                         <div>Vault Launch in Progress. Transaction ID : &emsp; </div>
                         <a href={getExplorerTransactionLink(launchVaultTxn, chainId ? chainId : 1)}

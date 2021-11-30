@@ -140,11 +140,11 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
                     </Col>
                 </Row>
             </ModalBody>
-            <ModalFooter className='justify-content-center'>
+            <ModalFooter className='d-flex flex-column align-items-center justify-content-center'>
                 <Button.Ripple color='primary' id='controlledPopover' onClick={handleLaunchSega}>
                     {isLaunchInProgress ? <Spinner color='light' size='sm' /> : <span><PlusCircle className='mr-1' size={17} />Create</span>}
                 </Button.Ripple>
-                <div>
+                <div className='d-flex flex-column justify-content-center'>
                     <Alert isOpen={showSegaLaunchingSnack} toggle={() => handleSnackClose()} color="info">
                         <div>Sega Launch in Progress. Transaction ID : &emsp; </div>
                         <a href={getExplorerTransactionLink(launchSegaTxn, chainId ? chainId : 1)}
