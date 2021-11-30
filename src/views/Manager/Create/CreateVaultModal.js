@@ -55,7 +55,8 @@ const CreateVaultModal = ({ openvault, handleVaultModal }) => {
             </div>
             <div className='toastify-body'>
                 <span role='img' aria-label='toast-text'>
-                    <strong>{VaultList.length > 0 ? `${VaultList.length} Vaults found - Check Console!` : `Create New Vault`}</strong>
+                    <strong>{`${VaultList.length} Vaults found - Check Console!`}</strong>
+                    {/* <strong>{VaultList.length > 0 ? `${VaultList.length} Vaults found - Check Console!` : `Create New Vault`}</strong> */}
                 </span>
             </div>
         </Fragment>
@@ -118,11 +119,10 @@ const CreateVaultModal = ({ openvault, handleVaultModal }) => {
             </ModalBody>
             <ModalFooter className='justify-content-center'>
                 <Button.Ripple color='primary' id='controlledPopover' onClick={handleLaunchVault}>
-                    {isLaunchInProgress ? <Spinner color='primary' size={26} /> : <span><PlusCircle className='mr-1' size={17} />Create</span>}
+                    {isLaunchInProgress ? <Spinner color='light' size='sm' /> : <span><PlusCircle className='mr-1' size={17} />Create</span>}
                 </Button.Ripple>
                 <Button.Ripple color='primary' onClick={() => {
                     handleGetVaults()
-                    console.log(VaultList)
                     notifyInfo()
                 }}>
                     Refresh Count
