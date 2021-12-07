@@ -103,6 +103,7 @@ const Asset = () => {
 
     return (
         <>
+            {console.log(assetList)}
             {isConnected ? (<>
                 <Row>
                     <Col>

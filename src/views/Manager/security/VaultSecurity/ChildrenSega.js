@@ -49,14 +49,15 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, segas 
     //     }
     // ]
 
-    // const actualSegas = segas.filter(label => label !== '')
+    const actualSegas = segas.filter((sega) => { return sega.address !== "0x0000000000000000000000000000000000000000" })
 
-    const data = segas
+    const data = actualSegas
     // const CloseBtn = <X className='cursor-pointer' size={25} onClick={handleModal} />
     return (
         <Modal className='modal-dialog-centered modal-lg' isOpen={openchildsegamodal} toggle={handleChildSegatModal} >
-            {console.log('segas', segas)}
+            {/* {console.log('segas', segas)}
             {console.log('data', data)}
+            {console.log('actual segas', actualSegas)} */}
             <ModalHeader tag='h1' toggle={handleChildSegatModal}>
                 Children Sega
             </ModalHeader>
