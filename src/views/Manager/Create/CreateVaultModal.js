@@ -50,7 +50,6 @@ const CreateVaultModal = ({ openvault, handleVaultModal }) => {
         const x = getVaultList()
         setVaultList(x)
         console.log("Vault-List", x)
-        return x
     }
 
     useEffect(() => {

@@ -3,8 +3,8 @@ import { utils, constants } from "ethers"
 import { Contract } from "@ethersproject/contracts"
 import { useState, useEffect } from "react"
 
-import Vault from '../../brownie_exports/chain-info/contracts/Vault.json'
-// import Sega from '../../brownie_exports/chain-info/contracts/SEGA.json'
+import Vault from "../../brownie_exports/chain-info/contracts/Vault.json"
+//import Sega from "../brownie_exports/chain-info/contracts/SEGA.json"
 
 export const useVault = (vault) => {
     //console.log("In useVault - Vault:", vault)
@@ -19,20 +19,24 @@ export const useVault = (vault) => {
 
     // getRecoveryInfo() - Get Recovery Info
     const getRecoveryInfoFn = { abi: VaultInterface, address: vault, method: "getRecoveryInfo", args: [], }
-    const [_owner, _backup, c, d] = useContractCall(getRecoveryInfoFn) ?? []
+    const [_owner, _backup, c, d] = useContractCall(vault && getRecoveryInfoFn) ?? []
     const getRecoveryInfo = () => {
-        const x = new Date(c.toNumber() * 1000)
-        const _releaseDt = x.toLocaleDateString('en-Gbackup', { day: 'numeric', month: 'short', year: 'numeric' }).replace(/ /g, ' ')
-        const _unlockDays = d.toNumber()
-        console.log("Original Info")
-        console.log(_owner, _backup, c, d)
-        console.log("Rec Info:", _owner, _backup, _releaseDt, _unlockDays)
-        return { _owner, _backup, _releaseDt, _unlockDays }
+        if (vault.length > 0) {
+            const x = new Date(c.toNumber() * 1000)
+            const _releaseDt = x.toLocaleDateString('en-Gbackup', { day: 'numeric', month: 'short', year: 'numeric' }).replace(/ /g, ' ')
+            const _unlockDays = d.toNumber()
+            console.log("Original Info")
+            console.log(_owner, _backup, c, d)
+            console.log("Rec Info:", _owner, _backup, _releaseDt, _unlockDays)
+            return { _owner, _backup, _releaseDt, _unlockDays }
+        } else {
+            return { _owner: "", _backup: "", _releaseDt: "0", _unlockDays: 9999 }
+        }
     }
 
     // viewSegaList() - Get list of Segas linked to this Vault
     const getSegaListFn = { abi: VaultInterface, address: vault, method: "viewSegaList", args: [], }
-    const [segaList] = useContractCall(getSegaListFn) ?? []
+    const [segaList] = useContractCall(vault && getSegaListFn) ?? []
     const getSegaList = () => {
         console.log("Sega List:", { segaList })
         return segaList
@@ -62,6 +66,7 @@ export const useVault = (vault) => {
         useContractFunction(VaultContract, "createNewSega", { transactionName: "Create New Sega" })
     const createNewSega = () => { return createNewSegaSend() }
 
+    //Clubbing All non-sega contract creation txns
     const [txnState, setTxnState] = useState(changeBackupState)
     const testSameTxn = (a, b) => {
         return (a.transaction?.hash === b.transaction?.hash)
@@ -84,37 +89,8 @@ export const useVault = (vault) => {
         } else { console.log("Not Mining") }
 
         console.log("Txn State After: ", txnState.transaction?.hash, txnState.status)
-    }, [changeBackupState, changeUnlockPeriodState, claimVaultState, txnState])
-
-    /*------------------------------------------------------
-    ------------------Sega Management Fn--------------------
-    -------------------------------------------------------*/
-    /*
-        // getInfo() - To Freeze the SEGA's Trader
-        const getSegaInfoFn = {abi:SegaInterface, address:sega.toString(), method:"getInfo", args:[],}
-        const [_vault,_trader,_active]: any = useContractCall(getSegaInfoFn) ?? []
-        const getSegaInfo = () => {
-            if (sega.length>0) {
-                console.log("Rec Info:",_vault,_trader,_active)
-                return {_vault,_trader,_active}
-            }
-        }
-    
-        // pauseSega() - To Freeze the SEGA's Trader
-        const {send: xxSend, state: xxState} =
-        useContractFunction(VaultContract,"xx", { transactionName:"xx" } )
-        const xx = (address:string) => { return xxSend(address) }
-    
-        // unpauseSega() - To Unfreeze the SEGA's Trader
-        const {send: xxSend, state: xxState} =
-        useContractFunction(VaultContract,"xx", { transactionName:"xx" } )
-        const xx = (address:string) => { return xxSend(address) }
-        
-        // changeTrader() - To Freeze the SEGA's Trader
-        const {send: xxSend, state: xxState} =
-        useContractFunction(VaultContract,"xx", { transactionName:"xx" } )
-        const xx = (address:string) => { return xxSend(address) }
-    */
+    }, [changeBackupState, changeUnlockPeriodState, claimVaultState, txnState]
+    )
 
     return {
         getRecoveryInfo,

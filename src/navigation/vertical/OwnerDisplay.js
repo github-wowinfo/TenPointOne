@@ -12,13 +12,13 @@ import { toast } from 'react-toastify'
 import Avatar from '@components/avatar'
 import { connect } from 'react-redux'
 import { Fragment, useState } from 'react'
-import { useEthers } from "@usedapp/core"
+import { useEthers, getExplorerAddressLink, getExplorerTransactionLink } from "@usedapp/core"
 import Icon from 'react-crypto-icons'
 import Text from '../../views/CustomComponent/Text'
 
 const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
 
-  const { account } = useEthers()
+  const { account, chainId } = useEthers()
 
   const [text, setText] = useState(account)
 
@@ -28,8 +28,6 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
     await navigator.clipboard.writeText(text)
     notifySuccess()
   }
-
-  const pathname = `https://etherscan.io/address/${account}`
 
   const stylecontainer = {
     textAlign: 'center',
@@ -164,7 +162,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
               <DropdownItem style={{ display: 'flex', justifyContent: 'space-between' }} href='#'>
                 <Link to='/receive'><IoQrCodeOutline color='grey' size={25} /></Link>
                 <FaRegCopy color='grey' size={25} onClick={copy} />
-                <a href={pathname} target='_blank'><GoLinkExternal color='grey' size={25} /></a>
+                <a href={getExplorerAddressLink(account, chainId ? chainId : 1)} target='_blank'><GoLinkExternal color='grey' size={25} /></a>
               </DropdownItem>
               <DropdownItem divider></DropdownItem>
               <DropdownItem className='text-center py-0' tag='a'>
