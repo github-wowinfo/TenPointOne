@@ -34,6 +34,7 @@ const Login = () => {
   const isConnected = account !== undefined
 
   const handleRoute = () => {
+
     window.location.href = '/home'
   }
 
