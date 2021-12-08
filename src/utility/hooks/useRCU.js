@@ -107,3 +107,14 @@ export const useRCU = () => {
         launchVaultState,
     }
 }
+export function isAddress(address) {
+    if (address) {
+        try {
+            getAddress(address)
+        } catch (e) { return false }
+        return true
+    } else {
+        return false
+    }
+
+}
