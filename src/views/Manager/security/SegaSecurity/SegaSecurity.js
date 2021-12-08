@@ -115,6 +115,13 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
         setTxnSuccessSnack(false)
     }
 
+    //Setting Flag for haveInfo
+    useEffect(() => {
+        if (Vault && Sega) {
+            setHaveInfo(1)
+        }
+    }, [Vault, Sega])
+
     useEffect(() => {
         console.log("haveInfo", haveInfo)
     }, [haveInfo])
@@ -256,7 +263,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                     </Row>
                 </ModalBody>
             </Modal>
-            <ForceRecall openrecallmodal={recallmodal} handlRecoverModal={handlRecoverModal} selectSega={Sega} pVault={parentVault} />
+            <ForceRecall openrecallmodal={recallmodal} handlRecoverModal={handlRecoverModal} selectSega={Sega} pVault={parentVault} haveInfo={haveInfo} />
         </div>
     )
 }

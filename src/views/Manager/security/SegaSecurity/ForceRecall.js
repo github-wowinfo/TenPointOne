@@ -6,8 +6,9 @@ import Badge from 'reactstrap/lib/Badge'
 import axios from 'axios'
 import { useTokens } from '../../../../utility/hooks/useTokens'
 import { useTransfers } from '../../../../utility/hooks/useTransfers'
+// import { OrderTicket } from '../../../orderTicket'
 
-const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault }) => {
+const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, haveInfo }) => {
 
     const [assetList, setAssetList] = useState([])
 
@@ -42,14 +43,6 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault })
             </components.Option>
         )
     }
-
-    const {
-        vaultTransferNative, vaultTransferErc,
-        recallNative, recallErc,
-        segaTransferNative, segaTransferErc,
-        segaApproveErc,
-        TransferState
-    } = useTransfers(vault?.toString(), sega?.toString())
 
     // const colourOptions = [
     //     { value: 'adrs', label: 'Address 1' },
@@ -93,6 +86,13 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault })
                             <Input type='text' id='parentvault' value={pVault} />
                         </FormGroup>
                     </Col>
+                    {/* {
+                        OrderTicket(
+                            haveInfo ? "2" : "0",
+                            haveInfo ? pVault : undefined,
+                            haveInfo ? selectSega : undefined
+                        )
+                    } */}
                     <Col className='mb-1'>
                         <Label style={{ fontSize: "1.3em" }}>Select Assest</Label>
                         <Select
