@@ -154,18 +154,17 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
 
     const getVaultListFromLocal = () => {
         const getdata = JSON.parse(localStorage.getItem('vaultdata'))
-        const vaultlist = getdata.map((vault, index) => ({ value: index, label: vault.address }))
+        const valueData = getdata.filter(a => a.show === true)
+        const vaultlist = valueData.map((vault, index) => ({ value: index, label: vault.address }))
         setVaultList(vaultlist)
+        
     }
 
     useEffect(() => {
 
         getVaultListFromLocal()
 
-        return () => {
-
-        }
-    }, [])
+    }, [opensegasec])
 
     return (
         <div>
