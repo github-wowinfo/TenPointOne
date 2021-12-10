@@ -55,8 +55,8 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
     // const CloseBtn = <X className='cursor-pointer' size={25} onClick={handleModal} />
     return (
         <Modal className='modal-dialog-centered modal-lg' isOpen={openrecallmodal} toggle={handlRecoverModal} >
-            {console.log('assest', asset)}
-            {console.log('assestlist', assetList)}
+            {/* {console.log('assest', asset)}
+            {console.log('assestlist', assetList)} */}
             <ModalHeader tag='h1' toggle={handlRecoverModal}>
                 Force Recall
             </ModalHeader>

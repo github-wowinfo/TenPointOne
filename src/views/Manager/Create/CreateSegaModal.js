@@ -10,7 +10,7 @@ import { useVault } from '../../../utility/hooks/useVaults'
 
 const CreateSegaModal = ({ opensega, handleSegaModal }) => {
 
-    const { chainId } = useEthers()
+    const { account, chainId } = useEthers()
 
     const { getVaultList } = useRCU()
     const [VaultList, setVaultList] = useState([])
@@ -23,11 +23,11 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
     // Declaring State Hooks
     const [SegaList, setSegaList] = useState([])
     const [haveInfo, setHaveInfo] = useState(0)
+    const [nickName, setNickName] = useState('')
 
     // Initialise Vault to Manage
     const [Vault, setVault] = useState("")
     const handleSetVault = (value) => {
-        console.log(value.label)
         setSegaList([])
         setHaveInfo(0)
         setVault(value.label)
@@ -46,13 +46,23 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
 
     //GET LIST OF VAULT's SEGAs
     const handleGetSegas = () => {
+        // if (Vault.length > 0) {
+        //     const x = getSegaList()
+        //     setSegaList(x)
+        //     console.log("Sega-List : ", x)
+        // } else {
+        //     handleGetAllVaults()
+        // }
+
         if (Vault.length > 0) {
-            const x = getSegaList()
-            setSegaList(x)
-            console.log("Sega-List : ", x)
-        } else {
-            handleGetAllVaults()
+            const getdata = JSON.parse(localStorage.getItem('segadata'))
+            if (getdata) {
+                const sega = getdata.filter(a => a.vault === Vault)
+                setSegaList(sega)
+                console.log("Sega-List", sega)
+            }
         }
+
     }
 
     //SNACKBAR Settings for Sega Launches
@@ -73,6 +83,12 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
         console.log("Trying to Launch Sega :")
         return createNewSega()
     }
+
+    const onChangeName = (e) => {
+        setNickName(e.target.value)
+
+    }
+
     // To track state of Sega creation Trasnactions
     useEffect(() => {
         if (createNewSegaState.status === "Mining") {
@@ -84,6 +100,24 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
         if (createNewSegaState.status === "Success") {
             const newSega = getAddress(hexStripZeros(createNewSegaState.receipt?.logs[1].topics[2]))
             setNewSegaAddress(newSega)
+
+            const getdata = JSON.parse(localStorage.getItem('segadata'))
+            const postdata =
+            {
+                owner: account,
+                vault: Vault,
+                name: nickName,
+                address: newSega,
+                network: chainId
+            }
+            let segadata = []
+            if (getdata) {
+                segadata = [...getdata, postdata]
+            } else {
+                segadata = [postdata]
+            }
+            localStorage.setItem('segadata', JSON.stringify(segadata))
+
             console.log("***Handle New Sega: ", newSega)
             console.log("***Handle Short Sega: ", shortenIfAddress(newSega))
             setShowSegaCreatedSnack(true)
@@ -93,6 +127,22 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
     // const CloseBtn = <X className='cursor-pointer' size={25} onClick={handleModal} />
 
     const vlist = VaultList.map((vault, index) => ({ value: index, label: vault }))
+
+
+    const getVaultListFromLocal = () => {
+        const getdata = JSON.parse(localStorage.getItem('vaultdata'))
+        const valueData = getdata.filter(a => a.show === true)
+        const vaultlist = valueData.map((vault, index) => ({ value: index, label: vault.address }))
+        setVaultList(vaultlist)
+    }
+
+    useEffect(() => {
+        getVaultListFromLocal()
+
+        return () => {
+
+        }
+    }, [])
 
     return (
         <Modal className='modal-dialog-centered modal-lg' isOpen={opensega} toggle={handleSegaModal} >
@@ -115,27 +165,27 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
                     <Col className='mb-1'>
                         <div className='d-flex flex-row justify-content-between my-1'>
                             <Label style={{ fontSize: "1.3em" }}>Parent Vault</Label>
-                            <Button.Ripple size='sm' color='primary' onClick={handleGetAllVaults}>Refresh</Button.Ripple>
+                            {/* <Button.Ripple size='sm' color='primary' onClick={handleGetAllVaults}>Refresh</Button.Ripple> */}
                         </div>
                         <Select
                             className='react-select'
                             classNamePrefix='select'
                             defaultValue=''
                             name='clear'
-                            options={vlist}
+                            options={VaultList}
                             onChange={handleSetVault}
                         />
                     </Col>
                     <Col>
                         <FormGroup>
                             <Label for='nickname' style={{ fontSize: "1.3em" }}>Nickname</Label>
-                            <Input type='text' id='nickname' />
+                            <Input type='text' id='nickname' onChange={onChangeName} />
                         </FormGroup>
                     </Col>
                     <Col>
                         <Button.Ripple className='mx-1' onClick={handleGetSegas}>Show all SEGA's</Button.Ripple>
                         <span>
-                            {SegaList.length > 0 ? (`${SegaList.length - 1} SEGAs - see console`) : "Get List of All SEGAs"}
+                            {SegaList.length > 0 ? (`${SegaList.length} SEGAs - see console`) : "Get List of All SEGAs"}
                         </span>
                     </Col>
                 </Row>

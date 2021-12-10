@@ -7,7 +7,15 @@ import { useVault } from '../../../../utility/hooks/useVaults'
 
 const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault }) => {
 
+    const [hideValue, setHideValue] = useState('')
+
     const { chainId } = useEthers()
+
+
+    const hideTextChange = (e) => {
+        setHideValue(e.target.value)
+
+    }
 
     // Import neccesary functions from useVaults.ts
     const { getRecoveryInfo, getSegaList,
@@ -53,6 +61,21 @@ const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault }) =>
         console.log("Txn In Progress / Completed:", getExplorerTransactionLink(txnID, chainId))
         setShowTxnMiningSnack(false)
         setTxnSuccessSnack(false)
+    }
+
+    const onClickHide = () => {
+
+        const getdata = JSON.parse(localStorage.getItem('vaultdata'))
+        for (const i in getdata) {
+            if (getdata[i].address === hideValue) {
+                getdata[i].show = false
+                break
+            }
+        }
+        localStorage.setItem('vaultdata', JSON.stringify(getdata))
+
+        handleModifyVaultModal()
+        
     }
 
     useEffect(() => {
@@ -118,9 +141,9 @@ const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault }) =>
                         <FormGroup>
                             <Label for='hide' style={{ fontSize: "1.3em" }}>Hide</Label>
                             <InputGroup>
-                                <Input type='text' id='hide' placeholder='Hide from view and stop tracking this Vault' />
+                                <Input type='text' id='hide' placeholder='Hide from view and stop tracking this Vault' onChange={hideTextChange} />
                                 <InputGroupAddon addonType='append'>
-                                    <Button color='primary' outline disabled>
+                                    <Button color='primary' outline onClick={onClickHide}>
                                         Hide
                                     </Button>
                                 </InputGroupAddon>

@@ -59,8 +59,10 @@ const CreateVaultModal = ({ openvault, handleVaultModal }) => {
         // console.log("Vault-List", x)
 
         const getdata = JSON.parse(localStorage.getItem('vaultdata'))
-        if (getdata) { setVaultList(getdata) }
-
+        if (getdata) {
+            setVaultList(getdata.filter(a => a.show === true))
+            console.log("Vault-List", getdata)
+        }
 
         // localStorage.removeItem('testdata')
         // const getdata = JSON.parse(localStorage.getItem('testdata'))
@@ -73,7 +75,6 @@ const CreateVaultModal = ({ openvault, handleVaultModal }) => {
         // }
         // localStorage.setItem('testdata', JSON.stringify(vaultdata))
 
-        
     }
 
     useEffect(() => {
@@ -120,18 +121,6 @@ const CreateVaultModal = ({ openvault, handleVaultModal }) => {
         }
     }, [notifications])
 
-    const getVaultDataFromLocal = () => {
-        const vaultdata = JSON.parse(localStorage.getItem('vaultdata'))
-        setVaultList(vaultdata)
-        // console.log('vaultdata on load', vaultdata)
-    }
-
-    useEffect(() => {
-        getVaultDataFromLocal()
-        return () => {
-
-        }
-    }, [])
 
     return (
         <Modal className='modal-dialog-centered modal-lg' isOpen={openvault} toggle={handleVaultModal} >

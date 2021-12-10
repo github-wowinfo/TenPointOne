@@ -72,12 +72,21 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
 
     //GET LIST OF VAULT's SEGAs
     const handleGetSegas = () => {
+        // if (Vault.length > 0) {
+        //     const x = getSegaList()
+        //     setSegaList(x)
+        //     console.log("Sega-List : ", x)
+        // } else {
+        //     handleGetAllVaults()
+        // }
+
         if (Vault.length > 0) {
-            const x = getSegaList()
-            setSegaList(x)
-            console.log("Sega-List : ", x)
-        } else {
-            handleGetAllVaults()
+            const getdata = JSON.parse(localStorage.getItem('segadata'))
+            if (getdata) {
+                const sega = getdata.filter(a => a.vault === Vault)
+                setSegaList(sega)
+                console.log("Sega-List", sega)
+            }
         }
     }
 
@@ -102,13 +111,13 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
 
     const slist = SegaList && SegaList.map((sega, index) => ({
         id: index,
-        address: sega,
+        address: sega.address,
         icon1: <FaRegCopy className='mx-1' onClick={() => {
-            navigator.clipboard.writeText(sega)
+            navigator.clipboard.writeText(sega.address)
             // notifySuccess()
             alert('hi')
         }} />,
-        icon2: <a href={getExplorerAddressLink(sega, chainId ? chainId : 1)} target='_blank'><GoLinkExternal className='mx-1' /></a>
+        icon2: <a href={getExplorerAddressLink(sega.address, chainId ? chainId : 1)} target='_blank'><GoLinkExternal className='mx-1' /></a>
     }))
 
     // const CloseBtn = <X className='cursor-pointer' size={25} onClick={handleModal} />
@@ -127,6 +136,21 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
         handleGetSegas()
     }
 
+    const getVaultListFromLocal = () => {
+        const getdata = JSON.parse(localStorage.getItem('vaultdata'))
+        const valueData = getdata.filter(a => a.show === true)
+        console.log('valueData', valueData)
+        const vaultlist = valueData.map((vault, index) => ({ value: index, label: vault.address }))
+        setVaultList(vaultlist)
+    }
+
+
+    useEffect(() => {
+
+        getVaultListFromLocal()
+
+    }, [openvaultsec])
+
     return (
         <div>
             <Modal className='modal-dialog-centered' isOpen={openvaultsec} toggle={() => {
@@ -144,14 +168,14 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
                         <Col className='mb-1' style={{}}>
                             <div className='d-flex flex-row justify-content-between my-1'>
                                 <Label style={{ fontSize: "1.3em" }}>Account</Label>
-                                <Button.Ripple size='sm' color='primary' onClick={handleGetAllVaults}>Refresh</Button.Ripple>
+                                {/* <Button.Ripple size='sm' color='primary' onClick={handleGetAllVaults}>Refresh</Button.Ripple> */}
                             </div>
                             <Select
                                 className='react-select'
                                 classNamePrefix='select'
                                 defaultValue=''
                                 name='clear'
-                                options={vlist}
+                                options={VaultList}
                                 onChange={handleSetVault}
                             />
                         </Col>
