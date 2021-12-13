@@ -99,7 +99,7 @@ const Asset = () => {
         }
     ]
 
-    const etherPrice = useCoingeckoPrice('dinoswap', 'usd')
+    const etherPrice = useCoingeckoPrice('01coin', 'usd')
 
     return (
         <>
@@ -114,7 +114,7 @@ const Asset = () => {
                     <CardBody>
                         <Row>
                             <Col >
-                                <label>Asset</label>
+                                <label style={{ fontWeight: 'bold', fontSize: 16 }}>Asset</label>
                                 <br />
                                 <label>View all your assets here</label>
                             </Col>

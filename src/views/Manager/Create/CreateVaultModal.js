@@ -11,19 +11,26 @@ const CreateVaultModal = ({ openvault, handleVaultModal }) => {
 
     // const CloseBtn = <X className='cursor-pointer' size={25} onClick={handleModal} />
 
-    const { chainId } = useEthers()
+    const { account, chainId } = useEthers()
     const { notifications } = useNotifications()
 
     //State Hooks
+    const [nickName, setNickName] = useState('')
     const [VaultList, setVaultList] = useState([])
     const [launchVaultTxn, setLaunchVaultTxn] = useState("")
     const [newVaultAddress, setNewVaultAddress] = useState("")
 
     const [showLaunchingSnack, setShowLaunchingSnack] = useState(false)
     const [showVaultCreatedSnack, setShowVaultCreatedSnack] = useState(false)
+
+    const onChangeName = (e) => {
+        setNickName(e.target.value)
+        console.log(e.target.value)
+    }
     const handleSnackClose = () => {
         console.log("Vault Creation Txn:", getExplorerTransactionLink(launchVaultTxn, Number(chainId)))
         console.log("New Vault Created:", getExplorerAddressLink(newVaultAddress, Number(chainId)))
+
         setShowLaunchingSnack(false)
         setShowVaultCreatedSnack(false)
 
@@ -47,9 +54,27 @@ const CreateVaultModal = ({ openvault, handleVaultModal }) => {
 
     // const { getVaultList } = useRCU()
     const handleGetAllVaults = () => {
-        const x = getVaultList()
-        setVaultList(x)
-        console.log("Vault-List", x)
+        // const x = getVaultList()
+        // setVaultList(x)
+        // console.log("Vault-List", x)
+
+        const getdata = JSON.parse(localStorage.getItem('vaultdata'))
+        if (getdata) {
+            setVaultList(getdata.filter(a => a.show === true))
+            console.log("Vault-List", getdata)
+        }
+
+        // localStorage.removeItem('testdata')
+        // const getdata = JSON.parse(localStorage.getItem('testdata'))
+        // const postdata = { owner: '', name: "svault", address: "0x3CC798a14360F3aa00d8e2b06c8AC147cDE0B925", network: 97 }
+        // let vaultdata = []
+        // if (getdata) {
+        //     vaultdata = [...getdata, postdata]
+        // } else {
+        //     vaultdata = [postdata]
+        // }
+        // localStorage.setItem('testdata', JSON.stringify(vaultdata))
+
     }
 
     useEffect(() => {
@@ -62,6 +87,23 @@ const CreateVaultModal = ({ openvault, handleVaultModal }) => {
         if (launchVaultState.status === "Success") {
             const newVault = getAddress(hexStripZeros(String(launchVaultState.receipt?.logs[0].topics[2])))
             setNewVaultAddress(newVault)
+
+            const getdata = JSON.parse(localStorage.getItem('vaultdata'))
+            const postdata =
+            {
+                owner: account,
+                name: nickName,
+                address: newVault,
+                network: chainId
+            }
+            let vaultdata = []
+            if (getdata) {
+                vaultdata = [...getdata, postdata]
+            } else {
+                vaultdata = [postdata]
+            }
+            localStorage.setItem('vaultdata', JSON.stringify(vaultdata))
+
             console.log("***Handle New Vault: ", newVault)
             console.log("***Handle Short Vault: ", shortenAddress(newVault))
             setShowVaultCreatedSnack(true)
@@ -78,6 +120,7 @@ const CreateVaultModal = ({ openvault, handleVaultModal }) => {
             console.log("Notifications : New Vault Launch Completed")
         }
     }, [notifications])
+
 
     return (
         <Modal className='modal-dialog-centered modal-lg' isOpen={openvault} toggle={handleVaultModal} >
@@ -100,13 +143,13 @@ const CreateVaultModal = ({ openvault, handleVaultModal }) => {
                     <Col>
                         <FormGroup>
                             <Label for='nickname' style={{ fontSize: "1.3em" }}>Nickname</Label>
-                            <Input type='text' id='nickname' />
+                            <Input type='text' id='nickname' onChange={onChangeName} />
                         </FormGroup>
                     </Col>
                     <Col>
                         <Button.Ripple className='mx-1' onClick={handleGetAllVaults}>Show All Vaults</Button.Ripple>
                         <span>
-                            {VaultList.length > 0 ? `${VaultList.length} Vaults - see console` : "Get List of All Vaults"}
+                            {VaultList?.length > 0 ? `${VaultList.length} Vaults - see console` : "Get List of All Vaults"}
                         </span>
                     </Col>
                 </Row>

@@ -67,6 +67,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
     const handleSetSega = (value) => {
         setHaveInfo(0)
         setSega(value.label)
+        value = ''
     }
 
     const handleGetSegaInfo = () => {
@@ -81,9 +82,9 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
         }
     }
 
-    const vlist = VaultList && VaultList.map((vault, index) => ({ value: index, label: vault }))
+    const vlist = VaultList && VaultList.map((vault, index) => ({ value: index, label: vault.address }))
 
-    const slist = SegaList && SegaList.slice(1).map((sega, index) => ({ value: index, label: sega }))
+    const slist = SegaList && SegaList.map((sega, index) => ({ value: index, label: sega.address }))
     const newSlist = slist.filter((sega) => { return sega.label !== "0x0000000000000000000000000000000000000000" })
 
     const handlePauseSega = () => {
@@ -123,8 +124,18 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
     // }, [Vault, Sega])
 
     useEffect(() => {
+
+        if (Vault.length > 0) {
+            const getdata = JSON.parse(localStorage.getItem('segadata'))
+            if (getdata) {
+                const sega = getdata.filter(a => a.vault === Vault)
+                setSegaList(sega)
+                console.log("Sega-List", sega)
+            }
+        }
+
         console.log("haveInfo", haveInfo)
-    }, [haveInfo])
+    }, [haveInfo, Vault])
 
     useEffect(() => {
         if (txnState.status === "Mining") {
@@ -140,6 +151,20 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
 
     const [recallmodal, setRecallModal] = useState(false)
     const handlRecoverModal = () => setRecallModal(!recallmodal)
+
+    const getVaultListFromLocal = () => {
+        const getdata = JSON.parse(localStorage.getItem('vaultdata'))
+        const valueData = getdata.filter(a => a.show === true)
+        const vaultlist = valueData.map((vault, index) => ({ value: index, label: vault.address }))
+        setVaultList(vaultlist)
+        
+    }
+
+    useEffect(() => {
+
+        getVaultListFromLocal()
+
+    }, [opensegasec])
 
     return (
         <div>
@@ -163,21 +188,21 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                         <Col className='mb-1' style={{}}>
                             <div className='d-flex flex-row justify-content-between my-1'>
                                 <Label style={{ fontSize: "1.3em" }}>Select Vault</Label>
-                                <Button.Ripple size='sm' color='primary' onClick={handleGetAllVaults}>Refresh</Button.Ripple>
+                                {/* <Button.Ripple size='sm' color='primary' onClick={handleGetAllVaults}>Refresh</Button.Ripple> */}
                             </div>
                             <Select
                                 className='react-select'
                                 classNamePrefix='select'
                                 defaultValue=''
                                 name='clear'
-                                options={vlist}
+                                options={VaultList}
                                 onChange={handleSetVault}
                             />
                         </Col>
                         <Col className='mb-1'>
                             <div className='d-flex flex-row justify-content-between my-1'>
                                 <Label style={{ fontSize: "1.3em" }}>Select Sega</Label>
-                                <Button.Ripple size='sm' color='primary' onClick={handleGetSegas}>Refresh</Button.Ripple>
+                                {/* <Button.Ripple size='sm' color='primary' onClick={handleGetSegas}>Refresh</Button.Ripple> */}
                             </div>
                             <Select
                                 // theme={selectThemeColors}
