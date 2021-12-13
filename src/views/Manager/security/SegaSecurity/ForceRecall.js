@@ -4,9 +4,10 @@ import Select, { components } from 'react-select'
 import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, CustomInput } from 'reactstrap'
 import Badge from 'reactstrap/lib/Badge'
 import axios from 'axios'
+import { CurrencyValue, Token, useEthers, useEtherBalance, useTokenBalance, getExplorerTransactionLink } from "@usedapp/core"
+import { constants, utils, BigNumber } from "ethers"
 import { useTokens } from '../../../../utility/hooks/useTokens'
 import { useTransfers } from '../../../../utility/hooks/useTransfers'
-// import { OrderTicket } from '../../../orderTicket'
 
 const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, haveInfo }) => {
 
@@ -25,7 +26,7 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
         getTokenBalance()
     }, [])
 
-    const asset = assetList.map((item) => ({ label: item.contract_ticker_symbol, img: item.logo_url }))
+    const asset = assetList.map((item) => ({ label: item.contract_ticker_symbol, img: item.logo_url, decimal: item.contract_decimals, balance: item.balance, symbol: item.contract_ticker_symbol, adrs: item.contract_address }))
 
     const data = asset
 
@@ -34,8 +35,6 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
     }
 
     const OptionComponent = ({ data, ...props }) => {
-
-
         return (
             <components.Option {...props}>
                 <img src={data.img} alt='logo' style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
@@ -44,19 +43,169 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
         )
     }
 
-    // const colourOptions = [
-    //     { value: 'adrs', label: 'Address 1' },
-    //     { value: 'adrs', label: 'Address 2' },
-    //     { value: 'adrs', label: 'Address 3' },
-    //     { value: 'adrs', label: 'Address 4' },
-    //     { value: 'adrs', label: 'Address 5' }
-    // ]
+    const RISK = {
+        img: `@src/assets/images/logo/question.jpg`,
+        label: 'RISK',
+    }
 
+    const LINK = {
+        img: `@src/assets/images/logo/question.jpg`,
+        label: 'LINK',
+    }
+
+    const USDC = {
+        img: `@src/assets/images/logo/question.jpg`,
+        label: 'USDC',
+    }
+
+    const [tokenTicker, setTokenTicker] = useState("")
+    const [decimal, setDecimal] = useState()
+    const [assetAdrs, setAssetAdrs] = useState('')
+    const [balance, setBalance] = useState()
+
+    const { TokenZero,
+        tokenAddress,
+        getToken,
+        getNative } = useTokens(tokenTicker) //tokenaddress
+
+    const nativeToken = getNative()
+
+    const apiList = data
+    const erc20List = [RISK, LINK, USDC]
+    const tokenList = [nativeToken.ticker].concat(erc20List).concat(apiList)
+
+    const [haveToken, setHaveToken] = useState(0)
+    const [usingNative, setUsingNative] = useState(0)
+    const handleSetTokenTicker = (data) => {
+        setUsingNative(0)
+        console.log("zzz1")
+        setHaveToken(0)
+        const _tokenTicker = data.label
+        const _tokenTickerDecimal = data.decimal
+        const _tokenTickerAdrs = data.adrs
+        const _tokenTickerBal = data.balance
+        console.log("Got Token Name:", _tokenTicker)
+        console.log("Token List:", tokenList)
+        // console.log(tokenList.indexOf(_tokenTicker))
+        console.log(tokenList.indexOf(tokenList.find(a => a.symbol === _tokenTicker)))
+        if (tokenList.indexOf(tokenList.find(a => a.symbol === _tokenTicker)) !== -1) {
+            console.log(_tokenTicker)
+            setTokenTicker(_tokenTicker)
+            setDecimal(_tokenTickerDecimal)
+            setAssetAdrs(_tokenTickerAdrs)
+            setBalance(_tokenTickerBal)
+        } else {
+            setTokenTicker(TokenZero.ticker)
+        }
+    }
+
+    const ercToken = getToken()
+    // useEffect(() => {
+    //     if (tokenTicker === nativeToken.ticker) {
+    //         setUsingNative(1)
+    //         setHaveToken(1)
+    //     }
+    //     if (ercToken !== TokenZero.name) {
+    //         setHaveToken(1)
+    //     }
+    // }, [ercToken, tokenTicker, nativeToken, TokenZero])
+    useEffect(() => {
+        if (tokenTicker === nativeToken.ticker) {
+            setUsingNative(1)
+            setHaveToken(1)
+        }
+        if (tokenTicker !== TokenZero.name) {
+            setHaveToken(1)
+        }
+    }, [ercToken, tokenTicker, nativeToken, TokenZero])
+
+    //////////////////////////////////////////////////
+    // Getting Amount To Transfer
+    //////////////////////////////////////////////////
+
+
+    const [amount, setAmount] = useState(0)
+    const handleInputAmount = (event) => {
+        const newAmount = (event.target.value) === "" ? "" : event.target.value
+        if (newAmount) {
+            setAmount(newAmount)
+        } else {
+            setAmount(0)
+        }
+        console.log("newAmt", newAmount)
+    }
+
+    const fromAccNativeBalance = useEtherBalance(selectSega)
+    const fromAccTokenBalance = useTokenBalance(tokenAddress, selectSega)
+
+    const nativeBal = new CurrencyValue(nativeToken, fromAccNativeBalance ? fromAccNativeBalance : BigNumber.from(0))
+    const ercTokenBal = new CurrencyValue(ercToken, fromAccTokenBalance ? fromAccTokenBalance : BigNumber.from(0))
+
+    const decimals = usingNative ? nativeToken.decimals : ercToken.decimals
+    // const decimals = usingNative ? nativeToken.decimals : decimal
+
+    // const bigNumAmount = haveToken ? utils.parseUnits(amount, decimals) : BigNumber.from(0)
+
+    const {
+        vaultTransferNative,
+        vaultTransferErc,
+        recallNative,
+        recallErc,
+        segaTransferNative,
+        segaTransferErc,
+        segaApproveErc,
+        TransferState
+    } = useTransfers(pVault, selectSega)
+
+    // const handleForceRecall = () => {
+    //     console.log("handleForceRecall")
+    //     if (usingNative) {
+    //         recallNative(bigNumAmount)
+    //     } else {
+    //         recallErc(tokenAddress, bigNumAmount)
+    //     }
+    // }
+
+    const handleForceRecall = () => {
+        console.log("handleForceRecall")
+        recallErc(assetAdrs, bigNumAmount)
+    }
+
+    const handleLog = () => {
+        const y = new CurrencyValue(nativeToken, BigNumber.from("100000000000000000000"))
+        // const z = new CurrencyValue(ercToken, BigNumber.from("100000000000000000000"))
+        console.log(y.format())
+        // console.log(z.format())
+        console.log(amount, decimals, haveToken)
+        console.log("Amount:", amount)
+        console.log("Decimals:", decimals)
+        console.log("BigNumAmt", utils.commify(bigNumAmount.toString()))
+        console.log("Frm Address", selectSega)
+        console.log("Vault", pVault)
+        console.log("To Address", pVault)
+    }
+
+    // const [assetFlag, setAssetFlag] = useState(0)
+    // const [selasset, setSelasset] = useState("")
+    // const [decimal, setDecimal] = useState()
+    // const [symbol, setSymbol] = useState('')
+    // const [assetAdrs, setAssetAdrs] = useState('')
+    // const [balance, setBalance] = useState()
+
+    // const handleSelasset = (data) => {
+    //     setAssetFlag(1)
+    //     setSelasset(data.label)
+    //     setDecimal(data.decimal)
+    //     setSymbol(data.symbol)
+    //     setAssetAdrs(data.adrs)
+    //     setBalance(data.balance)
+    // }
     // const CloseBtn = <X className='cursor-pointer' size={25} onClick={handleModal} />
     return (
         <Modal className='modal-dialog-centered modal-lg' isOpen={openrecallmodal} toggle={handlRecoverModal} >
-            {console.log('assest', asset)}
-            {console.log('assestlist', assetList)}
+            {/* {console.log('assest', asset)} */}
+            {/* {console.log('erctoken', ercToken)} */}
+            {/* {console.log('tokenlist', tokenList)} */}
             <ModalHeader tag='h1' toggle={handlRecoverModal}>
                 Force Recall
             </ModalHeader>
@@ -82,8 +231,7 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
                     </Col>
                     <Col>
                         <FormGroup>
-                            <Label for='parentvault' style={{ fontSize: "1.3em" }}>Parent Vault</Label>
-                            <Input type='text' id='parentvault' value={pVault} />
+                            <Label for='parentvault' style={{ fontSize: "1.3em" }}>Parent Vault - {pVault} </Label>
                         </FormGroup>
                     </Col>
                     {/* {
@@ -101,35 +249,42 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
                             classNamePrefix='select'
                             defaultValue=''
                             name='clear'
-                            options={data}
+                            options={tokenList}
                             components={{
                                 Option: OptionComponent
                             }}
-                            isClearable
+                            // onChange={handleSelasset}
+                            onChange={handleSetTokenTicker}
                         />
                     </Col>
+                    {/* <Col>
+                        {assetFlag === 1 ? (
+                            <div className='d-flex flex-column justify-content-center'>
+                                <p>Asset Name: {selasset}</p>
+                                <p>Symbol: {symbol}</p>
+                                <p>Decimals: {decimal}</p>
+                                <p>Balance: {(balance / (10 ** decimal)).toFixed(6)}</p>
+                                <p>Address: {assetAdrs}</p>
+                            </div>
+                        ) : null}
+                    </Col> */}
                     <Col>
                         <FormGroup>
                             <Col className='d-flex flex-row justify-content-between'>
                                 <Label for='amount' style={{ fontSize: "1.3em" }}>Amount</Label>
+                                <span>Balance: {(balance / (10 ** decimal)).toFixed(6)}</span>
                                 <a href='#' style={{ color: 'red' }}> Send Max</a>
-                                {/* <CustomInput
-                                        type='switch'
-                                        id='exampleCustomSwitch'
-                                        name='customSwitch'
-                                        label='Send Max'
-                                        inline
-                                    /> */}
                             </Col>
-                            <Input type='text' id='amount' />
+                            <Input type='text' id='amount' onChange={handleInputAmount} />
                         </FormGroup>
                     </Col>
                 </Row>
             </ModalBody>
             <ModalFooter className='justify-content-center'>
-                <Button.Ripple color='primary' onClick={handlRecoverModal}>
+                <Button.Ripple color='primary' onClick={handleForceRecall}>
                     Force Recall
                 </Button.Ripple>
+                <Button.Ripple onClick={handleLog}>TestLog</Button.Ripple>
             </ModalFooter>
         </Modal>
     )

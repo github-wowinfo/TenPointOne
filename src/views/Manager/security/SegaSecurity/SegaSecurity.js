@@ -116,11 +116,11 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
     }
 
     //Setting Flag for haveInfo
-    useEffect(() => {
-        if (Vault && Sega) {
-            setHaveInfo(1)
-        }
-    }, [Vault, Sega])
+    // useEffect(() => {
+    //     if (Vault && Sega) {
+    //         setHaveInfo(1)
+    //     }
+    // }, [Vault, Sega])
 
     useEffect(() => {
         console.log("haveInfo", haveInfo)
@@ -147,8 +147,8 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                 handleSegaSecModal()
                 setHaveInfo(0)
             }} >
-                {console.log('newSlist', newSlist)}
-                {console.log('vlist', vlist)}
+                {/* {console.log('newSlist', newSlist)}
+                {console.log('vlist', vlist)} */}
                 <ModalHeader tag='h2' toggle={() => {
                     handleSegaSecModal()
                     setHaveInfo(0)
@@ -222,7 +222,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                                             <FormGroup>
                                                 <Label for='days' style={{ fontSize: "1.2em" }}>Operator Status</Label>
                                                 <div className="d-flex justify-content-between">
-                                                    {console.log(activeStatus)}
+                                                    {/* {console.log(activeStatus)} */}
                                                     {activeStatus ? (<p><strong><u>ACTIVE</u></strong></p>) : (<p><strong><u>FROZEN</u></strong></p>)}
                                                     {/* <p><strong>{activeStatus}</strong></p> */}
                                                     {activeStatus ? (<Button.Ripple className='mx-1' color='primary' onClick={handlePauseSega}>Freeze</Button.Ripple>) : (

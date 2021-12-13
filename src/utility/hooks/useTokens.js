@@ -1,8 +1,8 @@
 import { useEthers, useContractCall, NativeCurrency, Token, ERC20Interface } from "@usedapp/core"
 import { constants } from "ethers"
 import brownieConfig from "../../brownie_exports/brownie-config.json"
-import helperConfig from "../../helper-config2.json"
-
+import helperConfig from "../../helper-config.json"
+import helper2 from "../../helper-config2.json"
 
 export const useTokens = (tokenTicker) => {
 
@@ -37,7 +37,7 @@ export const useTokens = (tokenTicker) => {
     }
 
     const getNative = () => {
-        const Info = networkName ? helperConfig[networkName] : {}
+        const Info = networkName ? helper2[networkName] : {}
         if (networkId) {
             const Native = new NativeCurrency(
                 Info["name"], Info["symbol"],

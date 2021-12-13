@@ -1,6 +1,6 @@
 // import { Box, Typography, Divider, Button, Input, makeStyles, Select, MenuItem, TextField, Snackbar } from "@material-ui/core"
 // import { Alert } from "@material-ui/lab"
-import { Alert } from "reactstrap"
+import { Alert, Button } from "reactstrap"
 import React, { useEffect, useState } from "react"
 import { CurrencyValue, Token, useEthers, useEtherBalance, useTokenBalance, getExplorerTransactionLink } from "@usedapp/core"
 import { getAddress } from "ethers/lib/utils"
@@ -218,165 +218,172 @@ export const OrderTicket = (opcode, vault, sega) => {
     /////////////////////////////////////////////////////////////////////////////////////
 
     return ((opcode === "0") ? "" : <>
-        {/* <Typography color="primary">
-                <Box className={classes.box}>
+        {/* {
+            opcode === '1' ? <Button.Ripple style={{ minWidth: '175px' }} color="secondary" variant="contained" onClick={handleVaultSend} > Send (from Vault) </Button.Ripple> : opcode === '2' ? <Button.Ripple
+                style={{ minWidth: '175px' }} color="secondary" variant="contained" onClick={handleForceRecall} > Force Recall </Button.Ripple> : <>
+                <Button.Ripple style={{ minWidth: '175px' }} color="secondary" variant="contained" onClick={handleSegaTransfer} > Send (from Sega) </Button.Ripple> &emsp;
+                <Button.Ripple style={{ minWidth: '175px' }} color="secondary" variant="contained" onClick={handleSegaApprove} > Approve ERC (from Sega) </Button.Ripple>
+            </>
+        } */}
+        <Typography color="primary">
+            <Box className={classes.box}>
 
-                    <Box m={1} pt={0} display='flex' justifyContent="center">
+                <Box m={1} pt={0} display='flex' justifyContent="center">
 
-                        <b>Order Ticket App</b>
+                    <b>Order Ticket App</b>
 
-                    </Box><Divider /> */}
+                </Box><Divider />
 
-        {/*-----------Operation Information----------*/}
-        {/* <Typography color="textSecondary">
-                        <Box m={1} pt={0} display="flex" justifyContent="justify">
-                            <Box m={1} pt={0}>
-                                <Box><b>Operation : </b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-                                </Box>
-                                <Box>{operations[opcode]}</Box>
+                {/*-----------Operation Information----------*/}
+                <Typography color="textSecondary">
+                    <Box m={1} pt={0} display="flex" justifyContent="justify">
+                        <Box m={1} pt={0}>
+                            <Box><b>Operation : </b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                             </Box>
-                            <Box m={1} pt={0}>
-                                <Box><b>Vault :&emsp;</b>{vault ? vault : "n.a."}</Box>
-                                <Box><b>Sega  :&emsp;</b>{sega ? sega : "n.a."}</Box>
-                            </Box>
-                        </Box> </Typography><Divider /> */}
-
-        {/*///////////////////////////////////////////////*/}
-        {/*-------------------Trade Entry-----------------*/}
-
-        {/*-------------------From Address--------------*/}
-        {/* <Box sx={{ p: 1 }} display="flex">
-                        <Button
-                            color="primary" size="small"
-                            style={{ minWidth: '175px', maxHeight: '30px' }}>
-                            From :
-                        </Button>&emsp;
-                        <Box>{fromAddress}</Box>
-                    </Box> <Divider /> */}
-
-        {/*-------------------To Address--------------*/}
-        {/* <Box sx={{ p: 1 }} display="flex">
-                        <Button
-                            color="primary" size="small"
-                            style={{ minWidth: '175px', maxHeight: '30px' }}>
-                            To :
-                        </Button>&emsp;
-                        {(opcode !== "2")
-                            ? <Input onChange={handleToAddressInput} style={{ minWidth: '400px' }} />
-                            : <Box>{toAddress}</Box>
-                        }
-                    </Box> <Divider /> */}
-
-        {/*-------------Select Token For Transfer--------------*/}
-        {/* <Box sx={{ p: 1 }} display="flex">
-                        <Button style={{ minWidth: '175px' }}>Select Token :</Button> &emsp;
-
-                        <Select labelId="TokenLabel" id="Token" value={tokenTicker} style={{ minWidth: '100px' }}
-                            variant="outlined" onChange={handleSetTokenTicker}>
-                            {tokenList.map((token, index) => (
-                                <MenuItem key={index} value={token}>
-                                    {token}
-                                </MenuItem>
-                            ))}
-                        </Select> &ensp;&ensp;
-
-                        <Box style={{ minWidth: '500px' }}>
-                            {
-                                haveToken === 0 ? <></> :
-                                    <>
-                                        <Box sx={{ p: 0 }}>
-                                            Address : &ensp;
-                                            {usingNative ? "native" : ercToken.address}
-                                        </Box>
-                                        <Box sx={{ p: 0 }}>
-                                            Name :
-                                            {usingNative ? nativeToken.name : ercToken.name}
-                                            &emsp;Symbol :
-                                            {usingNative ? nativeToken.ticker : ercToken.ticker}
-                                            &emsp; Decimals :
-                                            {usingNative ? nativeToken.decimals : ercToken.decimals}
-                                        </Box>
-                                    </>
-                            }
+                            <Box>{operations[opcode]}</Box>
                         </Box>
-                    </Box> <Divider /> */}
-
-        {/*-------------------Input Transfer Amount--------------*/}
-        {/* <Box sx={{ p: 1 }} display="flex">
-                        <Button style={{ minWidth: '175px' }}> Amount :</Button> &emsp;
-                        <TextField onChange={handleInputAmount} style={{ maxWidth: '80px' }}
-                            InputProps={{ inputProps: { min: 0 } }} />
-                        <Box style={{ minWidth: '500px' }}>
-                            {
-                                haveToken === 0 ? <></> :
-                                    <>
-                                        <Box sx={{ p: 1 }}>
-                                            &emsp; Available Balance :
-                                            {usingNative ? nativeBal.format() : ercTokenBal.format()}
-                                        </Box>
-                                    </>
-                            }
+                        <Box m={1} pt={0}>
+                            <Box><b>Vault :&emsp;</b>{vault ? vault : "n.a."}</Box>
+                            <Box><b>Sega  :&emsp;</b>{sega ? sega : "n.a."}</Box>
                         </Box>
-                    </Box><Divider /> */}
+                    </Box> </Typography><Divider />
 
-        {/*-------------------Send Transaction Buttons--------------*/}
-        {/* <Box sx={{ p: 1 }} display="flex">
+                {/*///////////////////////////////////////////////*/}
+                {/*-------------------Trade Entry-----------------*/}
+
+                {/*-------------------From Address--------------*/}
+                <Box sx={{ p: 1 }} display="flex">
+                    <Button
+                        color="primary" size="small"
+                        style={{ minWidth: '175px', maxHeight: '30px' }}>
+                        From :
+                    </Button>&emsp;
+                    <Box>{fromAddress}</Box>
+                </Box> <Divider />
+
+                {/*-------------------To Address--------------*/}
+                <Box sx={{ p: 1 }} display="flex">
+                    <Button
+                        color="primary" size="small"
+                        style={{ minWidth: '175px', maxHeight: '30px' }}>
+                        To :
+                    </Button>&emsp;
+                    {(opcode !== "2")
+                        ? <Input onChange={handleToAddressInput} style={{ minWidth: '400px' }} />
+                        : <Box>{toAddress}</Box>
+                    }
+                </Box> <Divider />
+
+                {/*-------------Select Token For Transfer--------------*/}
+                <Box sx={{ p: 1 }} display="flex">
+                    <Button style={{ minWidth: '175px' }}>Select Token :</Button> &emsp;
+
+                    <Select labelId="TokenLabel" id="Token" value={tokenTicker} style={{ minWidth: '100px' }}
+                        variant="outlined" onChange={handleSetTokenTicker}>
+                        {tokenList.map((token, index) => (
+                            <MenuItem key={index} value={token}>
+                                {token}
+                            </MenuItem>
+                        ))}
+                    </Select> &ensp;&ensp;
+
+                    <Box style={{ minWidth: '500px' }}>
                         {
-                            opcode === '1' ?
+                            haveToken === 0 ? <></> :
+                                <>
+                                    <Box sx={{ p: 0 }}>
+                                        Address : &ensp;
+                                        {usingNative ? "native" : ercToken.address}
+                                    </Box>
+                                    <Box sx={{ p: 0 }}>
+                                        Name :
+                                        {usingNative ? nativeToken.name : ercToken.name}
+                                        &emsp;Symbol :
+                                        {usingNative ? nativeToken.ticker : ercToken.ticker}
+                                        &emsp; Decimals :
+                                        {usingNative ? nativeToken.decimals : ercToken.decimals}
+                                    </Box>
+                                </>
+                        }
+                    </Box>
+                </Box> <Divider />
+
+                {/*-------------------Input Transfer Amount--------------*/}
+                <Box sx={{ p: 1 }} display="flex">
+                    <Button style={{ minWidth: '175px' }}> Amount :</Button> &emsp;
+                    <TextField onChange={handleInputAmount} style={{ maxWidth: '80px' }}
+                        InputProps={{ inputProps: { min: 0 } }} />
+                    <Box style={{ minWidth: '500px' }}>
+                        {
+                            haveToken === 0 ? <></> :
+                                <>
+                                    <Box sx={{ p: 1 }}>
+                                        &emsp; Available Balance :
+                                        {usingNative ? nativeBal.format() : ercTokenBal.format()}
+                                    </Box>
+                                </>
+                        }
+                    </Box>
+                </Box><Divider />
+
+                {/*-------------------Send Transaction Buttons--------------*/}
+                <Box sx={{ p: 1 }} display="flex">
+                    {
+                        opcode === '1' ?
+                            <Button style={{ minWidth: '175px' }} color="secondary"
+                                variant="contained" onClick={handleVaultSend} >
+                                Send (from Vault) </Button>
+
+                            : opcode === '2' ?
                                 <Button style={{ minWidth: '175px' }} color="secondary"
-                                    variant="contained" onClick={handleVaultSend} >
-                                    Send (from Vault) </Button>
+                                    variant="contained" onClick={handleForceRecall} >
+                                    Force Recall </Button>
 
-                                : opcode === '2' ?
+                                : <>
                                     <Button style={{ minWidth: '175px' }} color="secondary"
-                                        variant="contained" onClick={handleForceRecall} >
-                                        Force Recall </Button>
+                                        variant="contained" onClick={handleSegaTransfer} >
+                                        Send (from Sega) </Button> &emsp;
 
-                                    : <>
-                                        <Button style={{ minWidth: '175px' }} color="secondary"
-                                            variant="contained" onClick={handleSegaTransfer} >
-                                            Send (from Sega) </Button> &emsp;
+                                    <Button style={{ minWidth: '175px' }} color="secondary"
+                                        variant="contained" onClick={handleSegaApprove} >
+                                        Approve ERC (from Sega) </Button>
+                                </>
+                    }
 
-                                        <Button style={{ minWidth: '175px' }} color="secondary"
-                                            variant="contained" onClick={handleSegaApprove} >
-                                            Approve ERC (from Sega) </Button>
-                                    </>
-                        } */}
+                    {/*------------------Dummy Dummy Dummy-----------*/}
+                    &emsp;
+                    <Button onClick={handleLog}
+                        color="default" size="small" variant="contained"
+                        style={{ minWidth: '175px' }}>
+                        TestLog
+                    </Button>
+                </Box> <Divider />
 
-        {/*------------------Dummy Dummy Dummy-----------*/}
-        {/* &emsp;
-                        <Button onClick={handleLog}
-                            color="default" size="small" variant="contained"
-                            style={{ minWidth: '175px' }}>
-                            TestLog
-                        </Button>
-                    </Box> <Divider />
-
-                </Box>
-            </Typography> */}
+            </Box>
+        </Typography>
 
         {/*------------------------------------------------------*/}
         {/*--------------------SNACKBAR ALERTS-------------------*/}
 
         {/* To Show Txn in Progress  */}
-        {/* <Snackbar open={showTxnMiningSnack} autoHideDuration={500000} onClose={handleTxnSnackClose} > */}
-        <Alert onClose={handleTxnSnackClose} severity="info">
-            <div>Transaction in Progress- Txn ID : &emsp; </div>
-            <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
-                target="_blank" rel="noreferrer">
-                {(txnID)} </a>
-        </Alert>
-        {/* </Snackbar> */}
+        <Snackbar open={showTxnMiningSnack} autoHideDuration={500000} onClose={handleTxnSnackClose} >
+            <Alert onClose={handleTxnSnackClose} severity="info">
+                <div>Transaction in Progress- Txn ID : &emsp; </div>
+                <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
+                    target="_blank" rel="noreferrer">
+                    {(txnID)} </a>
+            </Alert>
+        </Snackbar>
 
         {/* To Show Txn Success  */}
-        {/* <Snackbar open={showTxnSuccessSnack} autoHideDuration={15000} onClose={handleTxnSnackClose} > */}
-        <Alert onClose={handleTxnSnackClose} severity="success">
-            <div>Transaction Completed - Txn ID :</div>
-            <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
-                target="_blank" rel="noreferrer">
-                {(txnID)} </a>
-        </Alert>
-        {/* </Snackbar> */}
+        <Snackbar open={showTxnSuccessSnack} autoHideDuration={15000} onClose={handleTxnSnackClose} >
+            <Alert onClose={handleTxnSnackClose} severity="success">
+                <div>Transaction Completed - Txn ID :</div>
+                <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
+                    target="_blank" rel="noreferrer">
+                    {(txnID)} </a>
+            </Alert>
+        </Snackbar>
 
 
     </>

@@ -52,7 +52,7 @@ export const useRCU = () => {
     }
 
     // getVaultList() - SHOW ALL VAULTS
-    const getVaultListFn = { abi: RcuInterface, address: rcu, method: "getVaultList", args: [], }
+    const getVaultListFn = { abi: vFactInterface, address: (VF ? VF : _vf), method: "getVaultList", args: [], }
     const [vaultList] = useContractCall(rcu && getVaultListFn) ?? []
     const getVaultList = () => {
         console.log("All Vault List :", { vaultList })
