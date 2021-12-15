@@ -68,9 +68,9 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
     const handleSetVault = (value) => {
         setSegaList([])
         setHaveInfo(0)
-        setVault(value.adrs)
-        setVaultName(value.label)
-        // setVault(value.label)
+        // setVault(value.adrs)
+        // setVaultName(value.label)
+        setVault(value.label)
         console.log(value)
     }
 
@@ -127,7 +127,7 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
 
     // const CloseBtn = <X className='cursor-pointer' size={25} onClick={handleModal} />
 
-    // const vlist = VaultList && VaultList.map((vault, index) => ({ value: index, label: vault }))
+    const vlist = VaultList && VaultList.map((vault, index) => ({ value: index, label: vault }))
 
     const [modifyvaultmodal, setModifyVaultModal] = useState(false)
     const handleModifyVaultModal = () => {
@@ -152,8 +152,8 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
 
     useEffect(() => {
 
-        getVaultListFromLocal()
-        // handleGetAllVaults()
+        // getVaultListFromLocal()
+        handleGetAllVaults()
 
     }, [openvaultsec])
 
@@ -181,8 +181,8 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
                                 classNamePrefix='select'
                                 defaultValue=''
                                 name='clear'
-                                options={VaultList}
-                                // options={vlist}
+                                // options={VaultList}
+                                options={vlist}
                                 onChange={handleSetVault}
                             />
                         </Col>
@@ -190,7 +190,7 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
                             <hr />
                         </Col>
                         <Col className='text-center'>
-                            <Button.Ripple color='primary' onClick={handleGetRecoveryInfo}>Get Recovery Info</Button.Ripple>
+                            <Button.Ripple onClick={handleGetRecoveryInfo}>Get Recovery Info</Button.Ripple>
                         </Col>
                         {haveInfo ? (<>
                             <Col>
