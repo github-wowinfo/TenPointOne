@@ -12,9 +12,9 @@
     "networks": {
         "polygon-main": {
             "risk_token": "",
-            "sFact": "",
-            "vFact": "",
-            "RCU": ""
+            "sFact": "0xD540A24CE16F2e99b7fa342E99Df2F023C91C48D",
+            "vFact": "0xBd0af6A33fA7fA5781e9D399A3a38b30b52DEf0a",
+            "RCU": "0x1Dd9c7DdC1D78B05cBD97ad84c6D08BFB52528C1"
         },
         "kovan": {
             "sFact": "0x13B21Fe9F62256d2388Ea5aB5043a27774f6dD64",

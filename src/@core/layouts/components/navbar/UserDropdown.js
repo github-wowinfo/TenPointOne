@@ -27,7 +27,7 @@ import { GoLinkExternal } from 'react-icons/go'
 import { RiWallet3Line } from 'react-icons/ri'
 
 // ** useDapp
-import { useEthers } from '@usedapp/core'
+import { useEthers, getExplorerAddressLink } from '@usedapp/core'
 import helperConfig from '../../../../helper-config.json'
 
 const UserDropdown = ({ networkC }) => {
@@ -138,9 +138,8 @@ const UserDropdown = ({ networkC }) => {
                   {/* {account.slice(0, 4)}...{account.slice(account.length - 4, account.length)} */}
                   {/* <Text name={account} fchar={4} lchar={4} /> */}
                   <FaRegCopy size={15} className='mr-1' onClick={copy} />
-                  <a href={pathname} target='_blank'><GoLinkExternal color='grey' size={15} /></a>
+                  <a href={getExplorerAddressLink(account, chainId)} target='_main'><GoLinkExternal size={15} /></a>
                 </div>
-
               </div>
             </DropdownItem>
           </li>

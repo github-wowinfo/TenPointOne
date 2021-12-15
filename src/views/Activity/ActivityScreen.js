@@ -14,10 +14,11 @@ import axios from 'axios'
 import moment from 'moment'
 import { useEthers } from '@usedapp/core'
 import ReactPaginate from 'react-paginate'
+import helperConfig from "../../helper-config.json"
 
 const ActivityScreen = ({ message, dispatch }) => {
 
-    const { account } = useEthers()
+    const { account, chainId } = useEthers()
 
     const isConnected = account !== undefined
 
@@ -65,14 +66,15 @@ const ActivityScreen = ({ message, dispatch }) => {
     const getTokenTransaction = async () => {
         try {
 
-            const response = await axios.get(`https://stg-api.unmarshal.io/v1/matic/address/0x989923d33bE0612680064Dc7223a9f292C89A538/transactions?page=${currentPage}&pageSize=20&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+            // const response = await axios.get(`https://stg-api.unmarshal.io/v1/matic/address/0x989923d33bE0612680064Dc7223a9f292C89A538/transactions?page=${currentPage}&pageSize=20&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+            const response = await axios.get(`https://stg-api.unmarshal.io/v1/${helperConfig.unmarshal[chainId]}/address/${account}/transactions?page=${currentPage}&pageSize=20&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
             setTransaction(response.data)
 
             const data = response.data.transactions.filter((a) => a.type.includes('receive') || a.type.includes('send') || a.type.includes('approve'))
             setDataList(data)
 
         } catch (error) {
-            console.log(`Activity [getTokenTransaction]`, error)
+            console.log(`Activity[getTokenTransaction]`, error)
         }
     }
 
@@ -160,13 +162,13 @@ const ActivityScreen = ({ message, dispatch }) => {
                     0
                     {/* <span>
                         {
-                            row.sent && `$${row.sent[0].value / (10 ** row.sent[0].decimals)}`
+                            row.sent && `$${ row.sent[0].value / (10 ** row.sent[0].decimals) }`
                         }
                     </span>
                     <br />
                     <span>
                         {
-                            row.received && `$${row.received[0].value / (10 ** row.received[0].decimals)}`
+                            row.received && `$${ row.received[0].value / (10 ** row.received[0].decimals) }`
                         }
                     </span> */}
                 </span>
