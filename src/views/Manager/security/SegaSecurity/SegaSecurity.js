@@ -11,7 +11,7 @@ import { useEthers, getExplorerAddressLink, getExplorerTransactionLink } from "@
 
 const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
 
-    const { chainId } = useEthers()
+    const { chainId, account } = useEthers()
 
     // Smart Contract Handle Functions from useRCU.ts file
     const { getVaultList } = useRCU()
@@ -60,12 +60,15 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
     const handleSetVault = (value) => {
         setSegaList([])
         setHaveInfo(0)
+        // setVault(value.adrs)
         setVault(value.label)
+        handleGetSegas()
     }
 
     // Set Sega to Manage
     const handleSetSega = (value) => {
         setHaveInfo(0)
+        // setSega(value.adrs)
         setSega(value.label)
         value = ''
     }
@@ -82,9 +85,10 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
         }
     }
 
-    const vlist = VaultList && VaultList.map((vault, index) => ({ value: index, label: vault.address }))
+    const vlist = VaultList && VaultList.map((vault, index) => ({ value: index, label: vault }))
 
-    const slist = SegaList && SegaList.map((sega, index) => ({ value: index, label: sega.address }))
+    // const slist = SegaList && SegaList.map((sega, index) => ({ value: index, label: `${sega.name} - ${sega.address}`, adrs: `${sega.address}` }))
+    const slist = SegaList && SegaList.map((sega, index) => ({ value: index, label: sega }))
     const newSlist = slist.filter((sega) => { return sega.label !== "0x0000000000000000000000000000000000000000" })
 
     const handlePauseSega = () => {
@@ -123,19 +127,19 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
     //     }
     // }, [Vault, Sega])
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        if (Vault.length > 0) {
-            const getdata = JSON.parse(localStorage.getItem('segadata'))
-            if (getdata) {
-                const sega = getdata.filter(a => a.vault === Vault)
-                setSegaList(sega)
-                console.log("Sega-List", sega)
-            }
-        }
+    //     if (Vault.length > 0) {
+    //         const getdata = JSON.parse(localStorage.getItem('segadata'))
+    //         if (getdata) {
+    //             const sega = getdata.filter(a => a.vault === Vault)
+    //             setSegaList(sega)
+    //             console.log("Sega-List", sega)
+    //         }
+    //     }
 
-        console.log("haveInfo", haveInfo)
-    }, [haveInfo, Vault])
+    //     console.log("haveInfo", haveInfo)
+    // }, [haveInfo, Vault])
 
     useEffect(() => {
         if (txnState.status === "Mining") {
@@ -154,15 +158,16 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
 
     const getVaultListFromLocal = () => {
         const getdata = JSON.parse(localStorage.getItem('vaultdata'))
-        const valueData = getdata.filter(a => a.show === true)
-        const vaultlist = valueData.map((vault, index) => ({ value: index, label: vault.address }))
+        const valueData = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account)
+        const vaultlist = valueData && valueData.map((vault, index) => ({ value: index, label: `${vault.name} - ${vault.address}`, adrs: `${vault.address}` }))
         setVaultList(vaultlist)
-        
+
     }
 
     useEffect(() => {
 
-        getVaultListFromLocal()
+        // getVaultListFromLocal()
+        handleGetAllVaults()
 
     }, [opensegasec])
 
@@ -195,7 +200,8 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                                 classNamePrefix='select'
                                 defaultValue=''
                                 name='clear'
-                                options={VaultList}
+                                // options={VaultList}
+                                options={vlist}
                                 onChange={handleSetVault}
                             />
                         </Col>

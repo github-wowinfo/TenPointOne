@@ -2,6 +2,7 @@ import { X, Unlock } from 'react-feather'
 import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button } from 'reactstrap'
 import { useState } from 'react'
 import { useVault } from '../../../utility/hooks/useVaults'
+import { isAddress } from "ethers/lib/utils"
 
 const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
 
@@ -15,7 +16,10 @@ const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
     } = useVault(Vault)
 
     const handleSetVault = (e) => {
-        setVault(e.target.value)
+        const vaultadrs = e.target.value
+        if (isAddress(vaultadrs)) {
+            setVault(vaultadrs)
+        }
     }
 
     const handleClaimVault = () => {

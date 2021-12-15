@@ -21,6 +21,7 @@ import '@styles/react/libs/tables/react-dataTable-component.scss'
 import axios from 'axios'
 import { useEthers } from '@usedapp/core'
 import { useCoingeckoPrice } from '@usedapp/coingecko'
+import helperConfig from "../../helper-config.json"
 
 // const currencyOptions = [
 //     { value: 'usd', label: 'USD' },
@@ -29,7 +30,7 @@ import { useCoingeckoPrice } from '@usedapp/coingecko'
 
 const Asset = () => {
 
-    const { account } = useEthers()
+    const { account, chainId } = useEthers()
 
     const isConnected = account !== undefined
 
@@ -40,14 +41,18 @@ const Asset = () => {
     const [assetList, setAssetList] = useState([])
     const [sum, setSum] = useState(0)
 
+
     const getTokenBalance = async () => {
         try {
-            const response = await axios.get(`https://api.unmarshal.com/v1/matic/address/0x989923d33bE0612680064Dc7223a9f292C89A538/assets?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+            // const response = await axios.get(`https://api.unmarshal.com/v1/matic/address/0x989923d33bE0612680064Dc7223a9f292C89A538/assets?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+            const response = await axios.get(`https://api.unmarshal.com/v1/${helperConfig.unmarshal[chainId]}/address/${account}/assets?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
 
             setAssetList(response.data)
 
             const balance = response.data.map(item => Math.floor(item.balance / (10 ** item.contract_decimals) * item.quote_rate)).reduce((acc, curr) => acc + curr, 0)
+
             setSum(balance)
+            console.log(balance)
         } catch (error) {
             console.log(`Asset [getTokkenBalance]`, error)
         }
@@ -80,6 +85,7 @@ const Asset = () => {
             selector: row => (
                 <span>
                     {
+
                         row.balance && (row.balance / (10 ** row.contract_decimals)).toFixed(6)
 
                     }
@@ -88,11 +94,11 @@ const Asset = () => {
             )
         },
         {
-            name: 'First value',
+            name: 'Dollar value',
             selector: row => (
                 <span>
                     {
-                        row.balance && `$${Math.floor(row.balance / (10 ** row.contract_decimals) * row.quote_rate)}`
+                        row.balance && `$${row.balance / (10 ** row.contract_decimals) * row.quote_rate}`
                     }
                 </span>
             )
@@ -103,6 +109,7 @@ const Asset = () => {
 
     return (
         <>
+
             {console.log(assetList)}
             {isConnected ? (<>
                 <Row>
