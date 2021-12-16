@@ -76,7 +76,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
         setVault(value.adrs)
 
         // setVault(value.label)
-        // handleGetSegas()
+        
 
     }
 
@@ -145,6 +145,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
 
     useEffect(() => {
         getValueSegaFromLocal()
+        // handleGetSegas()
     }, [Vault])
 
     useEffect(() => {
