@@ -68,9 +68,9 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
     const handleSetVault = (value) => {
         setSegaList([])
         setHaveInfo(0)
-        // setVault(value.adrs)
-        // setVaultName(value.label)
-        setVault(value.label)
+        setVault(value.adrs)
+        setVaultName(value.label)
+        // setVault(value.label)
         console.log(value)
     }
 
@@ -152,8 +152,8 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
 
     useEffect(() => {
 
-        // getVaultListFromLocal()
-        handleGetAllVaults()
+        getVaultListFromLocal()
+        // handleGetAllVaults()
 
     }, [openvaultsec])
 
@@ -181,8 +181,8 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
                                 classNamePrefix='select'
                                 defaultValue=''
                                 name='clear'
-                                // options={VaultList}
-                                options={vlist}
+                                options={VaultList}
+                                // options={vlist}
                                 onChange={handleSetVault}
                             />
                         </Col>

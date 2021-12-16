@@ -1,16 +1,49 @@
 import { useState } from 'react'
 import { Eye, EyeOff } from 'react-feather'
 import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, TabPane, TabContent, Nav, NavItem, NavLink } from 'reactstrap'
+import { useEthers } from '@usedapp/core'
+import { toast } from 'react-toastify'
+import { isAddress } from "ethers/lib/utils"
 
 const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
 
+    const { account, chainId } = useEthers()
     // const CloseBtn = <X className='cursor-pointer' size={25} onClick={handleModal} />
+    const notifySuccessAdd = () => toast.success(<SuccessToastAdd />, { hideProgressBar: false })
+    const notifySuccessRemove = () => toast.success(<SuccessToastRemove />, { hideProgressBar: false })
+
+    const SuccessToastAdd = () => (
+        <Fragment>
+            <div className='toastify-header'>
+                <div className='title-wrapper'>
+                    <Avatar size='sm' color='success' icon={<Clipboard size={12} />} />
+                    <h6 className='toast-title'>Vault is now Visible!</h6>
+                </div>
+            </div>
+        </Fragment>
+    )
+    const SuccessToastRemove = () => (
+        <Fragment>
+            <div className='toastify-header'>
+                <div className='title-wrapper'>
+                    <Avatar size='sm' color='success' icon={<Clipboard size={12} />} />
+                    <h6 className='toast-title'>Vault is now Visible!</h6>
+                </div>
+            </div>
+        </Fragment>
+    )
 
     const [accountText, setAccountText] = useState('')
 
-    const accountTextChange = (e) => {
-        setAccountText(e.target.value)
+    const accountAdrsChange = (e) => {
+        const vaultadrs = e.target.value
+        if (isAddress(vaultadrs)) {
+            setAccountText(vaultadrs)
+        } else {
+            alert("Enter a valid address!")
+        }
     }
+
     const handleOnAdd = () => {
 
         const getdata = JSON.parse(localStorage.getItem('vaultdata'))
@@ -21,9 +54,51 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
             }
         }
         localStorage.setItem('vaultdata', JSON.stringify(getdata))
-
+        notifySuccessAdd()
         handleExeVaultModal()
     }
+
+    const handleOnRemove = () => {
+
+        const getdata = JSON.parse(localStorage.getItem('vaultdata'))
+        for (const i in getdata) {
+            if (getdata[i].address === accountText) {
+                getdata[i].show = false
+                break
+            }
+        }
+        localStorage.setItem('vaultdata', JSON.stringify(getdata))
+        notifySuccessRemove()
+        handleExeVaultModal()
+    }
+
+    // const [nickName, setNickName] = useState('')
+    // const [vadrs, setVadrs] = useState('')
+    // const onChangeName = (e) => {
+    //     setNickName(e.target.value)
+    // }
+    // const onChangeAdrs = (e) => {
+    //     setVadrs(e.target.value)
+    // }
+
+    // const handleTempAdd = () => {
+    //     const getdata = JSON.parse(localStorage.getItem('vaultdata'))
+    //     const postdata =
+    //     {
+    //         owner: account,
+    //         name: nickName,
+    //         address: vadrs,
+    //         network: chainId,
+    //         show: true
+    //     }
+    //     let vaultdata = []
+    //     if (getdata) {
+    //         vaultdata = [...getdata, postdata]
+    //     } else {
+    //         vaultdata = [postdata]
+    //     }
+    //     localStorage.setItem('vaultdata', JSON.stringify(vaultdata))
+    // }
 
     const [active, setActive] = useState('1')
 
@@ -83,7 +158,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
                             <Col>
                                 <FormGroup>
                                     <Label for='accadrs' style={{ fontSize: "1.3em" }}>Account Address</Label>
-                                    <Input type='text' id='accadrs' onChange={accountTextChange} />
+                                    <Input type='text' id='accadrs' onChange={accountAdrsChange} />
                                 </FormGroup>
                             </Col>
                         </TabPane>
@@ -97,7 +172,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
                             <Col>
                                 <FormGroup>
                                     <Label for='accadrs' style={{ fontSize: "1.3em" }}>Account Address</Label>
-                                    <Input type='text' id='accadrs' onChange={accountTextChange} />
+                                    <Input type='text' id='accadrs' onChange={accountAdrsChange} />
                                 </FormGroup>
                             </Col>
                         </TabPane>
@@ -106,12 +181,18 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
             </ModalBody>
             <ModalFooter className='justify-content-center'>
                 {active === '1' ? (
-                    <Button.Ripple color='primary' onClick={handleOnAdd}>
-                        <Eye className='mr-1' size={17} />
-                        ADD
-                    </Button.Ripple>
+                    <>
+                        <Button.Ripple color='primary' onClick={handleOnAdd}>
+                            <Eye className='mr-1' size={17} />
+                            ADD
+                        </Button.Ripple>
+                        {/* <Button.Ripple color='primary' onClick={handleTempAdd}>
+                            <Eye className='mr-1' size={17} />
+                            tempAdd
+                        </Button.Ripple> */}
+                    </>
                 ) : (
-                    <Button.Ripple color='primary' onClick={handleOnAdd}>
+                    <Button.Ripple color='primary' onClick={handleOnRemove} disabled>
                         <EyeOff className='mr-1' size={17} />
                         REMOVE
                     </Button.Ripple>

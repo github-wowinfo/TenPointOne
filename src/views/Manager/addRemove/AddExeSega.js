@@ -11,23 +11,77 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
 
     // const CloseBtn = <X className='cursor-pointer' size={25} onClick={handleModal} />
 
+    const notifySuccessAdd = () => toast.success(<SuccessToastAdd />, { hideProgressBar: false })
+    const notifySuccessRemove = () => toast.success(<SuccessToastRemove />, { hideProgressBar: false })
+
+    const SuccessToastAdd = () => (
+        <Fragment>
+            <div className='toastify-header'>
+                <div className='title-wrapper'>
+                    <Avatar size='sm' color='success' icon={<Clipboard size={12} />} />
+                    <h6 className='toast-title'>Vault is now Visible!</h6>
+                </div>
+            </div>
+        </Fragment>
+    )
+    const SuccessToastRemove = () => (
+        <Fragment>
+            <div className='toastify-header'>
+                <div className='title-wrapper'>
+                    <Avatar size='sm' color='success' icon={<Clipboard size={12} />} />
+                    <h6 className='toast-title'>Vault is now Visible!</h6>
+                </div>
+            </div>
+        </Fragment>
+    )
+
     const [VaultList, setVaultList] = useState([])
 
     const getVaultListFromLocal = () => {
         const getdata = JSON.parse(localStorage.getItem('vaultdata'))
         const valueData = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account)
-        const vaultlist = valueData && valueData.map((vault, index) => ({ value: index, label: `${vault.name} - ${vault.address}` }))
+        const vaultlist = valueData && valueData.map((vault, index) => ({ value: index, label: `${vault.name} - ${vault.address}`, address: vault.address }))
         setVaultList(vaultlist)
     }
 
     useEffect(() => {
 
         getVaultListFromLocal()
+    }, [chainId])
 
-        return () => {
+    const [Vault, setVault] = useState('')
+    const [nickName, setNickName] = useState('')
+    const [sadrs, setSadrs] = useState('')
 
-        }
-    }, [])
+    const handleVault = (value) => {
+        setVault(value.address)
+    }
+
+    // const onChangeName = (e) => {
+    //     setNickName(e.target.value)
+    // }
+    // const onChangeAdrs = (e) => {
+    //     setSadrs(e.target.value)
+    // }
+
+    // const handleTempAdd = () => {
+    //     const getdata = JSON.parse(localStorage.getItem('segadata'))
+    //     const postdata =
+    //     {
+    //         owner: account,
+    //         vault: Vault,
+    //         name: nickName,
+    //         address: sadrs,
+    //         network: chainId
+    //     }
+    //     let segadata = []
+    //     if (getdata) {
+    //         segadata = [...getdata, postdata]
+    //     } else {
+    //         segadata = [postdata]
+    //     }
+    //     localStorage.setItem('segadata', JSON.stringify(segadata))
+    // }
 
     const [active, setActive] = useState('1')
 
@@ -90,7 +144,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
                                     defaultValue=''
                                     name='clear'
                                     options={VaultList}
-                                    isClearable
+                                    onChange={handleVault}
                                 />
                             </Col>
                             <Col>
@@ -137,12 +191,18 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
             </ModalBody>
             <ModalFooter className='justify-content-center'>
                 {active === '1' ? (
-                    <Button.Ripple color='primary' onClick={handleExeSegaModal}>
-                        <Eye className='mr-1' size={17} />
-                        ADD
-                    </Button.Ripple>
+                    <>
+                        <Button.Ripple color='primary' onClick={handleExeSegaModal} disabled>
+                            <Eye className='mr-1' size={17} />
+                            ADD
+                        </Button.Ripple>
+                        {/* <Button.Ripple color='primary' onClick={handleTempAdd}>
+                            <Eye className='mr-1' size={17} />
+                            tempAdd
+                        </Button.Ripple> */}
+                    </>
                 ) : (
-                    <Button.Ripple color='primary' onClick={handleExeSegaModal}>
+                    <Button.Ripple color='primary' onClick={handleExeSegaModal} disabled>
                         <EyeOff className='mr-1' size={17} />
                         REMOVE
                     </Button.Ripple>

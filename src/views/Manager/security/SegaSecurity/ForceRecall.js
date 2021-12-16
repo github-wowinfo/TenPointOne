@@ -86,15 +86,15 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
     const apiList = data
     const erc20List = [RISK, LINK, USDC]
 
-    //[]
-    // if (helperConfig.testnetwork.find(chainId)) {
-    //     const tokenList = [native].concat(erc20List).concat(apiList)
-    // } else {
-    //     const tokenList = apiList
-    // }
+    //list population according to chainId
+    console.log(helperConfig.testnetworks.includes(chainId))
+    let tokenList
+    helperConfig.testnetworks.includes(chainId) ? tokenList = [native].concat(erc20List).concat(apiList) : tokenList = apiList
+
+    // const tokenList = [native].concat(erc20List).concat(apiList)
     // const tokenList = [nativeToken.ticker].concat(erc20List).concat(apiList).concat(native)
     // const tokenList = [nativeToken.ticker].concat(erc20List)
-    const tokenList = [nativeToken.ticker].concat(erc20List).concat(apiList)
+    // const tokenList = [nativeToken.ticker].concat(erc20List).concat(apiList)
 
     const [haveToken, setHaveToken] = useState(0)
     const [usingNative, setUsingNative] = useState(0)
