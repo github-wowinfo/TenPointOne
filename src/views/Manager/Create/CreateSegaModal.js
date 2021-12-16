@@ -24,13 +24,16 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
     const [SegaList, setSegaList] = useState([])
     const [haveInfo, setHaveInfo] = useState(0)
     const [nickName, setNickName] = useState('')
+    const [vaultselect, setVaultselect] = useState(false)
 
     // Initialise Vault to Manage
     const [Vault, setVault] = useState("")
     const handleSetVault = (value) => {
+        console.log(value)
+        setVaultselect(true)
         setSegaList([])
         setHaveInfo(0)
-        setVault(value.label)
+        setVault(value.adrs)
     }
 
     // Import neccesary functions from useVaults.ts
@@ -84,9 +87,14 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
         return createNewSega()
     }
 
+    const [vname, setVname] = useState(false)
     const onChangeName = (e) => {
-        setNickName(e.target.value)
-
+        if (e.target.value === '') {
+            setVname(false)
+        } else {
+            setVname(true)
+            setNickName(e.target.value)
+        }
     }
 
     // To track state of Sega creation Trasnactions
@@ -126,13 +134,15 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
 
     // const CloseBtn = <X className='cursor-pointer' size={25} onClick={handleModal} />
 
-    const vlist = VaultList.map((vault, index) => ({ value: index, label: vault }))
+    // const vlist = VaultList.map((vault, index) => ({ value: index, label: vault }))
 
 
     const getVaultListFromLocal = () => {
         const getdata = JSON.parse(localStorage.getItem('vaultdata'))
-        const valueData = getdata.filter(a => a.show === true)
-        const vaultlist = valueData.map((vault, index) => ({ value: index, label: vault.address }))
+        const valueData = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account)
+        console.log(valueData)
+        // const vaultlist = valueData && valueData.map((vault, index) => ({ value: index, label: vault.address }))
+        const vaultlist = valueData && valueData.map((vault, index) => ({ value: index, label: `${vault.name} - ${vault.address}`, adrs: `${vault.address}` }))
         setVaultList(vaultlist)
     }
 
@@ -191,9 +201,13 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
                 </Row>
             </ModalBody>
             <ModalFooter className='d-flex flex-column align-items-center justify-content-center'>
-                <Button.Ripple color='primary' id='controlledPopover' onClick={handleLaunchSega}>
-                    {isLaunchInProgress ? <Spinner color='light' size='sm' /> : <span><PlusCircle className='mr-1' size={17} />Create</span>}
-                </Button.Ripple>
+                {
+                    vname === true && vaultselect === true ? (
+                        <Button.Ripple color='primary' id='controlledPopover' onClick={handleLaunchSega}>
+                            {isLaunchInProgress ? <Spinner color='light' size='sm' /> : <span><PlusCircle className='mr-1' size={17} />Create</span>}
+                        </Button.Ripple>
+                    ) : null
+                }
                 <div className='d-flex flex-column justify-content-center'>
                     <Alert isOpen={showSegaLaunchingSnack} toggle={() => handleSnackClose()} color="info">
                         <div>Sega Launch in Progress. Transaction ID : &emsp; </div>

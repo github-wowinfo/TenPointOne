@@ -1,13 +1,21 @@
 {
-    "1":"mainnet",
-    "42":"kovan",
-    "3" : "ropsten",
-    "4":"rinkeby",
-    "5":"goerli",
-    "100":"xdai",
-    "137":"polygon",
-    "80001":"polygon-test",
-    "56":"bsc",
-    "97":"bsc-test",
-    "1337":"dev2"
+    "1": "mainnet",
+    "42": "kovan",
+    "137": "polygon-main",
+    "80001": "polygon-test",
+    "56": "bsc",
+    "97": "bsc-test",
+    "1337": "dev2",
+    "infuraApiKey": "08a4622376bd4dbe82b7c0e0b3c42d46",
+    "unmarshal": {
+        "137": "matic",
+        "56": "bsc",
+        "1": "ethereum"
+    },
+    "testnetworks": [
+        42,
+        80001,
+        97,
+        1337
+    ]
 }

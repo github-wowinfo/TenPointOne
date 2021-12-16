@@ -23,10 +23,19 @@ const CreateVaultModal = ({ openvault, handleVaultModal }) => {
     const [showLaunchingSnack, setShowLaunchingSnack] = useState(false)
     const [showVaultCreatedSnack, setShowVaultCreatedSnack] = useState(false)
 
+    const [vname, setVname] = useState(false)
     const onChangeName = (e) => {
-        setNickName(e.target.value)
-        console.log(e.target.value)
+        if (e.target.value === '') {
+            setVname(false)
+        } else {
+            setVname(true)
+            setNickName(e.target.value)
+        }
     }
+    // const onChangeName = (e) => {
+    //     setNickName(e.target.value)
+    //     console.log(e.target.value)
+    // }
     const handleSnackClose = () => {
         console.log("Vault Creation Txn:", getExplorerTransactionLink(launchVaultTxn, Number(chainId)))
         console.log("New Vault Created:", getExplorerAddressLink(newVaultAddress, Number(chainId)))
@@ -60,7 +69,7 @@ const CreateVaultModal = ({ openvault, handleVaultModal }) => {
 
         const getdata = JSON.parse(localStorage.getItem('vaultdata'))
         if (getdata) {
-            setVaultList(getdata.filter(a => a.show === true))
+            setVaultList(getdata.filter(a => a.show === true && a.network === chainId && a.owner === account))
             console.log("Vault-List", getdata)
         }
 
@@ -94,7 +103,8 @@ const CreateVaultModal = ({ openvault, handleVaultModal }) => {
                 owner: account,
                 name: nickName,
                 address: newVault,
-                network: chainId
+                network: chainId,
+                show: true
             }
             let vaultdata = []
             if (getdata) {
@@ -155,9 +165,12 @@ const CreateVaultModal = ({ openvault, handleVaultModal }) => {
                 </Row>
             </ModalBody>
             <ModalFooter className='d-flex flex-column align-items-center justify-content-center'>
-                <Button.Ripple color='primary' id='controlledPopover' onClick={handleLaunchVault}>
-                    {isLaunchInProgress ? <Spinner color='light' size='sm' /> : <span><PlusCircle className='mr-1' size={17} />Create</span>}
-                </Button.Ripple>
+                {
+                    vname === false ? null : (
+                        <Button.Ripple color='primary' id='controlledPopover' onClick={handleLaunchVault}>
+                            {isLaunchInProgress ? <Spinner color='light' size='sm' /> : <span><PlusCircle className='mr-1' size={17} />Create</span>}
+                        </Button.Ripple>)
+                }
                 <div className='d-flex flex-column justify-content-center'>
                     <Alert isOpen={showLaunchingSnack} toggle={() => handleSnackClose()} color="info">
                         <div>Vault Launch in Progress. Transaction ID : &emsp; </div>

@@ -5,17 +5,21 @@ import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, For
 import Badge from 'reactstrap/lib/Badge'
 import axios from 'axios'
 import { CurrencyValue, Token, useEthers, useEtherBalance, useTokenBalance, getExplorerTransactionLink } from "@usedapp/core"
+import helperConfig from "../../../../helper-config.json"
 import { constants, utils, BigNumber } from "ethers"
 import { useTokens } from '../../../../utility/hooks/useTokens'
 import { useTransfers } from '../../../../utility/hooks/useTransfers'
 
 const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, haveInfo }) => {
 
+    const { chainId } = useEthers()
+
     const [assetList, setAssetList] = useState([])
 
     const getTokenBalance = async () => {
         try {
-            const response = await axios.get(`https://api.unmarshal.com/v1/matic/address/0x989923d33bE0612680064Dc7223a9f292C89A538/assets?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+            // const response = await axios.get(`https://api.unmarshal.com/v1/matic/address/0x989923d33bE0612680064Dc7223a9f292C89A538/assets?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+            const response = await axios.get(`https://api.unmarshal.com/v1/${helperConfig.unmarshal[chainId]}/address/${selectSega}/assets?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
             setAssetList(response.data)
         } catch (error) {
             console.log(`Asset [getTokkenBalance]`, error)
@@ -46,32 +50,50 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
     const RISK = {
         img: `@src/assets/images/logo/question.jpg`,
         label: 'RISK',
+        symbol: 'RISK'
     }
 
     const LINK = {
         img: `@src/assets/images/logo/question.jpg`,
         label: 'LINK',
+        symbol: 'LINK'
     }
 
     const USDC = {
         img: `@src/assets/images/logo/question.jpg`,
         label: 'USDC',
+        symbol: 'USDC'
     }
 
     const [tokenTicker, setTokenTicker] = useState("")
-    const [decimal, setDecimal] = useState()
-    const [assetAdrs, setAssetAdrs] = useState('')
-    const [balance, setBalance] = useState()
+    const [assetAdrs, setAssetAdrs] = useState(constants.AddressZero)
+    // const [decimal, setDecimal] = useState()
+    // const [balance, setBalance] = useState()
 
     const { TokenZero,
         tokenAddress,
         getToken,
-        getNative } = useTokens(tokenTicker) //tokenaddress
+        getNative } = useTokens(tokenTicker, assetAdrs)
 
     const nativeToken = getNative()
 
+    const native = {
+        img: `@src/assets/images/logo/question.jpg`,
+        label: nativeToken.name,
+        symbol: nativeToken.ticker
+    }
+
     const apiList = data
     const erc20List = [RISK, LINK, USDC]
+
+    //[]
+    // if (helperConfig.testnetwork.find(chainId)) {
+    //     const tokenList = [native].concat(erc20List).concat(apiList)
+    // } else {
+    //     const tokenList = apiList
+    // }
+    // const tokenList = [nativeToken.ticker].concat(erc20List).concat(apiList).concat(native)
+    // const tokenList = [nativeToken.ticker].concat(erc20List)
     const tokenList = [nativeToken.ticker].concat(erc20List).concat(apiList)
 
     const [haveToken, setHaveToken] = useState(0)
@@ -80,10 +102,10 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
         setUsingNative(0)
         console.log("zzz1")
         setHaveToken(0)
-        const _tokenTicker = data.label
-        const _tokenTickerDecimal = data.decimal
+        const _tokenTicker = data.symbol
         const _tokenTickerAdrs = data.adrs
-        const _tokenTickerBal = data.balance
+        // const _tokenTickerDecimal = data.decimal
+        // const _tokenTickerBal = data.balance
         console.log("Got Token Name:", _tokenTicker)
         console.log("Token List:", tokenList)
         // console.log(tokenList.indexOf(_tokenTicker))
@@ -91,40 +113,41 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
         if (tokenList.indexOf(tokenList.find(a => a.symbol === _tokenTicker)) !== -1) {
             console.log(_tokenTicker)
             setTokenTicker(_tokenTicker)
-            setDecimal(_tokenTickerDecimal)
             setAssetAdrs(_tokenTickerAdrs)
-            setBalance(_tokenTickerBal)
+            // setDecimal(_tokenTickerDecimal)
+            // setBalance(_tokenTickerBal)
         } else {
             setTokenTicker(TokenZero.ticker)
         }
     }
 
     const ercToken = getToken()
-    // useEffect(() => {
-    //     if (tokenTicker === nativeToken.ticker) {
-    //         setUsingNative(1)
-    //         setHaveToken(1)
-    //     }
-    //     if (ercToken !== TokenZero.name) {
-    //         setHaveToken(1)
-    //     }
-    // }, [ercToken, tokenTicker, nativeToken, TokenZero])
+    console.log('erctoken', ercToken.name)
     useEffect(() => {
         if (tokenTicker === nativeToken.ticker) {
             setUsingNative(1)
             setHaveToken(1)
         }
-        if (tokenTicker !== TokenZero.name) {
+        if (ercToken !== TokenZero.name) {
             setHaveToken(1)
         }
     }, [ercToken, tokenTicker, nativeToken, TokenZero])
+    // useEffect(() => {
+    //     if (tokenTicker === nativeToken.ticker) {
+    //         setUsingNative(1)
+    //         setHaveToken(1)
+    //     }
+    //     if (tokenTicker !== TokenZero.name) {
+    //         setHaveToken(1)
+    //     }
+    // }, [ercToken, tokenTicker, nativeToken, TokenZero])
 
     //////////////////////////////////////////////////
     // Getting Amount To Transfer
     //////////////////////////////////////////////////
 
 
-    const [amount, setAmount] = useState(0)
+    const [amount, setAmount] = useState('0')
     const handleInputAmount = (event) => {
         const newAmount = (event.target.value) === "" ? "" : event.target.value
         if (newAmount) {
@@ -143,8 +166,7 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
 
     const decimals = usingNative ? nativeToken.decimals : ercToken.decimals
     // const decimals = usingNative ? nativeToken.decimals : decimal
-
-    // const bigNumAmount = haveToken ? utils.parseUnits(amount, decimals) : BigNumber.from(0)
+    const bigNumAmount = haveToken ? utils.parseUnits(amount, decimals) : BigNumber.from(0)
 
     const {
         vaultTransferNative,
@@ -157,18 +179,13 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
         TransferState
     } = useTransfers(pVault, selectSega)
 
-    // const handleForceRecall = () => {
-    //     console.log("handleForceRecall")
-    //     if (usingNative) {
-    //         recallNative(bigNumAmount)
-    //     } else {
-    //         recallErc(tokenAddress, bigNumAmount)
-    //     }
-    // }
-
     const handleForceRecall = () => {
         console.log("handleForceRecall")
-        recallErc(assetAdrs, bigNumAmount)
+        if (usingNative) {
+            recallNative(bigNumAmount)
+        } else {
+            recallErc(tokenAddress, bigNumAmount)
+        }
     }
 
     const handleLog = () => {
@@ -204,10 +221,8 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
     return (
         <Modal className='modal-dialog-centered modal-lg' isOpen={openrecallmodal} toggle={handlRecoverModal} >
             {/* {console.log('assest', asset)} */}
-            {/* {console.log('erctoken', ercToken)} */}
-            {/* {console.log('tokenlist', tokenList)} */}
-            {/* {console.log('assest', asset)}
-            {console.log('assestlist', assetList)} */}
+            {console.log('assestlist', assetList)}
+            {console.log('networkname', helperConfig[chainId])}
             <ModalHeader tag='h1' toggle={handlRecoverModal}>
                 Force Recall
             </ModalHeader>
@@ -274,7 +289,12 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
                         <FormGroup>
                             <Col className='d-flex flex-row justify-content-between'>
                                 <Label for='amount' style={{ fontSize: "1.3em" }}>Amount</Label>
-                                <span>Balance: {(balance / (10 ** decimal)).toFixed(6)}</span>
+                                {/* <span>Balance: {(balance / (10 ** decimal)).toFixed(6)}</span> */}
+                                {usingNative ? (
+                                    <span>Balance: {nativeBal.format()}</span>
+                                ) : (
+                                    <span>Balance: {ercTokenBal.format()}</span>
+                                )}
                                 <a href='#' style={{ color: 'red' }}> Send Max</a>
                             </Col>
                             <Input type='text' id='amount' onChange={handleInputAmount} />

@@ -14,7 +14,7 @@ import { useEthers, getExplorerAddressLink, getExplorerTransactionLink } from "@
 
 const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
 
-    const { chainId } = useEthers()
+    const { chainId, account } = useEthers()
 
     // Smart Contract Handle Functions from useRCU.ts file
     const { getVaultList } = useRCU()
@@ -27,6 +27,7 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
 
     // Initialise Vault to Manage
     const [Vault, setVault] = useState("")
+    const [Vaultname, setVaultName] = useState("")
 
     const { getRecoveryInfo,
         getSegaList,
@@ -67,27 +68,31 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
     const handleSetVault = (value) => {
         setSegaList([])
         setHaveInfo(0)
+        // setVault(value.adrs)
+        // setVaultName(value.label)
         setVault(value.label)
+        console.log(value)
     }
 
     //GET LIST OF VAULT's SEGAs
     const handleGetSegas = () => {
-        // if (Vault.length > 0) {
-        //     const x = getSegaList()
-        //     setSegaList(x)
-        //     console.log("Sega-List : ", x)
-        // } else {
+        if (Vault.length > 0) {
+            const x = getSegaList()
+            setSegaList(x)
+            console.log("Sega-List : ", x)
+        }
+        // else {
         //     handleGetAllVaults()
         // }
 
-        if (Vault.length > 0) {
-            const getdata = JSON.parse(localStorage.getItem('segadata'))
-            if (getdata) {
-                const sega = getdata.filter(a => a.vault === Vault)
-                setSegaList(sega)
-                console.log("Sega-List", sega)
-            }
-        }
+        // if (Vault.length > 0) {
+        //     const getdata = JSON.parse(localStorage.getItem('segadata'))
+        //     if (getdata) {
+        //         const sega = getdata.filter(a => a.vault === Vault)
+        //         setSegaList(sega)
+        //         console.log("Sega-List", sega)
+        //     }
+        // }
     }
 
 
@@ -111,9 +116,9 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
 
     const slist = SegaList && SegaList.map((sega, index) => ({
         id: index,
-        address: sega.address,
+        address: sega,
         icon1: <FaRegCopy className='mx-1' onClick={() => {
-            navigator.clipboard.writeText(sega.address)
+            navigator.clipboard.writeText(sega)
             // notifySuccess()
             alert('hi')
         }} />,
@@ -138,16 +143,17 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
 
     const getVaultListFromLocal = () => {
         const getdata = JSON.parse(localStorage.getItem('vaultdata'))
-        const valueData = getdata.filter(a => a.show === true)
+        const valueData = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account)
         console.log('valueData', valueData)
-        const vaultlist = valueData.map((vault, index) => ({ value: index, label: vault.address }))
+        const vaultlist = valueData && valueData.map((vault, index) => ({ value: index, label: `${vault.name} - ${vault.address}`, adrs: `${vault.address}` }))
         setVaultList(vaultlist)
     }
 
 
     useEffect(() => {
 
-        getVaultListFromLocal()
+        // getVaultListFromLocal()
+        handleGetAllVaults()
 
     }, [openvaultsec])
 
@@ -175,7 +181,8 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
                                 classNamePrefix='select'
                                 defaultValue=''
                                 name='clear'
-                                options={VaultList}
+                                // options={VaultList}
+                                options={vlist}
                                 onChange={handleSetVault}
                             />
                         </Col>
@@ -230,7 +237,7 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
                 </ModalFooter>
             </Modal>
             <ModifyVault openmodifyvaultmodal={modifyvaultmodal} handleModifyVaultModal={handleModifyVaultModal} vault={Vault} />
-            <ChildrenSega openchildsegamodal={childsegamodal} handleChildSegatModal={handleChildSegatModal} vault={Vault} segas={slist} />
+            <ChildrenSega openchildsegamodal={childsegamodal} handleChildSegatModal={handleChildSegatModal} vault={Vault} vaultName={Vaultname} segas={slist} />
         </div>
     )
 }

@@ -5,7 +5,7 @@ import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Button, Table } f
 import DataTable from 'react-data-table-component'
 import '@styles/react/libs/tables/react-dataTable-component.scss'
 
-const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, segas }) => {
+const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultName, segas }) => {
 
     const columns = [
         {
@@ -48,7 +48,6 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, segas 
     //         date: '10 Oct 2021'
     //     }
     // ]
-
     const actualSegas = segas.filter((sega) => { return sega.address !== "0x0000000000000000000000000000000000000000" })
 
     const data = actualSegas
@@ -70,7 +69,7 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, segas 
                         <Row className='d-flex flex-row'>
                             <Col md='1'><BsSafe2 size={40} /></Col>
                             <Col className='d-flex flex-column justify-content-start'>
-                                <h3>SBI Vault</h3>
+                                <h3>{vaultName}</h3>
                                 <h5>{vault}</h5>
                             </Col>
                         </Row>
@@ -93,9 +92,9 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, segas 
                 <Button.Ripple className='mx-1' style={{ minWidth: '10vw' }} color='primary' onClick={handleChildSegatModal}>
                     Add Selected Sega
                 </Button.Ripple>
-                <Button.Ripple className='mx-1' style={{ minWidth: '10vw' }} color='primary' onClick={handleChildSegatModal}>
+                {/* <Button.Ripple className='mx-1' style={{ minWidth: '10vw' }} color='primary' onClick={handleChildSegatModal}>
                     Add All Sega
-                </Button.Ripple>
+                </Button.Ripple> */}
             </ModalFooter>
         </Modal>
     )
