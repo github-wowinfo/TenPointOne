@@ -1,6 +1,6 @@
 import { X, Unlock } from 'react-feather'
 import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, Alert } from 'reactstrap'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Fragment } from 'react'
 import { useVault } from '../../../utility/hooks/useVaults'
 import { isAddress } from "ethers/lib/utils"
 import { useEthers, getExplorerTransactionLink } from '@usedapp/core'
@@ -36,8 +36,6 @@ const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
         const vaultadrs = e.target.value
         if (isAddress(vaultadrs)) {
             setVault(vaultadrs)
-        } else {
-            alert("Enter a valid address!")
         }
     }
 
@@ -121,7 +119,7 @@ const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
                 </Row>
             </ModalBody>
             <ModalFooter className='justify-content-center'>
-                {Vault === '' && nickName === '' ? (
+                {Vault === '' ? (
                     <Button.Ripple color='primary' disabled>
                         <Unlock className='mr-1' size={17} />
                         Recover
@@ -131,24 +129,23 @@ const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
                         <Unlock className='mr-1' size={17} />
                         Recover
                     </Button.Ripple>)}
-                <Col>
-                    <div className='d-flex flex-column justify-content-center'>
-                        <Alert isOpen={showTxnMiningSnack} toggle={() => handleTxnSnackClose()} color="info">
-                            <div>Transaction in Progress- Txn ID : &emsp; </div>
-                            <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
-                                target="_blank" rel="noreferrer">
-                                {(txnID)} </a>
-                        </Alert>
-                        <Alert isOpen={showTxnSuccessSnack} toggle={() => handleTxnSnackClose()} color="success">
-                            <div>Transaction Completed - Txn ID :</div>
-                            <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
-                                target="_blank" rel="noreferrer">
-                                {(txnID)} </a>
-                        </Alert>
-                    </div>
-                </Col>
-
             </ModalFooter>
+            <Col>
+                <div className='d-flex flex-column justify-content-center'>
+                    <Alert isOpen={showTxnMiningSnack} toggle={() => handleTxnSnackClose()} color="info">
+                        <div>Transaction in Progress- Txn ID : &emsp; </div>
+                        <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
+                            target="_blank" rel="noreferrer">
+                            {(txnID)} </a>
+                    </Alert>
+                    <Alert isOpen={showTxnSuccessSnack} toggle={() => handleTxnSnackClose()} color="success">
+                        <div>Transaction Completed - Txn ID :</div>
+                        <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
+                            target="_blank" rel="noreferrer">
+                            {(txnID)} </a>
+                    </Alert>
+                </div>
+            </Col>
 
         </Modal>
     )

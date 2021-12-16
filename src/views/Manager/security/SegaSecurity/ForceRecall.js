@@ -28,7 +28,7 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
 
     useEffect(() => {
         getTokenBalance()
-    }, [])
+    }, [openrecallmodal])
 
     const asset = assetList.map((item) => ({ label: item.contract_ticker_symbol, img: item.logo_url, decimal: item.contract_decimals, balance: item.balance, symbol: item.contract_ticker_symbol, adrs: item.contract_address }))
 
@@ -87,7 +87,8 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
     const erc20List = [RISK, LINK, USDC]
 
     //list population according to chainId
-    console.log(helperConfig.testnetworks.includes(chainId))
+    console.log('asset list', helperConfig.testnetworks.includes(chainId))
+    // console.log('asset list', helperConfig.testnetworks.includes(chainId))
     let tokenList
     helperConfig.testnetworks.includes(chainId) ? tokenList = [native].concat(erc20List).concat(apiList) : tokenList = apiList
 

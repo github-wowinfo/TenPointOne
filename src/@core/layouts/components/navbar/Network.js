@@ -3,8 +3,13 @@ import { useSelector, useDispatch, connect } from 'react-redux'
 import Icon from 'react-crypto-icons'
 import { UncontrolledButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap'
 import * as AppData from '../../../../redux/actions/cookies/appDataType'
+import networkData from './network.json'
+import { useEthers } from '@usedapp/core'
+// import thislogo from './node_modules/cryptocurrency-icons/svg/color/kmd.svg'
+import thislogo from '../../../../../node_modules/cryptocurrency-icons/svg/icon/matic.svg'
 
 const Network = ({ networkC, dispatch }) => {
+  const { chainId } = useEthers()
   const data = [
     {
       id: '0',
@@ -15,26 +20,32 @@ const Network = ({ networkC, dispatch }) => {
     {
       id: '1',
       name: 'BSC Mainet',
-      icon: 'matic',
-      netid: '0x3'
+      icon: 'bnb',
+      netid: '0x38'
     },
     {
       id: '2',
       name: 'Polygon Network',
-      icon: 'arg',
-      netid: '0x4'
+      icon: 'matic',
+      netid: '0x89'
     },
     {
       id: '3',
-      name: 'Optimism',
-      icon: 'poly',
-      netid: '0x5'
+      name: 'kovan',
+      icon: 'eth',
+      netid: '0x2a'
     },
     {
       id: '4',
-      name: 'Arbitrum',
-      icon: 'tnc',
-      netid: '0x2a'
+      name: 'BSC testnet',
+      icon: 'bnb',
+      netid: '0x61'
+    },
+    {
+      id: '5',
+      name: 'Polygon Mumbai',
+      icon: 'matic',
+      netid: '0x13881'
     }
 
   ]
@@ -63,6 +74,11 @@ const Network = ({ networkC, dispatch }) => {
   return (
     <UncontrolledButtonDropdown style={{ marginLeft: 20, marginRight: 20 }}>
       <DropdownToggle color='primary' outline caret>
+        {/* <span>{networkData[chainId].img}</span> */}
+        {/* <span className='mx-1'><img src={require(`${networkData[chainId].img}`)} alt='logo' /></span><span>{networkData[chainId].name}</span> */}
+        {/* <span className='mx-1'><img src={networkData[chainId].img} alt='logo' /></span><span>{networkData[chainId].name}</span> */}
+        {/* {console.log('image', networkData[chainId].image)} */}
+        {/* <span className='mx-1'><img src={thislogo} alt='logo' height='22' /></span><span>{networkData[chainId].name}</span> */}
         <span><Icon className='mx-1' name={network.icon} size={20} />{network.name}</span>
       </DropdownToggle>
       <DropdownMenu style={{ relative: 'relative' }}>

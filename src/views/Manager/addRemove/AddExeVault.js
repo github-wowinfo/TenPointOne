@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useState, Fragment } from 'react'
 import { Eye, EyeOff } from 'react-feather'
 import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, TabPane, TabContent, Nav, NavItem, NavLink } from 'reactstrap'
 import { useEthers } from '@usedapp/core'
 import { toast } from 'react-toastify'
 import { isAddress } from "ethers/lib/utils"
+import Avatar from '@components/avatar'
 
 const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
 
@@ -54,7 +55,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
             }
         }
         localStorage.setItem('vaultdata', JSON.stringify(getdata))
-        notifySuccessAdd()
+        // notifySuccessAdd()
         handleExeVaultModal()
     }
 
@@ -68,7 +69,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
             }
         }
         localStorage.setItem('vaultdata', JSON.stringify(getdata))
-        notifySuccessRemove()
+        // notifySuccessRemove()
         handleExeVaultModal()
     }
 
@@ -192,7 +193,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
                         </Button.Ripple> */}
                     </>
                 ) : (
-                    <Button.Ripple color='primary' onClick={handleOnRemove} disabled>
+                    <Button.Ripple color='primary' onClick={handleOnRemove} >
                         <EyeOff className='mr-1' size={17} />
                         REMOVE
                     </Button.Ripple>

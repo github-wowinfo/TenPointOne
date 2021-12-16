@@ -36,7 +36,7 @@ const UserDropdown = ({ networkC }) => {
 
   const [text, setText] = useState(account)
 
-  const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
+  const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false })
 
   const copy = async () => {
     await navigator.clipboard.writeText(text)
@@ -137,7 +137,7 @@ const UserDropdown = ({ networkC }) => {
                   <label className='mr-1'> {account && account.slice(0, 4)}...{account && account.slice(account.length - 4, account.length)}</label>
                   {/* {account.slice(0, 4)}...{account.slice(account.length - 4, account.length)} */}
                   {/* <Text name={account} fchar={4} lchar={4} /> */}
-                  <FaRegCopy size={15} className='mr-1' onClick={copy} />
+                  <FaRegCopy style={{ cursor: 'pointer' }} size={15} className='mr-1' onClick={copy} />
                   <a href={getExplorerAddressLink(account, chainId)} target='_main'><GoLinkExternal size={15} /></a>
                 </div>
               </div>
