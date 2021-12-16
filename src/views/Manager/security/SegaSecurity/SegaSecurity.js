@@ -45,6 +45,19 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
         console.log("Vault-List", x)
     }
 
+
+    const getValueSegaFromLocal = () => {
+        console.log('Vault', Vault)
+        if (Vault.length > 0) {
+            const getdata = JSON.parse(localStorage.getItem('segadata'))
+            if (getdata) {
+                const sega = getdata.filter(a => a.vault === Vault)
+                setSegaList(sega)
+                console.log("Sega-List", sega)
+            }
+        }
+    }
+
     //GET LIST OF VAULT's SEGAs
     const handleGetSegas = () => {
         if (Vault.length > 0) {
@@ -60,16 +73,18 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
     const handleSetVault = (value) => {
         setSegaList([])
         setHaveInfo(0)
-        // setVault(value.adrs)
-        setVault(value.label)
-        handleGetSegas()
+        setVault(value.adrs)
+
+        // setVault(value.label)
+        // handleGetSegas()
+
     }
 
     // Set Sega to Manage
     const handleSetSega = (value) => {
         setHaveInfo(0)
-        // setSega(value.adrs)
-        setSega(value.label)
+        setSega(value.adrs)
+        // setSega(value.label)
         value = ''
     }
 
@@ -85,10 +100,11 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
         }
     }
 
-    const vlist = VaultList && VaultList.map((vault, index) => ({ value: index, label: vault }))
+    // const vlist = VaultList && VaultList.map((vault, index) => ({ value: index, label: vault }))
+    const vlist = VaultList && VaultList.map((vault, index) => ({ value: index, label: `${vault.name} - ${vault.address}`, adrs: `${vault.address}` }))
 
-    // const slist = SegaList && SegaList.map((sega, index) => ({ value: index, label: `${sega.name} - ${sega.address}`, adrs: `${sega.address}` }))
-    const slist = SegaList && SegaList.map((sega, index) => ({ value: index, label: sega }))
+    const slist = SegaList && SegaList.map((sega, index) => ({ value: index, label: `${sega.name} - ${sega.address}`, adrs: `${sega.address}` }))
+    // const slist = SegaList && SegaList.map((sega, index) => ({ value: index, label: sega }))
     const newSlist = slist.filter((sega) => { return sega.label !== "0x0000000000000000000000000000000000000000" })
 
     const handlePauseSega = () => {
@@ -127,19 +143,9 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
     //     }
     // }, [Vault, Sega])
 
-    // useEffect(() => {
-
-    //     if (Vault.length > 0) {
-    //         const getdata = JSON.parse(localStorage.getItem('segadata'))
-    //         if (getdata) {
-    //             const sega = getdata.filter(a => a.vault === Vault)
-    //             setSegaList(sega)
-    //             console.log("Sega-List", sega)
-    //         }
-    //     }
-
-    //     console.log("haveInfo", haveInfo)
-    // }, [haveInfo, Vault])
+    useEffect(() => {
+        getValueSegaFromLocal()
+    }, [Vault])
 
     useEffect(() => {
         if (txnState.status === "Mining") {
@@ -159,15 +165,15 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
     const getVaultListFromLocal = () => {
         const getdata = JSON.parse(localStorage.getItem('vaultdata'))
         const valueData = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account)
-        const vaultlist = valueData && valueData.map((vault, index) => ({ value: index, label: `${vault.name} - ${vault.address}`, adrs: `${vault.address}` }))
-        setVaultList(vaultlist)
-
+        // const vaultlist = valueData && valueData.map((vault, index) => ({ value: index, label: `${vault.name} - ${vault.address}`, adrs: `${vault.address}` }))
+        setVaultList(valueData)
+        console.log("Vault-List", valueData)
     }
 
     useEffect(() => {
 
-        // getVaultListFromLocal()
-        handleGetAllVaults()
+        getVaultListFromLocal()
+        // handleGetAllVaults()
 
     }, [opensegasec])
 
