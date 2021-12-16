@@ -66,6 +66,12 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
             }
         }
 
+        // const getdata = JSON.parse(localStorage.getItem('segadata'))
+        // const vaultdata = getdata.map(a => ({ ...a, show: true }))
+        // console.log(vaultdata)
+        // localStorage.setItem('testdata', JSON.stringify(vaultdata))
+
+
     }
 
     //SNACKBAR Settings for Sega Launches
@@ -116,7 +122,8 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
                 vault: Vault,
                 name: nickName,
                 address: newSega,
-                network: chainId
+                network: chainId,
+                show: true
             }
             let segadata = []
             if (getdata) {
