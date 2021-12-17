@@ -49,21 +49,19 @@ const Asset = () => {
 
             setAssetList(response.data)
 
-            const balance = response.data.map(item => Math.floor(item.balance / (10 ** item.contract_decimals) * item.quote_rate)).reduce((acc, curr) => acc + curr, 0)
+            const balance = response.data.map(item => item.balance / (10 ** item.contract_decimals) * item.quote_rate).reduce((acc, curr) => acc + curr, 0)
 
             setSum(balance)
             console.log(balance)
         } catch (error) {
+            setAssetList([])
             console.log(`Asset [getTokkenBalance]`, error)
         }
     }
 
     useEffect(() => {
         getTokenBalance()
-
-        return () => {
-        }
-    }, [sum])
+    }, [chainId, sum])
 
     const addDefaultSrc = (ev) => {
         ev.target.src = require(`@src/assets/images/logo/question.jpg`).default
@@ -136,9 +134,9 @@ const Asset = () => {
                         </Row>
                         <div className='d-flex flex-column align-items-end pb-0'>
                             <CardTitle className='mb-25' tag='h4'>
-                                ${sum}
+                                Total balance: ${sum}
                             </CardTitle>
-                            <CardText className='mb-0'>Total balance</CardText>
+                            {/* <CardText className='mb-0'>Total balance</CardText> */}
                         </div>
                     </CardBody>
                 </Card>

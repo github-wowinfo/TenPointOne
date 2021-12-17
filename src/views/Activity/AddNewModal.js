@@ -29,6 +29,8 @@ import moment from 'moment'
 import { FaRegCopy } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import Avatar from '@components/avatar'
+import { useEthers } from '@usedapp/core'
+import helperConfig from '../../helper-config.json'
 
 const AddNewModal = ({ open, handleModal, trxnId }) => {
   // ** State
@@ -39,9 +41,11 @@ const AddNewModal = ({ open, handleModal, trxnId }) => {
   // ** Custom close btn
   const CloseBtn = <X className='cursor-pointer' size={15} onClick={handleModal} />
 
+  const { chainId } = useEthers()
+
   const getTransactionDetails = async () => {
     try {
-      const response = await axios.get(`https://stg-api.unmarshal.io/v1/matic/transactions/${trxnId}?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+      const response = await axios.get(`https://stg-api.unmarshal.io/v1/${helperConfig.unmarshal[chainId]}/transactions/${trxnId}?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
       setDetails(response.data)
     } catch (error) {
       console.log(`AddNewModal [getTransactionDetails]`, error)
@@ -65,13 +69,8 @@ const AddNewModal = ({ open, handleModal, trxnId }) => {
   )
 
   useEffect(() => {
-
     if (trxnId) {
       getTransactionDetails()
-
-    }
-    return () => {
-
     }
   }, [trxnId])
 
@@ -83,6 +82,7 @@ const AddNewModal = ({ open, handleModal, trxnId }) => {
       modalClassName='modal-slide-in'
       contentClassName='pt-0'
     >
+      {console.log('trxnId', trxnId)}
       <ModalHeader className='mb-3' toggle={handleModal} close={CloseBtn} tag='div'>
         <label style={{ fontSize: 15, fontWeight: 'bold' }}>Transaction Details</label>
         <br />

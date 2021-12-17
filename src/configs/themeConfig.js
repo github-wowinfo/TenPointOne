@@ -3,7 +3,7 @@
 //Template config options
 const themeConfig = {
   app: {
-    appName: 'TenPointOne',
+    appName: 'Risk Protocol',
     appLogoImage: require('@src/assets/images/logo/newlogolatest.png').default
   },
   layout: {

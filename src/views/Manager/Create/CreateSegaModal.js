@@ -55,7 +55,7 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
         //     console.log("Sega-List : ", x)
         // } else {
         //     handleGetAllVaults()
-        // }
+        // }    
 
         if (Vault.length > 0) {
             const getdata = JSON.parse(localStorage.getItem('segadata'))
@@ -69,7 +69,7 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
         // const getdata = JSON.parse(localStorage.getItem('segadata'))
         // const vaultdata = getdata.map(a => ({ ...a, show: true }))
         // console.log(vaultdata)
-        // localStorage.setItem('testdata', JSON.stringify(vaultdata))
+        // localStorage.setItem('segadata', JSON.stringify(vaultdata))
 
 
     }

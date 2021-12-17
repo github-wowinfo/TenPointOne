@@ -69,7 +69,7 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
         setSegaList([])
         setHaveInfo(0)
         setVault(value.adrs)
-        setVaultName(value.label)
+        setVaultName(value.name)
         // setVault(value.label)
         console.log(value)
     }
@@ -145,7 +145,7 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
         const getdata = JSON.parse(localStorage.getItem('vaultdata'))
         const valueData = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account)
         console.log('valueData', valueData)
-        const vaultlist = valueData && valueData.map((vault, index) => ({ value: index, label: `${vault.name} - ${vault.address}`, adrs: `${vault.address}` }))
+        const vaultlist = valueData && valueData.map((vault, index) => ({ value: index, label: `${vault.name} - ${vault.address}`, adrs: vault.address, name: vault.name }))
         setVaultList(vaultlist)
     }
 

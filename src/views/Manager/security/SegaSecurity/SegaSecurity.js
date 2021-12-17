@@ -76,7 +76,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
         setVault(value.adrs)
 
         // setVault(value.label)
-        
+
 
     }
 
@@ -94,9 +94,11 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
             setParentVault(_parentVault)
             setTrader(_trader)
             setActiveStatus(_active)
-            setHaveInfo(1)
+            if (Vault && Sega) {
+                setHaveInfo(1)
+            }
         } else {
-            handleGetAllVaults()
+            // handleGetAllVaults()
         }
     }
 
@@ -136,7 +138,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
         setTxnSuccessSnack(false)
     }
 
-    //Setting Flag for haveInfo
+    // Setting Flag for haveInfo
     // useEffect(() => {
     //     if (Vault && Sega) {
     //         setHaveInfo(1)
@@ -172,23 +174,25 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
     }
 
     useEffect(() => {
-
         getVaultListFromLocal()
         // handleGetAllVaults()
-
-    }, [opensegasec])
+    }, [chainId])
 
     return (
         <div>
             <Modal className='modal-dialog-centered modal-lg' isOpen={opensegasec} toggle={() => {
                 handleSegaSecModal()
                 setHaveInfo(0)
+                setVault('')
+                setSega('')
             }} >
                 {/* {console.log('newSlist', newSlist)}
                 {console.log('vlist', vlist)} */}
                 <ModalHeader tag='h2' toggle={() => {
                     handleSegaSecModal()
                     setHaveInfo(0)
+                    setVault('')
+                    setSega('')
                 }}>
                     Select Account to Manage
                 </ModalHeader>
