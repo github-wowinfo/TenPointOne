@@ -71,7 +71,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
 
     // Set Vault to Manage
     const handleSetVault = (value) => {
-        setSegaList([])
+        // setSegaList([])
         setHaveInfo(0)
         setVault(value.adrs)
 
