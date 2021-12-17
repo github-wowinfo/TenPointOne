@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Card, CardBody, Col, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row, Table, Badge } from 'reactstrap'
+import { Button, Card, CardBody, Col, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row, Table, Badge, TabContent, TabPane } from 'reactstrap'
 import { HiDownload } from 'react-icons/hi'
 import { BsArrowUpCircle, BsArrowDownCircle, BsInfoCircle } from 'react-icons/bs'
 import { GrClose } from 'react-icons/gr'
@@ -30,6 +30,7 @@ const ActivityScreen = ({ message, dispatch }) => {
     const [getTransaction, setTransaction] = useState([])
     const [trxnId, setTrxnId] = useState('')
     const [dataList, setDataList] = useState([])
+    const [edataList, setEdataList] = useState([])
     const [active, setActive] = useState('1')
     const [currentPage, setCurrentPage] = useState(0)
 
@@ -44,14 +45,16 @@ const ActivityScreen = ({ message, dispatch }) => {
     }
 
     const getDataForList = (value) => {
+        console.log('tabvalue', value)
         let data = []
         if (value === '1') {
-
             data = getTransaction.length > 0 && getTransaction.transactions.filter((a) => a.type.includes('receive') || a.type.includes('send') || a.type.includes('approve'))
+            console.log('getTransaction', getTransaction)
+            console.log('firstcondition', data)
             setDataList(data)
         } else {
             data = getTransaction.length > 0 && getTransaction.transactions.filter((a) => !a.type.includes('receive') && !a.type.includes('send') && !a.type.includes('approve'))
-
+            console.log('secondcondition', data)
             setDataList(data)
         }
     }
@@ -60,7 +63,7 @@ const ActivityScreen = ({ message, dispatch }) => {
         if (active !== tab) {
             setActive(tab)
         }
-        getDataForList(tab)
+        // getDataForList(tab)
     }
 
     const getTokenTransaction = async () => {
@@ -71,13 +74,16 @@ const ActivityScreen = ({ message, dispatch }) => {
             setTransaction(response.data)
 
             const data = response.data.transactions.filter((a) => a.type.includes('receive') || a.type.includes('send') || a.type.includes('approve'))
+            const exedata = response.data.transactions.filter((a) => !a.type.includes('receive') && !a.type.includes('send') && !a.type.includes('approve'))
             setDataList(data)
+            setEdataList(exedata)
 
         } catch (error) {
             console.log(`Activity[getTokenTransaction]`, error)
         }
     }
 
+    console.log('edatalist', edataList)
     useEffect(() => {
         getTokenTransaction()
         return () => {
@@ -117,14 +123,22 @@ const ActivityScreen = ({ message, dispatch }) => {
         },
         {
             name: 'Recipient',
-            maxWidth: '200px',
+            maxWidth: '300px',
             selector: row => (
                 <span>
                     <span>
                         {
-                            row.type === 'receive' ? (<span className='align-middle font-weight-bold'  >From :</span>) : (<span className='align-middle font-weight-bold'  >To :</span>)
+                            row.type === 'receive' ? (<>
+                                <span className='align-middle font-weight-bold'  >From :</span>
+                                <span className='align-middle font-weight-light'  >{row.from.slice(0, 10)}...{row.from.slice(row.from.length - 4, row.from.length)}</span>
+                            </>
+                            ) : (<>
+                                <span className='align-middle font-weight-bold'  >To :</span>
+                                <span className='align-middle font-weight-light'  >{row.to.slice(0, 10)}...{row.to.slice(row.to.length - 4, row.to.length)}</span>
+                            </>
+                            )
                         }
-                        <span className='align-middle font-weight-light'  >{row.to}</span>
+                        {/* <span className='align-middle font-weight-light'  >{row.from.slice(0, 10)}...{row.from.slice(row.from.length - 4, row.from.length)}</span> */}
                         <br />
                         <span className='align-middle' style={{
                             fontSize: 12
@@ -138,39 +152,49 @@ const ActivityScreen = ({ message, dispatch }) => {
             maxWidth: '300px',
             selector: row => (
                 <span>
-                    <span>
-                        {
-                            row.sent ? row.sent[0].value / (10 ** row.sent[0].decimals) : row.received ? '' : '-'
-                        }
-                        <span className='ml-1'>{row.sent && row.sent[0].symbol}</span>
-                    </span>
-                    <br />
-                    <span>
-                        {
-                            row.received ? row.received[0].value / (10 ** row.received[0].decimals) : row.sent ? '' : '-'
-                        }
-                        <span className='ml-1'>{row.received && row.received[0].symbol}</span>
-                    </span>
+                    {
+                        row.type === 'receive' ? (
+                            <>
+                                <span className='align-middle'>
+                                    {
+                                        row.received ? row.received[0].value / (10 ** row.received[0].decimals) : row.sent ? '' : '-'
+                                    }
+                                    <br />
+                                    <span className='align-middle'>{row.received && row.received[0].symbol}</span>
+                                </span>
+                            </>
+                        ) : (
+                            <>
+                                <span className='align-middle'>
+                                    {
+                                        row.sent ? row.sent[0].value / (10 ** row.sent[0].decimals) : row.received ? '' : '-'
+                                    }
+                                    <br />
+                                    <span className='align-middle'>{row.sent && row.sent[0].symbol}</span>
+                                </span>
+                            </>
+                        )
+                    }
+                    {/* <br /> */}
                 </span>
             )
         },
         {
-            name: '$',
+            name: '$ Value',
             maxWidth: '150px',
             selector: row => (
                 <span>
-                    0
-                    {/* <span>
-                        {
-                            row.sent && `$${ row.sent[0].value / (10 ** row.sent[0].decimals) }`
-                        }
-                    </span>
-                    <br />
                     <span>
                         {
-                            row.received && `$${ row.received[0].value / (10 ** row.received[0].decimals) }`
+                            row.sent && `$${row.sent[0].value / (10 ** row.sent[0].decimals)}`
                         }
-                    </span> */}
+                    </span>
+                    {/* <br /> */}
+                    <span>
+                        {
+                            row.received && `$${row.received[0].value / (10 ** row.received[0].decimals)}`
+                        }
+                    </span>
                 </span>
             )
         },
@@ -267,7 +291,6 @@ const ActivityScreen = ({ message, dispatch }) => {
                             <div className='d-inline-block mr-1 mb-1'>
                                 <Button.Ripple outline color='primary' size='lg' active={active === '1'} onClick={() => {
                                     toggle('1')
-
                                 }}>
                                     Transactions
                                 </Button.Ripple>
@@ -288,7 +311,36 @@ const ActivityScreen = ({ message, dispatch }) => {
 
                 </Card>
 
-                <Card>
+                <TabContent activeTab={active}>
+                    <TabPane tabId='1'>
+                        <DataTable
+                            className='react-dataTable'
+                            customStyles={tablestyle}
+                            noHeader
+                            data={dataList}
+                            columns={columns}
+                            pagination
+                            paginationPerPage={20}
+                            paginationDefaultPage={currentPage + 1}
+                            paginationComponent={CustomPagination}
+                        />
+                    </TabPane>
+                    <TabPane tabId='2'>
+                        <DataTable
+                            className='react-dataTable'
+                            customStyles={tablestyle}
+                            noHeader
+                            data={edataList}
+                            columns={columns}
+                            pagination
+                            paginationPerPage={20}
+                            paginationDefaultPage={currentPage + 1}
+                            paginationComponent={CustomPagination}
+                        />
+                    </TabPane>
+                </TabContent>
+
+                {/* <Card>
                     <DataTable
                         className='react-dataTable'
                         customStyles={tablestyle}
@@ -300,7 +352,8 @@ const ActivityScreen = ({ message, dispatch }) => {
                         paginationDefaultPage={currentPage + 1}
                         paginationComponent={CustomPagination}
                     />
-                </Card>
+                </Card> */}
+
                 <CustomModal open={modalVisible} handleModal={handleModal} trxnId={trxnId} />
 
             </>) : disconnect()}
