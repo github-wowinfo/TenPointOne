@@ -10,7 +10,8 @@ import {
     Input,
     CardTitle,
     CardText,
-    CardFooter
+    CardFooter,
+    CardHeader
 } from 'reactstrap'
 import Icon from 'react-crypto-icons'
 import DataTable from 'react-data-table-component'
@@ -92,7 +93,7 @@ const Asset = () => {
             )
         },
         {
-            name: 'Dollar value',
+            name: '$ value',
             selector: row => (
                 <span className='align-middle font-weight-bold'>
                     {
@@ -140,9 +141,12 @@ const Asset = () => {
                     <CardBody>
                         <Row>
                             <Col >
-                                <label style={{ fontWeight: 'bold', fontSize: 16 }}>Asset</label>
-                                <br />
-                                <label>View all your assets here</label>
+                                <CardHeader>
+                                    <CardTitle >Asset</CardTitle>
+                                </CardHeader>
+                                <CardBody>
+                                    <CardText>View all your assets here</CardText>
+                                </CardBody>
                             </Col>
 
                             <Col className='mb-1' md='2' sm='12'>
