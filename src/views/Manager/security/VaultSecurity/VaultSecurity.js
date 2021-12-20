@@ -144,7 +144,7 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
     const getVaultListFromLocal = () => {
         const getdata = JSON.parse(localStorage.getItem('vaultdata'))
         const valueData = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account)
-        console.log('valueData', valueData)
+        // console.log('valueData', valueData)
         const vaultlist = valueData && valueData.map((vault, index) => ({ value: index, label: `${vault.name} - ${vault.address}`, adrs: vault.address, name: vault.name }))
         setVaultList(vaultlist)
     }

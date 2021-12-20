@@ -24,7 +24,7 @@ import { ChevronDown, Share, Printer, FileText, File, Grid, Copy, Plus } from 'r
 import DataTable from 'react-data-table-component'
 import Icon from 'react-crypto-icons'
 import CardText from 'reactstrap/lib/CardText'
-import { useEthers } from '@usedapp/core'
+import { useEthers, shortenIfAddress } from '@usedapp/core'
 
 const AdddressBook = () => {
 
@@ -41,66 +41,72 @@ const AdddressBook = () => {
     const columns = [
         {
             name: 'Name',
-            maxWidth: '250px',
+            maxWidth: '200px',
             sortable: true,
             selector: row => row.name
         },
         {
             name: 'Address',
             selector: 'adrs',
-            minWidth: '600px',
-            sortable: true,
-            cell: row => (
-                <div className='d-flex flex-row flex-nowrap justify-center'>
-                    {row.avatar}
-                    <label style={{ fontSize: '1.2em' }} className='font-weight-bold mx-1'>{row.adrs}</label>
-                </div>
-            )
-        },
-        {
-            name: 'Network',
-            selector: 'ntwrk',
-            maxWidth: '120px',
+            minWidth: '475px',
             center: true,
-            cell: row => (
-                <div>
-                    <Icon name={row.network} size={30} />
-                </div>
-            )
+            sortable: true,
+            // cell: row => (
+            //     <div className='d-flex flex-row flex-nowrap justify-center'>
+            //         {/* {row.avatar} */}
+            //         <label style={{ fontSize: '14px' }} className='font-weight-bold mx-1'>{row.adrs}</label>
+            //     </div>
+            // )
+            cell: row => row.adrs
         },
         {
             name: '',
-            maxWidth: '150px',
+            maxWidth: '40px',
             right: true,
             cell: row => (
-                <div>
+                <div className='d-flex flex-row justify-content-center align-items-center'>
                     {row.icon1}
                     {row.icon2}
+                    {row.fav}
                 </div>
             )
         },
         {
-            name: ' ',
-            maxWidth: '100px',
-            right: true,
-            selector: row => (
-                <div className='text-center'>
-                    {row.fav}
+            name: 'Chain',
+            selector: 'ntwrk',
+            maxWidth: '50px',
+            center: true,
+            cell: row => (
+                <div>
+                    <Icon name={row.network} size={25} />
                 </div>
             )
-        }
+        },
+        // {
+        //     name: '',
+        //     maxWidth: '10px',
+        //     right: true,
+        //     selector: row => (
+        //         <div className='text-center'>
+        //             {row.fav}
+        //         </div>
+        //     )
+        // }
     ]
 
     const tablestyle = {
         headCells: {
             style: {
-                fontSize: '1.5em'
+                fontWeight: '500',
+                fontSize: '1.285rem',
+                color: '#6e6b7b'
             }
         },
         cells: {
             style: {
                 fontSize: '1.3em',
-                minHeight: '5em'
+                minHeight: '5em',
+                color: '#6e6b7b'
             }
         },
         rows: {
@@ -114,10 +120,10 @@ const AdddressBook = () => {
             {isConnected ? (<div>
                 <Card>
                     <CardHeader>
-                        <CardTitle style={{ fontSize: '2em' }}>Address Book</CardTitle>
+                        <CardTitle>Address Book</CardTitle>
                     </CardHeader>
                     <CardBody>
-                        <CardText style={{ fontSize: '1.3em' }}>Give individual names to your Vaults, Segas and Counterparties. All names are stored locally on your computer and Risk Protocol does not have access to them.</CardText>
+                        <CardText>Give individual names to your Vaults, Segas and Counterparties. All names are stored locally on your computer and Risk Protocol does not have access to them.</CardText>
                     </CardBody>
                 </Card>
                 <Card>

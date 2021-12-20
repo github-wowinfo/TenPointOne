@@ -73,7 +73,6 @@ export const useVault = (vault) => {
     }
     useEffect(() => {
         console.log("Txn State Before: ", txnState.transaction?.hash, txnState.status)
-
         if (changeBackupState.status === "Mining") {
             setTxnState(changeBackupState)
         } else if (changeUnlockPeriodState.status === "Mining") {
