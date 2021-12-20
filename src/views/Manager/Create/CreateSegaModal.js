@@ -159,7 +159,7 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
         return () => {
 
         }
-    }, [])
+    }, [chainId])
 
     return (
         <Modal className='modal-dialog-centered modal-lg' isOpen={opensega} toggle={handleSegaModal} >
