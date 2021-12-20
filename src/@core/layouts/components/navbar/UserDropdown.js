@@ -156,7 +156,7 @@ const UserDropdown = ({ networkC }) => {
           </li>
           <li className='dropdown-menu-header'>
             <div className='d-flex justify-content-between p-1'>
-              <label>Connected network</label>
+              <label>Connected</label>
 
               <div className='row d-flex justify-content-center align-items-center' style={{ marginRight: 0 }}>
                 <div className='circle' style={{ ...backgroundChange }}></div>

@@ -72,7 +72,7 @@ const Asset = () => {
         {
             name: 'Asset',
             selector: row => (
-                <div>
+                <div className='align-middle font-weight-bold'>
                     <img src={row.logo_url && row.logo_url} alt={row.contract_ticker_symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
                     {row.contract_ticker_symbol}
                 </div>
@@ -81,7 +81,7 @@ const Asset = () => {
         {
             name: 'Balance',
             selector: row => (
-                <span>
+                <span className='align-middle font-weight-bold'>
                     {
 
                         row.balance && (row.balance / (10 ** row.contract_decimals)).toFixed(6)
@@ -94,7 +94,7 @@ const Asset = () => {
         {
             name: 'Dollar value',
             selector: row => (
-                <span>
+                <span className='align-middle font-weight-bold'>
                     {
                         row.balance && `$${row.balance / (10 ** row.contract_decimals) * row.quote_rate}`
                     }
@@ -103,6 +103,27 @@ const Asset = () => {
         }
     ]
 
+    const tablestyle = {
+        headCells: {
+            style: {
+                TextAlign: 'center',
+                fontWeight: '500',
+                fontSize: '1.285rem',
+                color: '#6e6b7b'
+            }
+        },
+        cells: {
+            style: {
+                fontSize: '1.3em',
+                minHeight: '5em'
+            }
+        },
+        rows: {
+            style: {
+                minHeight: '5em'
+            }
+        }
+    }
     const etherPrice = useCoingeckoPrice('01coin', 'usd')
 
     return (
@@ -145,6 +166,7 @@ const Asset = () => {
                     <DataTable
                         className='react-dataTable'
                         noHeader
+                        customStyles={tablestyle}
                         data={assetList}
                         columns={columns}
                         sortIcon={<ChevronDown size={10} />}

@@ -105,15 +105,15 @@ const ActivityScreen = ({ message, dispatch }) => {
         },
         {
             name: 'Transaction',
-            width: '450px',
+            width: '275px',
             selector: row => (
                 <div>
                     <span>
-                        <span className='align-middle font-weight-bold'  >{row.description}</span>
+                        <span className='align-middle font-weight-bold' style={{ wordWrap: 'break-word' }}>{row.description}</span>
                         <br />
                         <span className='align-middle font-italic' style={{
                             fontSize: 15
-                        }}>{row.id.slice(0, 30)}...{row.id.slice(row.id.length - 4, row.id.length)}</span>
+                        }}>{row.id.slice(0, 6)}...{row.id.slice(row.id.length - 4, row.id.length)}</span>
 
 
                     </span>
@@ -123,18 +123,18 @@ const ActivityScreen = ({ message, dispatch }) => {
         },
         {
             name: 'Recipient',
-            maxWidth: '300px',
+            width: '195px',
             selector: row => (
                 <span>
                     <span>
                         {
                             row.type === 'receive' ? (<>
                                 <span className='align-middle font-weight-bold'  >From :</span>
-                                <span className='align-middle font-weight-light'  >{row.from.slice(0, 10)}...{row.from.slice(row.from.length - 4, row.from.length)}</span>
+                                <span className='align-middle font-weight-bold'  >{row.from.slice(0, 4)}...{row.from.slice(row.from.length - 4, row.from.length)}</span>
                             </>
                             ) : (<>
                                 <span className='align-middle font-weight-bold'  >To :</span>
-                                <span className='align-middle font-weight-light'  >{row.to.slice(0, 10)}...{row.to.slice(row.to.length - 4, row.to.length)}</span>
+                                <span className='align-middle font-weight-bold'  >{row.to.slice(0, 4)}...{row.to.slice(row.to.length - 4, row.to.length)}</span>
                             </>
                             )
                         }
@@ -149,23 +149,24 @@ const ActivityScreen = ({ message, dispatch }) => {
         },
         {
             name: 'Total Amount',
-            maxWidth: '300px',
+            center: true,
+            width: '150px',
             selector: row => (
                 <span>
                     {
                         row.type === 'receive' ? (
                             <>
-                                <span className='align-middle'>
+                                <span className='align-middle font-weight-bold'>
                                     {
                                         row.received ? row.received[0].value / (10 ** row.received[0].decimals) : row.sent ? '' : '-'
                                     }
                                     <br />
-                                    <span className='align-middle'>{row.received && row.received[0].symbol}</span>
                                 </span>
+                                <span className='align-middle'>{row.received && row.received[0].symbol}</span>
                             </>
                         ) : (
                             <>
-                                <span className='align-middle'>
+                                <span className='align-middle font-weight-bold'>
                                     {
                                         row.sent ? row.sent[0].value / (10 ** row.sent[0].decimals) : row.received ? '' : '-'
                                     }
@@ -184,13 +185,13 @@ const ActivityScreen = ({ message, dispatch }) => {
             maxWidth: '150px',
             selector: row => (
                 <span>
-                    <span>
+                    <span className='align-middle font-weight-bold'>
                         {
                             row.sent && `$${row.sent[0].value / (10 ** row.sent[0].decimals)}`
                         }
                     </span>
                     {/* <br /> */}
-                    <span>
+                    <span className='align-middle font-weight-bold'>
                         {
                             row.received && `$${row.received[0].value / (10 ** row.received[0].decimals)}`
                         }
@@ -208,6 +209,7 @@ const ActivityScreen = ({ message, dispatch }) => {
         {
             name: 'More Details',
             maxWidth: '200px',
+            center: true,
             selector: row => (
                 <Button.Ripple color='flat-primary' onClick={() => {
                     setModalVisible(!modalVisible)
@@ -218,6 +220,14 @@ const ActivityScreen = ({ message, dispatch }) => {
     ]
 
     const tablestyle = {
+        headCells: {
+            style: {
+                TextAlign: 'center',
+                fontWeight: '500',
+                fontSize: '1.285rem',
+                color: '#6e6b7b'
+            }
+        },
         cells: {
             style: {
                 fontSize: '1.3em',
