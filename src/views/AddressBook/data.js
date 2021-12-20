@@ -6,6 +6,8 @@ import { CustomInput } from 'reactstrap'
 import Heart from './Heart'
 import Avatar from '@components/avatar'
 
+
+// cell: row => { return (<div><FaRegCopy size={25} /><GoLinkExternal size={25}/></div>) }
 const avatar =
 {
     icon: <BsSafe2 size={25} />
@@ -17,10 +19,10 @@ export default [
         network: 'eth',
         avatar: <Avatar className='mr-1' size='lg' color='light' style={{ color: randomHexColor() }} icon={avatar.icon} />,
         adrs: 'mrzEKwoJVvmRgdLbw98bCT9R97Yzh75HpQ',
-        icon1: <FaRegCopy size={20} className='mx-1' />,
-        icon2: <GoLinkExternal size={20} className='mx-1' />,
+        icon1: <FaRegCopy size={20} className='mr-1' />,
+        icon2: <GoLinkExternal size={20} className='mr-1' />,
         fav: <Heart />
-        // cell: row => { return (<div><FaRegCopy size={25} /><GoLinkExternal size={25}/></div>) }
+
 
     },
     {
@@ -29,8 +31,8 @@ export default [
         network: 'matic',
         avatar: <Avatar className='mr-1' size='lg' color='light' style={{ color: randomHexColor() }} icon={avatar.icon} />,
         adrs: 'mhfsw4pcHRMfdBN3Nu6okg1ZF3J7j3qXxU',
-        icon1: <FaRegCopy size={20} className='mx-1' />,
-        icon2: <GoLinkExternal size={20} className='mx-1' />,
+        icon1: <FaRegCopy size={20} className='mr-1' />,
+        icon2: <GoLinkExternal size={20} className='mr-1' />,
         fav: <Heart />
     },
     {
@@ -39,8 +41,8 @@ export default [
         network: 'arg',
         avatar: <Avatar className='mr-1' size='lg' color='light' style={{ color: randomHexColor() }} icon={avatar.icon} />,
         adrs: 'mqVNYJcCpmMps1V4JWftK1Nzdfe83e5XZG',
-        icon1: <FaRegCopy size={20} className='mx-1' />,
-        icon2: <GoLinkExternal size={20} className='mx-1' />,
+        icon1: <FaRegCopy size={20} className='mr-1' />,
+        icon2: <GoLinkExternal size={20} className='mr-1' />,
         fav: <Heart />
     },
     {
@@ -49,8 +51,8 @@ export default [
         network: 'poly',
         avatar: <Avatar className='mr-1' size='lg' color='light' style={{ color: randomHexColor() }} icon={avatar.icon} />,
         adrs: 'n1M6M293pTNiwiqrM9CzyCmjBVJ4e76bS5',
-        icon1: <FaRegCopy size={20} className='mx-1' />,
-        icon2: <GoLinkExternal size={20} className='mx-1' />,
+        icon1: <FaRegCopy size={20} className='mr-1' />,
+        icon2: <GoLinkExternal size={20} className='mr-1' />,
         fav: <Heart />
     },
     {
@@ -59,8 +61,8 @@ export default [
         network: 'eth',
         avatar: <Avatar className='mr-1' size='lg' color='light' style={{ color: randomHexColor() }} icon={avatar.icon} />,
         adrs: 'mqJWS9a9ZZgcvb41z8qNLSRCYhpT4f3H8t',
-        icon1: <FaRegCopy size={20} className='mx-1' />,
-        icon2: <GoLinkExternal size={20} className='mx-1' />,
+        icon1: <FaRegCopy size={20} className='mr-1' />,
+        icon2: <GoLinkExternal size={20} className='mr-1' />,
         fav: <Heart />
     },
     {
@@ -69,8 +71,8 @@ export default [
         network: 'matic',
         avatar: <Avatar className='mr-1' size='lg' color='light' style={{ color: randomHexColor() }} icon={avatar.icon} />,
         adrs: 'mtSnbBmyT4zr8DUubEcmJDBEZdYDbEzZMR',
-        icon1: <FaRegCopy size={20} className='mx-1' />,
-        icon2: <GoLinkExternal size={20} className='mx-1' />,
+        icon1: <FaRegCopy size={20} className='mr-1' />,
+        icon2: <GoLinkExternal size={20} className='mr-1' />,
         fav: <Heart />
     },
     {
@@ -79,8 +81,8 @@ export default [
         network: 'arg',
         avatar: <Avatar className='mr-1' size='lg' color='light' style={{ color: randomHexColor() }} icon={avatar.icon} />,
         adrs: 'mm5URxUDgbEN7qYAvDS3L2X3kuEZW7uERE',
-        icon1: <FaRegCopy size={20} className='mx-1' />,
-        icon2: <GoLinkExternal size={20} className='mx-1' />,
+        icon1: <FaRegCopy size={20} className='mr-1' />,
+        icon2: <GoLinkExternal size={20} className='mr-1' />,
         fav: <Heart />
     },
     {
@@ -89,8 +91,8 @@ export default [
         network: 'poly',
         avatar: <Avatar className='mr-1' size='lg' color='light' style={{ color: randomHexColor() }} icon={avatar.icon} />,
         adrs: 'mhfsw4pcHRMfdBN3Nu6okg1ZF3J7j3qXxU',
-        icon1: <FaRegCopy size={20} className='mx-1' />,
-        icon2: <GoLinkExternal size={20} className='mx-1' />,
+        icon1: <FaRegCopy size={20} className='mr-1' />,
+        icon2: <GoLinkExternal size={20} className='mr-1' />,
         fav: <Heart />
     },
     {
@@ -99,8 +101,8 @@ export default [
         network: 'eth',
         avatar: <Avatar className='mr-1' size='lg' color='light' style={{ color: randomHexColor() }} icon={avatar.icon} />,
         adrs: 'mqVNYJcCpmMps1V4JWftK1Nzdfe83e5XZG',
-        icon1: <FaRegCopy size={20} className='mx-1' />,
-        icon2: <GoLinkExternal size={20} className='mx-1' />,
+        icon1: <FaRegCopy size={20} className='mr-1' />,
+        icon2: <GoLinkExternal size={20} className='mr-1' />,
         fav: <Heart />
     },
     {
@@ -109,8 +111,8 @@ export default [
         network: 'matic',
         avatar: <Avatar className='mr-1' size='lg' color='light' style={{ color: randomHexColor() }} icon={avatar.icon} />,
         adrs: 'n1M6M293pTNiwiqrM9CzyCmjBVJ4e76bS5',
-        icon1: <FaRegCopy size={20} className='mx-1' />,
-        icon2: <GoLinkExternal size={20} className='mx-1' />,
+        icon1: <FaRegCopy size={20} className='mr-1' />,
+        icon2: <GoLinkExternal size={20} className='mr-1' />,
         fav: <Heart />
     },
     {
@@ -119,8 +121,8 @@ export default [
         network: 'arg',
         avatar: <Avatar className='mr-1' size='lg' color='light' style={{ color: randomHexColor() }} icon={avatar.icon} />,
         adrs: 'mqJWS9a9ZZgcvb41z8qNLSRCYhpT4f3H8t',
-        icon1: <FaRegCopy size={20} className='mx-1' />,
-        icon2: <GoLinkExternal size={20} className='mx-1' />,
+        icon1: <FaRegCopy size={20} className='mr-1' />,
+        icon2: <GoLinkExternal size={20} className='mr-1' />,
         fav: <Heart />
     },
     {
@@ -129,8 +131,8 @@ export default [
         network: 'poly',
         avatar: <Avatar className='mr-1' size='lg' color='light' style={{ color: randomHexColor() }} icon={avatar.icon} />,
         adrs: 'mtSnbBmyT4zr8DUubEcmJDBEZdYDbEzZMR',
-        icon1: <FaRegCopy size={20} className='mx-1' />,
-        icon2: <GoLinkExternal size={20} className='mx-1' />,
+        icon1: <FaRegCopy size={20} className='mr-1' />,
+        icon2: <GoLinkExternal size={20} className='mr-1' />,
         fav: <Heart />
     },
     {
@@ -139,8 +141,8 @@ export default [
         network: 'eth',
         avatar: <Avatar className='mr-1' size='lg' color='light' style={{ color: randomHexColor() }} icon={avatar.icon} />,
         adrs: 'mm5URxUDgbEN7qYAvDS3L2X3kuEZW7uERE',
-        icon1: <FaRegCopy size={20} className='mx-1' />,
-        icon2: <GoLinkExternal size={20} className='mx-1' />,
+        icon1: <FaRegCopy size={20} className='mr-1' />,
+        icon2: <GoLinkExternal size={20} className='mr-1' />,
         fav: <Heart />
     }
 ]

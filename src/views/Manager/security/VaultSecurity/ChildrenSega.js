@@ -63,7 +63,7 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultN
     const handleChange = ({ selectedRows }) => {
         setSelectedRows(selectedRows)
     }
-    console.log(selectedRows)
+    // console.log(selectedRows)
     // const CloseBtn = <X className='cursor-pointer' size={25} onClick={handleModal} />
     return (
         <>

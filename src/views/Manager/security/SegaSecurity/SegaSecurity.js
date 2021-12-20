@@ -170,7 +170,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
         const valueData = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account)
         // const vaultlist = valueData && valueData.map((vault, index) => ({ value: index, label: `${vault.name} - ${vault.address}`, adrs: `${vault.address}` }))
         setVaultList(valueData)
-        console.log("Vault-List", valueData)
+        // console.log("Vault-List", valueData)
     }
 
     useEffect(() => {

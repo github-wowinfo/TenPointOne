@@ -110,11 +110,11 @@ const Asset = () => {
 
             {console.log(assetList)}
             {isConnected ? (<>
-                <Row>
+                {/* <Row>
                     <Col>
                         <p>${etherPrice}</p>
                     </Col>
-                </Row>
+                </Row> */}
                 <Card>
                     <CardBody>
                         <Row>

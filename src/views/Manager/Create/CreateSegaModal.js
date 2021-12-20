@@ -147,7 +147,7 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
     const getVaultListFromLocal = () => {
         const getdata = JSON.parse(localStorage.getItem('vaultdata'))
         const valueData = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account)
-        console.log(valueData)
+        // console.log(valueData)
         // const vaultlist = valueData && valueData.map((vault, index) => ({ value: index, label: vault.address }))
         const vaultlist = valueData && valueData.map((vault, index) => ({ value: index, label: `${vault.name} - ${vault.address}`, adrs: `${vault.address}` }))
         setVaultList(vaultlist)

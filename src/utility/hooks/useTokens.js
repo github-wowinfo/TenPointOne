@@ -13,8 +13,8 @@ export const useTokens = (tokenTicker, assetAdrs) => {
     const addressZero = constants.AddressZerao
     const TokenZero = new Token("RP TokenZero", "ERROR", 0, addressZero, 0)
 
-    console.log('asssetadrs', assetAdrs)
-    console.log('tokenticker', tokenTicker)
+    // console.log('asssetadrs', assetAdrs)
+    // console.log('tokenticker', tokenTicker)
     let tokenAddress = addressZero
     if (assetAdrs === addressZero) {
         tokenAddress = chainId ? brownieConfig["networks"][networkName][tokenTicker] : ""
@@ -24,7 +24,7 @@ export const useTokens = (tokenTicker, assetAdrs) => {
     }
 
     // const tokenAddress = chainId ? brownieConfig["networks"][networkName][tokenTicker] : ""
-    console.log('tokenadrs', tokenAddress)
+    // console.log('tokenadrs', tokenAddress)
     const getNameFn = { abi: ERC20Interface, address: tokenAddress, method: "name", args: [], }
     const getSymbolFn = { abi: ERC20Interface, address: tokenAddress, method: "symbol", args: [], }
     const getDecimalFn = { abi: ERC20Interface, address: tokenAddress, method: "decimals", args: [], }

@@ -87,7 +87,7 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
     const erc20List = [RISK, LINK, USDC]
 
     //list population according to chainId
-    console.log('asset list', helperConfig.testnetworks.includes(chainId))
+    // console.log('asset list', helperConfig.testnetworks.includes(chainId))
     // console.log('asset list', helperConfig.testnetworks.includes(chainId))
     let tokenList
     helperConfig.testnetworks.includes(chainId) ? tokenList = [native].concat(erc20List).concat(apiList) : tokenList = apiList
@@ -123,7 +123,7 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
     }
 
     const ercToken = getToken()
-    console.log('erctoken', ercToken.name)
+    // console.log('erctoken', ercToken.name)
     useEffect(() => {
         if (tokenTicker === nativeToken.ticker) {
             setUsingNative(1)
@@ -222,8 +222,8 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
     return (
         <Modal className='modal-dialog-centered modal-lg' isOpen={openrecallmodal} toggle={handlRecoverModal} >
             {/* {console.log('assest', asset)} */}
-            {console.log('assestlist', assetList)}
-            {console.log('networkname', helperConfig[chainId])}
+            {/* {console.log('assestlist', assetList)} */}
+            {/* {console.log('networkname', helperConfig[chainId])} */}
             <ModalHeader tag='h1' toggle={handlRecoverModal}>
                 Force Recall
             </ModalHeader>
