@@ -7,7 +7,7 @@ import ForceRecall from './ForceRecall'
 import { useRCU } from '../../../../utility/hooks/useRCU'
 import { useVault } from '../../../../utility/hooks/useVaults'
 import { useManager } from '../../../../utility/hooks/useManager'
-import { useEthers, getExplorerAddressLink, getExplorerTransactionLink } from "@usedapp/core"
+import { useEthers, getExplorerAddressLink, getExplorerTransactionLink, shortenIfTransactionHash } from "@usedapp/core"
 
 const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
 
