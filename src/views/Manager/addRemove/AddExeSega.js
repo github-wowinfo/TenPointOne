@@ -4,6 +4,7 @@ import { Eye, EyeOff } from 'react-feather'
 import { selectThemeColors } from '@utils'
 import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap'
 import { useEthers } from '@usedapp/core'
+import { isAddress } from "ethers/lib/utils"
 
 const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
 
@@ -35,7 +36,9 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
         </Fragment>
     )
 
+    const [Vault, setVault] = useState('')
     const [VaultList, setVaultList] = useState([])
+    const [SegaList, setSegaList] = useState([])
 
     const getVaultListFromLocal = () => {
         const getdata = JSON.parse(localStorage.getItem('vaultdata'))
@@ -44,19 +47,86 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
         setVaultList(vaultlist)
     }
 
+    const getValueSegaFromLocal = () => {
+        console.log('Vault', Vault)
+        if (Vault.length > 0) {
+            const getdata = JSON.parse(localStorage.getItem('segadata'))
+            if (getdata) {
+                const sega = getdata.filter(a => a.vault === Vault && a.show === true && a.network === chainId && a.owner === account)
+                setSegaList(sega)
+                console.log("Sega-List", sega)
+            }
+        }
+    }
+
+    const slist = SegaList && SegaList.map((sega, index) => ({ value: index, label: `${sega.name} - ${sega.address}`, adrs: `${sega.address}` }))
+    const newSlist = slist.filter((sega) => { return sega.label !== "0x0000000000000000000000000000000000000000" })
+
     useEffect(() => {
-
         getVaultListFromLocal()
-    }, [chainId])
+    }, [openexesega, chainId])
 
-    const [Vault, setVault] = useState('')
-    const [nickName, setNickName] = useState('')
-    const [sadrs, setSadrs] = useState('')
+    useEffect(() => {
+        getValueSegaFromLocal()
+    }, [Vault])
 
     const handleVault = (value) => {
         setVault(value.address)
     }
 
+    const [accountText, setAccountText] = useState('')
+    const [selectSega, setSelectSega] = useState('')
+
+    const accountAdrsInput = (e) => {
+        const segaadd = e.target.value
+        if (isAddress(segaadd)) {
+            setAccountText(segaadd)
+        } else {
+            alert("Enter a valid address!")
+        }
+    }
+
+    const accountAdrsChange = (value) => {
+        const segaadrs = value.adrs
+        console.log('selectedadrs', segaadrs)
+        if (isAddress(segaadrs)) {
+            setSelectSega(segaadrs)
+        } else {
+            alert("Enter a valid address!")
+        }
+    }
+    console.log('accountadrs', selectSega)
+
+    const handleOnAdd = () => {
+        const getdata = JSON.parse(localStorage.getItem('segadata'))
+        for (const i in getdata) {
+            if (getdata[i].address === accountText) {
+                getdata[i].show = true
+                break
+            }
+        }
+        localStorage.setItem('segadata', JSON.stringify(getdata))
+        // notifySuccessAdd()
+        handleExeSegaModal()
+    }
+
+    const handleOnRemove = () => {
+
+        const getdata = JSON.parse(localStorage.getItem('segadata'))
+        for (const i in getdata) {
+            if (getdata[i].address === selectSega) {
+                getdata[i].show = false
+                break
+            }
+        }
+        localStorage.setItem('segadata', JSON.stringify(getdata))
+        console.log('getdata', getdata)
+        // notifySuccessRemove()
+        handleExeSegaModal()
+    }
+
+    // const [nickName, setNickName] = useState('')
+    // const [sadrs, setSadrs] = useState('')
     // const onChangeName = (e) => {
     //     setNickName(e.target.value)
     // }
@@ -156,7 +226,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
                             <Col>
                                 <FormGroup>
                                     <Label for='accadrs' style={{ fontSize: "1.3em" }}>Account Address</Label>
-                                    <Input type='text' id='accadrs' />
+                                    <Input type='text' id='accadrs' onChange={accountAdrsInput} />
                                 </FormGroup>
                             </Col>
                         </TabPane>
@@ -170,20 +240,20 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
                                     defaultValue=''
                                     name='clear'
                                     options={VaultList}
-                                    isClearable
+                                    onChange={handleVault}
                                 />
                             </Col>
-                            <Col>
-                                <FormGroup>
-                                    <Label for='nickname' style={{ fontSize: "1.3em" }}>Nickname</Label>
-                                    <Input type='text' id='nickname' />
-                                </FormGroup>
-                            </Col>
-                            <Col>
-                                <FormGroup>
-                                    <Label for='accadrs' style={{ fontSize: "1.3em" }}>Account Address</Label>
-                                    <Input type='text' id='accadrs' />
-                                </FormGroup>
+                            <Col className='mb-1'>
+                                <Label style={{ fontSize: "1.3em" }}>Select Sega</Label>
+                                <Select
+                                    // theme={selectThemeColors}
+                                    className='react-select'
+                                    classNamePrefix='select'
+                                    defaultValue=''
+                                    name='clear'
+                                    options={newSlist}
+                                    onChange={accountAdrsChange}
+                                />
                             </Col>
                         </TabPane>
                     </TabContent>
@@ -192,7 +262,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
             <ModalFooter className='justify-content-center'>
                 {active === '1' ? (
                     <>
-                        <Button.Ripple color='primary' onClick={handleExeSegaModal} disabled>
+                        <Button.Ripple color='primary' onClick={handleOnAdd} >
                             <Eye className='mr-1' size={17} />
                             ADD
                         </Button.Ripple>
@@ -202,7 +272,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
                         </Button.Ripple> */}
                     </>
                 ) : (
-                    <Button.Ripple color='primary' onClick={handleExeSegaModal} disabled>
+                    <Button.Ripple color='primary' onClick={handleOnRemove} >
                         <EyeOff className='mr-1' size={17} />
                         REMOVE
                     </Button.Ripple>

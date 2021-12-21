@@ -51,7 +51,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
         if (Vault.length > 0) {
             const getdata = JSON.parse(localStorage.getItem('segadata'))
             if (getdata) {
-                const sega = getdata.filter(a => a.vault === Vault)
+                const sega = getdata.filter(a => a.vault === Vault && a.show === true && a.network === chainId && a.owner === account)
                 setSegaList(sega)
                 console.log("Sega-List", sega)
             }
@@ -106,8 +106,8 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
     const vlist = VaultList && VaultList.map((vault, index) => ({ value: index, label: `${vault.name} - ${vault.address}`, adrs: `${vault.address}` }))
 
     const slist = SegaList && SegaList.map((sega, index) => ({ value: index, label: `${sega.name} - ${sega.address}`, adrs: `${sega.address}` }))
-    // const slist = SegaList && SegaList.map((sega, index) => ({ value: index, label: sega }))
     const newSlist = slist.filter((sega) => { return sega.label !== "0x0000000000000000000000000000000000000000" })
+    // const slist = SegaList && SegaList.map((sega, index) => ({ value: index, label: sega }))
 
     const handlePauseSega = () => {
         if (Vault.length > 0 && Sega.length > 0) { return pauseSega() }
@@ -176,7 +176,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
     useEffect(() => {
         getVaultListFromLocal()
         // handleGetAllVaults()
-    }, [chainId])
+    }, [opensegasec, chainId])
 
     return (
         <div>

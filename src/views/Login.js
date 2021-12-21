@@ -8,6 +8,7 @@ import { Check } from 'react-feather'
 import '@styles/base/pages/page-auth.scss'
 import { connect } from 'react-redux'
 import { useEthers } from '@usedapp/core'
+import logo from '../assets/images/logo/finallog.png'
 
 const SuccessProgressToast = () => (
   <Fragment>
@@ -48,11 +49,14 @@ const Login = () => {
         </Col>
         <Col className='d-flex align-items-center auth-bg px-2 p-lg-5' lg='4' sm='12'>
           <Col className='px-xl-2 mx-auto' sm='8' md='6' lg='12'>
-            <CardTitle tag='h2' className='font-weight-bold mb-3 px-1'>
-              Welcome to TEN-POINT-ONE! 👋
+            <Col className='mb-1 text-center'>
+              <img src={logo} alt="Risk protocol" height='50px' width='50px' />
+            </Col>
+            <CardTitle tag='h2' style={{ color: '#00cfe8' }} className='font-weight-bold text-center mb-3 px-1'>
+              RISK PROTOCOL
             </CardTitle>
-            {isConnected ? (<Button.Ripple color='info' style={{ fontSize: "1.5em", marginBottom: 10 }}
-              onClick={() => handleRoute()} block>WELCOME..!! </Button.Ripple>) : (<Button.Ripple color='info' style={{ fontSize: "1.5em", marginBottom: 10 }}
+            {isConnected ? (<Button.Ripple color='primary' style={{ fontSize: "1.5em", marginBottom: 10 }}
+              onClick={() => handleRoute()} block>WELCOME..!! </Button.Ripple>) : (<Button.Ripple color='primary' style={{ fontSize: "1.5em", marginBottom: 10 }}
                 onClick={async () => {
                   try {
                     await activateBrowserWallet(undefined, true)
@@ -64,10 +68,10 @@ const Login = () => {
                 }}
                 block>CONNECT WALLET
               </Button.Ripple>)}
-            {console.log(account)}
+            {/* {console.log(account)}
             {<p>Account: {account}</p>}
             <Button size='sm' onClick={deactivate}>Deactivate</Button>
-            {isConnected ? <p>Connected</p> : <p>Disconnected</p>}
+            {isConnected ? <p>Connected</p> : <p>Disconnected</p>} */}
           </Col>
         </Col>
       </Row>

@@ -88,7 +88,7 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
         // if (Vault.length > 0) {
         //     const getdata = JSON.parse(localStorage.getItem('segadata'))
         //     if (getdata) {
-        //         const sega = getdata.filter(a => a.vault === Vault)
+        //         const sega = getdata.filter(a => a.vault === Vault && a.show === true && a.network === chainId && a.owner === account)
         //         setSegaList(sega)
         //         console.log("Sega-List", sega)
         //     }

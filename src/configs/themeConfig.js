@@ -4,7 +4,7 @@
 const themeConfig = {
   app: {
     appName: 'Risk Protocol',
-    appLogoImage: require('@src/assets/images/logo/newlogolatest.png').default
+    appLogoImage: require('@src/assets/images/logo/finallog.png').default
   },
   layout: {
     isRTL: false,

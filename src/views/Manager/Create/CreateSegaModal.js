@@ -60,7 +60,7 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
         if (Vault.length > 0) {
             const getdata = JSON.parse(localStorage.getItem('segadata'))
             if (getdata) {
-                const sega = getdata.filter(a => a.vault === Vault)
+                const sega = getdata.filter(a => a.vault === Vault && a.show === true && a.network === chainId && a.owner === account)
                 setSegaList(sega)
                 console.log("Sega-List", sega)
             }
@@ -159,7 +159,7 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
         return () => {
 
         }
-    }, [chainId])
+    }, [opensega, chainId])
 
     return (
         <Modal className='modal-dialog-centered modal-lg' isOpen={opensega} toggle={handleSegaModal} >

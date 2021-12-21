@@ -32,7 +32,7 @@ export const useTokens = (tokenTicker, assetAdrs) => {
     const [name] = useContractCall(tokenAddress && getNameFn) ?? []
     const [symbol] = useContractCall(tokenAddress && getSymbolFn) ?? []
     const [decimals] = useContractCall(tokenAddress && getDecimalFn) ?? []
-    console.log('from blockchain', name, symbol, decimals)
+    // console.log('from blockchain', name, symbol, decimals)
 
     const getToken = () => {
         if (tokenTicker.length > 0) {
