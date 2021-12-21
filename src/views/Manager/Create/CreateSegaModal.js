@@ -162,8 +162,14 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
     }, [opensega, chainId])
 
     return (
-        <Modal className='modal-dialog-centered modal-lg' isOpen={opensega} toggle={handleSegaModal} >
-            <ModalHeader tag='h2' toggle={handleSegaModal}>
+        <Modal className='modal-dialog-centered modal-lg' isOpen={opensega} toggle={() => {
+            handleSegaModal()
+            handleTxnSnackClose()
+        }} >
+            <ModalHeader tag='h2' toggle={() => {
+                handleSegaModal()
+                handleTxnSnackClose()
+            }}>
                 New Sega
             </ModalHeader>
             <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -215,23 +221,21 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
                         </Button.Ripple>
                     ) : null
                 }
-                <div className='d-flex flex-column justify-content-center'>
-                    <Alert isOpen={showSegaLaunchingSnack} toggle={() => handleSnackClose()} color="info">
-                        <div>Sega Launch in Progress. Transaction ID : &emsp; </div>
-                        <a href={getExplorerTransactionLink(launchSegaTxn, chainId ? chainId : 1)}
-                            target="_blank" rel="noreferrer">
-                            {launchSegaTxn} </a>
-                    </Alert>
-                    <Alert isOpen={showSegaCreatedSnack} toggle={() => handleSnackClose()} color="success">
-                        New Sega Launched :
-                        <div><a href={getExplorerAddressLink(newSegaAddress, chainId ? chainId : 1)} target="_blank" rel="noreferrer">
-                            {newSegaAddress} </a> </div>
-                        <div>Transaction ID :</div>
-                        <a href={getExplorerTransactionLink(launchSegaTxn, chainId ? chainId : 1)}
-                            target="_blank" rel="noreferrer"> {launchSegaTxn} </a>
-                    </Alert>
-                </div>
             </ModalFooter>
+            <Col className='d-flex flex-column justify-content-center'>
+                <Alert isOpen={showTxnMiningSnack} toggle={() => handleTxnSnackClose()} color="info">
+                    <div>Transaction in Progress- Txn ID : &emsp; </div>
+                    <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
+                        target="_blank" rel="noreferrer">
+                        {shortenIfTransactionHash(txnID)} </a>
+                </Alert>
+                <Alert isOpen={showTxnSuccessSnack} toggle={() => handleTxnSnackClose()} color="success">
+                    <div>Transaction Completed - Txn ID :</div>
+                    <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
+                        target="_blank" rel="noreferrer">
+                        {shortenIfTransactionHash(txnID)} </a>
+                </Alert>
+            </Col>
         </Modal>
     )
 }

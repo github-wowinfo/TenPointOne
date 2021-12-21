@@ -182,6 +182,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
         <div>
             <Modal className='modal-dialog-centered modal-lg' isOpen={opensegasec} toggle={() => {
                 handleSegaSecModal()
+                handleTxnSnackClose()
                 setHaveInfo(0)
                 setVault('')
                 setSega('')
@@ -190,6 +191,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                 {console.log('vlist', vlist)} */}
                 <ModalHeader tag='h2' toggle={() => {
                     handleSegaSecModal()
+                    handleTxnSnackClose()
                     setHaveInfo(0)
                     setVault('')
                     setSega('')
@@ -286,24 +288,22 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                                 </Col>
                             </>
                         ) : null}
-                        <Col>
-                            <div className='d-flex flex-column justify-content-center'>
-                                <Alert isOpen={showTxnMiningSnack} toggle={() => handleTxnSnackClose()} color="info">
-                                    <div>Transaction in Progress- Txn ID : &emsp; </div>
-                                    <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
-                                        target="_blank" rel="noreferrer">
-                                        {(txnID)} </a>
-                                </Alert>
-                                <Alert isOpen={showTxnSuccessSnack} toggle={() => handleTxnSnackClose()} color="success">
-                                    <div>Transaction Completed - Txn ID :</div>
-                                    <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
-                                        target="_blank" rel="noreferrer">
-                                        {(txnID)} </a>
-                                </Alert>
-                            </div>
-                        </Col>
                     </Row>
                 </ModalBody>
+                <Col className='d-flex flex-column justify-content-center'>
+                    <Alert isOpen={showTxnMiningSnack} toggle={() => handleTxnSnackClose()} color="info">
+                        <div>Transaction in Progress- Txn ID : &emsp; </div>
+                        <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
+                            target="_blank" rel="noreferrer">
+                            {shortenIfTransactionHash(txnID)} </a>
+                    </Alert>
+                    <Alert isOpen={showTxnSuccessSnack} toggle={() => handleTxnSnackClose()} color="success">
+                        <div>Transaction Completed - Txn ID :</div>
+                        <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
+                            target="_blank" rel="noreferrer">
+                            {shortenIfTransactionHash(txnID)} </a>
+                    </Alert>
+                </Col>
             </Modal>
             <ForceRecall openrecallmodal={recallmodal} handlRecoverModal={handlRecoverModal} selectSega={Sega} pVault={parentVault} haveInfo={haveInfo} />
         </div>

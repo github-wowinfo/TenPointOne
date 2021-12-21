@@ -1,6 +1,6 @@
 import { BsSafe2 } from 'react-icons/bs'
 import { Modal, ModalBody, ModalHeader, InputGroup, InputGroupAddon, Row, Col, Input, Label, FormGroup, Button, Alert } from 'reactstrap'
-import { useEthers, getExplorerAddressLink, getExplorerTransactionLink } from "@usedapp/core"
+import { useEthers, getExplorerAddressLink, getExplorerTransactionLink, shortenIfTransactionHash } from "@usedapp/core"
 import { getAddress, hexStripZeros } from "ethers/lib/utils"
 import { useState, useEffect } from 'react'
 import { useVault } from '../../../../utility/hooks/useVaults'
@@ -75,7 +75,7 @@ const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault }) =>
         localStorage.setItem('vaultdata', JSON.stringify(getdata))
 
         handleModifyVaultModal()
-        
+
     }
 
     useEffect(() => {
@@ -90,8 +90,17 @@ const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault }) =>
 
     // const CloseBtn = <X className='cursor-pointer' size={25} onClick={handleModal} />
     return (
-        <Modal className='modal-dialog-centered modal-lg' isOpen={openmodifyvaultmodal} toggle={handleModifyVaultModal} >
-            <ModalHeader tag='h1' toggle={handleModifyVaultModal}>
+        <Modal className='modal-dialog-centered modal-lg' isOpen={openmodifyvaultmodal}
+            toggle={() => {
+                handleModifyVaultModal()
+                handleTxnSnackClose()
+            }
+            } >
+            <ModalHeader tag='h1' toggle={() => {
+                handleModifyVaultModal()
+                handleTxnSnackClose()
+            }
+            }>
                 Modify Vault Settings
             </ModalHeader>
             <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -150,24 +159,22 @@ const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault }) =>
                             </InputGroup>
                         </FormGroup>
                     </Col>
-                    <Col>
-                        <div className='d-flex flex-column justify-content-center'>
-                            <Alert isOpen={showTxnMiningSnack} toggle={() => handleTxnSnackClose()} color="info">
-                                <div>Transaction in Progress- Txn ID : &emsp; </div>
-                                <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
-                                    target="_blank" rel="noreferrer">
-                                    {(txnID)} </a>
-                            </Alert>
-                            <Alert isOpen={showTxnSuccessSnack} toggle={() => handleTxnSnackClose()} color="success">
-                                <div>Transaction Completed - Txn ID :</div>
-                                <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
-                                    target="_blank" rel="noreferrer">
-                                    {(txnID)} </a>
-                            </Alert>
-                        </div>
-                    </Col>
                 </Row>
             </ModalBody>
+            <Col className='d-flex flex-column justify-content-center'>
+                <Alert isOpen={showTxnMiningSnack} toggle={() => handleTxnSnackClose()} color="info">
+                    <div>Transaction in Progress- Txn ID : &emsp; </div>
+                    <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
+                        target="_blank" rel="noreferrer">
+                        {shortenIfTransactionHash(txnID)} </a>
+                </Alert>
+                <Alert isOpen={showTxnSuccessSnack} toggle={() => handleTxnSnackClose()} color="success">
+                    <div>Transaction Completed - Txn ID :</div>
+                    <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
+                        target="_blank" rel="noreferrer">
+                        {shortenIfTransactionHash(txnID)} </a>
+                </Alert>
+            </Col>
         </Modal>
     )
 }

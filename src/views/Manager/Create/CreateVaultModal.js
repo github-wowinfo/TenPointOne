@@ -133,8 +133,14 @@ const CreateVaultModal = ({ openvault, handleVaultModal }) => {
 
 
     return (
-        <Modal className='modal-dialog-centered modal-lg' isOpen={openvault} toggle={handleVaultModal} >
-            <ModalHeader tag='h2' toggle={handleVaultModal} >
+        <Modal className='modal-dialog-centered modal-lg' isOpen={openvault} toggle={() => {
+            handleVaultModal()
+            handleTxnSnackClose()
+        }} >
+            <ModalHeader tag='h2' toggle={() => {
+                handleVaultModal()
+                handleTxnSnackClose()
+            }} >
                 New Vault
             </ModalHeader>
             <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -166,28 +172,25 @@ const CreateVaultModal = ({ openvault, handleVaultModal }) => {
             </ModalBody>
             <ModalFooter className='d-flex flex-column align-items-center justify-content-center'>
                 {
-                    vname === false ? null : (
-                        <Button.Ripple color='primary' id='controlledPopover' onClick={handleLaunchVault}>
-                            {isLaunchInProgress ? <Spinner color='light' size='sm' /> : <span><PlusCircle className='mr-1' size={17} />Create</span>}
-                        </Button.Ripple>)
+                    vname === false ? null : (<Button.Ripple color='primary' id='controlledPopover' onClick={handleLaunchVault}>
+                        {isLaunchInProgress ? <Spinner color='light' size='sm' /> : <span><PlusCircle className='mr-1' size={17} />Create</span>}
+                    </Button.Ripple>)
                 }
-                <div className='d-flex flex-column justify-content-center'>
-                    <Alert isOpen={showLaunchingSnack} toggle={() => handleSnackClose()} color="info">
-                        <div>Vault Launch in Progress. Transaction ID : &emsp; </div>
-                        <a href={getExplorerTransactionLink(launchVaultTxn, chainId ? chainId : 1)}
-                            target="_blank" rel="noreferrer">
-                            {launchVaultTxn} </a>
-                    </Alert>
-                    <Alert isOpen={showVaultCreatedSnack} toggle={() => handleSnackClose()} color="success">
-                        New Vault Launched :
-                        <div><a href={getExplorerAddressLink(newVaultAddress, chainId ? chainId : 1)} target="_blank" rel="noreferrer">
-                            {newVaultAddress} </a> </div>
-                        <div>Transaction ID :</div>
-                        <a href={getExplorerTransactionLink(launchVaultTxn, chainId ? chainId : 1)}
-                            target="_blank" rel="noreferrer"> {launchVaultTxn} </a>
-                    </Alert>
-                </div>
             </ModalFooter>
+            <Col className='d-flex flex-column justify-content-center'>
+                <Alert isOpen={showTxnMiningSnack} toggle={() => handleTxnSnackClose()} color="info">
+                    <div>Transaction in Progress- Txn ID : &emsp; </div>
+                    <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
+                        target="_blank" rel="noreferrer">
+                        {shortenIfTransactionHash(txnID)} </a>
+                </Alert>
+                <Alert isOpen={showTxnSuccessSnack} toggle={() => handleTxnSnackClose()} color="success">
+                    <div>Transaction Completed - Txn ID :</div>
+                    <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
+                        target="_blank" rel="noreferrer">
+                        {shortenIfTransactionHash(txnID)} </a>
+                </Alert>
+            </Col>
         </Modal>
     )
 }

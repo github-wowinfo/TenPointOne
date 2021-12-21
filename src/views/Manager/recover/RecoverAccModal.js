@@ -95,9 +95,15 @@ const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
 
     return (
 
-        <Modal className='modal-dialog-centered' isOpen={openrecovermodal} toggle={handleRecoverModal} >
+        <Modal className='modal-dialog-centered' isOpen={openrecovermodal} toggle={() => {
+            handleRecoverModal()
+            handleTxnSnackClose()
+        }} >
             {/* {console.log('new vault', Vault)} */}
-            <ModalHeader tag='h1' toggle={handleRecoverModal} >
+            <ModalHeader tag='h1' toggle={() => {
+                handleRecoverModal()
+                handleTxnSnackClose()
+            }} >
                 Recover Vault
             </ModalHeader>
             <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -131,23 +137,20 @@ const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
                         Recover
                     </Button.Ripple>)}
             </ModalFooter>
-            <Col>
-                <div className='d-flex flex-column justify-content-center'>
-                    <Alert isOpen={showTxnMiningSnack} toggle={() => handleTxnSnackClose()} color="info">
-                        <div>Transaction in Progress- Txn ID : &emsp; </div>
-                        <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
-                            target="_blank" rel="noreferrer">
-                            {(txnID)} </a>
-                    </Alert>
-                    <Alert isOpen={showTxnSuccessSnack} toggle={() => handleTxnSnackClose()} color="success">
-                        <div>Transaction Completed - Txn ID :</div>
-                        <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
-                            target="_blank" rel="noreferrer">
-                            {(txnID)} </a>
-                    </Alert>
-                </div>
+            <Col className='d-flex flex-column justify-content-center'>
+                <Alert isOpen={showTxnMiningSnack} toggle={() => handleTxnSnackClose()} color="info">
+                    <div>Transaction in Progress- Txn ID : &emsp; </div>
+                    <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
+                        target="_blank" rel="noreferrer">
+                        {shortenIfTransactionHash(txnID)} </a>
+                </Alert>
+                <Alert isOpen={showTxnSuccessSnack} toggle={() => handleTxnSnackClose()} color="success">
+                    <div>Transaction Completed - Txn ID :</div>
+                    <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
+                        target="_blank" rel="noreferrer">
+                        {shortenIfTransactionHash(txnID)} </a>
+                </Alert>
             </Col>
-
         </Modal>
     )
 }

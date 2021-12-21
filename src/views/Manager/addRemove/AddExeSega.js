@@ -68,7 +68,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
 
     useEffect(() => {
         getValueSegaFromLocal()
-    }, [Vault])
+    }, [Vault, openexesega])
 
     const handleVault = (value) => {
         setVault(value.address)
