@@ -221,14 +221,12 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
     return (
         <Modal className='modal-dialog-centered modal-lg' isOpen={openrecallmodal} toggle={() => {
             handlRecoverModal()
-            handleTxnSnackClose()
         }} >
             {/* {console.log('assest', asset)} */}
             {/* {console.log('assestlist', assetList)} */}
             {/* {console.log('networkname', helperConfig[chainId])} */}
             <ModalHeader tag='h1' toggle={() => {
                 handlRecoverModal()
-                handleTxnSnackClose()
             }}>
                 Force Recall
             </ModalHeader>

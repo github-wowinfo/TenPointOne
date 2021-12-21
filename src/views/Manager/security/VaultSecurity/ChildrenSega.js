@@ -79,14 +79,14 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultN
                 <ModalHeader tag='h1' toggle={handleChildSegatModal}>
                     Children Sega
                 </ModalHeader>
-                <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                    <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                <ModalBody >
+                    <Row className='d-flex flex-column justify-content-center align-items-center'>
                         <Col>
                             <h3>View all the Sega created through your Vault and linked to it</h3>
                         </Col>
                         <Col className='my-1'>
                             <Row className='d-flex flex-row'>
-                                <Col md='1'><BsSafe2 size={40} /></Col>
+                                <Col className='mx-1' md='1'><BsSafe2 size={40} /></Col>
                                 <Col className='d-flex flex-column justify-content-start'>
                                     <h3>{vaultName}</h3>
                                     <h5>{vault}</h5>
