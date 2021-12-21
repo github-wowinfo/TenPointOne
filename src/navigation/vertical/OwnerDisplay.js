@@ -64,7 +64,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
     return (
       <>
         <Col style={{ padding: '0px 0px' }}>
-          <Col style={{ ...networkstyle, ...backgroundChange, fontSize: '1.2em', marginBottom: '0px' }} className='my-1 d-flex flex-row flex-nowrap align-self-center '>
+          <Col style={{ ...networkstyle, ...backgroundChange, fontSize: '1em', marginBottom: '0px' }} className='my-1 d-flex flex-row flex-nowrap align-self-center '>
             {/* <Icon className='mr-1' name={networkC.icon} size={20} />{networkC.name} */}
             <Icon className='mr-1' name={networkIcon} size={20} />{networkName}
           </Col>
@@ -75,7 +75,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
 
         <Col style={{ padding: '0px 0px' }}>
           <UncontrolledButtonDropdown style={{ minWidth: "90%" }} direction='right'>
-            <DropdownToggle size="sm" className='my-1 btn-gradient-primary' color='none' caret>
+            <DropdownToggle style={{ fontSize: '1.2em' }} className='my-1 btn-gradient-primary' color='none' caret>
               SBI Vault
             </DropdownToggle>
             <DropdownMenu >
@@ -151,7 +151,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
             </DropdownMenu>
           </UncontrolledButtonDropdown>
           <UncontrolledButtonDropdown style={{ minWidth: "90%" }}>
-            <DropdownToggle size="sm" className='mb-1 btn-gradient-primary' color='none' caret>
+            <DropdownToggle className='mb-1 btn-gradient-primary' color='none' caret>
               Quick Actions
             </DropdownToggle>
             <DropdownMenu style={{ minWidth: '200px' }} >
