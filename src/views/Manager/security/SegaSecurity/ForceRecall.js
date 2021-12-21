@@ -202,27 +202,6 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
         console.log("Vault", pVault)
         console.log("To Address", pVault)
     }
-
-
-    //SNACKBAR FOR GENERAL TRANSACTIONS
-    const [txnID, setTxnID] = useState("")
-    const [showTxnMiningSnack, setShowTxnMiningSnack] = useState(false)
-    const [showTxnSuccessSnack, setTxnSuccessSnack] = useState(false)
-    const handleTxnSnackClose = () => {
-        console.log("Txn In Progress / Completed:", getExplorerTransactionLink(txnID, chainId))
-        setShowTxnMiningSnack(false)
-        setTxnSuccessSnack(false)
-    }
-    useEffect(() => {
-        if (txnState.status === "Mining") {
-            const tx_id = String(txnState.transaction?.hash)
-            setTxnID(tx_id.toString())
-            console.log("***Handle TX_ID: ", txnState.status, tx_id)
-            setShowTxnMiningSnack(true)
-        }
-        if (txnState.status === "Success") { setTxnSuccessSnack(true) }
-    }, [txnState])
-
     // const [assetFlag, setAssetFlag] = useState(0)
     // const [selasset, setSelasset] = useState("")
     // const [decimal, setDecimal] = useState()
@@ -335,20 +314,6 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
                 </Button.Ripple>
                 <Button.Ripple onClick={handleLog}>TestLog</Button.Ripple>
             </ModalFooter>
-            <Col className='d-flex flex-column justify-content-center'>
-                <Alert isOpen={showTxnMiningSnack} toggle={() => handleTxnSnackClose()} color="info">
-                    <div>Transaction in Progress- Txn ID : &emsp; </div>
-                    <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
-                        target="_blank" rel="noreferrer">
-                        {shortenIfTransactionHash(txnID)} </a>
-                </Alert>
-                <Alert isOpen={showTxnSuccessSnack} toggle={() => handleTxnSnackClose()} color="success">
-                    <div>Transaction Completed - Txn ID :</div>
-                    <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
-                        target="_blank" rel="noreferrer">
-                        {shortenIfTransactionHash(txnID)} </a>
-                </Alert>
-            </Col>
         </Modal>
     )
 }

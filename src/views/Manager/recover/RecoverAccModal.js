@@ -3,7 +3,7 @@ import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, For
 import { useState, useEffect, Fragment } from 'react'
 import { useVault } from '../../../utility/hooks/useVaults'
 import { isAddress } from "ethers/lib/utils"
-import { useEthers, getExplorerTransactionLink } from '@usedapp/core'
+import { useEthers, getExplorerTransactionLink, shortenIfTransactionHash } from '@usedapp/core'
 import { toast } from 'react-toastify'
 import Avatar from '@components/avatar'
 
