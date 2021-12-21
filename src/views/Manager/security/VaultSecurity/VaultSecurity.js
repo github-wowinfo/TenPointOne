@@ -171,7 +171,7 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
                 </ModalHeader>
                 <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                     <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '-webkit-fill-available' }}>
-                        <Col className='mb-1' style={{}}>
+                        <Col className='mb-1'>
                             <div className='d-flex flex-row justify-content-between my-1'>
                                 <Label style={{ fontSize: "1.3em" }}>Account</Label>
                                 {/* <Button.Ripple size='sm' color='primary' onClick={handleGetAllVaults}>Refresh</Button.Ripple> */}

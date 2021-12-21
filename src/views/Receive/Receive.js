@@ -10,6 +10,7 @@ import { toast } from 'react-toastify'
 import { Clipboard } from "react-feather"
 import { useState, Fragment } from 'react'
 import { useEthers, shortenIfAddress, getExplorerAddressLink } from '@usedapp/core'
+import helperConfig from '../../helper-config.json'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
@@ -70,7 +71,11 @@ const Receive = ({ networkC }) => {
       color: 'light-danger'
     }
   ]
-  const backgroundChange = { backgroundColor: networkC.name === 'BSC Mainet' ? '#cc9b01' : networkC.name === 'Etherum' ? '#627eea' : networkC.name === 'Optimism' ? '#ff0420' : networkC.name === 'Arbitrum' ? '#2d374b' : '#8247e5' }
+
+  const networkIcon = helperConfig.network[chainId].icon
+  const networkName = helperConfig.network[chainId].name
+  const backgroundChange = { backgroundColor: networkName === "BSC testnet" ? '#cc9b00' : networkName === "Polygon Network" ? '#8146e4' : networkName === "Ethereum" ? '#4559f4' : networkName === "Kovan" ? '#6435c9' : networkName === "BSC Mainet" ? '#cc9b00' : networkName === "Polygon Mumbai" ? '#140035' : null }
+  // const backgroundChange = { backgroundColor: networkC.name === 'BSC Mainet' ? '#cc9b01' : networkC.name === 'Etherum' ? '#627eea' : networkC.name === 'Optimism' ? '#ff0420' : networkC.name === 'Arbitrum' ? '#2d374b' : '#8247e5' }
 
   return (
     <>
@@ -83,7 +88,7 @@ const Receive = ({ networkC }) => {
           <CardBody style={{ padding: '1em' }}>
             <Row>
               <Col className='py-1' style={{ ...backgroundChange, textAlign: 'center', height: '100%' }}>
-                <CardText style={{ color: 'white' }}><Icon className='mr-1' name={networkC.icon} size={20} />{networkC.name} - only send {networkC.name} assests to this safe.</CardText>
+                <CardText style={{ color: 'white' }}><Icon className='mr-1' name={networkIcon} size={20} />{networkName} - only send {networkName} assests to this safe.</CardText>
               </Col>
             </Row>
             <Col className='my-1' style={{ textAlign: 'justify' }}>

@@ -3,8 +3,8 @@ import { useSelector, useDispatch, connect } from 'react-redux'
 import Icon from 'react-crypto-icons'
 import { UncontrolledButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap'
 import * as AppData from '../../../../redux/actions/cookies/appDataType'
-import networkData from './network.json'
 import { useEthers } from '@usedapp/core'
+import helperConfig from '../../../../helper-config.json'
 // import thislogo from './node_modules/cryptocurrency-icons/svg/color/kmd.svg'
 import thislogo from '../../../../../node_modules/cryptocurrency-icons/svg/icon/matic.svg'
 
@@ -50,7 +50,8 @@ const Network = ({ networkC, dispatch }) => {
 
   ]
 
-  const [network, setNetwork] = useState({ icon: 'eth', name: 'Ethereum' })
+  // const [network, setNetwork] = useState({ icon: 'eth', name: 'Ethereum' })
+  const [network, setNetwork] = useState({ icon: helperConfig.network[chainId].icon, name: helperConfig.network[chainId].name })
 
 
   const handleNetwork = (e, icon, name) => {

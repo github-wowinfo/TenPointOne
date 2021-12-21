@@ -12,6 +12,38 @@
         "56": "bsc",
         "1": "ethereum"
     },
+    "network": {
+        "97": {
+            "icon": "bnb",
+            "name": "BSC testnet",
+            "netid": "0x61"
+        },
+        "137": {
+            "icon": "matic",
+            "name": "Polygon Network",
+            "netid": "0x89"
+        },
+        "1": {
+            "icon": "eth",
+            "name": "Ethereum",
+            "netid": "0x1"
+        },
+        "42": {
+            "icon": "eth",
+            "name": "Kovan",
+            "netid": "0x2a"
+        },
+        "56": {
+            "icon": "bnb",
+            "name": "BSC Mainet",
+            "netid": "0x38"
+        },
+        "80001": {
+            "icon": "matic",
+            "name": "Polygon Mumbai",
+            "netid": "0x13881"
+        }
+    },
     "testnetworks": [
         42,
         80001,

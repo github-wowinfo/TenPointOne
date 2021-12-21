@@ -80,13 +80,12 @@ const UserDropdown = ({ networkC }) => {
     backgroundColor: 'orange',
     marginLeft: 2
   }
+  const networkIcon = helperConfig.network[chainId].icon
+  const networkName = helperConfig.network[chainId].name
+  const backgroundChange = { backgroundColor: networkName === "BSC testnet" ? '#cc9b00' : networkName === "Polygon Network" ? '#8146e4' : networkName === "Ethereum" ? '#4559f4' : networkName === "Kovan" ? '#6435c9' : networkName === "BSC Mainet" ? '#cc9b00' : networkName === "Polygon Mumbai" ? '#140035' : null }
+  // const backgroundChange = { backgroundColor: networkC.name === 'BSC Mainet' ? '#cc9b00' : networkC.name === 'Etherum' ? '#627eea' : networkC.name === 'Optimism' ? '#ff0420' : networkC.name === 'Arbitrum' ? '#2d374b' : '#8247e5' }
 
-
-  const pathname = `https://etherscan.io/address/${account}`
-
-  const backgroundChange = { backgroundColor: networkC.name === 'BSC Mainet' ? '#cc9b00' : networkC.name === 'Etherum' ? '#627eea' : networkC.name === 'Optimism' ? '#ff0420' : networkC.name === 'Arbitrum' ? '#2d374b' : '#8247e5' }
-
-  const networkName = chainId ? helperConfig[chainId] : "Not Connected"
+  // const networkName = chainId ? helperConfig[chainId] : "Not Connected"
 
   return (
     <>

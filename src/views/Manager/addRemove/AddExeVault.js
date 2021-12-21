@@ -1,10 +1,11 @@
-import { useState, Fragment } from 'react'
+import { useState, Fragment, useEffect } from 'react'
 import { Eye, EyeOff } from 'react-feather'
 import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, TabPane, TabContent, Nav, NavItem, NavLink } from 'reactstrap'
 import { useEthers } from '@usedapp/core'
 import { toast } from 'react-toastify'
 import { isAddress } from "ethers/lib/utils"
 import Avatar from '@components/avatar'
+import Select from 'react-select'
 
 const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
 
@@ -35,15 +36,27 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
     )
 
     const [accountText, setAccountText] = useState('')
+    const [selectVault, setSelectVault] = useState('')
 
-    const accountAdrsChange = (e) => {
-        const vaultadrs = e.target.value
-        if (isAddress(vaultadrs)) {
-            setAccountText(vaultadrs)
+    const accountAdrsInput = (e) => {
+        const vaultadd = e.target.value
+        if (isAddress(vaultadd)) {
+            setAccountText(vaultadd)
         } else {
             alert("Enter a valid address!")
         }
     }
+
+    const accountAdrsChange = (value) => {
+        const vaultadrs = value.adrs
+        console.log('selectedadrs', vaultadrs)
+        if (isAddress(vaultadrs)) {
+            setSelectVault(vaultadrs)
+        } else {
+            alert("Enter a valid address!")
+        }
+    }
+    console.log('accountadrs', selectVault)
 
     const handleOnAdd = () => {
 
@@ -63,12 +76,13 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
 
         const getdata = JSON.parse(localStorage.getItem('vaultdata'))
         for (const i in getdata) {
-            if (getdata[i].address === accountText) {
+            if (getdata[i].address === selectVault) {
                 getdata[i].show = false
                 break
             }
         }
         localStorage.setItem('vaultdata', JSON.stringify(getdata))
+        console.log('getdata', getdata)
         // notifySuccessRemove()
         handleExeVaultModal()
     }
@@ -101,6 +115,22 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
     //     localStorage.setItem('vaultdata', JSON.stringify(vaultdata))
     // }
 
+    const [VaultList, setVaultList] = useState([])
+
+    const getVaultListFromLocal = () => {
+        const getdata = JSON.parse(localStorage.getItem('vaultdata'))
+        const valueData = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account)
+        // console.log('valueData', valueData)
+        const vaultlist = valueData && valueData.map((vault, index) => ({ value: index, label: `${vault.name} - ${vault.address}`, adrs: vault.address, name: vault.name }))
+        console.log('vaultlist', vaultlist)
+        setVaultList(vaultlist)
+    }
+    useEffect(() => {
+
+        getVaultListFromLocal()
+        // handleGetAllVaults()
+
+    }, [openexevault])
     const [active, setActive] = useState('1')
 
     const toggle = tab => {
@@ -159,11 +189,28 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
                             <Col>
                                 <FormGroup>
                                     <Label for='accadrs' style={{ fontSize: "1.3em" }}>Account Address</Label>
-                                    <Input type='text' id='accadrs' onChange={accountAdrsChange} />
+                                    <Input type='text' id='accadrs' onChange={accountAdrsInput} />
                                 </FormGroup>
                             </Col>
                         </TabPane>
                         <TabPane tabId='2'>
+                            <Col className='mb-1'>
+                                <div className='d-flex flex-row justify-content-between my-1'>
+                                    <Label style={{ fontSize: "1.3em" }}>Select Vault to remove.</Label>
+                                    {/* <Button.Ripple size='sm' color='primary' onClick={handleGetAllVaults}>Refresh</Button.Ripple> */}
+                                </div>
+                                <Select
+                                    className='react-select'
+                                    classNamePrefix='select'
+                                    defaultValue=''
+                                    name='clear'
+                                    options={VaultList}
+                                    // options={vlist}
+                                    onChange={accountAdrsChange}
+                                />
+                            </Col>
+                        </TabPane>
+                        {/* <TabPane tabId='2'>
                             <Col>
                                 <FormGroup>
                                     <Label for='nickname' style={{ fontSize: "1.3em" }}>Nickname</Label>
@@ -176,7 +223,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
                                     <Input type='text' id='accadrs' onChange={accountAdrsChange} />
                                 </FormGroup>
                             </Col>
-                        </TabPane>
+                        </TabPane> */}
                     </TabContent>
                 </Row>
             </ModalBody>

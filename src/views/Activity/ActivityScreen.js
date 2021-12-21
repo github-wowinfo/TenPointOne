@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Card, CardBody, Col, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row, Table, Badge, TabContent, TabPane, CardTitle, CardHeader, Nav, NavItem, NavLink, CardFooter } from 'reactstrap'
+import { Button, Card, CardBody, CardText, Col, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row, Table, Badge, TabContent, TabPane, CardTitle, CardHeader, Nav, NavItem, NavLink, CardFooter } from 'reactstrap'
 import { HiDownload } from 'react-icons/hi'
 import { BsArrowUpCircle, BsArrowDownCircle, BsInfoCircle } from 'react-icons/bs'
 import { GrClose } from 'react-icons/gr'
@@ -15,7 +15,6 @@ import moment from 'moment'
 import { useEthers } from '@usedapp/core'
 import ReactPaginate from 'react-paginate'
 import helperConfig from "../../helper-config.json"
-import CardText from 'reactstrap/lib/CardText'
 
 const ActivityScreen = ({ message, dispatch }) => {
 
@@ -291,21 +290,20 @@ const ActivityScreen = ({ message, dispatch }) => {
                     </CardBody>
                 </Card> */}
 
-                <Card className='pt-2 align-items-center'>
-                    <CardHeader className='d-flex flex-column'>
+                {/* <Card className='pt-2 align-items-center'> */}
+                <Card className='my-1'>
+                    <CardHeader className='d-flex flex-row '>
                         <CardTitle>Transaction</CardTitle>
-                        <CardText>Track your transaction status here</CardText>
-                        <Button.Ripple color='primary'
-                            onClick={setMessage}
-                        >
-                            <Row>
-                                Export
-                                <HiDownload style={{ marginLeft: 5 }} />
-                            </Row>
+                        <Button.Ripple color='primary' onClick={setMessage}>
+                            Export
+                            <HiDownload style={{ marginLeft: 5 }} />
                         </Button.Ripple>
                     </CardHeader>
+                    <CardBody>
+                        <CardText>Track your transaction status here</CardText>
+                    </CardBody>
 
-                    <Nav tabs className='col-6' style={{ display: 'flex', flex: 1, justifyContent: 'space-evenly' }}>
+                    <Nav tabs style={{ display: 'flex', flex: 1, justifyContent: 'space-evenly', textAlign: 'center' }}>
 
                         <Col md={6} sm={6}>
                             <NavItem className='d-inline-block mr-1 mb-1'>

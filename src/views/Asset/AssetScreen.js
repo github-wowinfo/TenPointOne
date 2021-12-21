@@ -137,7 +137,7 @@ const Asset = () => {
                         <p>${etherPrice}</p>
                     </Col>
                 </Row> */}
-                <Card>
+                <Card className='my-1'>
                     <CardBody>
                         <Row>
                             <Col >
