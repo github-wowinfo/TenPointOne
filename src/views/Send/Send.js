@@ -12,11 +12,11 @@ import Icon from 'react-crypto-icons'
 import { toast } from 'react-toastify'
 import { Clipboard } from "react-feather"
 import { useState, Fragment } from 'react'
-import { useEthers } from '@usedapp/core'
+import { useEthers, getExplorerAddressLink, shortenIfAddress } from '@usedapp/core'
 
 const Send = () => {
 
-  const { account } = useEthers()
+  const { account, chainId } = useEthers()
 
   const isConnected = account !== undefined
 
@@ -116,18 +116,23 @@ const Send = () => {
       {isConnected ? (<Col style={cardStyle} md={{ offset: 3, size: 6 }} sm="12">
         <Card className='card-payment'>
           <CardHeader style={{ paddingBottom: '.3em' }}>
-            <CardTitle style={{ fontSize: '1.2em' }}>Send Funds</CardTitle>
+            <CardTitle>Send Funds</CardTitle>
           </CardHeader>
           <hr />
           <CardBody>
-            <Row>
-              <Col md='2'><Avatar size='lg' color={data[0].color} icon={data[0].icon} /></Col>
+            <Row className='d-flex flex-column'>
+              <Col className='d-flex flex-row pb-1'>
+                <Avatar className='mr-1' size='lg' color={data[0].color} icon={data[0].icon} />
+                <CardTitle className='my-1 '>SBI Vault</CardTitle>
+              </Col>
               <Col className='d-flex flex-column justify-content-start'>
-                <h4>SBI Vault</h4>
-                <p style={{ color: 'gray', fontSize: '.9rem' }}>{account}
-                  <FaRegCopy className='ml-1 mr-1' color='grey' size={15} onClick={copy} />
-                  <a href={pathname} target='_blank'><GoLinkExternal color='grey' size={15} /></a>
-                </p>
+                <Col className='d-flex flex-row '>
+                  <p style={{ color: 'gray' }}>{shortenIfAddress(account)}</p>
+                  <Col>
+                    <FaRegCopy style={{ cursor: 'pointer' }} className='mx-1' color='grey' size={15} onClick={copy} />
+                    <a href={getExplorerAddressLink(account, chainId)} target='_blank'><GoLinkExternal color='grey' size={15} /></a>
+                  </Col>
+                </Col>
                 <Badge style={{ width: '130px' }} color='secondary'>Balance: <strong>0 MATIC</strong></Badge>
               </Col>
             </Row>
@@ -144,9 +149,8 @@ const Send = () => {
                     <Label for='recepient' style={{ fontSize: '1.2em' }}>Recepient</Label>
                     <Row>
                       <Col md='10'>
-                        <Cleave
+                        <Input
                           className='form-control'
-                          options={{ creditCard: true }}
                           id='recepient'
                         />
                       </Col>
@@ -188,13 +192,13 @@ const Send = () => {
           <CardFooter>
             <Row >
               <Col>
-                <Button.Ripple color='success' outline block>
-                  Review
+                <Button.Ripple color='primary' block>
+                  Send
                 </Button.Ripple>
               </Col>
               <Col>
-                <Button.Ripple color='success' outline block>
-                  Clear
+                <Button.Ripple color='primary' block>
+                  Approve ERC
                 </Button.Ripple>
               </Col>
             </Row>

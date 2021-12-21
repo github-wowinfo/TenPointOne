@@ -14,6 +14,7 @@ import { connect } from 'react-redux'
 import { Fragment, useState } from 'react'
 import { useEthers, getExplorerAddressLink, getExplorerTransactionLink } from "@usedapp/core"
 import Icon from 'react-crypto-icons'
+import helperConfig from '../../helper-config.json'
 import Text from '../../views/CustomComponent/Text'
 
 const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
@@ -43,7 +44,10 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
     color: 'white',
     fontSize: '1.5em'
   }
-  const backgroundChange = { backgroundColor: networkC.name === 'BSC Mainet' ? '#cc9b00' : networkC.name === 'Etherum' ? '#627eea' : networkC.name === 'Optimism' ? '#ff0420' : networkC.name === 'Arbitrum' ? '#2d374b' : '#8247e5' }
+
+  const networkIcon = helperConfig.network[chainId].icon
+  const networkName = helperConfig.network[chainId].name
+  const backgroundChange = { backgroundColor: networkName === "BSC testnet" ? '#cc9b00' : networkName === "Polygon Network" ? '#8146e4' : networkName === "Ethereum" ? '#4559f4' : networkName === "Kovan" ? '#6435c9' : networkName === "BSC Mainet" ? '#cc9b00' : networkName === "Polygon Mumbai" ? '#140035' : null }
   const SuccessToast = () => (
     <Fragment>
       <div className='toastify-header'>
@@ -61,7 +65,8 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
       <>
         <Col style={{ padding: '0px 0px' }}>
           <Col style={{ ...networkstyle, ...backgroundChange, fontSize: '1.2em', marginBottom: '0px' }} className='my-1 d-flex flex-row flex-nowrap align-self-center '>
-            <Icon className='mr-1' name={networkC.icon} size={20} />{networkC.name}
+            {/* <Icon className='mr-1' name={networkC.icon} size={20} />{networkC.name} */}
+            <Icon className='mr-1' name={networkIcon} size={20} />{networkName}
           </Col>
           <Link to='/home'>
             <Avatar size='xl' color='light-danger' title='SBI Vault' icon={<BsSafe2 size={25} />} href='/home' />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Card, CardBody, Col, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row, Table, Badge, TabContent, TabPane } from 'reactstrap'
+import { Button, Card, CardBody, CardText, Col, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row, Table, Badge, TabContent, TabPane, CardTitle, CardHeader, Nav, NavItem, NavLink, CardFooter } from 'reactstrap'
 import { HiDownload } from 'react-icons/hi'
 import { BsArrowUpCircle, BsArrowDownCircle, BsInfoCircle } from 'react-icons/bs'
 import { GrClose } from 'react-icons/gr'
@@ -105,15 +105,15 @@ const ActivityScreen = ({ message, dispatch }) => {
         },
         {
             name: 'Transaction',
-            width: '450px',
+            width: '275px',
             selector: row => (
                 <div>
                     <span>
-                        <span className='align-middle font-weight-bold'  >{row.description}</span>
+                        <span className='align-middle font-weight-bold' style={{ wordWrap: 'break-word' }}>{row.description}</span>
                         <br />
                         <span className='align-middle font-italic' style={{
                             fontSize: 15
-                        }}>{row.id.slice(0, 30)}...{row.id.slice(row.id.length - 4, row.id.length)}</span>
+                        }}>Trxn Hash:{row.id.slice(0, 6)}...{row.id.slice(row.id.length - 4, row.id.length)}</span>
 
 
                     </span>
@@ -123,18 +123,18 @@ const ActivityScreen = ({ message, dispatch }) => {
         },
         {
             name: 'Recipient',
-            maxWidth: '300px',
+            width: '195px',
             selector: row => (
                 <span>
                     <span>
                         {
                             row.type === 'receive' ? (<>
                                 <span className='align-middle font-weight-bold'  >From :</span>
-                                <span className='align-middle font-weight-light'  >{row.from.slice(0, 10)}...{row.from.slice(row.from.length - 4, row.from.length)}</span>
+                                <span className='align-middle font-weight-bold'  >{row.from.slice(0, 4)}...{row.from.slice(row.from.length - 4, row.from.length)}</span>
                             </>
                             ) : (<>
                                 <span className='align-middle font-weight-bold'  >To :</span>
-                                <span className='align-middle font-weight-light'  >{row.to.slice(0, 10)}...{row.to.slice(row.to.length - 4, row.to.length)}</span>
+                                <span className='align-middle font-weight-bold'  >{row.to.slice(0, 4)}...{row.to.slice(row.to.length - 4, row.to.length)}</span>
                             </>
                             )
                         }
@@ -149,23 +149,23 @@ const ActivityScreen = ({ message, dispatch }) => {
         },
         {
             name: 'Total Amount',
-            maxWidth: '300px',
+            width: '150px',
             selector: row => (
                 <span>
                     {
                         row.type === 'receive' ? (
                             <>
-                                <span className='align-middle'>
+                                <span className='align-middle font-weight-bold'>
                                     {
                                         row.received ? row.received[0].value / (10 ** row.received[0].decimals) : row.sent ? '' : '-'
                                     }
                                     <br />
-                                    <span className='align-middle'>{row.received && row.received[0].symbol}</span>
                                 </span>
+                                <span className='align-middle'>{row.received && row.received[0].symbol}</span>
                             </>
                         ) : (
                             <>
-                                <span className='align-middle'>
+                                <span className='align-middle font-weight-bold'>
                                     {
                                         row.sent ? row.sent[0].value / (10 ** row.sent[0].decimals) : row.received ? '' : '-'
                                     }
@@ -184,13 +184,13 @@ const ActivityScreen = ({ message, dispatch }) => {
             maxWidth: '150px',
             selector: row => (
                 <span>
-                    <span>
+                    <span className='align-middle font-weight-bold'>
                         {
                             row.sent && `$${row.sent[0].value / (10 ** row.sent[0].decimals)}`
                         }
                     </span>
                     {/* <br /> */}
-                    <span>
+                    <span className='align-middle font-weight-bold'>
                         {
                             row.received && `$${row.received[0].value / (10 ** row.received[0].decimals)}`
                         }
@@ -207,7 +207,7 @@ const ActivityScreen = ({ message, dispatch }) => {
         },
         {
             name: 'More Details',
-            maxWidth: '200px',
+            width: '200px',
             selector: row => (
                 <Button.Ripple color='flat-primary' onClick={() => {
                     setModalVisible(!modalVisible)
@@ -218,6 +218,13 @@ const ActivityScreen = ({ message, dispatch }) => {
     ]
 
     const tablestyle = {
+        headCells: {
+            style: {
+                fontWeight: '500',
+                fontSize: '1.285rem',
+                color: '#6e6b7b'
+            }
+        },
         cells: {
             style: {
                 fontSize: '1.3em',
@@ -259,14 +266,14 @@ const ActivityScreen = ({ message, dispatch }) => {
     return (
         <>
             {isConnected ? (<>
-                <Card>
+                {/* <Card>
                     <CardBody>
-                        <Row>
-                            <Col >
-                                <label style={{ fontWeight: 'bold', fontSize: 16 }}>Transaction</label>
-                                <br />
-                                <label>Track your transaction status here</label>
-                            </Col>
+                        <Row className='d-flex flex-row justify-content-between'>
+                            <Card >
+                                <CardHeader>
+                                    <CardTitle>Transaction</CardTitle>
+                                </CardHeader>
+                            </Card>
 
                             <Col className='mb-1' md='2' sm='12'>
 
@@ -281,34 +288,43 @@ const ActivityScreen = ({ message, dispatch }) => {
                             </Col>
                         </Row>
                     </CardBody>
-                </Card>
+                </Card> */}
 
-                <Card className='pt-2 align-items-center'>
+                {/* <Card className='pt-2 align-items-center'> */}
+                <Card className='my-1'>
+                    <CardHeader className='d-flex flex-row '>
+                        <CardTitle>Transaction</CardTitle>
+                        <Button.Ripple color='primary' onClick={setMessage}>
+                            Export
+                            <HiDownload style={{ marginLeft: 5 }} />
+                        </Button.Ripple>
+                    </CardHeader>
+                    <CardBody>
+                        <CardText>Track your transaction status here</CardText>
+                    </CardBody>
 
-                    <div className='col-6' style={{ display: 'flex', flex: 1, justifyContent: 'space-evenly' }}>
+                    <Nav tabs style={{ display: 'flex', flex: 1, justifyContent: 'space-evenly', textAlign: 'center' }}>
 
                         <Col md={6} sm={6}>
-                            <div className='d-inline-block mr-1 mb-1'>
-                                <Button.Ripple outline color='primary' size='lg' active={active === '1'} onClick={() => {
+                            <NavItem className='d-inline-block mr-1 mb-1'>
+                                <NavLink color='primary' active={active === '1'} onClick={() => {
                                     toggle('1')
                                 }}>
                                     Transactions
-                                </Button.Ripple>
-                            </div>
+                                </NavLink>
+                            </NavItem>
                         </Col>
 
                         <Col md={6} sm={6}>
-                            <div className='d-inline-block mr-1 mb-1'>
-                                <Button.Ripple outline color='primary' size='lg' active={active === '2'} onClick={() => {
+                            <NavItem className='d-inline-block mr-1 mb-1'>
+                                <NavLink color='primary' active={active === '2'} onClick={() => {
                                     toggle('2')
                                 }}>
                                     Contract Interaction
-                                </Button.Ripple>
-                            </div>
+                                </NavLink>
+                            </NavItem>
                         </Col>
-
-                    </div>
-
+                    </Nav>
                 </Card>
 
                 <TabContent activeTab={active}>
