@@ -1,50 +1,45 @@
 import React, { useState } from 'react'
 import { Col, FormGroup, Input, Modal, ModalBody, ModalFooter, ModalHeader, Row, Button } from 'reactstrap'
 import { shortenIfAddress, useEthers } from "@usedapp/core"
+import AddNicknameForSega from './AddNicknameForSega'
 
 const SegaLocal = ({ opensegaLocalModal, handleSegaLocalModal, segas, vault }) => {
 
     const { account, chainId } = useEthers()
     const pvault = vault
 
-    const [newSega, setNewSega] = useState('')
-    const [nickName, setNickName] = useState('')
-    const handleSegaNickName = (e) => {
-        if (e.target.value === '') {
-            alert('Nickname cannot be blank!')
-        } else {
-            setNickName(e.target.value)
-            // setNewSega(item.address)
-        }
-    }
+    const [getSega, setSega] = useState([])
+
+    // const handleSegaNickName = (e) => {
+    //     if (e.target.value === '') {
+    //         alert('Nickname cannot be blank!')
+    //     } else {
+    //         setNickName(e.target.value)
+    //         // setNewSega(item.address)
+
+    //     }
+    // }
     const data = segas.map((item, index) => (
-        <>
-            <FormGroup>
-                <p>{index + 1} - {item.address}</p>
-                <Input type='text' id={index} onChange={handleSegaNickName} placeholder={`Add Nickname for ${shortenIfAddress(item.address)}`} />
-            </FormGroup>
-            {/* {setNewSega(item.address)} */}
-        </>
+        <AddNicknameForSega item={item} index={index} segas={segas} getSega={getSega} setSega={setSega} />
     ))
 
     const handleAddLocal = () => {
+
+        const segaList = segas.map(({ id, icon1, icon2, ...rest }) => ({ ...rest, owner: account, vault: pvault, network: chainId, show: true }))
+
         const getdata = JSON.parse(localStorage.getItem('segadata'))
-        const postdata =
-        {
-            owner: account,
-            vault: pvault,
-            name: nickName,
-            address: newSega,
-            network: chainId,
-            show: true
-        }
+
         let segadata = []
         if (getdata) {
-            segadata = [...getdata, postdata]
+            segadata = getdata.concat(segaList)
         } else {
-            segadata = [postdata]
+            segadata = segaList
         }
+
+        
         localStorage.setItem('segadata', JSON.stringify(segadata))
+
+        handleSegaLocalModal()
     }
     return (
         <>
@@ -64,7 +59,7 @@ const SegaLocal = ({ opensegaLocalModal, handleSegaLocalModal, segas, vault }) =
                     </Row>
                 </ModalBody>
                 <ModalFooter className='justify-content-center'>
-                    <Button.Ripple className='mx-1' style={{ minWidth: '10vw' }} color='primary' onClick={handleAddLocal} disabled>
+                    <Button.Ripple className='mx-1' style={{ minWidth: '10vw' }} color='primary' onClick={handleAddLocal}>
                         Add To Local
                     </Button.Ripple>
                 </ModalFooter>

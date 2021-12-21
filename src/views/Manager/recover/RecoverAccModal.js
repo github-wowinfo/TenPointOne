@@ -5,6 +5,7 @@ import { useVault } from '../../../utility/hooks/useVaults'
 import { isAddress } from "ethers/lib/utils"
 import { useEthers, getExplorerTransactionLink } from '@usedapp/core'
 import { toast } from 'react-toastify'
+import Avatar from '@components/avatar'
 
 const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
 
@@ -86,7 +87,7 @@ const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
         if (txnState.status === "Success") {
             setTxnSuccessSnack(true)
             addToLocal()
-            notifySuccess()
+            // notifySuccess()
         }
     }, [txnState])
 

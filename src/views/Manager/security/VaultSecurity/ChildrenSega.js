@@ -61,7 +61,12 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultN
 
     const [selectedRows, setSelectedRows] = useState([])
     const handleChange = ({ selectedRows }) => {
+
+        // const address = selectedRows.map(({ id, icon1, icon2, ...rest }) => ({ ...rest }))
+
         setSelectedRows(selectedRows)
+
+        // console.log('selected', address)
     }
     // console.log(selectedRows)
     // const CloseBtn = <X className='cursor-pointer' size={25} onClick={handleModal} />
