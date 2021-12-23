@@ -7,6 +7,7 @@ import Avatar from '@components/avatar'
 import { Alert, Button, CardSubtitle, Col, Modal, ModalBody, ModalHeader, Row } from 'reactstrap'
 import { Clipboard } from 'react-feather'
 
+
 const Qrcode = ({ openqrcode, handleQrcode, account }) => {
 
     const { chainId } = useEthers()
@@ -15,10 +16,10 @@ const Qrcode = ({ openqrcode, handleQrcode, account }) => {
 
     const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
 
-    const alert_shown = {
-        opacity: '1',
-        transition: 'all 250ms ease-in'
-    }
+    // const alert_shown = {
+    //     opacity: '1',
+    //     transition: 'all 250ms ease-in'
+    // }
     // const alert_hidden = {
     //     opacity: '0',
     //     transition: 'all 250ms linear'
@@ -81,9 +82,9 @@ const Qrcode = ({ openqrcode, handleQrcode, account }) => {
                     </Col>
                     {visible ? (
                         <Col>
-                            <Alert className={alert_shown} color='success' isOpen={visible} toggle={() => setVisible(false)}>
+                            <Alert className='animate__animated animate__slideInDown' color='success' isOpen={visible} toggle={() => setVisible(false)}>
                                 <div className='my-1 alert-heading'>
-                                    <Clipboard color='success' size={10} />Copied to Clipboard!
+                                    <Clipboard size={20} /><span className='ml-1'>Copied to Clipboard!</span>
                                 </div>
                             </Alert>
                         </Col>

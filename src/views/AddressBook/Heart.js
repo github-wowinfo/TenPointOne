@@ -5,7 +5,7 @@ import { FaHeart, FaRegHeart } from 'react-icons/fa'
 const Heart = () => {
 
     const [hicon, setHicon] = useState(true)
-    console.log('ok', hicon)
+    // console.log('ok', hicon)
 
     return (
         <div>

@@ -151,7 +151,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
             </DropdownMenu>
           </UncontrolledButtonDropdown>
           <UncontrolledButtonDropdown style={{ minWidth: "90%" }}>
-            <DropdownToggle style={{ fontSize: '1.1em' }} className='mb-1 btn-gradient-primary' color='none' caret>
+            <DropdownToggle style={{ fontSize: '1.1em' }} className='mb-1 btn-gradient-primary round' color='none' caret>
               Quick Actions
             </DropdownToggle>
             <DropdownMenu style={{ minWidth: '200px' }} >
