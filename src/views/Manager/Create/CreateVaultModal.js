@@ -113,10 +113,25 @@ const CreateVaultModal = ({ openvault, handleVaultModal }) => {
                 vaultdata = [postdata]
             }
             localStorage.setItem('vaultdata', JSON.stringify(vaultdata))
-
             console.log("***Handle New Vault: ", newVault)
             console.log("***Handle Short Vault: ", shortenAddress(newVault))
             setShowVaultCreatedSnack(true)
+
+            const getAdrsdata = JSON.parse(localStorage.getItem('adrsbook'))
+            const adrsdata =
+            {
+                owner: account,
+                nickname: nickName,
+                adrs: newVault,
+                network: [chainId]
+            }
+            let adrsbook = []
+            if (getAdrsdata) {
+                adrsbook = [...getAdrsdata, adrsdata]
+            } else {
+                adrsbook = [adrsdata]
+            }
+            localStorage.setItem('adrsbook', JSON.stringify(adrsbook))
         }
     }, [launchVaultState])
 

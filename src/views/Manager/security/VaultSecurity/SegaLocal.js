@@ -36,10 +36,24 @@ const SegaLocal = ({ opensegaLocalModal, handleSegaLocalModal, segas, vault }) =
             segadata = segaList
         }
 
-        
         localStorage.setItem('segadata', JSON.stringify(segadata))
-
         handleSegaLocalModal()
+
+        // const getAdrsdata = JSON.parse(localStorage.getItem('adrsbook'))
+        // const adrsdata =
+        // {
+        //     owner: account,
+        //     nickname: segaList.name,
+        //     adrs: segaList.address,
+        //     network: [chainId]
+        // }
+        // let adrsbook = []
+        // if (getAdrsdata) {
+        //     adrsbook = [...getAdrsdata, adrsdata]
+        // } else {
+        //     adrsbook = [adrsdata]
+        // }
+        // localStorage.setItem('adrsbook', JSON.stringify(adrsbook))
     }
     return (
         <>

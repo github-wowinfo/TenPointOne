@@ -5,8 +5,6 @@ import { UncontrolledButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle 
 import * as AppData from '../../../../redux/actions/cookies/appDataType'
 import { useEthers } from '@usedapp/core'
 import helperConfig from '../../../../helper-config.json'
-// import thislogo from './node_modules/cryptocurrency-icons/svg/color/kmd.svg'
-import thislogo from '../../../../../node_modules/cryptocurrency-icons/svg/icon/matic.svg'
 
 const Network = ({ networkC, dispatch }) => {
   const { chainId } = useEthers()

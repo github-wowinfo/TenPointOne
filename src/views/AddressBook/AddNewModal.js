@@ -52,11 +52,13 @@ const AddNewModal = ({ open, handleModal }) => {
   console.log('adrs', adrss)
 
   const handleChecked = (e) => {
-    if (e.target.checked) {
+    const isCheck = e.target.checked
+    if (isCheck) {
       setChain([...chain, Number(e.target.value)])
     } else {
-      setChain([e.target.checked, ...chain])
-      // setChain(chain.filter(ntw => ntw !== e.target.value))
+      const index = chain.indexOf(e.target.value)
+      chain.splice(index, 1)
+      setChain(chain)
     }
   }
   console.log('chain', chain)
@@ -98,18 +100,18 @@ const AddNewModal = ({ open, handleModal }) => {
         owner: account,
         nickname: name,
         adrs: adrss,
-        network: chain
+        network: [chain]
       }
       console.log('postdat', postdata.network)
-      // let adrsbook = []
-      // if (getdata) {
-      //   adrsbook = [...getdata, postdata]
-      // } else {
-      //   adrsbook = [postdata]
-      // }
-      // localStorage.setItem('adrsbook', JSON.stringify(adrsbook))
-      // setChain([])
-      // handleModal()
+      let adrsbook = []
+      if (getdata) {
+        adrsbook = [...getdata, postdata]
+      } else {
+        adrsbook = [postdata]
+      }
+      localStorage.setItem('adrsbook', JSON.stringify(adrsbook))
+      setChain([])
+      handleModal()
     } else {
       handleAlert()
     }

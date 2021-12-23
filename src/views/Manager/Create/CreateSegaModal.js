@@ -136,6 +136,22 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
             console.log("***Handle New Sega: ", newSega)
             console.log("***Handle Short Sega: ", shortenIfAddress(newSega))
             setShowSegaCreatedSnack(true)
+
+            const getAdrsdata = JSON.parse(localStorage.getItem('adrsbook'))
+            const adrsdata =
+            {
+                owner: account,
+                nickname: nickName,
+                adrs: newSega,
+                network: [chainId]
+            }
+            let adrsbook = []
+            if (getAdrsdata) {
+                adrsbook = [...getAdrsdata, adrsdata]
+            } else {
+                adrsbook = [adrsdata]
+            }
+            localStorage.setItem('adrsbook', JSON.stringify(adrsbook))
         }
     }, [createNewSegaState])
 
