@@ -142,7 +142,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
     return (
         <Modal className='modal-dialog-centered' isOpen={openexevault} toggle={handleExeVaultModal} >
             <ModalHeader tag='h2' toggle={handleExeVaultModal} >
-                Add or Remove Existing Vault
+                Show or Hide Existing Vault
             </ModalHeader>
             <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -160,7 +160,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
                                         <NavLink color='primary' size='lg' active={active === '1'} onClick={() => {
                                             toggle('1')
                                         }}>
-                                            ADD
+                                            SHOW
                                         </NavLink>
                                     </div>
                                 </Col>
@@ -171,7 +171,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
                                         <NavLink color='primary' size='lg' active={active === '2'} onClick={() => {
                                             toggle('2')
                                         }}>
-                                            REMOVE
+                                            HIDE
                                         </NavLink>
                                     </div>
                                 </Col>
@@ -232,7 +232,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
                     <>
                         <Button.Ripple color='primary' onClick={handleOnAdd}>
                             <Eye className='mr-1' size={17} />
-                            ADD
+                            SHOW
                         </Button.Ripple>
                         {/* <Button.Ripple color='primary' onClick={handleTempAdd}>
                             <Eye className='mr-1' size={17} />
@@ -242,7 +242,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
                 ) : (
                     <Button.Ripple color='primary' onClick={handleOnRemove} >
                         <EyeOff className='mr-1' size={17} />
-                        REMOVE
+                        HIDE
                     </Button.Ripple>
                 )}
 

@@ -29,10 +29,10 @@ import moment from 'moment'
 import { FaRegCopy } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import Avatar from '@components/avatar'
-import { useEthers } from '@usedapp/core'
+import { useEthers, shortenIfTransactionHash } from '@usedapp/core'
 import helperConfig from '../../helper-config.json'
 
-const AddNewModal = ({ open, handleModal, trxnId }) => {
+const AddNewModal = ({ open, handleModal, trxnId, description }) => {
   // ** State
   const [Picker, setPicker] = useState(new Date())
   const [details, setDetails] = useState({})
@@ -82,17 +82,18 @@ const AddNewModal = ({ open, handleModal, trxnId }) => {
       modalClassName='modal-slide-in'
       contentClassName='pt-0'
     >
-      {console.log('trxnId', trxnId)}
-      <ModalHeader className='mb-3' toggle={handleModal} close={CloseBtn} tag='div'>
+      {/* {console.log('trxnId', trxnId)} */}
+      <ModalHeader className='mb-1' toggle={handleModal} close={CloseBtn} tag='div'>
         <label style={{ fontSize: 15, fontWeight: 'bold' }}>Transaction Details</label>
         <br />
-        <label style={{ fontSize: 15, fontWeight: 'normal' }}>{details?.description}</label>
+        {/* <label style={{ fontSize: 15, fontWeight: 'normal' }}>{details?.description}</label> */}
+        <label style={{ fontSize: 15, fontWeight: 'normal' }}>{description}</label>
       </ModalHeader>
       <ModalBody className='flex-grow-1'>
         <FormGroup>
           <label className='label'>Transaction Hash</label>
           <br />
-          <label className='text' style={{ lineBreak: 'anywhere' }}>{details?.id}</label>
+          <label className='text' style={{ lineBreak: 'anywhere' }}>{shortenIfTransactionHash(details?.id)}</label>
           <div>
             <Row>
               <Col md='1' >

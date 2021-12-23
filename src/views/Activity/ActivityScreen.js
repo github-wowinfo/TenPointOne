@@ -29,6 +29,7 @@ const ActivityScreen = ({ message, dispatch }) => {
     const [modalVisible, setModalVisible] = useState(false)
     const [getTransaction, setTransaction] = useState([])
     const [trxnId, setTrxnId] = useState('')
+    const [desc, setDesc] = useState('')
     const [dataList, setDataList] = useState([])
     const [edataList, setEdataList] = useState([])
     const [active, setActive] = useState('1')
@@ -83,7 +84,9 @@ const ActivityScreen = ({ message, dispatch }) => {
         }
     }
 
-    console.log('edatalist', edataList)
+    // console.log('edatalist', edataList)
+    // console.log('datalist', dataList)
+
     useEffect(() => {
         getTokenTransaction()
         return () => {
@@ -113,7 +116,7 @@ const ActivityScreen = ({ message, dispatch }) => {
                         <br />
                         <span className='align-middle font-italic' style={{
                             fontSize: 15
-                        }}>Trxn Hash:{row.id.slice(0, 6)}...{row.id.slice(row.id.length - 4, row.id.length)}</span>
+                        }}>{row.id.slice(0, 6)}...{row.id.slice(row.id.length - 4, row.id.length)}</span>
 
 
                     </span>
@@ -122,18 +125,16 @@ const ActivityScreen = ({ message, dispatch }) => {
             )
         },
         {
-            name: 'Recipient',
+            name: 'To / From',
             width: '195px',
             selector: row => (
                 <span>
                     <span>
                         {
                             row.type === 'receive' ? (<>
-                                <span className='align-middle font-weight-bold'  >From :</span>
                                 <span className='align-middle font-weight-bold'  >{row.from.slice(0, 4)}...{row.from.slice(row.from.length - 4, row.from.length)}</span>
                             </>
                             ) : (<>
-                                <span className='align-middle font-weight-bold'  >To :</span>
                                 <span className='align-middle font-weight-bold'  >{row.to.slice(0, 4)}...{row.to.slice(row.to.length - 4, row.to.length)}</span>
                             </>
                             )
@@ -148,7 +149,7 @@ const ActivityScreen = ({ message, dispatch }) => {
             )
         },
         {
-            name: 'Total Amount',
+            name: 'Amount',
             width: '150px',
             selector: row => (
                 <span>
@@ -161,7 +162,7 @@ const ActivityScreen = ({ message, dispatch }) => {
                                     }
                                     <br />
                                 </span>
-                                <span className='align-middle'>{row.received && row.received[0].symbol}</span>
+                                <span className='align-middle font-weight-light'>{row.received && row.received[0].symbol}</span>
                             </>
                         ) : (
                             <>
@@ -170,7 +171,7 @@ const ActivityScreen = ({ message, dispatch }) => {
                                         row.sent ? row.sent[0].value / (10 ** row.sent[0].decimals) : row.received ? '' : '-'
                                     }
                                     <br />
-                                    <span className='align-middle'>{row.sent && row.sent[0].symbol}</span>
+                                    <span className='align-middle font-weight-light'>{row.sent && row.sent[0].symbol}</span>
                                 </span>
                             </>
                         )
@@ -200,18 +201,17 @@ const ActivityScreen = ({ message, dispatch }) => {
         },
         {
             name: 'Status',
-            maxWidth: '150px',
             selector: row => (
                 <Badge pill color='light-success' className='mr-1'> {row.status} </Badge>
             )
         },
         {
             name: 'More Details',
-            width: '200px',
             selector: row => (
                 <Button.Ripple color='flat-primary' onClick={() => {
                     setModalVisible(!modalVisible)
                     setTrxnId(row.id)
+                    setDesc(row.description)
                 }}>Quick View</Button.Ripple>
             )
         }
@@ -369,8 +369,7 @@ const ActivityScreen = ({ message, dispatch }) => {
                         paginationComponent={CustomPagination}
                     />
                 </Card> */}
-
-                <CustomModal open={modalVisible} handleModal={handleModal} trxnId={trxnId} />
+                <CustomModal open={modalVisible} handleModal={handleModal} trxnId={trxnId} description={desc} />
 
             </>) : disconnect()}
         </>

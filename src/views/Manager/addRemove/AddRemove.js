@@ -24,15 +24,15 @@ const AddRemove = () => {
             <Card>
                 <CardBody>
                     <Row style={{ display: 'flex', flexDirection: 'row' }}>
-                        <Col md='6'>
-                            <CardHeader>
-                                <CardTitle>Add or Remove</CardTitle>
+                        <Col md='7'>
+                            <CardHeader className='py-0'>
+                                <CardTitle style={{ fontSize: '1.7em' }}>Show or Hide</CardTitle>
                             </CardHeader>
                             <CardBody>
-                                <CardText>Show or hide your existing accounts from view.</CardText>
+                                <CardText style={{ fontSize: '1rem' }}>Show or hide your existing accounts from view.</CardText>
                             </CardBody>
                         </Col>
-                        <Col md='6' style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+                        <Col md='5' style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
                             <Button.Ripple className='mr-1 mb-1' color='primary' style={{ fontSize: '1.7em' }} onClick={handleExeSegaModal}><Edit3 className='mr-1' size={25} />Sega</Button.Ripple>
                             <Button.Ripple className='mr-1 mb-1' color='primary' style={{ fontSize: '1.7em' }} onClick={handleExeVaultModal}><Edit3 className='mr-1' size={25} />Vault</Button.Ripple>
                         </Col>

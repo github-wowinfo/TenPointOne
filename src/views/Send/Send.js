@@ -6,13 +6,14 @@ import { FaRegCopy } from 'react-icons/fa'
 import { GoLinkExternal } from 'react-icons/go'
 import { BsArrowDown, BsSafe2 } from 'react-icons/bs'
 import { IoQrCodeOutline } from 'react-icons/io5'
-import { Card, CardHeader, CardTitle, CardBody, CardFooter, Form, FormGroup, Label, Input, Button, Row, Col } from 'reactstrap'
+import { Card, CardHeader, CardTitle, CardBody, CardFooter, Form, FormGroup, Label, Input, Button, Row, Col, CardText } from 'reactstrap'
 import Badge from 'reactstrap/lib/Badge'
 import Icon from 'react-crypto-icons'
 import { toast } from 'react-toastify'
 import { Clipboard } from "react-feather"
 import { useState, Fragment } from 'react'
 import { useEthers, getExplorerAddressLink, shortenIfAddress } from '@usedapp/core'
+import helperConfig from '../../helper-config.json'
 
 const Send = () => {
 
@@ -111,17 +112,26 @@ const Send = () => {
       ]
     }
   ]
+
+  const networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"
+  const networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
+  const backgroundChange = { backgroundColor: networkName === "BSC testnet" ? '#cc9b00' : networkName === "Polygon Network" ? '#8146e4' : networkName === "Ethereum" ? '#4559f4' : networkName === "Kovan" ? '#6435c9' : networkName === "BSC Mainet" ? '#cc9b00' : networkName === "Polygon Mumbai" ? '#140035' : null }
   return (
     <>
       {isConnected ? (<Col style={cardStyle} md={{ offset: 3, size: 6 }} sm="12">
-        <Card className='card-payment'>
+        <Card className='my-1 card-payment'>
           <CardHeader style={{ paddingBottom: '.3em' }}>
             <CardTitle>Send Funds</CardTitle>
           </CardHeader>
           <hr />
-          <CardBody>
+          <CardBody className='p-1'>
+            <Row>
+              <Col className='py-1' style={{ ...backgroundChange, textAlign: 'center', height: '100%' }}>
+                <CardText style={{ color: 'white' }}><Icon className='mr-1' name={networkIcon} size={20} />Only send to {networkName} address</CardText>
+              </Col>
+            </Row>
             <Row className='d-flex flex-column'>
-              <Col className='d-flex flex-row pb-1'>
+              <Col className='d-flex flex-row py-1'>
                 <Avatar className='mr-1' size='lg' color={data[0].color} icon={data[0].icon} />
                 <CardTitle className='my-1 '>SBI Vault</CardTitle>
               </Col>

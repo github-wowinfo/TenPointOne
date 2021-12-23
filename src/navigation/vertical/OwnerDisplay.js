@@ -6,7 +6,7 @@ import { FaRegCopy } from 'react-icons/fa'
 import { GoLinkExternal } from 'react-icons/go'
 import { BsSafe2 } from 'react-icons/bs'
 import { BiChevronDown } from 'react-icons/bi'
-import { PlusCircle, Clipboard } from "react-feather"
+import { PlusCircle, Clipboard, ChevronRight } from "react-feather"
 import { randomHexColor } from 'random-hex-color-generator'
 import { toast } from 'react-toastify'
 import Avatar from '@components/avatar'
@@ -45,8 +45,8 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
     fontSize: '1.5em'
   }
 
-  const networkIcon = helperConfig.network[chainId].icon
-  const networkName = helperConfig.network[chainId].name
+  const networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"
+  const networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
   const backgroundChange = { backgroundColor: networkName === "BSC testnet" ? '#cc9b00' : networkName === "Polygon Network" ? '#8146e4' : networkName === "Ethereum" ? '#4559f4' : networkName === "Kovan" ? '#6435c9' : networkName === "BSC Mainet" ? '#cc9b00' : networkName === "Polygon Mumbai" ? '#140035' : null }
   const SuccessToast = () => (
     <Fragment>
@@ -75,8 +75,8 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
 
         <Col style={{ padding: '0px 0px' }}>
           <UncontrolledButtonDropdown style={{ minWidth: "90%" }} direction='right'>
-            <DropdownToggle style={{ fontSize: '1.1em' }} className='my-1 btn-gradient-primary' color='none' caret>
-              SBI Vault
+            <DropdownToggle className='pt-1 pb-0 flat-primary' color='none' caret>
+              <h2 className="text-primary" style={{ borderBottom: '3px solid #7b6ff1' }}>SBI Vault <ChevronRight size={25} /></h2>
             </DropdownToggle>
             <DropdownMenu >
               <Link to='/manager'>

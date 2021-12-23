@@ -164,7 +164,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
     return (
         <Modal className='modal-dialog-centered' isOpen={openexesega} toggle={handleExeSegaModal} >
             <ModalHeader tag='h2' toggle={handleExeSegaModal}>
-                Add or Remove Existing Sega
+                Show or Hide Existing Sega
             </ModalHeader>
             <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -185,7 +185,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
                                         <NavLink color='primary' size='lg' active={active === '1'} onClick={() => {
                                             toggle('1')
                                         }}>
-                                            ADD
+                                            SHOW
                                         </NavLink>
                                     </div>
                                 </Col>
@@ -196,7 +196,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
                                         <NavLink color='primary' size='lg' active={active === '2'} onClick={() => {
                                             toggle('2')
                                         }}>
-                                            REMOVE
+                                            HIDE
                                         </NavLink>
                                     </div>
                                 </Col>
@@ -264,7 +264,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
                     <>
                         <Button.Ripple color='primary' onClick={handleOnAdd} >
                             <Eye className='mr-1' size={17} />
-                            ADD
+                            SHOW
                         </Button.Ripple>
                         {/* <Button.Ripple color='primary' onClick={handleTempAdd}>
                             <Eye className='mr-1' size={17} />
@@ -274,7 +274,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
                 ) : (
                     <Button.Ripple color='primary' onClick={handleOnRemove} >
                         <EyeOff className='mr-1' size={17} />
-                        REMOVE
+                        HIDE
                     </Button.Ripple>
                 )}
             </ModalFooter>

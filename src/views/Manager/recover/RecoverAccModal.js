@@ -106,7 +106,7 @@ const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
             }} >
                 Recover Vault
             </ModalHeader>
-            <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+            <ModalBody>
                 <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                     <Col>
                         <h3>Recovery is only possible by the designated Backup Account and only after the owner has been inactive for the time period as set by Owner.</h3>

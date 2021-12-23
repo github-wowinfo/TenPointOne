@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardTitle, CardBody, CardFooter, Button, Row, Col, CardText, CardSubtitle } from 'reactstrap'
+import { Card, CardHeader, CardTitle, CardBody, CardFooter, Button, Row, Col, CardText, CardSubtitle, Tooltip } from 'reactstrap'
 import { BsArrowDown, BsSafe2 } from 'react-icons/bs'
 import { FaRegCopy } from 'react-icons/fa'
 import { GoLinkExternal } from 'react-icons/go'
@@ -7,12 +7,14 @@ import Avatar from '@components/avatar'
 import qrcode from './qrcode_localhost.png'
 import Icon from 'react-crypto-icons'
 import { toast } from 'react-toastify'
-import { Clipboard } from "react-feather"
+import { Clipboard, Info } from "react-feather"
 import { useState, Fragment } from 'react'
 import { useEthers, shortenIfAddress, getExplorerAddressLink } from '@usedapp/core'
 import helperConfig from '../../helper-config.json'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import Qrcode from './Qrcode'
+import 'animate.css'
 
 const MySwal = withReactContent(Swal)
 
@@ -49,38 +51,41 @@ const Receive = ({ networkC }) => {
       </div>
     </Fragment>
   )
-  // const pathname = `https://etherscan.io/address/${account}`
-  const pathname = `https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl= ${account}`
 
+  const [tooltipOpen, setTooltipOpen] = useState(false)
+
+  // const pathname = `https://etherscan.io/address/${account}`
+  // const pathname = `https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl= ${account}`
   const handleImageAlert = () => {
     return MySwal.fire({
-      title: '',
-      text: '',
+      title: 'SBI Vault',
+      text: shortenIfAddress(account),
       imageUrl: pathname,
-      imageWidth: 300,
-      imageHeight: 300,
+      imageWidth: 250,
+      imageHeight: 250,
       imageAlt: 'Custom image',
-      customClass: { confirmButton: 'btn btn-primary' },
+      customClass: {
+        confirmButton: 'btn btn-primary',
+      },
+      showClass: {
+        popup: 'animate__animated animate__flipInX'
+      },
       buttonsStyling: false
     })
   }
 
-  const data = [
-    {
-      icon: <BsSafe2 size={25} />,
-      color: 'light-danger'
-    }
-  ]
-
-  const networkIcon = helperConfig.network[chainId].icon
-  const networkName = helperConfig.network[chainId].name
+  const networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"
+  const networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
   const backgroundChange = { backgroundColor: networkName === "BSC testnet" ? '#cc9b00' : networkName === "Polygon Network" ? '#8146e4' : networkName === "Ethereum" ? '#4559f4' : networkName === "Kovan" ? '#6435c9' : networkName === "BSC Mainet" ? '#cc9b00' : networkName === "Polygon Mumbai" ? '#140035' : null }
   // const backgroundChange = { backgroundColor: networkC.name === 'BSC Mainet' ? '#cc9b01' : networkC.name === 'Etherum' ? '#627eea' : networkC.name === 'Optimism' ? '#ff0420' : networkC.name === 'Arbitrum' ? '#2d374b' : '#8247e5' }
+
+  const [qrcode, setQrcode] = useState(false)
+  const handleQrcode = () => setQrcode(!qrcode)
 
   return (
     <>
       {isConnected ? (<Col style={cardStyle} md={{ offset: 3, size: 6 }} sm="12">
-        <Card className='card-payment' >
+        <Card className='my-1 card-payment' >
           <CardHeader style={{ paddingBottom: '.1em' }}>
             <CardTitle>Receive Assests</CardTitle>
           </CardHeader>
@@ -88,24 +93,17 @@ const Receive = ({ networkC }) => {
           <CardBody style={{ padding: '1em' }}>
             <Row>
               <Col className='py-1' style={{ ...backgroundChange, textAlign: 'center', height: '100%' }}>
-                <CardText style={{ color: 'white' }}><Icon className='mr-1' name={networkIcon} size={20} />{networkName} - only send {networkName} assests to this safe.</CardText>
+                <CardText style={{ color: 'white' }}><Icon className='mr-1' name={networkIcon} size={20} />Only send {networkName} assets to this Safe</CardText>
               </Col>
             </Row>
-            <Col className='my-1' style={{ textAlign: 'justify' }}>
-              <CardText>This is the address of your Safe. Deposit funds by scanning the QR code or copying the above address below. Only send MATIC and assest to this address (e.g. ETH, ERC20, ERC721)!
-              </CardText>
-            </Col>
-            <Row className='my-1 d-flex flex-column justify-content-center align-items-center'>
-              <CardTitle style={{ textAlign: 'center', marginBottom: 0 }}><strong>SBI Vault</strong></CardTitle>
-              <Button.Ripple size='sm' color='primary' style={{ width: 'fit-content' }} onClick={handleImageAlert}>Click here for QR Code</Button.Ripple>
-              {/* <a href={pathname} target='_blank'>click for qr code</a>
-              <Col style={{ textAlign: 'center' }}><img src={qrcode} style={{ width: '100px', height: '100px' }} /></Col> */}
-            </Row>
             <Row className='d-flex flex-column justify-content-center align-items-center'>
-              <Col className='text-center pb-1'><Avatar size='lg' color={data[0].color} icon={data[0].icon} /></Col>
+              <Col className='my-1 text-center '><Avatar size='lg' color='light-danger' icon={<BsSafe2 size={25} />} /></Col>
+              <Col className='mb-1'>
+                <CardTitle style={{ textAlign: 'center', marginBottom: 0 }}><strong>SBI Vault</strong></CardTitle>
+              </Col>
               <Col className='text-center'>
                 {/* <CardSubtitle style={{ color: 'gray' }} > <strong>{shortenIfAddress(account)}</strong></CardSubtitle> */}
-                <CardSubtitle style={{ color: 'gray' }} > <strong>{account}</strong></CardSubtitle>
+                <CardSubtitle style={{ color: 'gray', fontSize: '1.2em' }} > <strong>{shortenIfAddress(account)}</strong></CardSubtitle>
               </Col>
               <Col>
                 <span className='d-flex flex-row justify-content-center'>
@@ -114,9 +112,29 @@ const Receive = ({ networkC }) => {
                 </span>
               </Col>
             </Row>
+            <Row className='my-1 d-flex flex-column justify-content-center align-items-center'>
+              <Button.Ripple size='sm' color='primary' style={{ width: 'fit-content' }} onClick={handleQrcode}>Click here for QR Code</Button.Ripple>
+              {/* <a href={pathname} target='_blank'>click for qr code</a>
+              <Col style={{ textAlign: 'center' }}><img src={qrcode} style={{ width: '100px', height: '100px' }} /></Col> */}
+            </Row>
+            <Col className='my-1' style={{ textAlign: 'right' }}>
+              <Avatar className='animate__animated animate__flash animate__delay-1s' size='sm' id='DepositInfo' color='primary' icon={<Info />} />
+              <Tooltip
+                placement='right'
+                isOpen={tooltipOpen}
+                target='DepositInfo'
+                toggle={() => setTooltipOpen(!tooltipOpen)}
+              >
+                <CardText>This is the address of your Safe. Deposit funds by scanning the QR code or
+                  copying the above address below. Only send {networkName} assets to this address.
+                </CardText>
+              </Tooltip>
+            </Col>
           </CardBody>
         </Card>
-      </Col>) : disconnect()
+        <Qrcode openqrcode={qrcode} handleQrcode={handleQrcode} account={account} />
+      </Col>
+      ) : disconnect()
       }
     </>
 

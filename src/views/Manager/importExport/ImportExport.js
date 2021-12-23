@@ -22,18 +22,18 @@ const ImportExport = () => {
             <Card>
                 <CardBody>
                     <Row style={{ display: 'flex', flexDirection: 'row' }}>
-                        <Col md='6'>
-                            <CardHeader>
-                                <CardTitle>Import & Export</CardTitle>
+                        <Col md='7'>
+                            <CardHeader className='py-0'>
+                                <CardTitle style={{ fontSize: '1.7em' }}>Import & Export</CardTitle>
                             </CardHeader>
                             <CardBody>
-                                <CardText>Import/Export your account data.</CardText>
+                                <CardText style={{ fontSize: '1rem' }}>Import/Export your account data.</CardText>
                             </CardBody>
                         </Col>
-                        <Col md='6' style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+                        <Col md='5' style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
                             {/* <Button.Ripple className='mr-1 mb-1' size='lg' color='primary' style={{ fontSize: '1.7em' }}><Unlock className='mr-1' size={20} />Vault</Button.Ripple> */}
                             <UncontrolledButtonDropdown direction='up'>
-                                <DropdownToggle className='mr-1 mb-1' color='primary' style={{ fontSize: '1.7em' }} color='primary' caret >
+                                <DropdownToggle className='mr-1 mb-1' color='primary' style={{ fontSize: '1.4em' }} color='primary' caret >
                                     <CgExport size={20} />
                                     <span className='align-middle ml-50'>Export</span>
                                 </DropdownToggle>
@@ -60,7 +60,7 @@ const ImportExport = () => {
                                     </DropdownItem>
                                 </DropdownMenu>
                             </UncontrolledButtonDropdown>
-                            <Button className='mr-1 mb-1' color='primary' style={{ fontSize: '1.7em' }} color='primary' caret >
+                            <Button className='mr-1 mb-1' color='primary' style={{ fontSize: '1.5em' }} color='primary' caret >
                                 <CgImport size={20} />
                                 <span className='align-middle ml-50'>Import</span>
                             </Button>

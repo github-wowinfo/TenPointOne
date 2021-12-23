@@ -16,7 +16,7 @@ const Manager = () => {
     }
     return (
         <div>
-            {isConnected ? (<><CreateVs /><AddRemove /><ManageSecurity /><RecoverAcc /><ImportExport /></>) : disconnect()}
+            {isConnected ? (<div className="my-1"><CreateVs /><AddRemove /><ManageSecurity /><RecoverAcc /><ImportExport /></div>) : disconnect()}
 
         </div>
     )

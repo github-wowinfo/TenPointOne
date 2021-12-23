@@ -41,7 +41,7 @@ const AdddressBook = () => {
     const columns = [
         {
             name: 'Name',
-            maxWidth: '200px',
+            maxWidth: '180px',
             sortable: true,
             selector: row => row.name
         },
@@ -49,7 +49,6 @@ const AdddressBook = () => {
             name: 'Address',
             selector: 'adrs',
             minWidth: '475px',
-            center: true,
             sortable: true,
             // cell: row => (
             //     <div className='d-flex flex-row flex-nowrap justify-center'>
@@ -61,7 +60,6 @@ const AdddressBook = () => {
         },
         {
             name: '',
-            maxWidth: '40px',
             right: true,
             cell: row => (
                 <div className='d-flex flex-row justify-content-center align-items-center'>
@@ -74,7 +72,6 @@ const AdddressBook = () => {
         {
             name: 'Chain',
             selector: 'ntwrk',
-            maxWidth: '50px',
             center: true,
             cell: row => (
                 <div>
@@ -118,7 +115,7 @@ const AdddressBook = () => {
     return (
         <>
             {isConnected ? (<div>
-                <Card>
+                <Card className='my-1'>
                     <CardHeader>
                         <CardTitle>Address Book</CardTitle>
                     </CardHeader>
