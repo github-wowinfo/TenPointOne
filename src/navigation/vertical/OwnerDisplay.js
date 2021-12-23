@@ -76,7 +76,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
         <Col style={{ padding: '0px 0px' }}>
           <UncontrolledButtonDropdown style={{ minWidth: "90%" }} direction='right'>
             <DropdownToggle className='pt-1 pb-0 flat-primary' color='none' caret>
-              <h2 className="text-primary" style={{ borderBottom: '3px solid #7b6ff1' }}>SBI Vault <ChevronRight size={25} /></h2>
+              <h2 className="text-primary" >SBI Vault <ChevronRight size={25} /></h2>
             </DropdownToggle>
             <DropdownMenu >
               <Link to='/manager'>

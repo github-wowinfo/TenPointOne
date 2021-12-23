@@ -114,14 +114,25 @@ const AdddressBook = () => {
 
     // console.log('adrslist', adrslist)
 
+    // useEffect(() => {
+    //     const getdata = JSON.parse(localStorage.getItem('adrsbook'))
+    //     let data = []
+    //     if (getdata) {
+    //         data = getdata
+    //     } else {
+    //         data = []
+    //     }
+
+    // }, [])
+
     const getdata = JSON.parse(localStorage.getItem('adrsbook'))
+    const adrsData = getdata && getdata.filter(i => i.owner === account)
     let data = []
     if (getdata) {
-        data = getdata
+        data = adrsData
     } else {
         data = []
     }
-
 
     const [modal, setModal] = useState(false)
     const handleModal = () => setModal(!modal)
@@ -135,35 +146,33 @@ const AdddressBook = () => {
         {
             name: 'Address',
             selector: 'adrs',
-            sortable: true,
             // cell: row => (
             //     <div className='d-flex flex-row flex-nowrap justify-center'>
             //         {/* {row.avatar} */}
             //         <label style={{ fontSize: '14px' }} className='font-weight-bold mx-1'>{row.adrs}</label>
             //     </div>
             // )
-            cell: row => shortenIfAddress(row.adrs)
-            // cell: row => row.adrs
-        },
-        {
-            name: '',
-            right: true,
             cell: row => (
-                <div className='d-flex flex-row justify-content-center align-items-center'>
-                    {<FaRegCopy style={{ cursor: 'pointer' }} className='mx-1' size={20} onClick={copy} />}
-                    {<a href={getExplorerAddressLink(row.adrs, row.network)} target='_main'><GoLinkExternal className='mr-1' size={20} /></a>}
-                    {<Heart />}
-                </div>
+                <span>
+                    {shortenIfAddress(row.adrs)}
+                    <br />
+                    <span className='d-flex felx-row align-items-center'>
+                        {<FaRegCopy style={{ cursor: 'pointer' }} className='mx-1' size={17} />}
+                        {<a href={getExplorerAddressLink(row.adrs, row.network)} target='_blank'><GoLinkExternal className='mr-1' size={17} /></a>}
+                        {<Heart />}
+                    </span>
+                </span>
             )
+            // cell: row => row.adrs
         },
         {
             name: 'Chain',
             selector: 'ntwrk',
-            center: true,
             cell: row => (
                 <div>
+                    {row.network.map((i) => <Icon className='mr-1' name={i ? helperConfig.network[i].icon : 'mty'} size={25} />)}
                     {/* <Icon name={helperConfig.network[row.network].icon} size={25} /> */}
-                    <Icon name={row.network ? helperConfig.network[row.network].icon : 'mty'} size={25} />
+                    {/* <Icon name={row.network ? helperConfig.network[row.network].icon : 'mty'} size={25} /> */}
                     {/* <Icon name={row.network} size={25} /> */}
                 </div>
             )

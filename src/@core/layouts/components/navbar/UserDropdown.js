@@ -109,11 +109,11 @@ const UserDropdown = ({ networkC }) => {
               <span className='user-status'>{(userData && userData.role) || (account && account.slice(0, 4))}...{account && account.slice(account.length - 4, account.length)}</span>
               {/* <Text name={account} fchar={4} lchar={4} /> */}
               {/* accAdrs.slice(0, 4)}...{accAdrs.slice(accAdrs.length - 4, accAdrs.length) */}
-            </div >
+            </div>
             <div>
               <Avatar color='light-warning' icon={<GiFoxHead size={40} />} status='online' />
             </div>
-          </div >
+          </div>
 
         </DropdownToggle>
         <DropdownMenu tag='ul' className='dropdown-menu-media w-100'>

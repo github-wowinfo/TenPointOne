@@ -1,9 +1,9 @@
 // ** React Imports
 import { isAddress } from 'ethers/lib/utils'
-import { useState } from 'react'
+import { useState, Fragment } from 'react'
 
 // ** Third Party Components
-import { User, X } from 'react-feather'
+import { AlertTriangle, User, X } from 'react-feather'
 import { BsWallet2 } from 'react-icons/bs'
 import { FaRegCopy } from 'react-icons/fa'
 import { GoLinkExternal } from 'react-icons/go'
@@ -17,15 +17,20 @@ import {
   InputGroupAddon,
   InputGroupText,
   Input,
-  Label
+  Label,
+  Alert,
+  Col
 } from 'reactstrap'
-import Heart from './Heart'
+import 'animate.css'
+import { useEthers } from '@usedapp/core'
 
 const AddNewModal = ({ open, handleModal }) => {
 
+  const { account } = useEthers()
+
   const [name, setName] = useState('')
   const [adrss, setAdrss] = useState('')
-  const [chain, setChain] = useState('')
+  const [chain, setChain] = useState([])
 
   const handleName = (e) => {
     if (e.target.value === '') {
@@ -47,29 +52,67 @@ const AddNewModal = ({ open, handleModal }) => {
   console.log('adrs', adrss)
 
   const handleChecked = (e) => {
-    const network = e.target.value
-    setChain(network)
+    if (e.target.checked) {
+      setChain([...chain, Number(e.target.value)])
+    } else {
+      setChain([e.target.checked, ...chain])
+      // setChain(chain.filter(ntw => ntw !== e.target.value))
+    }
   }
   console.log('chain', chain)
 
+  const [visible, setVisible] = useState(false)
+
+  const handleAlert = () => {
+    setVisible(true)
+    setTimeout(() => {
+      setVisible(false)
+    }, 3000)
+  }
+
+  const EmptyAlert = () => (
+    <Fragment>
+      <Alert className='animate__animated animate__slideInDown' color='danger' isOpen={visible} toggle={() => setVisible(false)}>
+        <div className='my-1 alert-heading'>
+          <AlertTriangle size={20} /><span className='ml-1'>Please fill all the values!</span>
+        </div>
+      </Alert>
+    </Fragment>
+  )
+
+  const NameEmptyAlert = () => (
+    <Fragment>
+      <Alert className='animate__animated animate__slideInDown' color='warning' isOpen={visible} toggle={() => setVisible(false)}>
+        <div className='my-1 alert-heading'>
+          <AlertTriangle size={20} /><span className='ml-1'>Name cannot be blank!</span>
+        </div>
+      </Alert>
+    </Fragment>
+  )
+
   const handleSubmit = () => {
-    const getdata = JSON.parse(localStorage.getItem('adrsbook'))
-    const postdata =
-    {
-      nickname: name,
-      adrs: adrss,
-      network: chain
-      // icon1: <FaRegCopy className='mx-1' size={20} />,
-      // icon2: <GoLinkExternal className='mx-1' size={20} />,
-      // fav: <Heart />
-    }
-    let adrsbook = []
-    if (getdata) {
-      adrsbook = [...getdata, postdata]
+    if (name && adrss && chain) {
+      const getdata = JSON.parse(localStorage.getItem('adrsbook'))
+      const postdata =
+      {
+        owner: account,
+        nickname: name,
+        adrs: adrss,
+        network: chain
+      }
+      console.log('postdat', postdata.network)
+      // let adrsbook = []
+      // if (getdata) {
+      //   adrsbook = [...getdata, postdata]
+      // } else {
+      //   adrsbook = [postdata]
+      // }
+      // localStorage.setItem('adrsbook', JSON.stringify(adrsbook))
+      // setChain([])
+      // handleModal()
     } else {
-      adrsbook = [postdata]
+      handleAlert()
     }
-    localStorage.setItem('adrsbook', JSON.stringify(adrsbook))
   }
 
 
@@ -84,10 +127,20 @@ const AddNewModal = ({ open, handleModal }) => {
       modalClassName='modal-slide-in'
       contentClassName='pt-0'
     >
-      <ModalHeader className='mb-3' toggle={handleModal} close={CloseBtn} tag='div'>
+      <ModalHeader className='mb-1' toggle={handleModal} close={CloseBtn} tag='div'>
         <h5 className='modal-title'>New Address</h5>
       </ModalHeader>
       <ModalBody className='flex-grow-1'>
+        {/* {visible ? (
+          <Col>
+            <Alert className='animate__animated animate__slideInDown' color='danger' isOpen={visible} toggle={() => setVisible(false)}>
+              <div className='my-1 alert-heading'>
+                <AlertTriangle size={20} /><span className='ml-1'>Please fill all the values!</span>
+              </div>
+            </Alert>
+          </Col>
+        ) : null} */}
+        {visible ? <EmptyAlert /> : null}
         <FormGroup>
           <Label for='name'>Name</Label>
           <InputGroup>
@@ -113,29 +166,28 @@ const AddNewModal = ({ open, handleModal }) => {
         <Label for='chain'>Select Network</Label>
         <FormGroup>
           <FormGroup check>
-            <Input type="checkbox" value='97' onChange={handleChecked} />
+            <Input id='1' type="checkbox" name='97' value='97' onChange={handleChecked} />
             <Label check>BSC Testnet</Label>
           </FormGroup>
           <FormGroup check>
-            <Input type="checkbox" value='56' onChange={handleChecked} />
+            <Input id='2' type="checkbox" name='56' value='56' onChange={handleChecked} />
             <Label check>BSC Main</Label>
           </FormGroup>
           <FormGroup check>
-            <Input type="checkbox" value='137' onChange={handleChecked} />
+            <Input id='3' type="checkbox" name='137' value='137' onChange={handleChecked} />
             <Label check>Polygon</Label>
           </FormGroup>
           <FormGroup check>
-            <Input type="checkbox" value='42' onChange={handleChecked} />
+            <Input id='4' type="checkbox" name='42' value='42' onChange={handleChecked} />
             <Label check>Kovan</Label>
           </FormGroup>
           <FormGroup check>
-            <Input type="checkbox" value='80001' onChange={handleChecked} />
+            <Input id='5' type="checkbox" name='80001' value='80001' onChange={handleChecked} />
             <Label check>Mumbai</Label>
           </FormGroup>
         </FormGroup>
         <Button className='mr-1' color='primary' onClick={() => {
           handleSubmit()
-          handleModal()
         }}>
           Submit
         </Button>
