@@ -336,10 +336,10 @@ const ActivityScreen = ({ message, dispatch }) => {
 
                 <Card>
                     <CardHeader>
-                        <CardTitle>Check assest for an Address</CardTitle>
+                        <CardTitle>Check Activity for an Address</CardTitle>
                     </CardHeader>
                     <CardBody className='d-flex flex-row justify-content-between'>
-                        <Input className='mx-1' type='text' placeholder="Add address of the account to see it's assests" onChange={handleChange} />
+                        <Input className='mx-1' type='text' placeholder="Add address of the account to see it's activity" onChange={handleChange} />
                         <Button color='primary round' onClick={handleClick}>
                             Search
                         </Button>

@@ -20,7 +20,7 @@
         },
         "137": {
             "icon": "matic",
-            "name": "Polygon Network",
+            "name": "Polygon",
             "netid": "0x89"
         },
         "1": {
@@ -40,7 +40,7 @@
         },
         "80001": {
             "icon": "matic",
-            "name": "Polygon Mumbai",
+            "name": "Mumbai",
             "netid": "0x13881"
         }
     },

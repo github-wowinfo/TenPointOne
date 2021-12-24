@@ -37,7 +37,7 @@ const Home = () => {
       // text: `Current network is "${helperConfig.network[chainId].name}"`,
       allowOutsideClick: true,
       showCancelButton: true,
-      confirmButtonText: `Change network to "${helperConfig.network[chainId].name}"`,
+      confirmButtonText: `Switch metamask to "${helperConfig.network[chainId].name} and log out"`,
       cancelButtonText: `Stay on "${helperConfig.network[curt_chain].name}"`,
       customClass: {
         confirmButton: 'btn btn-primary mx-1',
@@ -50,6 +50,7 @@ const Home = () => {
       if (result.isConfirmed) {
         netchange(helperConfig.network[chainId].netid)
         setCurt_chain(chainId)
+        disconnect()
       } else if (result.isDismissed) {
         netchange(helperConfig.network[curt_chain].netid)
       }

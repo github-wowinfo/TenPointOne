@@ -62,25 +62,25 @@ const AdddressBook = () => {
         </Fragment>
     )
 
-    const vaultData = JSON.parse(localStorage.getItem('vaultdata'))
-    const vfilter = vaultData.map(v => ({
-        nickname: v.name,
-        adrs: v.address,
-        chain: v.network,
-        icon1: <FaRegCopy className='mx-1' size={20} />,
-        icon2: <GoLinkExternal className='mx-1' size={20} />,
-        fav: <Heart />
-    }))
+    // const vaultData = JSON.parse(localStorage.getItem('vaultdata'))
+    // const vfilter = vaultData.map(v => ({
+    //     nickname: v.name,
+    //     adrs: v.address,
+    //     chain: v.network,
+    //     icon1: <FaRegCopy className='mx-1' size={20} />,
+    //     icon2: <GoLinkExternal className='mx-1' size={20} />,
+    //     fav: <Heart />
+    // }))
 
-    const segaData = JSON.parse(localStorage.getItem('segadata'))
-    const sfilter = segaData.map(s => ({
-        nickname: s.name,
-        adrs: s.address,
-        chain: s.network,
-        icon1: <FaRegCopy className='mx-1' size={20} />,
-        icon2: <GoLinkExternal className='mx-1' size={20} />,
-        fav: <Heart />
-    }))
+    // const segaData = JSON.parse(localStorage.getItem('segadata'))
+    // const sfilter = segaData.map(s => ({
+    //     nickname: s.name,
+    //     adrs: s.address,
+    //     chain: s.network,
+    //     icon1: <FaRegCopy className='mx-1' size={20} />,
+    //     icon2: <GoLinkExternal className='mx-1' size={20} />,
+    //     fav: <Heart />
+    // }))
 
     // const adrslist = [...vfilter, ...sfilter]
     // const adrslist = Array.prototype.push.apply(vfilter, sfilter)
@@ -171,7 +171,7 @@ const AdddressBook = () => {
             selector: 'ntwrk',
             cell: row => (
                 <div>
-                    {row.network.map((i) => <Icon className='mr-1' name={i ? helperConfig.network[i].icon : 'mty'} size={25} />)}
+                    {row.network && row.network.map((i) => <Icon className='mr-1' name={i ? helperConfig.network[i].icon : 'mty'} size={25} />)}
                     {/* <Icon name={helperConfig.network[row.network].icon} size={25} /> */}
                     {/* <Icon name={row.network ? helperConfig.network[row.network].icon : 'mty'} size={25} /> */}
                     {/* <Icon name={row.network} size={25} /> */}

@@ -10,6 +10,10 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
 const Network = ({ networkC, dispatch }) => {
+
+  const disconnect = () => {
+    window.location.href = '/login'
+  }
   const MySwal = withReactContent(Swal)
   const { chainId } = useEthers()
   console.log('chain_detail', chain_detail)
@@ -53,7 +57,7 @@ const Network = ({ networkC, dispatch }) => {
   //     netid: '0x13881'
   //   }
   // ]
-
+  const [curt_chain, setCurt_chain] = useState(chainId)
   const [network, setNetwork] = useState({})
   let networkIcon = ''
   let networkName = ''
@@ -61,6 +65,9 @@ const Network = ({ networkC, dispatch }) => {
     networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"
     networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
     setNetwork({ icon: networkIcon, name: networkName })
+    if (curt_chain !== chainId) {
+      disconnect()
+    }
   }, [chainId])
 
   // const [network, setNetwork] = useState({ icon: 'eth', name: 'Ethereum' })
@@ -73,8 +80,9 @@ const Network = ({ networkC, dispatch }) => {
   //   console.log('name', i)
   // }
 
-  const netchange = async (netid) => {
-    await ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: `${netid}` }] })
+
+  const netchange = (netid) => {
+    ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: `${netid}` }] })
   }
   const handleAjax = (netid, name) => {
     return MySwal.fire({
@@ -82,7 +90,7 @@ const Network = ({ networkC, dispatch }) => {
       text: `Current network is "${helperConfig.network[chainId].name}"`,
       allowOutsideClick: true,
       showCancelButton: true,
-      confirmButtonText: `Change network to "${name}"`,
+      confirmButtonText: `Switch metamask to "${name} and log out"`,
       customClass: {
         confirmButton: 'btn btn-primary mx-1',
         cancelButton: 'btn btn-danger my-1'
