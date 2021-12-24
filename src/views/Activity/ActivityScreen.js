@@ -15,6 +15,7 @@ import moment from 'moment'
 import { useEthers } from '@usedapp/core'
 import ReactPaginate from 'react-paginate'
 import helperConfig from "../../helper-config.json"
+import { isAddress } from 'ethers/lib/utils'
 
 const ActivityScreen = ({ message, dispatch }) => {
 
@@ -67,17 +68,44 @@ const ActivityScreen = ({ message, dispatch }) => {
         // getDataForList(tab)
     }
 
+    const [custom_adrs, setCustom_adrs] = useState('')
+    const [have_custom_adrs, setHave_custom_adrs] = useState(false)
+
+    const handleChange = (e) => {
+        const entered_adrs = e.target.value
+        if (isAddress(entered_adrs)) {
+            setCustom_adrs(entered_adrs)
+        }
+    }
+    const handleClick = () => {
+        if (custom_adrs !== "") {
+            setHave_custom_adrs(!have_custom_adrs)
+        } else {
+            alert('Enter an Address')
+        }
+    }
+
     const getTokenTransaction = async () => {
         try {
 
             // const response = await axios.get(`https://stg-api.unmarshal.io/v1/matic/address/0x989923d33bE0612680064Dc7223a9f292C89A538/transactions?page=${currentPage}&pageSize=20&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
-            const response = await axios.get(`https://stg-api.unmarshal.io/v1/${helperConfig.unmarshal[chainId]}/address/${account}/transactions?page=${currentPage}&pageSize=20&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
-            setTransaction(response.data)
+            if (have_custom_adrs) {
+                const response = await axios.get(`https://stg-api.unmarshal.io/v1/${helperConfig.unmarshal[chainId]}/address/${custom_adrs}/transactions?page=${currentPage}&pageSize=20&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+                setTransaction(response.data)
 
-            const data = response.data.transactions.filter((a) => a.type.includes('receive') || a.type.includes('send') || a.type.includes('approve'))
-            const exedata = response.data.transactions.filter((a) => !a.type.includes('receive') && !a.type.includes('send') && !a.type.includes('approve'))
-            setDataList(data)
-            setEdataList(exedata)
+                const data = response.data.transactions.filter((a) => a.type.includes('receive') || a.type.includes('send') || a.type.includes('approve'))
+                const exedata = response.data.transactions.filter((a) => !a.type.includes('receive') && !a.type.includes('send') && !a.type.includes('approve'))
+                setDataList(data)
+                setEdataList(exedata)
+            } else {
+                const response = await axios.get(`https://stg-api.unmarshal.io/v1/${helperConfig.unmarshal[chainId]}/address/${account}/transactions?page=${currentPage}&pageSize=20&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+                setTransaction(response.data)
+
+                const data = response.data.transactions.filter((a) => a.type.includes('receive') || a.type.includes('send') || a.type.includes('approve'))
+                const exedata = response.data.transactions.filter((a) => !a.type.includes('receive') && !a.type.includes('send') && !a.type.includes('approve'))
+                setDataList(data)
+                setEdataList(exedata)
+            }
 
         } catch (error) {
             console.log(`Activity[getTokenTransaction]`, error)
@@ -89,9 +117,7 @@ const ActivityScreen = ({ message, dispatch }) => {
 
     useEffect(() => {
         getTokenTransaction()
-        return () => {
-        }
-    }, [currentPage])
+    }, [currentPage, chainId, account, have_custom_adrs])
 
     const columns = [
         {
@@ -306,7 +332,21 @@ const ActivityScreen = ({ message, dispatch }) => {
                     <CardBody>
                         <CardText>Track your transaction status here</CardText>
                     </CardBody>
+                </Card>
 
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Check assest for an Address</CardTitle>
+                    </CardHeader>
+                    <CardBody className='d-flex flex-row justify-content-between'>
+                        <Input className='mx-1' type='text' placeholder="Add address of the account to see it's assests" onChange={handleChange} />
+                        <Button color='primary round' onClick={handleClick}>
+                            Search
+                        </Button>
+                    </CardBody>
+                </Card>
+
+                <Card>
                     <Nav tabs style={{ display: 'flex', flex: 1, justifyContent: 'space-evenly', textAlign: 'center' }}>
 
                         <Col md={6} sm={6}>
@@ -329,36 +369,35 @@ const ActivityScreen = ({ message, dispatch }) => {
                             </NavItem>
                         </Col>
                     </Nav>
+                    <TabContent activeTab={active}>
+                        <TabPane tabId='1'>
+                            <DataTable
+                                className='react-dataTable'
+                                customStyles={tablestyle}
+                                noHeader
+                                data={dataList}
+                                columns={columns}
+                                pagination
+                                paginationPerPage={20}
+                                paginationDefaultPage={currentPage + 1}
+                                paginationComponent={CustomPagination}
+                            />
+                        </TabPane>
+                        <TabPane tabId='2'>
+                            <DataTable
+                                className='react-dataTable'
+                                customStyles={tablestyle}
+                                noHeader
+                                data={edataList}
+                                columns={columns}
+                                pagination
+                                paginationPerPage={20}
+                                paginationDefaultPage={currentPage + 1}
+                                paginationComponent={CustomPagination}
+                            />
+                        </TabPane>
+                    </TabContent>
                 </Card>
-
-                <TabContent activeTab={active}>
-                    <TabPane tabId='1'>
-                        <DataTable
-                            className='react-dataTable'
-                            customStyles={tablestyle}
-                            noHeader
-                            data={dataList}
-                            columns={columns}
-                            pagination
-                            paginationPerPage={20}
-                            paginationDefaultPage={currentPage + 1}
-                            paginationComponent={CustomPagination}
-                        />
-                    </TabPane>
-                    <TabPane tabId='2'>
-                        <DataTable
-                            className='react-dataTable'
-                            customStyles={tablestyle}
-                            noHeader
-                            data={edataList}
-                            columns={columns}
-                            pagination
-                            paginationPerPage={20}
-                            paginationDefaultPage={currentPage + 1}
-                            paginationComponent={CustomPagination}
-                        />
-                    </TabPane>
-                </TabContent>
 
                 {/* <Card>
                     <DataTable
