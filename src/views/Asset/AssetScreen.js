@@ -61,8 +61,6 @@ const Asset = () => {
         }
     }
 
-    console.log('have_custom_adrs', have_custom_adrs)
-
     const getTokenBalance = async () => {
         try {
             // const response = await axios.get(`https://api.unmarshal.com/v1/matic/address/0x989923d33bE0612680064Dc7223a9f292C89A538/assets?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)

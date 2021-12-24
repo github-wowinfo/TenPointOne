@@ -65,9 +65,9 @@ const Network = ({ networkC, dispatch }) => {
     networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"
     networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
     setNetwork({ icon: networkIcon, name: networkName })
-    if (curt_chain !== chainId) {
-      disconnect()
-    }
+    // if (curt_chain !== chainId) {
+    //   disconnect()
+    // }
   }, [chainId])
 
   // const [network, setNetwork] = useState({ icon: 'eth', name: 'Ethereum' })

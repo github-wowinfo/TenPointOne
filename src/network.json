@@ -8,7 +8,7 @@
     {
         "net": "137",
         "icon": "matic",
-        "name": "Polygon",
+        "name": "Polygon Network",
         "netid": "0x89"
     },
     {
@@ -32,7 +32,7 @@
     {
         "net": "80001",
         "icon": "matic",
-        "name": "Mumbai",
+        "name": "Polygon Mumbai",
         "netid": "0x13881"
     }
 ]
