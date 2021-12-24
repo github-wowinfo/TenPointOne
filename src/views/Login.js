@@ -30,7 +30,7 @@ const Login = () => {
   const illustration = skin === 'dark' ? 'newlogo.png' : 'newlogo.png',
     source = require(`@src/assets/images/pages/${illustration}`).default
 
-  const { activateBrowserWallet, account, deactivate } = useEthers()
+  const { activateBrowserWallet, account, deactivate, chainId } = useEthers()
 
   const isConnected = account !== undefined
 
@@ -68,6 +68,7 @@ const Login = () => {
                 }}
                 block>CONNECT WALLET
               </Button.Ripple>)}
+            {<p>Network: {chainId}</p>}
             {/* {console.log(account)}
             {<p>Account: {account}</p>}
             <Button size='sm' onClick={deactivate}>Deactivate</Button>

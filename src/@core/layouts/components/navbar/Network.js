@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSelector, useDispatch, connect } from 'react-redux'
 import Icon from 'react-crypto-icons'
 import { UncontrolledButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap'
@@ -48,10 +48,27 @@ const Network = ({ networkC, dispatch }) => {
 
   ]
 
+  const [network, setNetwork] = useState({})
+
   // const [network, setNetwork] = useState({ icon: 'eth', name: 'Ethereum' })
-  const networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"
-  const networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
-  const [network, setNetwork] = useState({ icon: networkIcon, name: networkName })
+  console.log('chain', chainId)
+  let networkIcon = ''
+  let networkName = ''
+  useEffect(() => {
+    networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"
+    networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
+    setNetwork({ icon: networkIcon, name: networkName })
+  }, [chainId])
+
+  // const networkIcon = helperConfig.network[chainId].icon
+  // const networkName = helperConfig.network[chainId].name
+
+  // const networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"
+  // const networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
+  console.log('networkIcon', networkIcon)
+  console.log('networkName', networkName)
+
+  // const [network, setNetwork] = useState({ icon: networkIcon, name: networkName }
 
 
   const handleNetwork = (e, icon, name) => {
