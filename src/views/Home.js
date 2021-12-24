@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card, CardHeader, CardBody } from 'reactstrap'
 import Col from 'reactstrap/lib/Col'
 import Row from 'reactstrap/lib/Row'
@@ -9,10 +9,13 @@ import RecentTrans from "./Dashboard/RecentTrans"
 import SegaDisplay from './Dashboard/SegaDisplay'
 import Avatar from '@components/avatar'
 import { useEthers } from '@usedapp/core/dist/esm/src/hooks/useEthers'
+import helperConfig from '../helper-config.json'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 const Home = () => {
 
-  const { account } = useEthers()
+  const { account, chainId } = useEthers()
 
   const isConnected = account !== undefined
 
@@ -21,6 +24,44 @@ const Home = () => {
   }
 
   const [chart, setChart] = useState(true)
+  const [curt_chain, setCurt_chain] = useState(chainId)
+
+  const MySwal = withReactContent(Swal)
+
+  const netchange = async (netid) => {
+    await ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: `${netid}` }] })
+  }
+  const handleAjax = (netid, name) => {
+    return MySwal.fire({
+      title: 'Do you want to change your current network?',
+      // text: `Current network is "${helperConfig.network[chainId].name}"`,
+      allowOutsideClick: true,
+      showCancelButton: true,
+      confirmButtonText: `Change network to "${helperConfig.network[chainId].name}"`,
+      cancelButtonText: `Stay on "${helperConfig.network[curt_chain].name}"`,
+      customClass: {
+        confirmButton: 'btn btn-primary mx-1',
+        cancelButton: 'btn btn-danger my-1'
+      },
+      showClass: {
+        popup: 'animate__animated animate__flipInX'
+      },
+    }).then(function (result) {
+      if (result.isConfirmed) {
+        netchange(helperConfig.network[chainId].netid)
+        setCurt_chain(chainId)
+      } else if (result.isDismissed) {
+        netchange(helperConfig.network[curt_chain].netid)
+      }
+    })
+  }
+
+  useEffect(() => {
+    if (chainId !== curt_chain) {
+      handleAjax()
+    }
+  }, [chainId])
+
   return (
 
     <div>

@@ -152,18 +152,19 @@ const AdddressBook = () => {
             //         <label style={{ fontSize: '14px' }} className='font-weight-bold mx-1'>{row.adrs}</label>
             //     </div>
             // )
+            cell: row => shortenIfAddress(row.adrs)
+
+            // cell: row => row.adrs
+        },
+        {
+            name: '',
             cell: row => (
-                <span>
-                    {shortenIfAddress(row.adrs)}
-                    <br />
-                    <span className='d-flex felx-row align-items-center'>
-                        {<FaRegCopy style={{ cursor: 'pointer' }} className='mx-1' size={17} />}
-                        {<a href={getExplorerAddressLink(row.adrs, row.network)} target='_blank'><GoLinkExternal className='mr-1' size={17} /></a>}
-                        {<Heart />}
-                    </span>
+                <span className='d-flex felx-row align-items-center'>
+                    {<FaRegCopy style={{ cursor: 'pointer' }} className='mx-1' size={25} />}
+                    {<a href={getExplorerAddressLink(row.adrs, row.network)} target='_blank'><GoLinkExternal className='mr-1' size={25} /></a>}
+                    {<Heart />}
                 </span>
             )
-            // cell: row => row.adrs
         },
         {
             name: 'Chain',

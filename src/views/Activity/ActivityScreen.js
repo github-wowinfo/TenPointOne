@@ -162,7 +162,9 @@ const ActivityScreen = ({ message, dispatch }) => {
                                     }
                                     <br />
                                 </span>
-                                <span className='align-middle font-weight-light'>{row.received && row.received[0].symbol}</span>
+                                <span className='align-middle font-weight-light' style={{
+                                    fontSize: 12
+                                }}>{row.received && row.received[0].symbol}</span>
                             </>
                         ) : (
                             <>
@@ -171,7 +173,9 @@ const ActivityScreen = ({ message, dispatch }) => {
                                         row.sent ? row.sent[0].value / (10 ** row.sent[0].decimals) : row.received ? '' : '-'
                                     }
                                     <br />
-                                    <span className='align-middle font-weight-light'>{row.sent && row.sent[0].symbol}</span>
+                                    <span className='align-middle font-weight-light' style={{
+                                        fontSize: 12
+                                    }}>{row.sent && row.sent[0].symbol}</span>
                                 </span>
                             </>
                         )

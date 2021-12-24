@@ -100,7 +100,7 @@ const AddNewModal = ({ open, handleModal }) => {
         owner: account,
         nickname: name,
         adrs: adrss,
-        network: [chain]
+        network: chain
       }
       console.log('postdat', postdata.network)
       let adrsbook = []

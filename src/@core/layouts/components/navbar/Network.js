@@ -5,53 +5,56 @@ import { UncontrolledButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle 
 import * as AppData from '../../../../redux/actions/cookies/appDataType'
 import { useEthers } from '@usedapp/core'
 import helperConfig from '../../../../helper-config.json'
+import chain_detail from '../../../../network.json'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 const Network = ({ networkC, dispatch }) => {
+  const MySwal = withReactContent(Swal)
   const { chainId } = useEthers()
-  const data = [
-    {
-      id: '0',
-      name: 'Ethereum',
-      icon: 'eth',
-      netid: '0x1'
-    },
-    {
-      id: '1',
-      name: 'BSC Mainet',
-      icon: 'bnb',
-      netid: '0x38'
-    },
-    {
-      id: '2',
-      name: 'Polygon Network',
-      icon: 'matic',
-      netid: '0x89'
-    },
-    {
-      id: '3',
-      name: 'kovan',
-      icon: 'eth',
-      netid: '0x2a'
-    },
-    {
-      id: '4',
-      name: 'BSC testnet',
-      icon: 'bnb',
-      netid: '0x61'
-    },
-    {
-      id: '5',
-      name: 'Polygon Mumbai',
-      icon: 'matic',
-      netid: '0x13881'
-    }
+  console.log('chain_detail', chain_detail)
+  const data = chain_detail
 
-  ]
+  // const data = [
+  //   {
+  //     id: '0',
+  //     name: 'Ethereum',
+  //     icon: 'eth',
+  //     netid: '0x1'
+  //   },
+  //   {
+  //     id: '1',
+  //     name: 'BSC Mainet',
+  //     icon: 'bnb',
+  //     netid: '0x38'
+  //   },
+  //   {
+  //     id: '2',
+  //     name: 'Polygon Network',
+  //     icon: 'matic',
+  //     netid: '0x89'
+  //   },
+  //   {
+  //     id: '3',
+  //     name: 'kovan',
+  //     icon: 'eth',
+  //     netid: '0x2a'
+  //   },
+  //   {
+  //     id: '4',
+  //     name: 'BSC testnet',
+  //     icon: 'bnb',
+  //     netid: '0x61'
+  //   },
+  //   {
+  //     id: '5',
+  //     name: 'Polygon Mumbai',
+  //     icon: 'matic',
+  //     netid: '0x13881'
+  //   }
+  // ]
 
   const [network, setNetwork] = useState({})
-
-  // const [network, setNetwork] = useState({ icon: 'eth', name: 'Ethereum' })
-  console.log('chain', chainId)
   let networkIcon = ''
   let networkName = ''
   useEffect(() => {
@@ -60,48 +63,65 @@ const Network = ({ networkC, dispatch }) => {
     setNetwork({ icon: networkIcon, name: networkName })
   }, [chainId])
 
-  // const networkIcon = helperConfig.network[chainId].icon
-  // const networkName = helperConfig.network[chainId].name
-
-  // const networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"
-  // const networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
-  console.log('networkIcon', networkIcon)
-  console.log('networkName', networkName)
-
+  // const [network, setNetwork] = useState({ icon: 'eth', name: 'Ethereum' })
   // const [network, setNetwork] = useState({ icon: networkIcon, name: networkName }
 
+  // const handleNetwork = (e, icon, name) => {
+  //   e.preventDefault()
+  //   setNetwork({ icon, name })
+  //   dispatch(AppData.networkChange({ icon, name }))
+  //   console.log('name', i)
+  // }
 
-  const handleNetwork = (e, icon, name) => {
-    e.preventDefault()
-    setNetwork({ icon, name })
-    dispatch(AppData.networkChange({ icon, name }))
-    // console.log('name', i)
-  }
   const netchange = async (netid) => {
     await ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: `${netid}` }] })
   }
-  const networkItems = data.map(i => {
+  const handleAjax = (netid, name) => {
+    return MySwal.fire({
+      title: 'Do you want to change your current network?',
+      text: `Current network is "${helperConfig.network[chainId].name}"`,
+      allowOutsideClick: true,
+      showCancelButton: true,
+      confirmButtonText: `Change network to "${name}"`,
+      customClass: {
+        confirmButton: 'btn btn-primary mx-1',
+        cancelButton: 'btn btn-danger my-1'
+      },
+      showClass: {
+        popup: 'animate__animated animate__flipInX'
+      },
+    }).then(function (isConfirmed) {
+      if (isConfirmed.value) {
+        netchange(netid)
+      }
+    })
+  }
+
+
+  const networkItems = data.map((i, index) => {
     return (
-      <DropdownItem href='/' key={i.id} onClick={(e) => {
-        netchange(i.netid)
-        handleNetwork(e, i.icon, i.name)
+      <DropdownItem href='/' key={index} onClick={(e) => {
+        e.preventDefault()
+        handleAjax(i.netid, i.name)
+        // netchange(i.netid)
+        // handleNetwork(e, i.icon, i.name)
       }}><span><Icon className='mx-1' name={i.icon} size={20} />{i.name}</span></DropdownItem>
     )
   })
 
   return (
     <UncontrolledButtonDropdown style={{ marginLeft: 20, marginRight: 20 }}>
+
       <DropdownToggle color='primary' outline caret>
-        {/* <span>{networkData[chainId].img}</span> */}
-        {/* <span className='mx-1'><img src={require(`${networkData[chainId].img}`)} alt='logo' /></span><span>{networkData[chainId].name}</span> */}
-        {/* <span className='mx-1'><img src={networkData[chainId].img} alt='logo' /></span><span>{networkData[chainId].name}</span> */}
-        {/* {console.log('image', networkData[chainId].image)} */}
-        {/* <span className='mx-1'><img src={thislogo} alt='logo' height='22' /></span><span>{networkData[chainId].name}</span> */}
         <span><Icon className='mx-1' name={network.icon} size={20} />{network.name}</span>
       </DropdownToggle>
+
       <DropdownMenu style={{ relative: 'relative' }}>
+
         {networkItems}
+
       </DropdownMenu>
+
     </UncontrolledButtonDropdown>
   )
 }

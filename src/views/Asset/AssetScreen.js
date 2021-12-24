@@ -11,7 +11,8 @@ import {
     CardTitle,
     CardText,
     CardFooter,
-    CardHeader
+    CardHeader,
+    Button
 } from 'reactstrap'
 import Icon from 'react-crypto-icons'
 import DataTable from 'react-data-table-component'
@@ -23,6 +24,7 @@ import axios from 'axios'
 import { useEthers } from '@usedapp/core'
 import { useCoingeckoPrice } from '@usedapp/coingecko'
 import helperConfig from "../../helper-config.json"
+import { isAddress } from 'ethers/lib/utils'
 
 // const currencyOptions = [
 //     { value: 'usd', label: 'USD' },
@@ -42,27 +44,54 @@ const Asset = () => {
     const [assetList, setAssetList] = useState([])
     const [sum, setSum] = useState(0)
 
+    const [custom_adrs, setCustom_adrs] = useState('')
+    const [have_custom_adrs, setHave_custom_adrs] = useState(false)
+
+    const handleChange = (e) => {
+        const entered_adrs = e.target.value
+        if (isAddress(entered_adrs)) {
+            setCustom_adrs(entered_adrs)
+        }
+    }
+    const handleClick = () => {
+        if (custom_adrs !== "") {
+            setHave_custom_adrs(!have_custom_adrs)
+        } else {
+            alert('Enter an Address')
+        }
+    }
+
+    console.log('have_custom_adrs', have_custom_adrs)
 
     const getTokenBalance = async () => {
         try {
             // const response = await axios.get(`https://api.unmarshal.com/v1/matic/address/0x989923d33bE0612680064Dc7223a9f292C89A538/assets?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
-            const response = await axios.get(`https://api.unmarshal.com/v1/${helperConfig.unmarshal[chainId]}/address/${account}/assets?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
 
-            setAssetList(response.data)
+            if (have_custom_adrs) {
+                const response = await axios.get(`https://api.unmarshal.com/v1/${helperConfig.unmarshal[chainId]}/address/${custom_adrs}/assets?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+                console.log('response_have_custom_adrs', response)
+                setAssetList(response.data)
+                const balance = response.data.map(item => item.balance / (10 ** item.contract_decimals) * item.quote_rate).reduce((acc, curr) => acc + curr, 0)
+                setSum(balance)
+                console.log(balance)
+            } else {
+                const response = await axios.get(`https://api.unmarshal.com/v1/${helperConfig.unmarshal[chainId]}/address/${account}/assets?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+                console.log('response', response)
+                setAssetList(response.data)
+                const balance = response.data.map(item => item.balance / (10 ** item.contract_decimals) * item.quote_rate).reduce((acc, curr) => acc + curr, 0)
+                setSum(balance)
+                console.log(balance)
+            }
 
-            const balance = response.data.map(item => item.balance / (10 ** item.contract_decimals) * item.quote_rate).reduce((acc, curr) => acc + curr, 0)
-
-            setSum(balance)
-            console.log(balance)
         } catch (error) {
             setAssetList([])
             console.log(`Asset [getTokkenBalance]`, error)
         }
     }
-
+    console.log('assetList', assetList)
     useEffect(() => {
         getTokenBalance()
-    }, [chainId, sum])
+    }, [chainId, account, sum, have_custom_adrs])
 
     const addDefaultSrc = (ev) => {
         ev.target.src = require(`@src/assets/images/logo/question.jpg`).default
@@ -125,12 +154,12 @@ const Asset = () => {
             }
         }
     }
-    const etherPrice = useCoingeckoPrice('01coin', 'usd')
+    // const etherPrice = useCoingeckoPrice('01coin', 'usd')
 
     return (
         <>
 
-            {console.log(assetList)}
+
             {isConnected ? (<>
                 {/* <Row>
                     <Col>
@@ -165,7 +194,17 @@ const Asset = () => {
                         </div>
                     </CardBody>
                 </Card>
-
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Check assest for an Address</CardTitle>
+                    </CardHeader>
+                    <CardBody className='d-flex flex-row justify-content-between'>
+                        <Input className='mx-1' type='text' placeholder="Add address of the account to see it's assests" onChange={handleChange} />
+                        <Button color='primary round' onClick={handleClick}>
+                            Search
+                        </Button>
+                    </CardBody>
+                </Card>
                 <Card>
                     <DataTable
                         className='react-dataTable'

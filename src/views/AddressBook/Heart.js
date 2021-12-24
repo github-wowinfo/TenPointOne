@@ -10,7 +10,7 @@ const Heart = () => {
     return (
         <div>
             {
-                hicon ? <Avatar size='sm' color='light' icon={<FaRegHeart size={12} style={{ color: 'red' }} />} onClick={() => setHicon(false)} /> : <Avatar size='sm' color='light-info' icon={<FaHeart size={12} style={{ color: 'red' }} />} onClick={() => setHicon(true)} />
+                hicon ? <Avatar color='light' icon={<FaRegHeart size={25} style={{ color: 'red' }} />} onClick={() => setHicon(false)} /> : <Avatar color='light-info' icon={<FaHeart size={25} style={{ color: 'red' }} />} onClick={() => setHicon(true)} />
             }
         </div>
     )

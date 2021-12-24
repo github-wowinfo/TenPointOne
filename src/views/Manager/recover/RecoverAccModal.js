@@ -68,6 +68,24 @@ const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
         localStorage.setItem('vaultdata', JSON.stringify(vaultdata))
     }
 
+    const addToAdrsBook = () => {
+        const getAdrsdata = JSON.parse(localStorage.getItem('adrsbook'))
+        const adrsdata =
+        {
+            owner: account,
+            nickname: nickName,
+            adrs: Vault,
+            network: [chainId]
+        }
+        let adrsbook = []
+        if (getAdrsdata) {
+            adrsbook = [...getAdrsdata, adrsdata]
+        } else {
+            adrsbook = [adrsdata]
+        }
+        localStorage.setItem('adrsbook', JSON.stringify(adrsbook))
+    }
+
     //SNACKBAR FOR GENERAL TRANSACTIONS
     const [txnID, setTxnID] = useState("")
     const [showTxnMiningSnack, setShowTxnMiningSnack] = useState(false)
@@ -87,6 +105,7 @@ const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
         if (txnState.status === "Success") {
             setTxnSuccessSnack(true)
             addToLocal()
+            addToAdrsBook()
             // notifySuccess()
         }
     }, [txnState])
