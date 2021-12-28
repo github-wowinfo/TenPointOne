@@ -126,7 +126,7 @@ const UserDropdown = ({ networkC }) => {
                   justifyContent: 'center'
                 }}>
 
-                  <Avatar size='lg' color='light-danger' title='SBI Vault' icon={<BsSafe2 size={25} />} href='/home' />
+                  <Avatar size='lg' color='light-success' title='SBI Vault' icon={<User size={25} />} href='/home' />
                 </div>
                 <br />
                 <div style={{
@@ -171,6 +171,7 @@ const UserDropdown = ({ networkC }) => {
     </>
   )
 }
+
 
 const mapStateToProps = (state) => ({
   networkC: state.appData.network

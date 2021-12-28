@@ -16,6 +16,7 @@ import { useEthers, getExplorerAddressLink, getExplorerTransactionLink } from "@
 import Icon from 'react-crypto-icons'
 import helperConfig from '../../helper-config.json'
 import Text from '../../views/CustomComponent/Text'
+import DropList from "./DropList"
 
 const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
 
@@ -59,6 +60,8 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
     </Fragment>
   )
 
+  const [dropList, setDropList] = useState(false)
+  const handleDropList = () => setDropList(!dropList)
 
   const renderItem = () => {
     return (
@@ -74,11 +77,11 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
         </Col>
 
         <Col style={{ padding: '0px 0px' }}>
-          <UncontrolledButtonDropdown style={{ minWidth: "90%" }} direction='right'>
+          <UncontrolledButtonDropdown style={{ minWidth: "90%" }} direction='right' onClick={handleDropList}>
             <DropdownToggle className='pt-1 pb-0 flat-primary' color='none' caret>
               <h2 className="text-primary" >SBI Vault <ChevronRight size={25} /></h2>
             </DropdownToggle>
-            <DropdownMenu >
+            {/* <DropdownMenu >
               <Link to='/manager'>
                 <DropdownItem tag='a' ><PlusCircle className='mr-1' size={25} />Add Vault or Sega</DropdownItem>
               </Link>
@@ -148,7 +151,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
                   </Row>
                 </DropdownItem>
               </DropdownItem>
-            </DropdownMenu>
+            </DropdownMenu> */}
           </UncontrolledButtonDropdown>
           <UncontrolledButtonDropdown style={{ minWidth: "90%" }}>
             <DropdownToggle style={{ fontSize: '1.1em' }} className='mb-1 btn-gradient-primary round' color='none' caret>
@@ -224,6 +227,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
           menuCollapsed ? menuHover ? renderItem() : renderItemCollapse() : renderItem()
         }
       </Row>
+      <DropList opendroplist={dropList} handleDropList={handleDropList} />
     </>
   )
 }

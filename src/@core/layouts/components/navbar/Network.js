@@ -9,11 +9,12 @@ import chain_detail from '../../../../network.json'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
-const Network = ({ networkC, dispatch }) => {
+const Network = ({ networkC, dispatch, globalFlag }) => {
 
   const disconnect = () => {
     window.location.href = '/login'
   }
+
   const MySwal = withReactContent(Swal)
   const { chainId } = useEthers()
   console.log('chain_detail', chain_detail)
@@ -57,6 +58,7 @@ const Network = ({ networkC, dispatch }) => {
   //     netid: '0x13881'
   //   }
   // ]
+
   const [curt_chain, setCurt_chain] = useState(chainId)
   const [network, setNetwork] = useState({})
   let networkIcon = ''
@@ -65,9 +67,6 @@ const Network = ({ networkC, dispatch }) => {
     networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"
     networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
     setNetwork({ icon: networkIcon, name: networkName })
-    // if (curt_chain !== chainId) {
-    //   disconnect()
-    // }
   }, [chainId])
 
   // const [network, setNetwork] = useState({ icon: 'eth', name: 'Ethereum' })
@@ -88,9 +87,9 @@ const Network = ({ networkC, dispatch }) => {
     return MySwal.fire({
       title: 'Do you want to change your current network?',
       text: `Current network is "${helperConfig.network[chainId].name}"`,
-      allowOutsideClick: true,
+      allowOutsideClick: false,
       showCancelButton: true,
-      confirmButtonText: `Switch metamask to "${name} and log out"`,
+      confirmButtonText: `Switch metamask to "${name} and log in again"`,
       customClass: {
         confirmButton: 'btn btn-primary mx-1',
         cancelButton: 'btn btn-danger my-1'
@@ -98,12 +97,23 @@ const Network = ({ networkC, dispatch }) => {
       showClass: {
         popup: 'animate__animated animate__flipInX'
       },
-    }).then(function (isConfirmed) {
-      if (isConfirmed.value) {
+    }).then(function (result) {
+      if (result.isConfirmed) {
         netchange(netid)
+        dispatch(AppData.globalFlag(true))
+        // disconnect()
       }
+      // if (curt_chain !== chainId) {
+      //   disconnect()
+      // }
     })
   }
+
+  useEffect(() => {
+    if (chainId !== curt_chain && globalFlag) {
+      disconnect()
+    }
+  }, [chainId])
 
 
   const networkItems = data.map((i, index) => {
@@ -135,9 +145,15 @@ const Network = ({ networkC, dispatch }) => {
 }
 // const mapDispatchToProps = dispatch => ({ dispatch })
 // export default connect(null, mapDispatchToProps)(Network)
+// const mapStateToProps = (state) => ({
+//   message: state.appData.network
+// })
+// const mapDispatchToProp = dispatch => ({ dispatch })
+
+// export default connect(mapStateToProps, mapDispatchToProp)(Network)
+
 const mapStateToProps = (state) => ({
-  message: state.appData.network
+  globalFlag: state.appData.globalFlag
 })
 const mapDispatchToProp = dispatch => ({ dispatch })
-
 export default connect(mapStateToProps, mapDispatchToProp)(Network)

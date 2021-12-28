@@ -12,8 +12,9 @@ import { useEthers } from '@usedapp/core/dist/esm/src/hooks/useEthers'
 import helperConfig from '../helper-config.json'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import { connect } from 'react-redux'
 
-const Home = () => {
+const Home = ({ globalFlag }) => {
 
   const { account, chainId } = useEthers()
 
@@ -25,20 +26,19 @@ const Home = () => {
 
   const [chart, setChart] = useState(true)
   const [curt_chain, setCurt_chain] = useState(chainId)
-
   const MySwal = withReactContent(Swal)
 
   const netchange = async (netid) => {
     await ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: `${netid}` }] })
   }
-  const handleAjax = (netid, name) => {
+  const handleAjax = () => {
     return MySwal.fire({
       title: 'Do you want to change your current network?',
       // text: `Current network is "${helperConfig.network[chainId].name}"`,
-      allowOutsideClick: true,
+      allowOutsideClick: false,
       showCancelButton: true,
-      confirmButtonText: `Switch metamask to "${helperConfig.network[chainId].name} and log out"`,
-      cancelButtonText: `Stay on "${helperConfig.network[curt_chain].name}"`,
+      confirmButtonText: `Switch metamask to "${helperConfig.network[chainId].name} and log in again"`,
+      cancelButtonText: `Stay on "${helperConfig.network[curt_chain].name}" and log in again`,
       customClass: {
         confirmButton: 'btn btn-primary mx-1',
         cancelButton: 'btn btn-danger my-1'
@@ -49,9 +49,9 @@ const Home = () => {
     }).then(function (result) {
       if (result.isConfirmed) {
         netchange(helperConfig.network[chainId].netid)
-        setCurt_chain(chainId)
         disconnect()
       } else if (result.isDismissed) {
+        disconnect()
         netchange(helperConfig.network[curt_chain].netid)
       }
     })
@@ -103,4 +103,9 @@ const Home = () => {
   )
 }
 
-export default Home
+// export default Home
+
+const mapStateToProps = (state) => ({
+  globalFlag: state.appData.globalFlag
+})
+export default connect(mapStateToProps, null)(Home)

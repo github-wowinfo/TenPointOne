@@ -1,3 +1,9 @@
 export const SET_APP_MESSAGES = 'SET_APP_MESSAGES'
 
 export const NETWORK_CHANGE = 'NETWORK_CHANGE'
+
+export const GLOBAL_FLAG = 'GLOBAL_FLAG'
+
+export const GLOBAL_ADRS = 'GLOBAL_ADRS'
+
+export const GLOBAL_NICK_NAME = 'GLOBAL_NICK_NAME'
