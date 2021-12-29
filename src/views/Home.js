@@ -64,6 +64,7 @@ const Home = ({ globalFlag, globalAdrs, dispatch, globalNickName }) => {
     }
   }, [chainId])
 
+  const [curr_acc, setCurr_Acc] = useState(account)
   const [vaultList, setVaultList] = useState([])
   const getVaultListFromLocal = () => {
     const getdata = JSON.parse(localStorage.getItem('vaultdata'))
@@ -78,9 +79,13 @@ const Home = ({ globalFlag, globalAdrs, dispatch, globalNickName }) => {
       setVaultList(vaultlist)
     }
   }
-
   useEffect(() => {
-    getVaultListFromLocal()
+    if (globalNickName === '') {
+      getVaultListFromLocal()
+    } else if (globalNickName !== '' && curr_acc !== account) {
+      getVaultListFromLocal()
+    }
+
   }, [account])
 
   const [assetList, setAssetList] = useState([])

@@ -77,12 +77,16 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
         </Col>
 
         <Col style={{ padding: '0px 0px' }}>
+          <h2 className="text-primary my-1" style={{ cursor: 'pointer' }} onClick={handleDropList} >{globalNickName} <ChevronRight size={25} /></h2>
+          {/* <Button.Ripple className='my-1' color='flat-primary' onClick={handleDropList}>
+            {globalNickName} <ChevronRight size={25} />
+          </Button.Ripple> */}
           {/* <UncontrolledButtonDropdown style={{ minWidth: "90%" }} direction='right' onClick={handleDropList}> */}
-          <UncontrolledButtonDropdown style={{ minWidth: "90%" }} onClick={handleDropList}>
+          {/* <UncontrolledButtonDropdown style={{ minWidth: "90%" }} onClick={handleDropList}>
             <DropdownToggle className='pt-1 pb-0 flat-primary' color='none' caret>
               <h2 className="text-primary" >{globalNickName} <ChevronRight size={25} /></h2>
-            </DropdownToggle>
-            {/* <DropdownMenu >
+            </DropdownToggle> */}
+          {/* <DropdownMenu >
               <Link to='/manager'>
                 <DropdownItem tag='a' ><PlusCircle className='mr-1' size={25} />Add Vault or Sega</DropdownItem>
               </Link>
@@ -153,7 +157,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
                 </DropdownItem>
               </DropdownItem>
             </DropdownMenu> */}
-          </UncontrolledButtonDropdown>
+          {/* </UncontrolledButtonDropdown> */}
           <UncontrolledButtonDropdown style={{ minWidth: "90%" }}>
             <DropdownToggle style={{ fontSize: '1.1em' }} className='mb-1 btn-gradient-primary round' color='none' caret>
               Quick Actions
@@ -207,13 +211,13 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
     return (
       <>
         <Col className='my-1 align-self-center' style={{ ...backgroundChange, minHeight: '3em' }} >
-          <Icon className='mt-1' name={networkC.icon} size={20} />
+          <Icon className='mt-1' name={networkIcon} size={20} />
         </Col>
         <Col className='my-1 pl-0'>
           <Avatar size='lg' color='light-danger' title='SBI Vault' icon={<BsSafe2 size={25} />} href='/home' />
         </Col>
-        <Col className='my-1 px-0'>
-          <Button.Ripple style={{ width: '35px', padding: ' 10px 6px' }} color='primary'>SBI</Button.Ripple>
+        <Col className=' px-0'>
+          <Button.Ripple style={{ width: '35px', padding: ' 10px 6px' }} color='primary'>{globalNickName && globalNickName.slice(0, 1)}...{globalNickName && globalNickName.slice(globalNickName.length - 1, globalAdrs.length)}</Button.Ripple>
         </Col>
         <Col className='my-1 px-0'>
           <Button.Ripple style={{ width: '35px', padding: ' 8px 6px' }} color='primary'><BiChevronDown size={20} /></Button.Ripple>
