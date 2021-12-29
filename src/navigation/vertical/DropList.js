@@ -40,28 +40,27 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
     //     dispatch(AppData.globalNickName(name))
     // }
 
+    const [nick_name, setNick_Name] = useState('')
     const [adrs, setAdrs] = useState('')
-    const [selected, setSelected] = useState(false)
-    const handleChange = (e) => {
+    const handleChange = (e, name) => {
         const value = e.target.value
         if (isAddress(value)) {
             setAdrs(value)
-            setSelected(!selected)
+            setNick_Name(name)
         }
     }
 
-    console.log('adrs', adrs)
-
     const handleGlobalAdrs = () => {
-        if (selected) {
-            dispatch(AppData.globalAdrs(adrs))
-        }
-        console.log('globalAdrs', globalAdrs)
+        // console.log('adrs', adrs)
+        // console.log('nick_name', nick_name)
+        dispatch(AppData.globalAdrs(adrs))
+        dispatch(AppData.globalNickName(nick_name))
     }
 
     const CloseBtn = <X className='cursor-pointer' size={15} onClick={() => {
         handleDropList()
         setAdrs('')
+        setNick_Name('')
     }} />
     return (
         <div>
@@ -70,6 +69,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                 toggle={() => {
                     handleDropList()
                     setAdrs('')
+                    setNick_Name('')
                 }}
                 className='sidebar-sm'
                 modalClassName='modal-slide-in'
@@ -77,6 +77,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                 <ModalHeader className='mb-1' close={CloseBtn} tag='div' toggle={() => {
                     handleDropList()
                     setAdrs('')
+                    setNick_Name('')
                 }}>
                     Select a Vault or Sega
                 </ModalHeader>
@@ -87,7 +88,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                                 return (
                                     <>
                                         <Label check>
-                                            <Input key={index} name='vaults' type='radio' value={i.adrs} onChange={handleChange} />
+                                            <Input key={index} name='vaults' type='radio' value={i.adrs} onChange={e => handleChange(e, i.name)} />
                                             <Row className='d-flex flex-row justify-content-between'>
                                                 <Col className='d-flex flex-column'>
                                                     <h6>{i.name}</h6>
@@ -104,7 +105,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                                                 <>
                                                     {j.ofvault === i.adrs ? <FormGroup check>
                                                         <Label check>
-                                                            <Input key={index} id={index} type='radio' name='vaults' value={j.adrs} onChange={handleChange} />
+                                                            <Input key={index} id={index} type='radio' name='vaults' value={j.adrs} onChange={e => handleChange(e, j.name)} />
                                                             <Row className='d-flex flex-row justify-content-between'>
                                                                 <Col className='d-flex flex-column'>
                                                                     <h6>{j.name}</h6>
@@ -175,6 +176,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                     <Button.Ripple color='primary' onClick={() => {
                         handleGlobalAdrs()
                         setAdrs('')
+                        setNick_Name('')
                         handleDropList()
                     }} >OK</Button.Ripple>
                 </ModalFooter>

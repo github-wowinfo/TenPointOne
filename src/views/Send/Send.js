@@ -11,11 +11,16 @@ import Badge from 'reactstrap/lib/Badge'
 import Icon from 'react-crypto-icons'
 import { toast } from 'react-toastify'
 import { Clipboard } from "react-feather"
-import { useState, Fragment } from 'react'
+import { useState, Fragment, useEffect } from 'react'
 import { useEthers, getExplorerAddressLink, shortenIfAddress } from '@usedapp/core'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 import helperConfig from '../../helper-config.json'
+import { connect } from 'react-redux'
+import { SiWebmoney } from 'react-icons/si'
+import { RiSafeLine } from 'react-icons/ri'
 
-const Send = () => {
+const Send = ({ globalAdrs, globalNickName }) => {
 
   const { account, chainId } = useEthers()
 
@@ -25,13 +30,71 @@ const Send = () => {
     window.location.href = '/login'
   }
 
+  const [curt_chain, setCurt_chain] = useState(chainId)
+  const MySwal = withReactContent(Swal)
+
+  const netchange = async (netid) => {
+    await ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: `${netid}` }] })
+  }
+  const handleAjax = () => {
+    return MySwal.fire({
+      title: 'Do you want to change your current network?',
+      // text: `Current network is "${helperConfig.network[chainId].name}"`,
+      allowOutsideClick: false,
+      showCancelButton: true,
+      confirmButtonText: `Switch metamask to "${helperConfig.network[chainId].name} and log in again"`,
+      cancelButtonText: `Stay on "${helperConfig.network[curt_chain].name}" and log in again`,
+      customClass: {
+        confirmButton: 'btn btn-primary mx-1',
+        cancelButton: 'btn btn-danger my-1'
+      },
+      showClass: {
+        popup: 'animate__animated animate__flipInX'
+      },
+    }).then(function (result) {
+      if (result.isConfirmed) {
+        netchange(helperConfig.network[chainId].netid)
+        disconnect()
+      } else if (result.isDismissed) {
+        disconnect()
+        netchange(helperConfig.network[curt_chain].netid)
+      }
+    })
+  }
+
+  useEffect(() => {
+    if (chainId !== curt_chain) {
+      handleAjax()
+    }
+  }, [chainId])
+
+  const [is_sega, setis_sega] = useState(false)
+  const [segaList, setSegaList] = useState([])
+  const getSegaListFromLocal = () => {
+    const getdata = JSON.parse(localStorage.getItem('segadata'))
+    const valueData = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account)
+    const segalist = valueData && valueData.map((sega, index) => ({ value: index, adrs: sega.address, name: sega.name, ofvault: sega.vault }))
+    setSegaList(segalist)
+  }
+
+  useEffect(() => {
+    getSegaListFromLocal()
+    const segaadrs = segaList.find(i => i.adrs === globalAdrs)
+    console.log('segaadrs', segaadrs)
+    if (segaadrs === undefined) {
+      setis_sega(false)
+    } else {
+      setis_sega(true)
+    }
+  }, [globalAdrs, account, chainId])
+
   const cardStyle = {
     display: 'flex',
     justifyContent: 'center',
     alighnItems: 'center'
   }
 
-  const [text, setText] = useState(account)
+  const [text, setText] = useState(globalAdrs)
   const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
   const copy = async () => {
     await navigator.clipboard.writeText(text)
@@ -53,6 +116,14 @@ const Send = () => {
   const data = [
     {
       icon: <BsSafe2 size={25} />,
+      color: 'light-danger'
+    },
+    {
+      icon: <SiWebmoney size={25} />,
+      color: 'light-danger'
+    },
+    {
+      icon: <RiSafeLine size={25} />,
       color: 'light-danger'
     }
   ]
@@ -132,15 +203,19 @@ const Send = () => {
             </Row>
             <Row className='d-flex flex-column'>
               <Col className='d-flex flex-row py-1'>
-                <Avatar className='mr-1' size='lg' color={data[0].color} icon={data[0].icon} />
-                <CardTitle className='my-1 '>SBI Vault</CardTitle>
+                {is_sega ? (
+                  <Avatar className='mr-1' size='lg' color={data[1].color} icon={data[1].icon} />
+                ) : (
+                  <Avatar className='mr-1' size='lg' color={data[0].color} icon={data[0].icon} />
+                )}
+                <CardTitle className='my-1 '>{globalNickName}</CardTitle>
               </Col>
               <Col className='d-flex flex-column justify-content-start'>
                 <Col className='d-flex flex-row '>
-                  <p style={{ color: 'gray' }}>{shortenIfAddress(account)}</p>
+                  <p style={{ color: 'gray' }}>{shortenIfAddress(globalAdrs)}</p>
                   <Col>
                     <FaRegCopy style={{ cursor: 'pointer' }} className='mx-1' color='grey' size={15} onClick={copy} />
-                    <a href={getExplorerAddressLink(account, chainId)} target='_blank'><GoLinkExternal color='grey' size={15} /></a>
+                    <a href={getExplorerAddressLink(globalAdrs, chainId)} target='_blank'><GoLinkExternal color='grey' size={15} /></a>
                   </Col>
                 </Col>
                 <Badge style={{ width: '130px' }} color='secondary'>Balance: <strong>0 MATIC</strong></Badge>
@@ -158,7 +233,7 @@ const Send = () => {
                   <FormGroup className='mb-2'>
                     <Label for='recepient' style={{ fontSize: '1.2em' }}>Recepient</Label>
                     <Row>
-                      <Col md='10'>
+                      <Col xs='8' sm='10' md='10'>
                         <Input
                           className='form-control'
                           id='recepient'
@@ -201,16 +276,26 @@ const Send = () => {
           </CardBody>
           <CardFooter>
             <Row >
-              <Col>
-                <Button.Ripple color='primary' block>
-                  Send
-                </Button.Ripple>
-              </Col>
-              <Col>
-                <Button.Ripple color='primary' block>
-                  Approve ERC
-                </Button.Ripple>
-              </Col>
+              {is_sega ? (
+                <Col>
+                  <Button.Ripple color='primary' block>
+                    Send
+                  </Button.Ripple>
+                </Col>
+              ) : (
+                <>
+                  <Col>
+                    <Button.Ripple color='primary' block>
+                      Send
+                    </Button.Ripple>
+                  </Col>
+                  <Col>
+                    <Button.Ripple color='primary' block>
+                      Approve ERC
+                    </Button.Ripple>
+                  </Col>
+                </>
+              )}
             </Row>
           </CardFooter>
         </Card>
@@ -219,4 +304,10 @@ const Send = () => {
   )
 }
 
-export default Send
+// export default Send
+const mapStateToProps = (state) => ({
+  globalAdrs: state.appData.globalAdrs,
+  globalNickName: state.appData.globalNickName
+})
+// const mapDispatchToProp = dispatch => ({ dispatch })
+export default connect(mapStateToProps, null)(Send)

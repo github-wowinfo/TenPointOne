@@ -16,8 +16,10 @@ import { useEthers } from '@usedapp/core'
 import ReactPaginate from 'react-paginate'
 import helperConfig from "../../helper-config.json"
 import { isAddress } from 'ethers/lib/utils'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
-const ActivityScreen = ({ message, dispatch }) => {
+const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName }) => {
 
     const { account, chainId } = useEthers()
 
@@ -26,6 +28,44 @@ const ActivityScreen = ({ message, dispatch }) => {
     const disconnect = () => {
         window.location.href = '/login'
     }
+
+    const [curt_chain, setCurt_chain] = useState(chainId)
+    const MySwal = withReactContent(Swal)
+
+    const netchange = async (netid) => {
+        await ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: `${netid}` }] })
+    }
+    const handleAjax = () => {
+        return MySwal.fire({
+            title: 'Do you want to change your current network?',
+            // text: `Current network is "${helperConfig.network[chainId].name}"`,
+            allowOutsideClick: false,
+            showCancelButton: true,
+            confirmButtonText: `Switch metamask to "${helperConfig.network[chainId].name} and log in again"`,
+            cancelButtonText: `Stay on "${helperConfig.network[curt_chain].name}" and log in again`,
+            customClass: {
+                confirmButton: 'btn btn-primary mx-1',
+                cancelButton: 'btn btn-danger my-1'
+            },
+            showClass: {
+                popup: 'animate__animated animate__flipInX'
+            },
+        }).then(function (result) {
+            if (result.isConfirmed) {
+                netchange(helperConfig.network[chainId].netid)
+                disconnect()
+            } else if (result.isDismissed) {
+                disconnect()
+                netchange(helperConfig.network[curt_chain].netid)
+            }
+        })
+    }
+
+    useEffect(() => {
+        if (chainId !== curt_chain) {
+            handleAjax()
+        }
+    }, [chainId])
 
     const [modalVisible, setModalVisible] = useState(false)
     const [getTransaction, setTransaction] = useState([])
@@ -98,7 +138,7 @@ const ActivityScreen = ({ message, dispatch }) => {
                 setDataList(data)
                 setEdataList(exedata)
             } else {
-                const response = await axios.get(`https://stg-api.unmarshal.io/v1/${helperConfig.unmarshal[chainId]}/address/${account}/transactions?page=${currentPage}&pageSize=20&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+                const response = await axios.get(`https://stg-api.unmarshal.io/v1/${helperConfig.unmarshal[chainId]}/address/${globalAdrs}/transactions?page=${currentPage}&pageSize=20&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
                 setTransaction(response.data)
 
                 const data = response.data.transactions.filter((a) => a.type.includes('receive') || a.type.includes('send') || a.type.includes('approve'))
@@ -421,7 +461,9 @@ const ActivityScreen = ({ message, dispatch }) => {
 }
 
 const mapStateToProps = (state) => ({
-    message: state.appData.appMessages
+    message: state.appData.appMessages,
+    globalAdrs: state.appData.globalAdrs,
+    globalNickName: state.appData.globalNickName
 })
 const mapDispatchToProp = dispatch => ({ dispatch })
 

@@ -3,7 +3,6 @@ import * as AppDataTypes from '../../actionType/cookies/appDataType'
 const initialState = {
   appMessages: '',
   network: { icon: 'eth', name: 'Ethereum' },
-  accAdrs: '',
   globalFlag: false,
   globalAdrs: '',
   globalNickName: ''
@@ -38,16 +37,17 @@ const appData = (state = initialState, action) => {
     case AppDataTypes.GLOBAL_ADRS: {
       return {
         ...state,
-        global_adrs: payload,
+        globalAdrs: payload,
       }
     }
 
     case AppDataTypes.GLOBAL_NICK_NAME: {
       return {
         ...state,
-        global_adrs: payload,
+        globalNickName: payload,
       }
     }
+
     default:
       return state
   }

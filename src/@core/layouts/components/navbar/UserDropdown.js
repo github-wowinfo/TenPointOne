@@ -27,7 +27,7 @@ import { GoLinkExternal } from 'react-icons/go'
 import { RiWallet3Line } from 'react-icons/ri'
 
 // ** useDapp
-import { useEthers, getExplorerAddressLink } from '@usedapp/core'
+import { useEthers, getExplorerAddressLink, shortenIfAddress } from '@usedapp/core'
 import helperConfig from '../../../../helper-config.json'
 
 const UserDropdown = ({ networkC }) => {
@@ -104,9 +104,11 @@ const UserDropdown = ({ networkC }) => {
               marginRight: 5,
               textAlign: 'right'
             }}>
-              <span className='user-name font-weight-bold'>{(userData && userData['username']) || `Metamask @  ${networkName}`}</span>
+              {/* <span className='user-name font-weight-bold'>{(userData && userData['username']) || `Metamask @  ${networkName}`}</span> */}
+              <span className='user-name font-weight-bold'>{`Metamask @  ${networkName}`}</span>
               <br />
-              <span className='user-status'>{(userData && userData.role) || (account && account.slice(0, 4))}...{account && account.slice(account.length - 4, account.length)}</span>
+              {/* <span className='user-status'>{(userData && userData.role) || (account && account.slice(0, 4))}...{account && account.slice(account.length - 4, account.length)}</span> */}
+              <span className='user-status'>{shortenIfAddress(account)}</span>
               {/* <Text name={account} fchar={4} lchar={4} /> */}
               {/* accAdrs.slice(0, 4)}...{accAdrs.slice(accAdrs.length - 4, accAdrs.length) */}
             </div>
@@ -133,7 +135,8 @@ const UserDropdown = ({ networkC }) => {
                   padding: 5,
                   backgroundColor: '#f9f9f9aa'
                 }}>
-                  <label className='mr-1'> {account && account.slice(0, 4)}...{account && account.slice(account.length - 4, account.length)}</label>
+                  {/* <label className='mr-1'> {account && account.slice(0, 4)}...{account && account.slice(account.length - 4, account.length)}</label> */}
+                  <label className='mr-1'> {shortenIfAddress(account)}</label>
                   {/* {account.slice(0, 4)}...{account.slice(account.length - 4, account.length)} */}
                   {/* <Text name={account} fchar={4} lchar={4} /> */}
                   <FaRegCopy style={{ cursor: 'pointer' }} size={15} className='mr-1' onClick={copy} />

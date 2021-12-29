@@ -8,7 +8,7 @@ import qrcode from './qrcode_localhost.png'
 import Icon from 'react-crypto-icons'
 import { toast } from 'react-toastify'
 import { Clipboard, Info } from "react-feather"
-import { useState, Fragment } from 'react'
+import { useState, Fragment, useEffect } from 'react'
 import { useEthers, shortenIfAddress, getExplorerAddressLink } from '@usedapp/core'
 import helperConfig from '../../helper-config.json'
 import Swal from 'sweetalert2'
@@ -16,17 +16,54 @@ import withReactContent from 'sweetalert2-react-content'
 import Qrcode from './Qrcode'
 import 'animate.css'
 
-const MySwal = withReactContent(Swal)
-
-const Receive = ({ networkC }) => {
+const Receive = ({ networkC, globalAdrs, globalNickName }) => {
 
   const { account, chainId } = useEthers()
 
   const isConnected = account !== undefined
 
+
   const disconnect = () => {
     window.location.href = '/login'
   }
+
+  const [curt_chain, setCurt_chain] = useState(chainId)
+  const MySwal = withReactContent(Swal)
+
+  const netchange = async (netid) => {
+    await ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: `${netid}` }] })
+  }
+  const handleAjax = () => {
+    return MySwal.fire({
+      title: 'Do you want to change your current network?',
+      // text: `Current network is "${helperConfig.network[chainId].name}"`,
+      allowOutsideClick: false,
+      showCancelButton: true,
+      confirmButtonText: `Switch metamask to "${helperConfig.network[chainId].name} and log in again"`,
+      cancelButtonText: `Stay on "${helperConfig.network[curt_chain].name}" and log in again`,
+      customClass: {
+        confirmButton: 'btn btn-primary mx-1',
+        cancelButton: 'btn btn-danger my-1'
+      },
+      showClass: {
+        popup: 'animate__animated animate__flipInX'
+      },
+    }).then(function (result) {
+      if (result.isConfirmed) {
+        netchange(helperConfig.network[chainId].netid)
+        disconnect()
+      } else if (result.isDismissed) {
+        disconnect()
+        netchange(helperConfig.network[curt_chain].netid)
+      }
+    })
+  }
+
+  useEffect(() => {
+    if (chainId !== curt_chain) {
+      handleAjax()
+    }
+  }, [chainId])
 
   const cardStyle = {
     display: 'flex',
@@ -99,11 +136,11 @@ const Receive = ({ networkC }) => {
             <Row className='d-flex flex-column justify-content-center align-items-center'>
               <Col className='my-1 text-center '><Avatar size='lg' color='light-danger' icon={<BsSafe2 size={25} />} /></Col>
               <Col className='mb-1'>
-                <CardTitle style={{ textAlign: 'center', marginBottom: 0 }}><strong>SBI Vault</strong></CardTitle>
+                <CardTitle style={{ textAlign: 'center', marginBottom: 0 }}><strong>{globalNickName}</strong></CardTitle>
               </Col>
               <Col className='text-center'>
                 {/* <CardSubtitle style={{ color: 'gray' }} > <strong>{shortenIfAddress(account)}</strong></CardSubtitle> */}
-                <CardSubtitle style={{ color: 'gray', fontSize: '1.2em' }} > <strong>{shortenIfAddress(account)}</strong></CardSubtitle>
+                <CardSubtitle style={{ color: 'gray', fontSize: '1.2em' }} > <strong>{shortenIfAddress(globalAdrs)}</strong></CardSubtitle>
               </Col>
               <Col>
                 <span className='d-flex flex-row justify-content-center'>
@@ -132,7 +169,7 @@ const Receive = ({ networkC }) => {
             </Col>
           </CardBody>
         </Card>
-        <Qrcode openqrcode={qrcode} handleQrcode={handleQrcode} account={account} />
+        <Qrcode openqrcode={qrcode} handleQrcode={handleQrcode} account={globalAdrs} nickName={globalNickName} />
       </Col>
       ) : disconnect()
       }
@@ -142,6 +179,8 @@ const Receive = ({ networkC }) => {
 }
 
 const mapStateToProps = (state) => ({
-  networkC: state.appData.network
+  networkC: state.appData.network,
+  globalAdrs: state.appData.globalAdrs,
+  globalNickName: state.appData.globalNickName
 })
 export default connect(mapStateToProps, null)(Receive)

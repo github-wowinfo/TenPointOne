@@ -25,13 +25,16 @@ import { useEthers } from '@usedapp/core'
 import { useCoingeckoPrice } from '@usedapp/coingecko'
 import helperConfig from "../../helper-config.json"
 import { isAddress } from 'ethers/lib/utils'
+import { connect } from 'react-redux'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 // const currencyOptions = [
 //     { value: 'usd', label: 'USD' },
 //     { value: 'inr', label: 'INR' }
 // ]
 
-const Asset = () => {
+const Asset = ({ globalAdrs, globalNickName }) => {
 
     const { account, chainId } = useEthers()
 
@@ -40,6 +43,44 @@ const Asset = () => {
     const disconnect = () => {
         window.location.href = '/login'
     }
+
+    const [curt_chain, setCurt_chain] = useState(chainId)
+    const MySwal = withReactContent(Swal)
+
+    const netchange = async (netid) => {
+        await ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: `${netid}` }] })
+    }
+    const handleAjax = () => {
+        return MySwal.fire({
+            title: 'Do you want to change your current network?',
+            // text: `Current network is "${helperConfig.network[chainId].name}"`,
+            allowOutsideClick: false,
+            showCancelButton: true,
+            confirmButtonText: `Switch metamask to "${helperConfig.network[chainId].name} and log in again"`,
+            cancelButtonText: `Stay on "${helperConfig.network[curt_chain].name}" and log in again`,
+            customClass: {
+                confirmButton: 'btn btn-primary mx-1',
+                cancelButton: 'btn btn-danger my-1'
+            },
+            showClass: {
+                popup: 'animate__animated animate__flipInX'
+            },
+        }).then(function (result) {
+            if (result.isConfirmed) {
+                netchange(helperConfig.network[chainId].netid)
+                disconnect()
+            } else if (result.isDismissed) {
+                disconnect()
+                netchange(helperConfig.network[curt_chain].netid)
+            }
+        })
+    }
+
+    useEffect(() => {
+        if (chainId !== curt_chain) {
+            handleAjax()
+        }
+    }, [chainId])
 
     const [assetList, setAssetList] = useState([])
     const [sum, setSum] = useState(0)
@@ -73,7 +114,7 @@ const Asset = () => {
                 setSum(balance)
                 console.log(balance)
             } else {
-                const response = await axios.get(`https://api.unmarshal.com/v1/${helperConfig.unmarshal[chainId]}/address/${account}/assets?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+                const response = await axios.get(`https://api.unmarshal.com/v1/${helperConfig.unmarshal[chainId]}/address/${globalAdrs}/assets?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
                 console.log('response', response)
                 setAssetList(response.data)
                 const balance = response.data.map(item => item.balance / (10 ** item.contract_decimals) * item.quote_rate).reduce((acc, curr) => acc + curr, 0)
@@ -218,4 +259,9 @@ const Asset = () => {
 
     )
 }
-export default Asset
+// export default Asset
+const mapStateToProps = (state) => ({
+    globalAdrs: state.appData.globalAdrs,
+    globalNickName: state.appData.globalNickName
+})
+export default connect(mapStateToProps, null)(Asset)

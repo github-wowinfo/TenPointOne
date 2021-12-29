@@ -8,7 +8,7 @@ import { Alert, Button, CardSubtitle, Col, Modal, ModalBody, ModalHeader, Row } 
 import { Clipboard } from 'react-feather'
 
 
-const Qrcode = ({ openqrcode, handleQrcode, account }) => {
+const Qrcode = ({ openqrcode, handleQrcode, account, nickName }) => {
 
     const { chainId } = useEthers()
     const [visible, setVisible] = useState(false)
@@ -60,7 +60,7 @@ const Qrcode = ({ openqrcode, handleQrcode, account }) => {
             <ModalBody>
                 <Row className='d-flex flex-column jsutify-content-center align-items-center' >
                     <Col>
-                        <CardSubtitle className='pt-1 h3 text-center'><strong>SBI VAULT</strong></CardSubtitle>
+                        <CardSubtitle className='pt-1 h3 text-center'><strong>{nickName}</strong></CardSubtitle>
                     </Col>
                     <Col className='p-0 m-0 text-center'>
                         <img src={pathname} alt='QR CODE' width='250' height='250' />
@@ -75,7 +75,7 @@ const Qrcode = ({ openqrcode, handleQrcode, account }) => {
                         </span>
                     </Col>
                     <Col className='py-1 text-center'>
-                        <Button.Ripple color='flat-primary' onClick={() => {
+                        <Button.Ripple color='primary' onClick={() => {
                             handleQrcode()
                             setVisible(false)
                         }}>OK</Button.Ripple>

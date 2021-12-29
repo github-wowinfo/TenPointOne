@@ -12,17 +12,17 @@ import { toast } from 'react-toastify'
 import Avatar from '@components/avatar'
 import { connect } from 'react-redux'
 import { Fragment, useState } from 'react'
-import { useEthers, getExplorerAddressLink, getExplorerTransactionLink } from "@usedapp/core"
+import { useEthers, getExplorerAddressLink, getExplorerTransactionLink, shortenIfAddress } from "@usedapp/core"
 import Icon from 'react-crypto-icons'
 import helperConfig from '../../helper-config.json'
 import Text from '../../views/CustomComponent/Text'
 import DropList from "./DropList"
 
-const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
+const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNickName }) => {
 
   const { account, chainId } = useEthers()
 
-  const [text, setText] = useState(account)
+  const [text, setText] = useState(globalAdrs)
 
   const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
 
@@ -77,9 +77,10 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
         </Col>
 
         <Col style={{ padding: '0px 0px' }}>
-          <UncontrolledButtonDropdown style={{ minWidth: "90%" }} direction='right' onClick={handleDropList}>
+          {/* <UncontrolledButtonDropdown style={{ minWidth: "90%" }} direction='right' onClick={handleDropList}> */}
+          <UncontrolledButtonDropdown style={{ minWidth: "90%" }} onClick={handleDropList}>
             <DropdownToggle className='pt-1 pb-0 flat-primary' color='none' caret>
-              <h2 className="text-primary" >SBI Vault <ChevronRight size={25} /></h2>
+              <h2 className="text-primary" >{globalNickName} <ChevronRight size={25} /></h2>
             </DropdownToggle>
             {/* <DropdownMenu >
               <Link to='/manager'>
@@ -158,10 +159,11 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
               Quick Actions
             </DropdownToggle>
             <DropdownMenu style={{ minWidth: '200px' }} >
-              <DropdownItem className='px-1' >
+              <DropdownItem className='px-1 py-0' >
                 <dl>
-                  <dt>SBI Vault</dt>
-                  <dd>{account && account.slice(0, 10)}...{account && account.slice(account.length - 4, account.length)}</dd>
+                  <dt>{globalNickName}</dt>
+                  <dd>{shortenIfAddress(globalAdrs)}</dd>
+                  {/* <dd>{account && account.slice(0, 10)}...{account && account.slice(account.length - 4, account.length)}</dd> */}
                   {/* <Text name={account} fchar={10} lchar={4} /> */}
                   {/* <dd>{accAdrs}</dd> */}
                 </dl>
@@ -170,7 +172,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
               <DropdownItem style={{ display: 'flex', justifyContent: 'space-between' }} href='#'>
                 <Link to='/receive'><IoQrCodeOutline color='grey' size={25} /></Link>
                 <FaRegCopy color='grey' size={25} onClick={copy} />
-                <a href={getExplorerAddressLink(account, chainId ? chainId : 1)} target='_blank'><GoLinkExternal color='grey' size={25} /></a>
+                <a href={getExplorerAddressLink(globalAdrs, chainId ? chainId : 1)} target='_blank'><GoLinkExternal color='grey' size={25} /></a>
               </DropdownItem>
               <DropdownItem divider></DropdownItem>
               <DropdownItem className='text-center py-0' tag='a'>
@@ -234,6 +236,8 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC }) => {
 
 
 const mapStateToProps = (state) => ({
-  networkC: state.appData.network
+  networkC: state.appData.network,
+  globalAdrs: state.appData.globalAdrs,
+  globalNickName: state.appData.globalNickName
 })
 export default connect(mapStateToProps, null)(OwnerDisplay)

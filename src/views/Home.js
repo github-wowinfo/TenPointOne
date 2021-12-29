@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Card, CardHeader, CardBody } from 'reactstrap'
+import { Card, CardHeader, CardBody, CardTitle } from 'reactstrap'
 import Col from 'reactstrap/lib/Col'
 import Row from 'reactstrap/lib/Row'
 import MainChart1 from "./Dashboard/MainChart1"
@@ -13,8 +13,9 @@ import helperConfig from '../helper-config.json'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { connect } from 'react-redux'
+import * as AppData from '../redux/actions/cookies/appDataType'
 
-const Home = ({ globalFlag }) => {
+const Home = ({ globalFlag, globalAdrs, dispatch, globalNickName }) => {
 
   const { account, chainId } = useEthers()
 
@@ -63,6 +64,42 @@ const Home = ({ globalFlag }) => {
     }
   }, [chainId])
 
+  const [vaultList, setVaultList] = useState([])
+  const getVaultListFromLocal = () => {
+    const getdata = JSON.parse(localStorage.getItem('vaultdata'))
+    const valueData = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account)
+    const vaultlist = valueData && valueData.map((vault, index) => ({ value: index, adrs: vault.address, name: vault.name }))
+    if (vaultlist === []) {
+      dispatch(AppData.globalAdrs(''))
+      dispatch(AppData.globalNickName('Create a Vault'))
+    } else {
+      dispatch(AppData.globalAdrs(vaultlist[0].adrs))
+      dispatch(AppData.globalNickName(vaultlist[0].name))
+      setVaultList(vaultlist)
+    }
+  }
+
+  useEffect(() => {
+    getVaultListFromLocal()
+  }, [account])
+
+  const [assetList, setAssetList] = useState([])
+  const [sum, setSum] = useState(0)
+  const getTokenBalance = async () => {
+    try {
+      const response = await axios.get(`https://api.unmarshal.com/v1/${helperConfig.unmarshal[chainId]}/address/${globalAdrs}/assets?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+      console.log('response', response)
+      setAssetList(response.data)
+      const balance = response.data.map(item => item.balance / (10 ** item.contract_decimals) * item.quote_rate).reduce((acc, curr) => acc + curr, 0)
+      setSum(balance)
+
+
+    } catch (error) {
+      setAssetList([])
+      console.log(`Asset [getTokkenBalance]`, error)
+    }
+  }
+
   return (
 
     <div>
@@ -83,6 +120,17 @@ const Home = ({ globalFlag }) => {
               {chart ? <MainChart2 /> : <MainChart1 />}
             </CardBody> */}
           {/* </Card> */}
+          <Row>
+            <Col className='pt-1'>
+              <Card className='mb-0'>
+                <CardHeader>
+                  <CardTitle>
+                    Total Balance:  $ {sum}
+                  </CardTitle>
+                </CardHeader>
+              </Card>
+            </Col>
+          </Row>
           <Row >
             <Col md='4' className='my-1'>
               <Assests />
@@ -106,6 +154,9 @@ const Home = ({ globalFlag }) => {
 // export default Home
 
 const mapStateToProps = (state) => ({
-  globalFlag: state.appData.globalFlag
+  globalFlag: state.appData.globalFlag,
+  globalAdrs: state.appData.globalAdrs,
+  globalNickName: state.appData.globalNickName
 })
-export default connect(mapStateToProps, null)(Home)
+const mapDispatchToProp = dispatch => ({ dispatch })
+export default connect(mapStateToProps, mapDispatchToProp)(Home)
