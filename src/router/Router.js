@@ -1,5 +1,5 @@
 // ** React Imports
-import { Suspense, useContext, lazy } from 'react'
+import { Suspense, useContext, lazy, useEffect } from 'react'
 
 // ** Utils
 import { isUserLoggedIn } from '@utils'
@@ -21,8 +21,36 @@ import { DefaultRoute, Routes } from './routes'
 import BlankLayout from '@layouts/BlankLayout'
 import VerticalLayout from '@src/layouts/VerticalLayout'
 import HorizontalLayout from '@src/layouts/HorizontalLayout'
+import { connect } from 'react-redux'
+import * as AppData from '../redux/actions/cookies/appDataType'
+import { useEthers } from '@usedapp/core'
 
-const Router = () => {
+const Router = ({ globalAdrs, dispatch, globalNickName }) => {
+
+  const { account, chainId } = useEthers()
+
+  const handleGlobalLocal = () => {
+    const getdata = JSON.parse(localStorage.getItem('g_acc'))
+    console.log('No global data', getdata)
+    if (getdata === null) {
+      console.log('No global data', getdata)
+    } else {
+      const localdata = getdata && getdata.filter(i => i.owner === account)
+      console.log('localdata', localdata)
+      const global = localdata.map(i => ({ acc_adrs: i.gadrs, acc_name: i.nickName }))
+      const global_Adrs = global[0].acc_adrs
+      const global_Name = global[0].acc_name
+      dispatch(AppData.globalAdrs(global_Adrs))
+      dispatch(AppData.globalNickName(global_Name))
+      console.log('global_Adrs', global_Adrs)
+      console.log('global_Name', global_Name)
+    }
+  }
+
+  useEffect(() => {
+    handleGlobalLocal()
+  }, [])
+
   // ** Hooks
   const [layout, setLayout] = useLayout()
   const [transition, setTransition] = useRouterTransition()
@@ -220,4 +248,10 @@ const Router = () => {
   )
 }
 
-export default Router
+// export default Router
+const mapStateToProps = (state) => ({
+  globalAdrs: state.appData.globalAdrs,
+  globalNickName: state.appData.globalNickName
+})
+const mapDispatchToProp = dispatch => ({ dispatch })
+export default connect(mapStateToProps, mapDispatchToProp)(Router)

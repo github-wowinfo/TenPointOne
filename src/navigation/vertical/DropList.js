@@ -55,6 +55,15 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
         // console.log('nick_name', nick_name)
         dispatch(AppData.globalAdrs(adrs))
         dispatch(AppData.globalNickName(nick_name))
+        // const getdata = JSON.parse(localStorage.getItem('g_acc'))
+        const postdata = {
+            gadrs: adrs,
+            nickName: nick_name,
+            owner: account
+        }
+        let global_data = []
+        global_data = [postdata]
+        localStorage.setItem('g_acc', JSON.stringify(global_data))
     }
 
     const CloseBtn = <X className='cursor-pointer' size={15} onClick={() => {
