@@ -21,8 +21,8 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
   const [dataList, setDataList] = useState([])
   const getTokenTransaction = async () => {
     try {
-      const response = await axios.get(`https://stg-api.unmarshal.io/v1/${helperConfig.unmarshal[chainId]}/address/${globalAdrs}/transactions?page=1&pageSize=4&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
-      // const response = await axios.get(`https://stg-api.unmarshal.io/v1/${helperConfig.unmarshal[chainId]}/address/${account}/transactions?page=1&pageSize=20&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+      // const response = await axios.get(`https://stg-api.unmarshal.io/v1/${helperConfig.unmarshal[chainId]}/address/${globalAdrs}/transactions?page=1&pageSize=4&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+      const response = await axios.get(`https://stg-api.unmarshal.io/v1/${helperConfig.unmarshal[chainId]}/address/${account}/transactions?page=1&pageSize=20&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
       setTransaction(response.data)
       const data = response.data.transactions.filter((a) => a.type.includes('receive') || a.type.includes('send') || a.type.includes('approve'))
       setDataList(data)
@@ -75,6 +75,9 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
   const columns = [
     {
       name: 'Transaction',
+      maxWidth: '250px',
+      compact: true,
+      wrap: true,
       selector: row => (
         <div>
           {row.type === 'receive' && <BsArrowDownCircle className='mr-1' size={30} />}
@@ -86,13 +89,15 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
     },
     {
       name: 'Status',
-      center: true,
+      maxWidth: '120px',
       selector: row => (
         <Badge pill color='light-success' className='mr-1'> {row.status} </Badge>
       )
     },
     {
       name: 'Amount',
+      maxWidth: '120px',
+      compact: true,
       selector: row => (
         <span>
           {
@@ -128,8 +133,11 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
     },
     {
       name: 'Date',
+      compact: true,
+      wrap: true,
+      maxWidth: '150px',
       selector: row => (
-        moment(row.date * 1000).format("MMM-DD-YYYY h:mm:ss")
+        moment(row.date * 1000).format("MMM-DD-YYYY,  h:mm:ss")
       )
     }
   ]
