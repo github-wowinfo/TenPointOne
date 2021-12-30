@@ -14,6 +14,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { connect } from 'react-redux'
 import * as AppData from '../redux/actions/cookies/appDataType'
+import axios from 'axios'
 
 const Home = ({ globalFlag, globalAdrs, dispatch, globalNickName }) => {
 
@@ -74,25 +75,29 @@ const Home = ({ globalFlag, globalAdrs, dispatch, globalNickName }) => {
       dispatch(AppData.globalAdrs(''))
       dispatch(AppData.globalNickName('Create a Vault'))
     } else {
+      console.log('vaultlist', vaultlist)
       dispatch(AppData.globalAdrs(vaultlist[0].adrs))
       dispatch(AppData.globalNickName(vaultlist[0].name))
-      setVaultList(vaultlist)
+      // setVaultList(vaultlist)
     }
   }
   useEffect(() => {
     if (globalNickName === '') {
       getVaultListFromLocal()
-    } else if (globalNickName !== '' && curr_acc !== account) {
+      // dispatch(AppData.globalNickName(''))
+    } else if (curr_acc !== account) {
+      setCurr_Acc(account)
       getVaultListFromLocal()
     }
-
   }, [account])
 
+  console.log('globalNickName', globalNickName)
   const [assetList, setAssetList] = useState([])
   const [sum, setSum] = useState(0)
   const getTokenBalance = async () => {
     try {
       const response = await axios.get(`https://api.unmarshal.com/v1/${helperConfig.unmarshal[chainId]}/address/${globalAdrs}/assets?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+      // const response = await axios.get(`https://api.unmarshal.com/v1/${helperConfig.unmarshal[chainId]}/address/${account}/assets?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
       console.log('response', response)
       setAssetList(response.data)
       const balance = response.data.map(item => item.balance / (10 ** item.contract_decimals) * item.quote_rate).reduce((acc, curr) => acc + curr, 0)
@@ -104,6 +109,10 @@ const Home = ({ globalFlag, globalAdrs, dispatch, globalNickName }) => {
       console.log(`Asset [getTokkenBalance]`, error)
     }
   }
+
+  useEffect(() => {
+    getTokenBalance()
+  }, [account])
 
   return (
 

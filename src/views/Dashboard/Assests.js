@@ -4,34 +4,65 @@ import { Link } from 'react-router-dom'
 import { TrendingUp, User, Box, DollarSign } from 'react-feather'
 import { Card, CardHeader, CardTitle, CardBody, CardText, Row, Col, Media, Badge } from 'reactstrap'
 import Icon from 'react-crypto-icons'
+import { useEthers } from '@usedapp/core'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+import helperConfig from '../../helper-config.json'
 
 const Assests = ({ cols = 0 }) => {
-  const data = [
-    {
-      title: '2.35 BTC',
-      subtitle: '$148,201.81',
-      color: 'light-primary',
-      icon: <Icon name='btc' size={45} />
-    },
-    {
-      title: '0.50377 ETH',
-      subtitle: '$2,094.09',
-      color: 'light-info',
-      icon: <Icon name='eth' size={45} />
-    },
-    {
-      title: '404,373.77 UNI',
-      subtitle: '$10,616,345.64',
-      color: 'light-danger',
-      icon: <Icon name='uni' size={45} />
-    },
-    {
-      title: '250 D',
-      subtitle: '$55.12',
-      color: 'light-success',
-      icon: <Icon name='doge' size={45} />
+
+  const { account, chainId } = useEthers()
+
+  const [assetList, setAssetList] = useState([])
+  const getTokenBalance = async () => {
+    try {
+      const response = await axios.get(`https://api.unmarshal.com/v1/${helperConfig.unmarshal[chainId]}/address/${globalAdrs}/assets?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+      // const response = await axios.get(`https://api.unmarshal.com/v1/${helperConfig.unmarshal[chainId]}/address/${account}/assets?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+      console.log('response', response)
+      setAssetList(response.data)
+
+
+    } catch (error) {
+      setAssetList([])
+      console.log(`Asset [getTokkenBalance]`, error)
     }
-  ]
+  }
+
+  useEffect(() => {
+    getTokenBalance()
+  }, [account, chainId])
+
+  const data = assetList.slice(0, 4)
+
+  const addDefaultSrc = (ev) => {
+    ev.target.src = require(`@src/assets/images/logo/question.jpg`).default
+  }
+  // const data = [
+  //   {
+  //     title: '2.35 BTC',
+  //     subtitle: '$148,201.81',
+  //     color: 'light-primary',
+  //     icon: <Icon name='btc' size={45} />
+  //   },
+  //   {
+  //     title: '0.50377 ETH',
+  //     subtitle: '$2,094.09',
+  //     color: 'light-info',
+  //     icon: <Icon name='eth' size={45} />
+  //   },
+  //   {
+  //     title: '404,373.77 UNI',
+  //     subtitle: '$10,616,345.64',
+  //     color: 'light-danger',
+  //     icon: <Icon name='uni' size={45} />
+  //   },
+  //   {
+  //     title: '250 D',
+  //     subtitle: '$55.12',
+  //     color: 'light-success',
+  //     icon: <Icon name='doge' size={45} />
+  //   }
+  // ]
 
   const renderData = () => {
     return data.map((item, index) => {
@@ -45,10 +76,12 @@ const Assests = ({ cols = 0 }) => {
           })}
         >
           <Media>
-            <Avatar color={item.color} icon={item.icon} className='mx-2' />
+            {console.log('item.logo_url', item.logo_url)}
+            {/* <Avatar src={item.logo_url} className='mx-2' /> */}
+            <img src={item.logo_url && item.logo_url} alt={item.contract_ticker_symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
             <Media className='my-auto' body>
-              <h5 className='font-weight-bolder mb-0'>{item.title}</h5>
-              <CardText className='font-small-3 mb-0'>{item.subtitle}</CardText>
+              <h5 className='font-weight-bolder mb-0'>{item.contract_ticker_symbol}</h5>
+              <CardText className='font-small-3 mb-0'>$ {item.balance / (10 ** item.contract_decimals) * item.quote_rate}</CardText>
             </Media>
           </Media>
         </Col>

@@ -56,7 +56,7 @@ const Login = () => {
               RISK PROTOCOL
             </CardTitle>
             {isConnected ? (<Button.Ripple color='primary' style={{ fontSize: "1.5em", marginBottom: 10 }}
-              onClick={() => handleRoute()} block>WELCOME..!! </Button.Ripple>) : (<Button.Ripple color='primary' style={{ fontSize: "1.5em", marginBottom: 10 }}
+              onClick={() => handleRoute()} block>LOGIN </Button.Ripple>) : (<Button.Ripple color='primary' style={{ fontSize: "1.5em", marginBottom: 10 }}
                 onClick={async () => {
                   try {
                     await activateBrowserWallet(undefined, true)
@@ -66,7 +66,7 @@ const Login = () => {
                   }
 
                 }}
-                block>CONNECT WALLET
+                block>LOGIN
               </Button.Ripple>)}
             {<p>Network: {chainId}</p>}
             {/* {console.log(account)}
