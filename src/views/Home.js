@@ -102,8 +102,6 @@ const Home = ({ globalFlag, globalAdrs, dispatch, globalNickName }) => {
       setAssetList(response.data)
       const balance = response.data.map(item => item.balance / (10 ** item.contract_decimals) * item.quote_rate).reduce((acc, curr) => acc + curr, 0)
       setSum(balance)
-
-
     } catch (error) {
       setAssetList([])
       console.log(`Asset [getTokkenBalance]`, error)

@@ -76,9 +76,8 @@ const Assests = ({ cols = 0 }) => {
           })}
         >
           <Media>
-            {console.log('item.logo_url', item.logo_url)}
-            {/* <Avatar src={item.logo_url} className='mx-2' /> */}
-            <img src={item.logo_url && item.logo_url} alt={item.contract_ticker_symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
+            <Avatar size='lg' img={item.logo_url} onError={addDefaultSrc} className='mx-2' />
+            {/* <img src={item.logo_url && item.logo_url} alt={item.contract_ticker_symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} /> */}
             <Media className='my-auto' body>
               <h5 className='font-weight-bolder mb-0'>{item.contract_ticker_symbol}</h5>
               <CardText className='font-small-3 mb-0'>$ {item.balance / (10 ** item.contract_decimals) * item.quote_rate}</CardText>
