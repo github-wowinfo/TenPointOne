@@ -45,11 +45,13 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
 
     const [nick_name, setNick_Name] = useState('')
     const [adrs, setAdrs] = useState('')
+    const [select_flag, setSelect_Flag] = useState(false)
     const handleChange = (e, name) => {
         const value = e.target.value
         if (isAddress(value)) {
             setAdrs(value)
             setNick_Name(name)
+            setSelect_Flag(true)
         }
     }
 
@@ -186,12 +188,14 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
 
                 </ModalBody>
                 <ModalFooter>
-                    <Button.Ripple color='primary' onClick={() => {
-                        handleGlobalAdrs()
-                        setAdrs('')
-                        setNick_Name('')
-                        handleDropList()
-                    }} >OK</Button.Ripple>
+                    {select_flag ? (
+                        <Button.Ripple color='primary' onClick={() => {
+                            handleGlobalAdrs()
+                            setAdrs('')
+                            setNick_Name('')
+                            handleDropList()
+                        }} >OK</Button.Ripple>
+                    ) : (<Button.Ripple color='primary' disabled >OK</Button.Ripple>)}
                 </ModalFooter>
             </Modal>
         </div>

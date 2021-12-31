@@ -6,8 +6,10 @@ import { toast } from 'react-toastify'
 import { isAddress } from "ethers/lib/utils"
 import Avatar from '@components/avatar'
 import Select from 'react-select'
+import { connect } from 'react-redux'
+import * as AppData from '../../../redux/actions/cookies/appDataType'
 
-const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
+const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNickName, dispatch }) => {
 
     const { account, chainId } = useEthers()
 
@@ -160,6 +162,22 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
 
     }
 
+    const getVaultListFromLocalGlobal = () => {
+        const getdata = JSON.parse(localStorage.getItem('vaultdata'))
+        const valueData = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account)
+        const vaultlist = valueData && valueData.map((vault, index) => ({ value: index, adrs: vault.address, name: vault.name }))
+        console.log('vaultlist', vaultlist)
+        if (vaultlist === null || vaultlist === []) {
+            dispatch(AppData.globalAdrs(''))
+            dispatch(AppData.globalNickName('Create a Vault'))
+        } else {
+            console.log('vaultlist', vaultlist)
+            dispatch(AppData.globalAdrs(vaultlist[0].adrs))
+            dispatch(AppData.globalNickName(vaultlist[0].name))
+            // setVaultList(vaultlist)
+        }
+    }
+
     const handleRemove = () => {
         const getdata = JSON.parse(localStorage.getItem('vaultdata'))
         // console.log('beforegetdata', getdata)
@@ -170,6 +188,13 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
             }
         }
         localStorage.setItem('vaultdata', JSON.stringify(getdata))
+        if (globalAdrs === vadrs) {
+            // const globaldata = JSON.parse(localStorage.getItem('g_acc'))
+            localStorage.removeItem('g_acc')
+            getVaultListFromLocalGlobal()
+            setAdrs_flag(false)
+            handleExeVaultModal()
+        }
         // console.log('aftergetdata', getdata)
         setAdrs_flag(false)
         handleExeVaultModal()
@@ -197,8 +222,16 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
     }
 
     return (
-        <Modal className='modal-dialog-centered' isOpen={openexevault} toggle={handleExeVaultModal} >
-            <ModalHeader tag='h2' toggle={handleExeVaultModal} >
+        <Modal className='modal-dialog-centered' isOpen={openexevault} toggle={() => {
+            handleExeVaultModal()
+            setName_flag(false)
+            setAdrs_flag(false)
+        }} >
+            <ModalHeader tag='h2' toggle={() => {
+                handleExeVaultModal()
+                setName_flag(false)
+                setAdrs_flag(false)
+            }} >
                 Show or Hide Existing Vault
             </ModalHeader>
             <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -320,4 +353,11 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
     )
 }
 
-export default AddExeVault
+// export default AddExeVault
+const mapStateToProps = (state) => ({
+    globalAdrs: state.appData.globalAdrs,
+    globalNickName: state.appData.globalNickName
+})
+const mapDispatchToProp = dispatch => ({ dispatch })
+
+export default connect(mapStateToProps, mapDispatchToProp)(AddExeVault)

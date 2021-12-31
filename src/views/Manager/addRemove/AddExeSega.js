@@ -5,8 +5,10 @@ import { selectThemeColors } from '@utils'
 import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap'
 import { useEthers } from '@usedapp/core'
 import { isAddress } from "ethers/lib/utils"
+import * as AppData from '../../../redux/actions/cookies/appDataType'
+import { connect } from 'react-redux'
 
-const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
+const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickName, dispatch }) => {
 
     const { chainId, account } = useEthers()
 
@@ -126,10 +128,26 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
         }
     }
 
+    const getVaultListFromLocalGlobal = () => {
+        const getdata = JSON.parse(localStorage.getItem('vaultdata'))
+        const valueData = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account)
+        const vaultlist = valueData && valueData.map((vault, index) => ({ value: index, adrs: vault.address, name: vault.name }))
+        console.log('vaultlist', vaultlist)
+        if (vaultlist === null || vaultlist === []) {
+            dispatch(AppData.globalAdrs(''))
+            dispatch(AppData.globalNickName('Create a Vault'))
+        } else {
+            console.log('vaultlist', vaultlist)
+            dispatch(AppData.globalAdrs(vaultlist[0].adrs))
+            dispatch(AppData.globalNickName(vaultlist[0].name))
+            // setVaultList(vaultlist)
+        }
+    }
+
     const handleOnRemove = () => {
 
         const getdata = JSON.parse(localStorage.getItem('segadata'))
-        console.log('beforegetdata', getdata)
+        // console.log('beforegetdata', getdata)
         for (const i in getdata) {
             if (getdata[i].address === selectSega) {
                 getdata.splice(i, 1)
@@ -137,7 +155,15 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
             }
         }
         localStorage.setItem('segadata', JSON.stringify(getdata))
-        console.log('aftergetdata', getdata)
+        if (globalAdrs === selectSega) {
+            // const globaldata = JSON.parse(localStorage.getItem('g_acc'))
+            localStorage.removeItem('g_acc')
+            getVaultListFromLocalGlobal()
+            setVault_flag(false)
+            setSega_flag(false)
+            handleExeVaultModal()
+        }
+        // console.log('aftergetdata', getdata)
         handleExeSegaModal()
     }
 
@@ -178,8 +204,16 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
     }
 
     return (
-        <Modal className='modal-dialog-centered' isOpen={openexesega} toggle={handleExeSegaModal} >
-            <ModalHeader tag='h2' toggle={handleExeSegaModal}>
+        <Modal className='modal-dialog-centered' isOpen={openexesega} toggle={() => {
+            setVault_flag(false)
+            setSega_flag(false)
+            handleExeSegaModal()
+        }}>
+            <ModalHeader tag='h2' toggle={() => {
+                setVault_flag(false)
+                setSega_flag(false)
+                handleExeSegaModal()
+            }}>
                 Show or Hide Existing Sega
             </ModalHeader>
             <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -310,4 +344,11 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
     )
 }
 
-export default AddExeSega
+// export default AddExeSega
+const mapStateToProps = (state) => ({
+    globalAdrs: state.appData.globalAdrs,
+    globalNickName: state.appData.globalNickName
+})
+const mapDispatchToProp = dispatch => ({ dispatch })
+
+export default connect(mapStateToProps, mapDispatchToProp)(AddExeSega)
