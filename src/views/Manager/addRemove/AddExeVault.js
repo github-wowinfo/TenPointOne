@@ -10,126 +10,159 @@ import Select from 'react-select'
 const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
 
     const { account, chainId } = useEthers()
+
     // const CloseBtn = <X className='cursor-pointer' size={25} onClick={handleModal} />
-    const notifySuccessAdd = () => toast.success(<SuccessToastAdd />, { hideProgressBar: false })
-    const notifySuccessRemove = () => toast.success(<SuccessToastRemove />, { hideProgressBar: false })
 
-    const SuccessToastAdd = () => (
-        <Fragment>
-            <div className='toastify-header'>
-                <div className='title-wrapper'>
-                    <Avatar size='sm' color='success' icon={<Clipboard size={12} />} />
-                    <h6 className='toast-title'>Vault is now Visible!</h6>
-                </div>
-            </div>
-        </Fragment>
-    )
-    const SuccessToastRemove = () => (
-        <Fragment>
-            <div className='toastify-header'>
-                <div className='title-wrapper'>
-                    <Avatar size='sm' color='success' icon={<Clipboard size={12} />} />
-                    <h6 className='toast-title'>Vault is now Visible!</h6>
-                </div>
-            </div>
-        </Fragment>
-    )
+    // const [accountText, setAccountText] = useState('')
+    // const [selectVault, setSelectVault] = useState('')
 
-    const [accountText, setAccountText] = useState('')
-    const [selectVault, setSelectVault] = useState('')
+    // const accountAdrsInput = (e) => {
+    //     const vaultadd = e.target.value
+    //     if (isAddress(vaultadd)) {
+    //         setAccountText(vaultadd)
+    //     } else {
+    //         alert("Enter a valid address!")
+    //     }
+    // }
 
-    const accountAdrsInput = (e) => {
+    // const accountAdrsChange = (value) => {
+    //     const vaultadrs = value.adrs
+    //     console.log('selectedadrs', vaultadrs)
+    //     if (isAddress(vaultadrs)) {
+    //         setSelectVault(vaultadrs)
+    //     } else {
+    //         alert("Enter a valid address!")
+    //     }
+    // }
+    // console.log('accountadrs', selectVault)
+
+    // const handleOnAdd = () => {
+
+    //     const getdata = JSON.parse(localStorage.getItem('vaultdata'))
+    //     for (const i in getdata) {
+    //         if (getdata[i].address === accountText) {
+    //             getdata[i].show = true
+    //             break
+    //         }
+    //     }
+    //     localStorage.setItem('vaultdata', JSON.stringify(getdata))
+    //     // notifySuccessAdd()
+    //     handleExeVaultModal()
+    // }
+
+    // const handleOnRemove = () => {
+
+    //     const getdata = JSON.parse(localStorage.getItem('vaultdata'))
+    //     for (const i in getdata) {
+    //         if (getdata[i].address === selectVault) {
+    //             getdata[i].show = false
+    //             break
+    //         }
+    //     }
+    //     localStorage.setItem('vaultdata', JSON.stringify(getdata))
+    //     console.log('getdata', getdata)
+    //     // notifySuccessRemove()
+    //     handleExeVaultModal()
+    // }
+
+    const [nickName, setNickName] = useState('')
+    const [vadrs, setVadrs] = useState('')
+    const [name_flag, setName_flag] = useState(false)
+    const [adrs_flag, setAdrs_flag] = useState(false)
+
+    const onChangeName = (e) => {
+        const newname = e.target.value
+        if (newname !== '') {
+            setNickName(newname)
+            setName_flag(true)
+        } else {
+            alert("Enter a valid Nickname!")
+            setName_flag(false)
+        }
+    }
+    // console.log('nickName', nickName)
+
+    const onChangeAdrs = (e) => {
         const vaultadd = e.target.value
         if (isAddress(vaultadd)) {
-            setAccountText(vaultadd)
+            setVadrs(vaultadd)
+            setAdrs_flag(true)
         } else {
             alert("Enter a valid address!")
+            setAdrs_flag(false)
+        }
+    }
+    // console.log('vadrs', vadrs)
+
+    const hideOnChangeAdrs = (adrs) => {
+        const selected_adrs = adrs.value
+        if (isAddress(selected_adrs)) {
+            setVadrs(selected_adrs)
+            setAdrs_flag(true)
+        } else {
+            alert("Select a valid address!")
         }
     }
 
-    const accountAdrsChange = (value) => {
-        const vaultadrs = value.adrs
-        console.log('selectedadrs', vaultadrs)
-        if (isAddress(vaultadrs)) {
-            setSelectVault(vaultadrs)
-        } else {
-            alert("Enter a valid address!")
-        }
-    }
-    console.log('accountadrs', selectVault)
 
-    const handleOnAdd = () => {
-
+    const handleAdd = () => {
         const getdata = JSON.parse(localStorage.getItem('vaultdata'))
         for (const i in getdata) {
-            if (getdata[i].address === accountText) {
-                getdata[i].show = true
+            if (getdata[i].address === vadrs) {
+                handleExeVaultModal()
+                alert('The Vault is already Added!')
+                break
+            } else {
+                const postdata =
+                {
+                    owner: account,
+                    name: nickName,
+                    address: vadrs,
+                    network: chainId,
+                    show: true
+                }
+                let vaultdata = []
+                if (getdata) {
+                    vaultdata = [...getdata, postdata]
+                } else {
+                    vaultdata = [postdata]
+                }
+                localStorage.setItem('vaultdata', JSON.stringify(vaultdata))
+                setName_flag(false)
+                setAdrs_flag(false)
+                handleExeVaultModal()
+                break
+            }
+        }
+    }
+
+    const handleRemove = () => {
+        const getdata = JSON.parse(localStorage.getItem('vaultdata'))
+        // console.log('beforegetdata', getdata)
+        for (const i in getdata) {
+            if (getdata[i].address === vadrs) {
+                getdata.splice(i, 1)
                 break
             }
         }
         localStorage.setItem('vaultdata', JSON.stringify(getdata))
-        // notifySuccessAdd()
+        // console.log('aftergetdata', getdata)
+        setAdrs_flag(false)
         handleExeVaultModal()
     }
-
-    const handleOnRemove = () => {
-
-        const getdata = JSON.parse(localStorage.getItem('vaultdata'))
-        for (const i in getdata) {
-            if (getdata[i].address === selectVault) {
-                getdata[i].show = false
-                break
-            }
-        }
-        localStorage.setItem('vaultdata', JSON.stringify(getdata))
-        console.log('getdata', getdata)
-        // notifySuccessRemove()
-        handleExeVaultModal()
-    }
-
-    // const [nickName, setNickName] = useState('')
-    // const [vadrs, setVadrs] = useState('')
-    // const onChangeName = (e) => {
-    //     setNickName(e.target.value)
-    // }
-    // const onChangeAdrs = (e) => {
-    //     setVadrs(e.target.value)
-    // }
-
-    // const handleTempAdd = () => {
-    //     const getdata = JSON.parse(localStorage.getItem('vaultdata'))
-    //     const postdata =
-    //     {
-    //         owner: account,
-    //         name: nickName,
-    //         address: vadrs,
-    //         network: chainId,
-    //         show: true
-    //     }
-    //     let vaultdata = []
-    //     if (getdata) {
-    //         vaultdata = [...getdata, postdata]
-    //     } else {
-    //         vaultdata = [postdata]
-    //     }
-    //     localStorage.setItem('vaultdata', JSON.stringify(vaultdata))
-    // }
 
     const [VaultList, setVaultList] = useState([])
 
     const getVaultListFromLocal = () => {
         const getdata = JSON.parse(localStorage.getItem('vaultdata'))
         const valueData = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account)
-        // console.log('valueData', valueData)
-        const vaultlist = valueData && valueData.map((vault, index) => ({ value: index, label: `${vault.name} - ${vault.address}`, adrs: vault.address, name: vault.name }))
-        console.log('vaultlist', vaultlist)
+        const vaultlist = valueData && valueData.map((vault, index) => ({ value: vault.address, label: `${vault.name} - ${vault.address}`, adrs: vault.address, name: vault.name }))
+        // console.log('vaultlist', vaultlist)
         setVaultList(vaultlist)
     }
     useEffect(() => {
-
         getVaultListFromLocal()
         // handleGetAllVaults()
-
     }, [openexevault])
     const [active, setActive] = useState('1')
 
@@ -183,13 +216,13 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
                             <Col>
                                 <FormGroup>
                                     <Label for='nickname' style={{ fontSize: "1.3em" }}>Nickname</Label>
-                                    <Input type='text' id='nickname' />
+                                    <Input type='text' id='nickname' onChange={onChangeName} />
                                 </FormGroup>
                             </Col>
                             <Col>
                                 <FormGroup>
                                     <Label for='accadrs' style={{ fontSize: "1.3em" }}>Account Address</Label>
-                                    <Input type='text' id='accadrs' onChange={accountAdrsInput} />
+                                    <Input type='text' id='accadrs' onChange={onChangeAdrs} />
                                 </FormGroup>
                             </Col>
                         </TabPane>
@@ -205,8 +238,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
                                     defaultValue=''
                                     name='clear'
                                     options={VaultList}
-                                    // options={vlist}
-                                    onChange={accountAdrsChange}
+                                    onChange={hideOnChangeAdrs}
                                 />
                             </Col>
                         </TabPane>
@@ -230,20 +262,32 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
             <ModalFooter className='justify-content-center'>
                 {active === '1' ? (
                     <>
-                        <Button.Ripple color='primary' onClick={handleOnAdd}>
-                            <Eye className='mr-1' size={17} />
-                            SHOW
-                        </Button.Ripple>
-                        {/* <Button.Ripple color='primary' onClick={handleTempAdd}>
-                            <Eye className='mr-1' size={17} />
-                            tempAdd
-                        </Button.Ripple> */}
+                        {name_flag && adrs_flag === true ? (
+                            <Button.Ripple color='primary' onClick={handleAdd}>
+                                <Eye className='mr-1' size={17} />
+                                SHOW
+                            </Button.Ripple>
+                        ) : (
+                            <Button.Ripple color='primary' disabled>
+                                <Eye className='mr-1' size={17} />
+                                SHOW
+                            </Button.Ripple>
+                        )}
                     </>
                 ) : (
-                    <Button.Ripple color='primary' onClick={handleOnRemove} >
-                        <EyeOff className='mr-1' size={17} />
-                        HIDE
-                    </Button.Ripple>
+                    <>
+                        {adrs_flag ? (
+                            <Button.Ripple color='primary' onClick={handleRemove} >
+                                <EyeOff className='mr-1' size={17} />
+                                HIDE
+                            </Button.Ripple>
+                        ) : (
+                            <Button.Ripple color='primary' disabled >
+                                <EyeOff className='mr-1' size={17} />
+                                HIDE
+                            </Button.Ripple>
+                        )}
+                    </>
                 )}
 
             </ModalFooter>

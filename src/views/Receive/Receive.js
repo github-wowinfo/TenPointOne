@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardTitle, CardBody, CardFooter, Button, Row, Col, CardText, CardSubtitle, Tooltip } from 'reactstrap'
+import { Card, CardHeader, CardTitle, CardBody, CardFooter, Button, Row, Col, CardText, CardSubtitle, Tooltip, NavLink } from 'reactstrap'
 import { BsArrowDown, BsSafe2 } from 'react-icons/bs'
 import { FaRegCopy } from 'react-icons/fa'
 import { GoLinkExternal } from 'react-icons/go'
@@ -71,10 +71,9 @@ const Receive = ({ networkC, globalAdrs, globalNickName }) => {
     alignItems: 'center'
   }
 
-  const [text, setText] = useState(account)
   const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
   const copy = async () => {
-    await navigator.clipboard.writeText(text)
+    await navigator.clipboard.writeText(globalAdrs)
     notifySuccess()
   }
 
@@ -133,40 +132,50 @@ const Receive = ({ networkC, globalAdrs, globalNickName }) => {
                 <CardText style={{ color: 'white' }}><Icon className='mr-1' name={networkIcon} size={20} />Only send {networkName} assets to this Safe</CardText>
               </Col>
             </Row>
-            <Row className='d-flex flex-column justify-content-center align-items-center'>
-              <Col className='my-1 text-center '><Avatar size='lg' color='light-danger' icon={<BsSafe2 size={25} />} /></Col>
-              <Col className='mb-1'>
-                <CardTitle style={{ textAlign: 'center', marginBottom: 0 }}><strong>{globalNickName}</strong></CardTitle>
+            {globalNickName === 'Create a Vault' ? (
+              <Col style={{ fontSize: '2em' }} className='my-1 d-flex flex-row justify-content-center align-items-center'>
+                <NavLink href='/manager' >
+                  CREATE A VAULT
+                </NavLink>
               </Col>
-              <Col className='text-center'>
-                {/* <CardSubtitle style={{ color: 'gray' }} > <strong>{shortenIfAddress(account)}</strong></CardSubtitle> */}
-                <CardSubtitle style={{ color: 'gray', fontSize: '1.2em' }} > <strong>{shortenIfAddress(globalAdrs)}</strong></CardSubtitle>
-              </Col>
-              <Col>
-                <span className='d-flex flex-row justify-content-center'>
-                  <FaRegCopy style={{ cursor: 'pointer' }} className='mx-1 mt-1' color='grey' size={20} onClick={copy} />
-                  <a href={getExplorerAddressLink(account, chainId)} target='_blank'><GoLinkExternal className='mx-1 mt-1' color='grey' size={20} /></a>
-                </span>
-              </Col>
-            </Row>
-            <Row className='my-1 d-flex flex-column justify-content-center align-items-center'>
-              <Button.Ripple size='sm' color='primary' style={{ width: 'fit-content' }} onClick={handleQrcode}>Click here for QR Code</Button.Ripple>
-              {/* <a href={pathname} target='_blank'>click for qr code</a>
+            ) : (
+              <>
+                <Row className='d-flex flex-column justify-content-center align-items-center'>
+                  <Col className='my-1 text-center '><Avatar size='lg' color='light-danger' icon={<BsSafe2 size={25} />} /></Col>
+                  <Col className='mb-1'>
+                    <CardTitle style={{ textAlign: 'center', marginBottom: 0 }}><strong>{globalNickName}</strong></CardTitle>
+                  </Col>
+                  <Col className='text-center'>
+                    {/* <CardSubtitle style={{ color: 'gray' }} > <strong>{shortenIfAddress(account)}</strong></CardSubtitle> */}
+                    <CardSubtitle style={{ color: 'gray', fontSize: '1.2em' }} > <strong>{shortenIfAddress(globalAdrs)}</strong></CardSubtitle>
+                  </Col>
+                  <Col>
+                    <span className='d-flex flex-row justify-content-center'>
+                      <FaRegCopy style={{ cursor: 'pointer' }} className='mx-1 mt-1' color='grey' size={20} onClick={copy} />
+                      <a href={getExplorerAddressLink(account, chainId)} target='_blank'><GoLinkExternal className='mx-1 mt-1' color='grey' size={20} /></a>
+                    </span>
+                  </Col>
+                </Row>
+                <Row className='my-1 d-flex flex-column justify-content-center align-items-center'>
+                  <Button.Ripple size='sm' color='primary' style={{ width: 'fit-content' }} onClick={handleQrcode}>Click here for QR Code</Button.Ripple>
+                  {/* <a href={pathname} target='_blank'>click for qr code</a>
               <Col style={{ textAlign: 'center' }}><img src={qrcode} style={{ width: '100px', height: '100px' }} /></Col> */}
-            </Row>
-            <Col className='my-1' style={{ textAlign: 'right' }}>
-              <Avatar className='animate__animated animate__flash animate__delay-1s' size='sm' id='DepositInfo' color='primary' icon={<Info />} />
-              <Tooltip
-                placement='right'
-                isOpen={tooltipOpen}
-                target='DepositInfo'
-                toggle={() => setTooltipOpen(!tooltipOpen)}
-              >
-                <CardText>This is the address of your Safe. Deposit funds by scanning the QR code or
-                  copying the above address below. Only send {networkName} assets to this address.
-                </CardText>
-              </Tooltip>
-            </Col>
+                </Row>
+                <Col className='my-1' style={{ textAlign: 'right' }}>
+                  <Avatar className='animate__animated animate__flash animate__delay-1s' size='sm' id='DepositInfo' color='primary' icon={<Info />} />
+                  <Tooltip
+                    placement='right'
+                    isOpen={tooltipOpen}
+                    target='DepositInfo'
+                    toggle={() => setTooltipOpen(!tooltipOpen)}
+                  >
+                    <CardText>This is the address of your Safe. Deposit funds by scanning the QR code or
+                      copying the above address below. Only send {networkName} assets to this address.
+                    </CardText>
+                  </Tooltip>
+                </Col>
+              </>
+            )}
           </CardBody>
         </Card>
         <Qrcode openqrcode={qrcode} handleQrcode={handleQrcode} account={globalAdrs} nickName={globalNickName} />

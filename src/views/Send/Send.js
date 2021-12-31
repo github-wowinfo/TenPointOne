@@ -6,7 +6,7 @@ import { FaRegCopy } from 'react-icons/fa'
 import { GoLinkExternal } from 'react-icons/go'
 import { BsArrowDown, BsSafe2 } from 'react-icons/bs'
 import { IoQrCodeOutline } from 'react-icons/io5'
-import { Card, CardHeader, CardTitle, CardBody, CardFooter, Form, FormGroup, Label, Input, Button, Row, Col, CardText } from 'reactstrap'
+import { Card, CardHeader, CardTitle, CardBody, CardFooter, Form, FormGroup, Label, Input, Button, Row, Col, CardText, NavLink } from 'reactstrap'
 import Badge from 'reactstrap/lib/Badge'
 import Icon from 'react-crypto-icons'
 import { toast } from 'react-toastify'
@@ -19,6 +19,7 @@ import helperConfig from '../../helper-config.json'
 import { connect } from 'react-redux'
 import { SiWebmoney } from 'react-icons/si'
 import { RiSafeLine } from 'react-icons/ri'
+import { Link } from 'react-router-dom'
 
 const Send = ({ globalAdrs, globalNickName }) => {
 
@@ -79,7 +80,7 @@ const Send = ({ globalAdrs, globalNickName }) => {
 
   useEffect(() => {
     getSegaListFromLocal()
-    const segaadrs = segaList.find(i => i.adrs === globalAdrs)
+    const segaadrs = segaList && segaList.find(i => i.adrs === globalAdrs)
     console.log('segaadrs', segaadrs)
     if (segaadrs === undefined) {
       setis_sega(false)
@@ -201,80 +202,90 @@ const Send = ({ globalAdrs, globalNickName }) => {
                 <CardText style={{ color: 'white' }}><Icon className='mr-1' name={networkIcon} size={20} />Only send to {networkName} address</CardText>
               </Col>
             </Row>
-            <Row className='d-flex flex-column'>
-              <Col className='d-flex flex-row py-1'>
-                {is_sega ? (
-                  <Avatar className='mr-1' size='lg' color={data[1].color} icon={data[1].icon} />
-                ) : (
-                  <Avatar className='mr-1' size='lg' color={data[0].color} icon={data[0].icon} />
-                )}
-                <CardTitle className='my-1 '>{globalNickName}</CardTitle>
+            {globalNickName === 'Create a Vault' ? (
+              <Col style={{ fontSize: '2em' }} className='my-1 d-flex flex-row justify-content-center align-items-center'>
+                <NavLink href='/manager' >
+                  CREATE A VAULT
+                </NavLink>
               </Col>
-              <Col className='d-flex flex-column justify-content-start'>
-                <Col className='d-flex flex-row '>
-                  <p style={{ color: 'gray' }}>{shortenIfAddress(globalAdrs)}</p>
-                  <Col>
-                    <FaRegCopy style={{ cursor: 'pointer' }} className='mx-1' color='grey' size={15} onClick={copy} />
-                    <a href={getExplorerAddressLink(globalAdrs, chainId)} target='_blank'><GoLinkExternal color='grey' size={15} /></a>
+            ) : (
+              <>
+                <Row className='d-flex flex-column'>
+                  <Col className='d-flex flex-row py-1'>
+                    {is_sega ? (
+                      <Avatar className='mr-1' size='lg' color={data[1].color} icon={data[1].icon} />
+                    ) : (
+                      <Avatar className='mr-1' size='lg' color={data[0].color} icon={data[0].icon} />
+                    )}
+                    <CardTitle className='my-1 '>{globalNickName}</CardTitle>
                   </Col>
-                </Col>
-                <Badge style={{ width: '130px' }} color='secondary'>Balance: <strong>0 MATIC</strong></Badge>
-              </Col>
-            </Row>
-            <Row className='mt-1' style={{ display: 'flex', flexDirection: 'row' }}>
-              <Col md='1' className='mx-1'><BsArrowDown size={30} /></Col>
-              <Col>
-                <hr />
-              </Col>
-            </Row>
-            <Form className='form mt-2' onSubmit={e => e.preventDefault()}>
-              <Row>
-                <Col sm='12'>
-                  <FormGroup className='mb-2'>
-                    <Label for='recepient' style={{ fontSize: '1.2em' }}>Recepient</Label>
-                    <Row>
-                      <Col xs='8' sm='10' md='10'>
-                        <Input
-                          className='form-control'
-                          id='recepient'
-                        />
-                      </Col>
+                  <Col className='d-flex flex-column justify-content-start'>
+                    <Col className='d-flex flex-row '>
+                      <p style={{ color: 'gray' }}>{shortenIfAddress(globalAdrs)}</p>
                       <Col>
-                        <IoQrCodeOutline href='#' size={30} />
+                        <FaRegCopy style={{ cursor: 'pointer' }} className='mx-1' color='grey' size={15} onClick={copy} />
+                        <a href={getExplorerAddressLink(globalAdrs, chainId)} target='_blank'><GoLinkExternal color='grey' size={15} /></a>
                       </Col>
-                    </Row>
-                  </FormGroup>
-                </Col>
-                <Col style={{ fontSize: '1.2em' }} className='mb-1' md='12' >
-                  <Select
-                    options={iconOptions}
-                    className='react-select'
-                    classNamePrefix='select'
-                    placeholder='Select an asset...'
-                    components={{
-                      Option: OptionComponent
-                    }}
-                  />
-                </Col>
-                <Col sm='12'>
-                  <FormGroup className='mb-1'>
-                    <Row >
-                      <Col>
-                        <Label for='amount' style={{ fontSize: '1.2em' }}>Amount</Label>
-                      </Col>
-                      <Col style={{ textAlign: 'end' }}>
-                        <Badge style={{ fontSize: ".9rem" }} color="primary" href='#' pill>Send Max</Badge>
-                      </Col>
-                    </Row>
-                    <Input placeholder='Amount' id='amount' />
-                  </FormGroup>
-                </Col>
-                <Col>
-                </Col>
-              </Row>
-            </Form>
+                    </Col>
+                    <Badge style={{ width: '130px' }} color='secondary'>Balance: <strong>0 MATIC</strong></Badge>
+                  </Col>
+                </Row>
+                <Row className='mt-1' style={{ display: 'flex', flexDirection: 'row' }}>
+                  <Col md='1' className='mx-1'><BsArrowDown size={30} /></Col>
+                  <Col>
+                    <hr />
+                  </Col>
+                </Row>
+                <Form className='form mt-2' onSubmit={e => e.preventDefault()}>
+                  <Row>
+                    <Col sm='12'>
+                      <FormGroup className='mb-2'>
+                        <Label for='recepient' style={{ fontSize: '1.2em' }}>Recepient</Label>
+                        <Row>
+                          <Col xs='8' sm='10' md='10'>
+                            <Input
+                              className='form-control'
+                              id='recepient'
+                            />
+                          </Col>
+                          <Col>
+                            <IoQrCodeOutline href='#' size={30} />
+                          </Col>
+                        </Row>
+                      </FormGroup>
+                    </Col>
+                    <Col style={{ fontSize: '1.2em' }} className='mb-1' md='12' >
+                      <Select
+                        options={iconOptions}
+                        className='react-select'
+                        classNamePrefix='select'
+                        placeholder='Select an asset...'
+                        components={{
+                          Option: OptionComponent
+                        }}
+                      />
+                    </Col>
+                    <Col sm='12'>
+                      <FormGroup className='mb-1'>
+                        <Row >
+                          <Col>
+                            <Label for='amount' style={{ fontSize: '1.2em' }}>Amount</Label>
+                          </Col>
+                          <Col style={{ textAlign: 'end' }}>
+                            <Badge style={{ fontSize: ".9rem" }} color="primary" href='#' pill>Send Max</Badge>
+                          </Col>
+                        </Row>
+                        <Input placeholder='Amount' id='amount' />
+                      </FormGroup>
+                    </Col>
+                    <Col>
+                    </Col>
+                  </Row>
+                </Form>
+              </>
+            )}
           </CardBody>
-          <CardFooter>
+          {globalNickName !== 'Create a Vault' ? (<CardFooter>
             <Row >
               {is_sega ? (
                 <Col>
@@ -297,7 +308,7 @@ const Send = ({ globalAdrs, globalNickName }) => {
                 </>
               )}
             </Row>
-          </CardFooter>
+          </CardFooter>) : null}
         </Card>
       </Col>) : disconnect()}
     </>

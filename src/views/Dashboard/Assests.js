@@ -8,8 +8,9 @@ import { useEthers } from '@usedapp/core'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import helperConfig from '../../helper-config.json'
+import { connect } from 'react-redux'
 
-const Assests = ({ cols = 0 }) => {
+const Assests = ({ cols = 0, globalAdrs }) => {
 
   const { account, chainId } = useEthers()
 
@@ -30,7 +31,9 @@ const Assests = ({ cols = 0 }) => {
 
   useEffect(() => {
     getTokenBalance()
-  }, [account, chainId])
+  }, [account, chainId, globalAdrs])
+
+  console.log('assetList', assetList)
 
   const data = assetList.slice(0, 4)
 
@@ -80,7 +83,7 @@ const Assests = ({ cols = 0 }) => {
             {/* <img src={item.logo_url && item.logo_url} alt={item.contract_ticker_symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} /> */}
             <Media className='my-auto' body>
               <h5 className='font-weight-bolder mb-0'>{item.contract_ticker_symbol}</h5>
-              <CardText className='font-small-3 mb-0'>$ {item.balance / (10 ** item.contract_decimals) * item.quote_rate}</CardText>
+              <CardText className='font-small-3 mb-0'>$ {(item.balance / (10 ** item.contract_decimals) * item.quote_rate).toFixed(6).toLocaleString()}</CardText>
             </Media>
           </Media>
         </Col>
@@ -105,4 +108,11 @@ const Assests = ({ cols = 0 }) => {
   )
 }
 
-export default Assests
+// export default Assests
+const mapStateToProps = (state) => ({
+  globalAdrs: state.appData.globalAdrs,
+  globalNickName: state.appData.globalNickName
+})
+// const mapDispatchToProp = dispatch => ({dispatch})
+
+export default connect(mapStateToProps, null)(Assests)

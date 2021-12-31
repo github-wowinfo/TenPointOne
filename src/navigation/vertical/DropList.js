@@ -33,7 +33,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
     useEffect(() => {
         getVaultListFromLocal()
         getSegaListFromLocal()
-    }, [account, chainId])
+    }, [account, chainId, opendroplist, globalAdrs])
 
     // const handleGlobalAdrs = (adrs, name) => {
     //     dispatch(AppData.globalAdrs(adrs))
@@ -59,7 +59,8 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
         const postdata = {
             gadrs: adrs,
             nickName: nick_name,
-            owner: account
+            owner: account,
+            chain: chainId
         }
         let global_data = []
         global_data = [postdata]
@@ -93,7 +94,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                 <ModalBody className='flex-grow-1'>
                     <Form>
                         <FormGroup check>
-                            {vaultList.map((i, index) => {
+                            {vaultList && vaultList.map((i, index) => {
                                 return (
                                     <>
                                         <Label check>

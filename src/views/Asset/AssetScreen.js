@@ -130,7 +130,7 @@ const Asset = ({ globalAdrs, globalNickName }) => {
     console.log('assetList', assetList)
     useEffect(() => {
         getTokenBalance()
-    }, [chainId, account, sum, have_custom_adrs])
+    }, [chainId, account, sum, have_custom_adrs, globalAdrs])
 
     const addDefaultSrc = (ev) => {
         ev.target.src = require(`@src/assets/images/logo/question.jpg`).default
@@ -165,7 +165,7 @@ const Asset = ({ globalAdrs, globalNickName }) => {
             selector: row => (
                 <span className='align-middle font-weight-bold'>
                     {
-                        row.balance && `$${row.balance / (10 ** row.contract_decimals) * row.quote_rate}`
+                        row.balance && `$${(row.balance / (10 ** row.contract_decimals) * row.quote_rate).toLocaleString()}`
                     }
                 </span>
             )

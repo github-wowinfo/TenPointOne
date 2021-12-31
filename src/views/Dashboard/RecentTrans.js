@@ -21,8 +21,8 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
   const [dataList, setDataList] = useState([])
   const getTokenTransaction = async () => {
     try {
-      // const response = await axios.get(`https://stg-api.unmarshal.io/v1/${helperConfig.unmarshal[chainId]}/address/${globalAdrs}/transactions?page=1&pageSize=4&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
-      const response = await axios.get(`https://stg-api.unmarshal.io/v1/${helperConfig.unmarshal[chainId]}/address/${account}/transactions?page=1&pageSize=20&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+      const response = await axios.get(`https://stg-api.unmarshal.io/v1/${helperConfig.unmarshal[chainId]}/address/${globalAdrs}/transactions?page=1&pageSize=10&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+      // const response = await axios.get(`https://stg-api.unmarshal.io/v1/${helperConfig.unmarshal[chainId]}/address/${account}/transactions?page=1&pageSize=20&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
       setTransaction(response.data)
       const data = response.data.transactions.filter((a) => a.type.includes('receive') || a.type.includes('send') || a.type.includes('approve'))
       setDataList(data)
@@ -35,7 +35,7 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
 
   useEffect(() => {
     getTokenTransaction()
-  }, [account, chainId])
+  }, [account, chainId, globalAdrs])
 
   // const data = [
   //   {
@@ -74,18 +74,24 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
 
   const columns = [
     {
+      name: '',
+      maxWidth: '20px',
+      compact: true,
+      wrap: true,
+      selector: row => (
+        <>
+          {row.type === 'receive' && <BsArrowDownCircle className='mr-1' size={30} />}
+          {row.type === 'send' && <BsArrowUpCircle className='mr-1' size={30} />}
+          {row.type === 'approve' && <BsInfoCircle className='mr-1' size={30} />}
+        </>
+      )
+    },
+    {
       name: 'Transaction',
       maxWidth: '250px',
       compact: true,
       wrap: true,
-      selector: row => (
-        <div>
-          {row.type === 'receive' && <BsArrowDownCircle className='mr-1' size={30} />}
-          {row.type === 'send' && <BsArrowUpCircle className='mr-1' size={30} />}
-          {row.type === 'approve' && <BsInfoCircle className='mr-1' size={30} />}
-          {row.description}
-        </div>
-      )
+      selector: row => row.description
     },
     {
       name: 'Status',
@@ -130,15 +136,6 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
           {/* <br /> */}
         </span>
       )
-    },
-    {
-      name: 'Date',
-      compact: true,
-      wrap: true,
-      maxWidth: '150px',
-      selector: row => (
-        moment(row.date * 1000).format("MMM-DD-YYYY,  h:mm:ss")
-      )
     }
   ]
 
@@ -165,6 +162,6 @@ const mapStateToProps = (state) => ({
   globalAdrs: state.appData.globalAdrs,
   globalNickName: state.appData.globalNickName
 })
-// const mapDispatchToProp = dispatch => ({ dispatch })
+// const mapDispatchToProp = dispatch => ({dispatch})
 
 export default connect(mapStateToProps, null)(RecentTrans)

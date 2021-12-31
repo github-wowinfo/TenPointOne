@@ -22,12 +22,10 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
 
   const { account, chainId } = useEthers()
 
-  const [text, setText] = useState(globalAdrs)
-
   const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
 
   const copy = async () => {
-    await navigator.clipboard.writeText(text)
+    await navigator.clipboard.writeText(globalAdrs)
     notifySuccess()
   }
 
@@ -77,7 +75,13 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
         </Col>
 
         <Col style={{ padding: '0px 0px' }}>
-          <h2 className="text-primary my-1" style={{ cursor: 'pointer' }} onClick={handleDropList} >{globalNickName} <ChevronRight size={25} /></h2>
+          {globalNickName === 'Create a Vault' ? (
+            <Link to='/manager'>
+              <h2 className="text-primary my-1" style={{ cursor: 'pointer' }} >{globalNickName} <ChevronRight size={25} /></h2>
+            </Link>
+          ) : (
+            <h2 className="text-primary my-1" style={{ cursor: 'pointer' }} onClick={handleDropList} >{globalNickName} <ChevronRight size={25} /></h2>
+          )}
           {/* <Button.Ripple className='my-1' color='flat-primary' onClick={handleDropList}>
             {globalNickName} <ChevronRight size={25} />
           </Button.Ripple> */}

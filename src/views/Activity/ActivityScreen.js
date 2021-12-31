@@ -157,7 +157,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName }) => {
 
     useEffect(() => {
         getTokenTransaction()
-    }, [currentPage, chainId, account, have_custom_adrs])
+    }, [currentPage, chainId, account, have_custom_adrs, globalAdrs])
 
     const columns = [
         {
@@ -257,7 +257,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName }) => {
                 <span>
                     <span className='align-middle font-weight-bold'>
                         {
-                            row.sent && `$${row.sent[0].value / (10 ** row.sent[0].decimals)}`
+                            row.sent && `$${(row.sent[0].value / (10 ** row.sent[0].decimals)).toLocaleString()}`
                         }
                     </span>
                     {/* <br /> */}

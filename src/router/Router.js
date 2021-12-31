@@ -37,19 +37,21 @@ const Router = ({ globalAdrs, dispatch, globalNickName }) => {
     } else {
       const localdata = getdata && getdata.filter(i => i.owner === account)
       console.log('localdata', localdata)
-      const global = localdata.map(i => ({ acc_adrs: i.gadrs, acc_name: i.nickName }))
-      const global_Adrs = global[0].acc_adrs
-      const global_Name = global[0].acc_name
-      dispatch(AppData.globalAdrs(global_Adrs))
-      dispatch(AppData.globalNickName(global_Name))
-      console.log('global_Adrs', global_Adrs)
-      console.log('global_Name', global_Name)
+      if (localdata !== [] && localdata[0].chain === chainId) {
+        const global = localdata && localdata.map(i => ({ acc_adrs: i.gadrs, acc_name: i.nickName }))
+        const global_Adrs = global[0].acc_adrs
+        const global_Name = global[0].acc_name
+        dispatch(AppData.globalAdrs(global_Adrs))
+        dispatch(AppData.globalNickName(global_Name))
+        console.log('global_Adrs', global_Adrs)
+        console.log('global_Name', global_Name)
+      }
     }
   }
 
   useEffect(() => {
     handleGlobalLocal()
-  }, [])
+  }, [account, chainId])
 
   // ** Hooks
   const [layout, setLayout] = useLayout()

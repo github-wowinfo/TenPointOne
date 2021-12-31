@@ -12,30 +12,6 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
 
     // const CloseBtn = <X className='cursor-pointer' size={25} onClick={handleModal} />
 
-    const notifySuccessAdd = () => toast.success(<SuccessToastAdd />, { hideProgressBar: false })
-    const notifySuccessRemove = () => toast.success(<SuccessToastRemove />, { hideProgressBar: false })
-
-    const SuccessToastAdd = () => (
-        <Fragment>
-            <div className='toastify-header'>
-                <div className='title-wrapper'>
-                    <Avatar size='sm' color='success' icon={<Clipboard size={12} />} />
-                    <h6 className='toast-title'>Vault is now Visible!</h6>
-                </div>
-            </div>
-        </Fragment>
-    )
-    const SuccessToastRemove = () => (
-        <Fragment>
-            <div className='toastify-header'>
-                <div className='title-wrapper'>
-                    <Avatar size='sm' color='success' icon={<Clipboard size={12} />} />
-                    <h6 className='toast-title'>Vault is now Visible!</h6>
-                </div>
-            </div>
-        </Fragment>
-    )
-
     const [Vault, setVault] = useState('')
     const [VaultList, setVaultList] = useState([])
     const [SegaList, setSegaList] = useState([])
@@ -48,18 +24,18 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
     }
 
     const getValueSegaFromLocal = () => {
-        console.log('Vault', Vault)
         if (Vault.length > 0) {
             const getdata = JSON.parse(localStorage.getItem('segadata'))
+            console.log('segadata', getdata)
             if (getdata) {
-                const sega = getdata.filter(a => a.vault === Vault && a.show === true && a.network === chainId && a.owner === account)
+                const sega = getdata.filter(a => a.vault === Vault && a.network === chainId && a.owner === account)
                 setSegaList(sega)
-                console.log("Sega-List", sega)
+                // console.log("Sega-List", sega)
             }
         }
     }
 
-    const slist = SegaList && SegaList.map((sega, index) => ({ value: index, label: `${sega.name} - ${sega.address}`, adrs: `${sega.address}` }))
+    const slist = SegaList && SegaList.map((sega, index) => ({ value: index, label: `${sega.name} - ${sega.address}`, adrs: sega.address }))
     const newSlist = slist.filter((sega) => { return sega.label !== "0x0000000000000000000000000000000000000000" })
 
     useEffect(() => {
@@ -68,60 +44,98 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
 
     useEffect(() => {
         getValueSegaFromLocal()
-    }, [Vault, openexesega])
+    }, [Vault])
+
+    const [name_flag, setName_flag] = useState(false)
+    const [vault_flag, setVault_flag] = useState(false)
+    const [adrs_flag, setAdrs_flag] = useState(false)
+    const [nickName, setNickName] = useState('')
+    const [sadrs, setSadrs] = useState('')
+    const [selectSega, setSelectSega] = useState('')
 
     const handleVault = (value) => {
-        setVault(value.address)
+        if (isAddress(value.address)) {
+            setVault(value.address)
+            setVault_flag(true)
+        }
     }
-
-    const [accountText, setAccountText] = useState('')
-    const [selectSega, setSelectSega] = useState('')
+    // console.log('Vault', Vault)
+    const onChangeName = (e) => {
+        const newname = e.target.value
+        if (newname !== '') {
+            setNickName(newname)
+            setName_flag(true)
+        } else {
+            alert("Enter a valid Nickname!")
+            setName_flag(false)
+        }
+    }
 
     const accountAdrsInput = (e) => {
         const segaadd = e.target.value
         if (isAddress(segaadd)) {
-            setAccountText(segaadd)
+            setSadrs(segaadd)
+            setAdrs_flag(true)
         } else {
             alert("Enter a valid address!")
+            setAdrs_flag(false)
         }
     }
-
-    const accountAdrsChange = (value) => {
-        const segaadrs = value.adrs
-        console.log('selectedadrs', segaadrs)
-        if (isAddress(segaadrs)) {
-            setSelectSega(segaadrs)
-        } else {
-            alert("Enter a valid address!")
-        }
-    }
-    console.log('accountadrs', selectSega)
 
     const handleOnAdd = () => {
         const getdata = JSON.parse(localStorage.getItem('segadata'))
         for (const i in getdata) {
-            if (getdata[i].address === accountText) {
-                getdata[i].show = true
+            if (getdata[i].address === sadrs) {
+                handleExeSegaModal()
+                alert('The Sega is already Added!')
                 break
+            } else {
+                const postdata =
+                {
+                    owner: account,
+                    vault: Vault,
+                    name: nickName,
+                    address: sadrs,
+                    network: chainId,
+                    show: true
+                }
+                let segadata = []
+                if (getdata) {
+                    segadata = [...getdata, postdata]
+                } else {
+                    segadata = [postdata]
+                }
+                localStorage.setItem('segadata', JSON.stringify(segadata))
+                setVault_flag(false)
+                setAdrs_flag(false)
+                setName_flag(false)
+                setVault('')
+                handleExeSegaModal()
             }
         }
-        localStorage.setItem('segadata', JSON.stringify(getdata))
-        // notifySuccessAdd()
-        handleExeSegaModal()
+    }
+
+    const handleSegaRemove = (value) => {
+        const segaadrs = value.adrs
+        if (isAddress(segaadrs)) {
+            setSelectSega(segaadrs)
+        } else {
+            alert("Select a valid address!")
+        }
     }
 
     const handleOnRemove = () => {
 
         const getdata = JSON.parse(localStorage.getItem('segadata'))
+        console.log('beforegetdata', getdata)
         for (const i in getdata) {
             if (getdata[i].address === selectSega) {
-                getdata[i].show = false
+                getdata.splice(i, 1)
                 break
             }
         }
         localStorage.setItem('segadata', JSON.stringify(getdata))
-        console.log('getdata', getdata)
-        // notifySuccessRemove()
+        console.log('aftergetdata', getdata)
         handleExeSegaModal()
     }
 
@@ -220,7 +234,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
                             <Col>
                                 <FormGroup>
                                     <Label for='nickname' style={{ fontSize: "1.3em" }}>Nickname</Label>
-                                    <Input type='text' id='nickname' />
+                                    <Input type='text' id='nickname' onChange={onChangeName} />
                                 </FormGroup>
                             </Col>
                             <Col>
@@ -252,7 +266,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
                                     defaultValue=''
                                     name='clear'
                                     options={newSlist}
-                                    onChange={accountAdrsChange}
+                                    onChange={handleSegaRemove}
                                 />
                             </Col>
                         </TabPane>
@@ -262,14 +276,17 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
             <ModalFooter className='justify-content-center'>
                 {active === '1' ? (
                     <>
-                        <Button.Ripple color='primary' onClick={handleOnAdd} >
-                            <Eye className='mr-1' size={17} />
-                            SHOW
-                        </Button.Ripple>
-                        {/* <Button.Ripple color='primary' onClick={handleTempAdd}>
-                            <Eye className='mr-1' size={17} />
-                            tempAdd
-                        </Button.Ripple> */}
+                        {vault_flag && adrs_flag && name_flag ? (
+                            <Button.Ripple color='primary' onClick={handleOnAdd} >
+                                <Eye className='mr-1' size={17} />
+                                SHOW
+                            </Button.Ripple>
+                        ) : (
+                            <Button.Ripple color='primary' disabled >
+                                <Eye className='mr-1' size={17} />
+                                SHOW
+                            </Button.Ripple>
+                        )}
                     </>
                 ) : (
                     <Button.Ripple color='primary' onClick={handleOnRemove} >

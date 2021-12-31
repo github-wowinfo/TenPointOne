@@ -71,7 +71,7 @@ const Home = ({ globalFlag, globalAdrs, dispatch, globalNickName }) => {
     const getdata = JSON.parse(localStorage.getItem('vaultdata'))
     const valueData = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account)
     const vaultlist = valueData && valueData.map((vault, index) => ({ value: index, adrs: vault.address, name: vault.name }))
-    if (vaultlist === []) {
+    if (vaultlist === null || vaultlist === []) {
       dispatch(AppData.globalAdrs(''))
       dispatch(AppData.globalNickName('Create a Vault'))
     } else {
@@ -110,7 +110,7 @@ const Home = ({ globalFlag, globalAdrs, dispatch, globalNickName }) => {
 
   useEffect(() => {
     getTokenBalance()
-  }, [account])
+  }, [account, chainId, globalAdrs])
 
   return (
 
