@@ -31,13 +31,13 @@ const Router = ({ globalAdrs, dispatch, globalNickName }) => {
 
   const handleGlobalLocal = () => {
     const getdata = JSON.parse(localStorage.getItem('g_acc'))
-    console.log('No global data', getdata)
+    console.log('initial get data', getdata)
     if (getdata === null) {
       console.log('No global data', getdata)
     } else {
-      const localdata = getdata && getdata.filter(i => i.owner === account)
+      const localdata = getdata && getdata.filter(i => i.owner === account && i.chain === chainId)
       console.log('localdata', localdata)
-      if (localdata !== [] && localdata[0].chain === chainId) {
+      if (localdata.length !== 0) {
         const global = localdata && localdata.map(i => ({ acc_adrs: i.gadrs, acc_name: i.nickName }))
         const global_Adrs = global[0].acc_adrs
         const global_Name = global[0].acc_name
@@ -45,6 +45,8 @@ const Router = ({ globalAdrs, dispatch, globalNickName }) => {
         dispatch(AppData.globalNickName(global_Name))
         console.log('global_Adrs', global_Adrs)
         console.log('global_Name', global_Name)
+      } else {
+        console.log('No local data')
       }
     }
   }

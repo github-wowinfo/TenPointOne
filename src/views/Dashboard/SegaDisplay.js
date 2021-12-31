@@ -23,16 +23,21 @@ const SegaDisplay = ({ globalAdrs }) => {
 
   const [is_sega, setis_sega] = useState(false)
   const [segaList, setSegaList] = useState([])
+
   const getSegaListFromLocal = () => {
     const getdata = JSON.parse(localStorage.getItem('segadata'))
-    const valueData = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account)
-    const segalist = valueData && valueData.map((sega, index) => ({ value: index, adrs: sega.address, name: sega.name, ofvault: sega.vault }))
-    setSegaList(segalist)
+    if (getdata !== null) {
+      const valueData = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account)
+      const segalist = valueData && valueData.map((sega, index) => ({ value: index, adrs: sega.address, name: sega.name, ofvault: sega.vault }))
+      setSegaList(segalist)
+    } else {
+      console.log('no sega data')
+    }
   }
 
   useEffect(() => {
     getSegaListFromLocal()
-    const segaadrs = segaList.find(i => i.adrs === globalAdrs)
+    const segaadrs = segaList && segaList.find(i => i.adrs === globalAdrs)
     console.log('segaadrs', segaadrs)
     if (segaadrs === undefined) {
       setis_sega(false)
@@ -44,8 +49,12 @@ const SegaDisplay = ({ globalAdrs }) => {
   let actualdata
   if (is_sega === false) {
     const getdata = JSON.parse(localStorage.getItem('segadata'))
-    actualdata = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account && a.vault === globalAdrs)
-    console.log('actualdata', actualdata)
+    if (getdata !== null) {
+      actualdata = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account && a.vault === globalAdrs)
+      console.log('actualdata', actualdata)
+    } else {
+      console.log('No sega data for looping')
+    }
   }
 
   return (

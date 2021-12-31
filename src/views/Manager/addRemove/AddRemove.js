@@ -26,10 +26,10 @@ const AddRemove = () => {
                     <Row style={{ display: 'flex', flexDirection: 'row' }}>
                         <Col md='7'>
                             <CardHeader className='py-0'>
-                                <CardTitle style={{ fontSize: '1.7em' }}>Show or Hide</CardTitle>
+                                <CardTitle style={{ fontSize: '1.7em' }}>Add or Remove</CardTitle>
                             </CardHeader>
                             <CardBody>
-                                <CardText style={{ fontSize: '1rem' }}>Show or hide your existing accounts from view.</CardText>
+                                <CardText style={{ fontSize: '1rem' }}>Add or Remove your existing accounts from view.</CardText>
                             </CardBody>
                         </Col>
                         <Col md='5' style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>

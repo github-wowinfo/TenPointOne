@@ -35,7 +35,6 @@ const Login = () => {
   const isConnected = account !== undefined
 
   const handleRoute = () => {
-
     window.location.href = '/home'
   }
 
@@ -55,19 +54,21 @@ const Login = () => {
             <CardTitle tag='h2' style={{ color: '#00cfe8' }} className='font-weight-bold text-center mb-3 px-1'>
               RISK PROTOCOL
             </CardTitle>
-            {isConnected ? (<Button.Ripple color='primary' style={{ fontSize: "1.5em", marginBottom: 10 }}
-              onClick={() => handleRoute()} block>LOGIN </Button.Ripple>) : (<Button.Ripple color='primary' style={{ fontSize: "1.5em", marginBottom: 10 }}
-                onClick={async () => {
-                  try {
-                    await activateBrowserWallet(undefined, true)
-                    handleRoute()
-                  } catch (error) {
-                    alert(error.message)
-                  }
+            {/* {isConnected ? (<Button.Ripple color='primary' style={{ fontSize: "1.5em", marginBottom: 10 }}
+              onClick={() => handleRoute()} block>LOGIN </Button.Ripple>) : ( */}
+            <Button.Ripple color='primary' style={{ fontSize: "1.5em", marginBottom: 10 }}
+              onClick={async () => {
+                try {
+                  await activateBrowserWallet(undefined, true)
+                  handleRoute()
+                } catch (error) {
+                  alert(error.message)
+                }
 
-                }}
-                block>LOGIN
-              </Button.Ripple>)}
+              }}
+              block>LOGIN
+            </Button.Ripple>
+            {/* )} */}
             {<p>Network: {chainId}</p>}
             {/* {console.log(account)}
             {<p>Account: {account}</p>}

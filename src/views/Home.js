@@ -82,7 +82,7 @@ const Home = ({ globalFlag, globalAdrs, dispatch, globalNickName }) => {
     }
   }
   useEffect(() => {
-    if (globalNickName === '') {
+    if (globalNickName === '' || globalNickName === 'Create a Vault') {
       getVaultListFromLocal()
       // dispatch(AppData.globalNickName(''))
     } else if (curr_acc !== account) {

@@ -35,6 +35,9 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
         getSegaListFromLocal()
     }, [account, chainId, opendroplist, globalAdrs])
 
+    console.log('vaultList', vaultList)
+    console.log('segaList', segaList)
+
     // const handleGlobalAdrs = (adrs, name) => {
     //     dispatch(AppData.globalAdrs(adrs))
     //     dispatch(AppData.globalNickName(name))
@@ -110,7 +113,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                                                 </Col>
                                             </Row>
                                         </Label>
-                                        {segaList.map((j, index) => {
+                                        {segaList && segaList.map((j, index) => {
                                             return (
                                                 <>
                                                     {j.ofvault === i.adrs ? <FormGroup check>

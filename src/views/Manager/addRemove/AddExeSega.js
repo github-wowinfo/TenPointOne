@@ -47,8 +47,9 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
     }, [Vault])
 
     const [name_flag, setName_flag] = useState(false)
-    const [vault_flag, setVault_flag] = useState(false)
     const [adrs_flag, setAdrs_flag] = useState(false)
+    const [vault_flag, setVault_flag] = useState(false)
+    const [sega_flag, setSega_flag] = useState(false)
     const [nickName, setNickName] = useState('')
     const [sadrs, setSadrs] = useState('')
     const [selectSega, setSelectSega] = useState('')
@@ -119,6 +120,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
         const segaadrs = value.adrs
         if (isAddress(segaadrs)) {
             setSelectSega(segaadrs)
+            setSega_flag(true)
         } else {
             alert("Select a valid address!")
         }
@@ -199,7 +201,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
                                         <NavLink color='primary' size='lg' active={active === '1'} onClick={() => {
                                             toggle('1')
                                         }}>
-                                            SHOW
+                                            ADD
                                         </NavLink>
                                     </div>
                                 </Col>
@@ -210,7 +212,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
                                         <NavLink color='primary' size='lg' active={active === '2'} onClick={() => {
                                             toggle('2')
                                         }}>
-                                            HIDE
+                                            REMOVE
                                         </NavLink>
                                     </div>
                                 </Col>
@@ -279,20 +281,29 @@ const AddExeSega = ({ openexesega, handleExeSegaModal }) => {
                         {vault_flag && adrs_flag && name_flag ? (
                             <Button.Ripple color='primary' onClick={handleOnAdd} >
                                 <Eye className='mr-1' size={17} />
-                                SHOW
+                                ADD
                             </Button.Ripple>
                         ) : (
                             <Button.Ripple color='primary' disabled >
                                 <Eye className='mr-1' size={17} />
-                                SHOW
+                                ADD
                             </Button.Ripple>
                         )}
                     </>
                 ) : (
-                    <Button.Ripple color='primary' onClick={handleOnRemove} >
-                        <EyeOff className='mr-1' size={17} />
-                        HIDE
-                    </Button.Ripple>
+                    <>
+                        {vault_flag && sega_flag ? (
+                            <Button.Ripple color='primary' onClick={handleOnRemove} >
+                                <EyeOff className='mr-1' size={17} />
+                                REMOVE
+                            </Button.Ripple>
+                        ) : (
+                            <Button.Ripple color='primary' disabled >
+                                <EyeOff className='mr-1' size={17} />
+                                REMOVE
+                            </Button.Ripple>
+                        )}
+                    </>
                 )}
             </ModalFooter>
         </Modal>

@@ -104,36 +104,60 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
         }
     }
 
+    const vaultAdd = (getdata) => {
+        const postdata =
+        {
+            owner: account,
+            name: nickName,
+            address: vadrs,
+            network: chainId,
+            show: true
+        }
+        let vaultdata = []
+        if (getdata) {
+            vaultdata = [...getdata, postdata]
+        } else {
+            vaultdata = [postdata]
+        }
+        localStorage.setItem('vaultdata', JSON.stringify(vaultdata))
+        setName_flag(false)
+        setAdrs_flag(false)
+        console.log('Vault added')
+        handleExeVaultModal()
+    }
 
     const handleAdd = () => {
         const getdata = JSON.parse(localStorage.getItem('vaultdata'))
-        for (const i in getdata) {
-            if (getdata[i].address === vadrs) {
-                handleExeVaultModal()
-                alert('The Vault is already Added!')
-                break
-            } else {
-                const postdata =
-                {
-                    owner: account,
-                    name: nickName,
-                    address: vadrs,
-                    network: chainId,
-                    show: true
-                }
-                let vaultdata = []
-                if (getdata) {
-                    vaultdata = [...getdata, postdata]
+        console.log('getdata', getdata)
+        if (getdata === null) {
+            const postdata =
+            {
+                owner: account,
+                name: nickName,
+                address: vadrs,
+                network: chainId,
+                show: true
+            }
+            const vaultdata = [postdata]
+            localStorage.setItem('vaultdata', JSON.stringify(vaultdata))
+            setName_flag(false)
+            setAdrs_flag(false)
+            console.log('Vault added')
+            handleExeVaultModal()
+        } else {
+            for (const i in getdata) {
+                console.log('getdatafor', getdata)
+                if (getdata && getdata[i].address === vadrs) {
+                    handleExeVaultModal()
+                    alert('The Vault is already Added!')
+                    break
                 } else {
-                    vaultdata = [postdata]
+                    vaultAdd(getdata)
+                    break
                 }
-                localStorage.setItem('vaultdata', JSON.stringify(vaultdata))
-                setName_flag(false)
-                setAdrs_flag(false)
-                handleExeVaultModal()
-                break
             }
         }
+
     }
 
     const handleRemove = () => {
@@ -193,7 +217,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
                                         <NavLink color='primary' size='lg' active={active === '1'} onClick={() => {
                                             toggle('1')
                                         }}>
-                                            SHOW
+                                            ADD
                                         </NavLink>
                                     </div>
                                 </Col>
@@ -204,7 +228,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
                                         <NavLink color='primary' size='lg' active={active === '2'} onClick={() => {
                                             toggle('2')
                                         }}>
-                                            HIDE
+                                            REMOVE
                                         </NavLink>
                                     </div>
                                 </Col>
@@ -265,12 +289,12 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
                         {name_flag && adrs_flag === true ? (
                             <Button.Ripple color='primary' onClick={handleAdd}>
                                 <Eye className='mr-1' size={17} />
-                                SHOW
+                                ADD
                             </Button.Ripple>
                         ) : (
                             <Button.Ripple color='primary' disabled>
                                 <Eye className='mr-1' size={17} />
-                                SHOW
+                                ADD
                             </Button.Ripple>
                         )}
                     </>
@@ -279,12 +303,12 @@ const AddExeVault = ({ openexevault, handleExeVaultModal }) => {
                         {adrs_flag ? (
                             <Button.Ripple color='primary' onClick={handleRemove} >
                                 <EyeOff className='mr-1' size={17} />
-                                HIDE
+                                REMOVE
                             </Button.Ripple>
                         ) : (
                             <Button.Ripple color='primary' disabled >
                                 <EyeOff className='mr-1' size={17} />
-                                HIDE
+                                REMOVE
                             </Button.Ripple>
                         )}
                     </>
