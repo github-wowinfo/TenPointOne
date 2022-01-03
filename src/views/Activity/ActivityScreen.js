@@ -12,7 +12,7 @@ import DataTable from 'react-data-table-component'
 import '@styles/react/libs/tables/react-dataTable-component.scss'
 import axios from 'axios'
 import moment from 'moment'
-import { useEthers } from '@usedapp/core'
+import { shortenAddress, shortenIfAddress, shortenIfTransactionHash, useEthers } from '@usedapp/core'
 import ReactPaginate from 'react-paginate'
 import helperConfig from "../../helper-config.json"
 import { isAddress } from 'ethers/lib/utils'
@@ -154,16 +154,16 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName }) => {
 
     // console.log('edatalist', edataList)
     console.log('datalist', dataList)
+
     const [local_names, setLocal_names] = useState([])
     const getNameFromAddressBook = () => {
         const getdata = JSON.parse(localStorage.getItem('adrsbook'))
         if (getdata !== null || getdata !== []) {
             const valuedata = getdata && getdata.filter(a => a.owner === account)
-            const names = valuedata && valuedata.map(i => ({ adrs: i.adrs, name: i.nickname }))
+            const names = valuedata && valuedata.map(i => ({ ladrs: i.adrs, lname: i.nickname }))
             setLocal_names(names)
         }
     }
-
     console.log('local_names', local_names)
 
     useEffect(() => {
@@ -194,9 +194,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName }) => {
                         <br />
                         <span className='align-middle font-italic' style={{
                             fontSize: 15
-                        }}>{row.id.slice(0, 6)}...{row.id.slice(row.id.length - 4, row.id.length)}</span>
-
-
+                        }}>{shortenIfTransactionHash(row.id)}</span>
                     </span>
 
                 </div>
@@ -211,20 +209,14 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName }) => {
                         {
                             row.type === 'receive' ? (<>
                                 <span className='align-middle font-weight-bold'>
-                                    {/* {
-                                        local_names && local_names.map(i => (i.adrs === row.from ? i.name : row.from))
-                                    } */}
-                                    {
-
-                                        row.from.slice(0, 4)}...{row.from.slice(row.from.length - 4, row.from.length)
-
-
-                                    }
+                                    {/* {local_names && local_names.map(i => (row.from === i.ladrs ? i.lname : shortenIfAddress(row.from)))} */}
+                                    {shortenIfAddress(row.from)}
                                 </span>
                             </>
                             ) : (<>
                                 <span className='align-middle font-weight-bold'>
-                                    {row.to.slice(0, 4)}...{row.to.slice(row.to.length - 4, row.to.length)}
+                                    {/* {local_names && local_names.map(i => (row.to === i.ladrs ? i.lname : shortenAddress(row.to)))} */}
+                                    {shortenAddress(row.to)}
                                 </span>
                             </>
                             )

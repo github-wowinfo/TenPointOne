@@ -55,27 +55,27 @@ export default [
     icon: <VscTools size={20} />,
     navLink: "/manager"
   },
-  {
-    header: 'Favourites'
-  },
-  {
-    id: 'sbivault',
-    title: 'SBI Vault',
-    icon: <BsSafe2 size={25} style={{ color: randomHexColor() }} />,
-    navLink: '#'
-  },
-  {
-    id: 'sbicheck',
-    title: 'SBI Checking',
-    icon: <SiWebmoney size={25} style={{ color: randomHexColor() }} />,
-    navLink: '#'
-  },
-  {
-    id: 'hdfcfix',
-    title: 'HDFC Fixed',
-    icon: <SiWebmoney size={25} style={{ color: randomHexColor() }} />,
-    navLink: '#'
-  },
+  // {
+  //   header: 'Favourites'
+  // },
+  // {
+  //   id: 'sbivault',
+  //   title: 'SBI Vault',
+  //   icon: <BsSafe2 size={25} style={{ color: randomHexColor() }} />,
+  //   navLink: '#'
+  // },
+  // {
+  //   id: 'sbicheck',
+  //   title: 'SBI Checking',
+  //   icon: <SiWebmoney size={25} style={{ color: randomHexColor() }} />,
+  //   navLink: '#'
+  // },
+  // {
+  //   id: 'hdfcfix',
+  //   title: 'HDFC Fixed',
+  //   icon: <SiWebmoney size={25} style={{ color: randomHexColor() }} />,
+  //   navLink: '#'
+  // },
   {
     id: "disconnet",
     title: "Disconnect",

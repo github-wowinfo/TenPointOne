@@ -202,7 +202,8 @@ const AdddressBook = () => {
                 <span className='d-flex felx-row align-items-center'>
                     {<FaRegCopy style={{ cursor: 'pointer' }} className='mx-1' size={25} />}
                     {<a href={getExplorerAddressLink(row.adrs, row.network)} target='_blank'><GoLinkExternal className='mr-1' size={25} /></a>}
-                    {<Heart />}
+                    {/* {<Heart name={row.nickname} adrs={row.adrs} isFav={row.isFav} />} */}
+                    {<Heart item={row} />}
                 </span>
             )
         },
