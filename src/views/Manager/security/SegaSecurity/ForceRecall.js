@@ -150,9 +150,15 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
 
     const [amount, setAmount] = useState('0')
     const handleInputAmount = (event) => {
-        const newAmount = (event.target.value) === "" ? "" : event.target.value
+        // const newAmount = (event.target.value) === "" ? "" : event.target.value
+        let newAmount
+        if (event.target.value === '') {
+            newAmount = '0'
+        } else {
+            newAmount = event.target.value
+        }
         if (newAmount) {
-            setAmount(newAmount)
+            setAmount(newAmount.toString())
         } else {
             setAmount(0)
         }
@@ -269,6 +275,7 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
                             className='react-select'
                             classNamePrefix='select'
                             defaultValue=''
+                            placeholder='Select an asset...'
                             name='clear'
                             options={tokenList}
                             components={{

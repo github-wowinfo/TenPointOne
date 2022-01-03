@@ -161,7 +161,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
             getVaultListFromLocalGlobal()
             setVault_flag(false)
             setSega_flag(false)
-            handleExeVaultModal()
+            handleExeSegaModal()
         }
         // console.log('aftergetdata', getdata)
         handleExeSegaModal()

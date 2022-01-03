@@ -76,6 +76,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
         handleDropList()
         setAdrs('')
         setNick_Name('')
+        setSelect_Flag(false)
     }} />
     return (
         <div>
@@ -85,6 +86,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                     handleDropList()
                     setAdrs('')
                     setNick_Name('')
+                    setSelect_Flag(false)
                 }}
                 className='sidebar-sm'
                 modalClassName='modal-slide-in'
@@ -93,6 +95,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                     handleDropList()
                     setAdrs('')
                     setNick_Name('')
+                    setSelect_Flag(false)
                 }}>
                     Select a Vault or Sega
                 </ModalHeader>

@@ -153,10 +153,22 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName }) => {
     }
 
     // console.log('edatalist', edataList)
-    // console.log('datalist', dataList)
+    console.log('datalist', dataList)
+    const [local_names, setLocal_names] = useState([])
+    const getNameFromAddressBook = () => {
+        const getdata = JSON.parse(localStorage.getItem('adrsbook'))
+        if (getdata !== null || getdata !== []) {
+            const valuedata = getdata && getdata.filter(a => a.owner === account)
+            const names = valuedata && valuedata.map(i => ({ adrs: i.adrs, name: i.nickname }))
+            setLocal_names(names)
+        }
+    }
+
+    console.log('local_names', local_names)
 
     useEffect(() => {
         getTokenTransaction()
+        getNameFromAddressBook()
     }, [currentPage, chainId, account, have_custom_adrs, globalAdrs])
 
     const columns = [
@@ -198,10 +210,22 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName }) => {
                     <span>
                         {
                             row.type === 'receive' ? (<>
-                                <span className='align-middle font-weight-bold'  >{row.from.slice(0, 4)}...{row.from.slice(row.from.length - 4, row.from.length)}</span>
+                                <span className='align-middle font-weight-bold'>
+                                    {/* {
+                                        local_names && local_names.map(i => (i.adrs === row.from ? i.name : row.from))
+                                    } */}
+                                    {
+
+                                        row.from.slice(0, 4)}...{row.from.slice(row.from.length - 4, row.from.length)
+
+
+                                    }
+                                </span>
                             </>
                             ) : (<>
-                                <span className='align-middle font-weight-bold'  >{row.to.slice(0, 4)}...{row.to.slice(row.to.length - 4, row.to.length)}</span>
+                                <span className='align-middle font-weight-bold'>
+                                    {row.to.slice(0, 4)}...{row.to.slice(row.to.length - 4, row.to.length)}
+                                </span>
                             </>
                             )
                         }
@@ -272,7 +296,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName }) => {
         {
             name: 'Status',
             selector: row => (
-                <Badge pill color='light-success' className='mr-1'> {row.status} </Badge>
+                <Badge pill color='light-success' className='mr-1 px-0'> {row.status} </Badge>
             )
         },
         {
@@ -282,7 +306,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName }) => {
                     setModalVisible(!modalVisible)
                     setTrxnId(row.id)
                     setDesc(row.description)
-                }}>Quick View</Button.Ripple>
+                }}>VIEW</Button.Ripple>
             )
         }
     ]

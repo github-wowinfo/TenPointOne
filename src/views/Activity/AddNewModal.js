@@ -29,7 +29,7 @@ import moment from 'moment'
 import { FaRegCopy } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import Avatar from '@components/avatar'
-import { useEthers, shortenIfTransactionHash } from '@usedapp/core'
+import { useEthers, shortenIfTransactionHash, getExplorerTransactionLink } from '@usedapp/core'
 import helperConfig from '../../helper-config.json'
 
 const AddNewModal = ({ open, handleModal, trxnId, description }) => {
@@ -97,12 +97,10 @@ const AddNewModal = ({ open, handleModal, trxnId, description }) => {
           <div>
             <Row>
               <Col md='1' >
-
                 <FaRegCopy size={15} className='mr-1' onClick={copy} />
               </Col>
               <Col md='1'>
-
-                <BsBoxArrowUpRight />
+                <a href={getExplorerTransactionLink(details?.id, chainId)} target='_blank'><BsBoxArrowUpRight size={15} color='grey' /></a>
               </Col>
             </Row>
           </div>
@@ -155,7 +153,7 @@ const AddNewModal = ({ open, handleModal, trxnId, description }) => {
         </div>
 
       </ModalBody>
-    </Modal>
+    </Modal >
   )
 }
 

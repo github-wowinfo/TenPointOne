@@ -131,7 +131,19 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
     const handleAdd = () => {
         const getdata = JSON.parse(localStorage.getItem('vaultdata'))
         console.log('getdata', getdata)
-        if (getdata === null) {
+        if (getdata.length > 0) {
+            for (const i in getdata) {
+                console.log('getdatafor', getdata)
+                if (getdata && getdata[i].address === vadrs) {
+                    handleExeVaultModal()
+                    alert('The Vault is already Added!')
+                    break
+                } else {
+                    vaultAdd(getdata)
+                    break
+                }
+            }
+        } else {
             const postdata =
             {
                 owner: account,
@@ -146,19 +158,35 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
             setAdrs_flag(false)
             console.log('Vault added')
             handleExeVaultModal()
-        } else {
-            for (const i in getdata) {
-                console.log('getdatafor', getdata)
-                if (getdata && getdata[i].address === vadrs) {
-                    handleExeVaultModal()
-                    alert('The Vault is already Added!')
-                    break
-                } else {
-                    vaultAdd(getdata)
-                    break
-                }
-            }
         }
+        // if (getdata === null || getdata === []) {
+        //     const postdata =
+        //     {
+        //         owner: account,
+        //         name: nickName,
+        //         address: vadrs,
+        //         network: chainId,
+        //         show: true
+        //     }
+        //     const vaultdata = [postdata]
+        //     localStorage.setItem('vaultdata', JSON.stringify(vaultdata))
+        //     setName_flag(false)
+        //     setAdrs_flag(false)
+        //     console.log('Vault added')
+        //     handleExeVaultModal()
+        // } else {
+        //     for (const i in getdata) {
+        //         console.log('getdatafor', getdata)
+        //         if (getdata && getdata[i].address === vadrs) {
+        //             handleExeVaultModal()
+        //             alert('The Vault is already Added!')
+        //             break
+        //         } else {
+        //             vaultAdd(getdata)
+        //             break
+        //         }
+        //     }
+        // }
 
     }
 
@@ -167,14 +195,14 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
         const valueData = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account)
         const vaultlist = valueData && valueData.map((vault, index) => ({ value: index, adrs: vault.address, name: vault.name }))
         console.log('vaultlist', vaultlist)
-        if (vaultlist === null || vaultlist === []) {
-            dispatch(AppData.globalAdrs(''))
-            dispatch(AppData.globalNickName('Create a Vault'))
-        } else {
+        if (vaultlist.length > 0) {
             console.log('vaultlist', vaultlist)
             dispatch(AppData.globalAdrs(vaultlist[0].adrs))
             dispatch(AppData.globalNickName(vaultlist[0].name))
             // setVaultList(vaultlist)
+        } else {
+            dispatch(AppData.globalAdrs(''))
+            dispatch(AppData.globalNickName('Create a Vault'))
         }
     }
 

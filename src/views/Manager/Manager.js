@@ -10,8 +10,9 @@ import withReactContent from 'sweetalert2-react-content'
 import helperConfig from '../../helper-config.json'
 import { useState, useEffect } from "react"
 import { connect } from "react-redux"
+import * as AppData from '../../redux/actions/cookies/appDataType'
 
-const Manager = ({ globalAdrs, globalNickName }) => {
+const Manager = ({ globalAdrs, globalNickName, dispatch }) => {
     const { account, chainId } = useEthers()
 
     const isConnected = account !== undefined
@@ -36,9 +37,18 @@ const Manager = ({ globalAdrs, globalNickName }) => {
             dispatch(AppData.globalNickName(vaultlist[0].name))
             // setVaultList(vaultlist)
         }
+        // if (vaultlist.length > 0) {
+        //     console.log('vaultlist', vaultlist)
+        //     dispatch(AppData.globalAdrs(vaultlist[0].adrs))
+        //     dispatch(AppData.globalNickName(vaultlist[0].name))
+        //     // setVaultList(vaultlist)
+        // } else {
+        //     dispatch(AppData.globalAdrs(''))
+        //     dispatch(AppData.globalNickName('Create a Vault'))
+        // }
     }
     useEffect(() => {
-        if (globalNickName === '' || globalNickName === 'Create a Vault') {
+        if (globalAdrs === '' || globalNickName === 'Create a Vault') {
             getVaultListFromLocal()
             // dispatch(AppData.globalNickName(''))
         } else if (curr_acc !== account) {
@@ -98,6 +108,6 @@ const mapStateToProps = (state) => ({
     globalAdrs: state.appData.globalAdrs,
     globalNickName: state.appData.globalNickName
 })
-// const mapDispatchToProp = dispatch => ({dispatch})
+const mapDispatchToProp = dispatch => ({ dispatch })
 
-export default connect(mapStateToProps, null)(Manager)
+export default connect(mapStateToProps, mapDispatchToProp)(Manager)

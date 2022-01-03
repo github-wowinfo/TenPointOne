@@ -4,10 +4,10 @@ import RecoverModal from "./RecoverModal"
 import { Fragment, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import Avatar from '@components/avatar'
-import { Check } from 'react-feather'
+import { ArrowRight, Check, ChevronsRight } from 'react-feather'
 import '@styles/base/pages/page-auth.scss'
 import { connect } from 'react-redux'
-import { useEthers } from '@usedapp/core'
+import { ChainId, useEthers } from '@usedapp/core'
 import logo from '../assets/images/logo/finallog.png'
 
 const SuccessProgressToast = () => (
@@ -38,6 +38,16 @@ const Login = () => {
     window.location.href = '/home'
   }
 
+  const activate = () => {
+    try {
+      activateBrowserWallet(undefined, true)
+      console.log('account', account)
+      console.log('chainId', chainId)
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+
   return (
     <div className='auth-wrapper auth-v2'>
       <Row className='auth-inner m-0'>
@@ -54,26 +64,18 @@ const Login = () => {
             <CardTitle tag='h2' style={{ color: '#00cfe8' }} className='font-weight-bold text-center mb-3 px-1'>
               RISK PROTOCOL
             </CardTitle>
-            {/* {isConnected ? (<Button.Ripple color='primary' style={{ fontSize: "1.5em", marginBottom: 10 }}
-              onClick={() => handleRoute()} block>LOGIN </Button.Ripple>) : ( */}
-            <Button.Ripple color='primary' style={{ fontSize: "1.5em", marginBottom: 10 }}
-              onClick={async () => {
-                try {
-                  await activateBrowserWallet(undefined, true)
-                  handleRoute()
-                } catch (error) {
-                  alert(error.message)
-                }
-
-              }}
-              block>LOGIN
-            </Button.Ripple>
-            {/* )} */}
+            {isConnected ? (<Button.Ripple color='primary' style={{ fontSize: "1.5em", marginBottom: 10 }}
+              onClick={() => handleRoute()} block>LOGIN</Button.Ripple>) : (
+              <Button.Ripple color='primary' style={{ fontSize: "1.5em", marginBottom: 10 }}
+                onClick={activate}
+                block>CONNECT WALLET
+              </Button.Ripple>
+            )}
             {<p>Network: {chainId}</p>}
-            {/* {console.log(account)}
             {<p>Account: {account}</p>}
-            <Button size='sm' onClick={deactivate}>Deactivate</Button>
-            {isConnected ? <p>Connected</p> : <p>Disconnected</p>} */}
+            {/* {console.log(account)} */}
+            {/* <Button size='sm' onClick={deactivate}>Deactivate</Button> */}
+            {/* {isConnected ? <p>Connected</p> : <p>Disconnected</p>} */}
           </Col>
         </Col>
       </Row>
