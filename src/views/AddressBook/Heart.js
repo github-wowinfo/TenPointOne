@@ -6,9 +6,11 @@ const Heart = ({ item }) => {
 
 
     const [hicon, setHicon] = useState(false)
+    const [flag, setflag] = useState(0)
 
     const handleFav = () => {
-        setHicon(true)
+        setHicon(!hicon)
+        setflag(1)
         const getFavData = JSON.parse(localStorage.getItem('fav'))
         if (getFavData !== undefined || getFavData !== []) {
             const postdata = {
@@ -36,7 +38,8 @@ const Heart = ({ item }) => {
     }
 
     const handleNotFav = () => {
-        setHicon(false)
+        setHicon(!hicon)
+        setflag(1)
         const getFavData = JSON.parse(localStorage.getItem('fav'))
         if (getFavData !== undefined || getFavData !== []) {
             for (const i in getFavData) {
@@ -58,7 +61,7 @@ const Heart = ({ item }) => {
             console.log('No fav data')
         }
     }
-    console.log('ok', hicon)
+    console.log('ok', item?.isFav, hicon)
     // console.log('isFav', item.isFav)
 
     return (
@@ -66,8 +69,13 @@ const Heart = ({ item }) => {
             {
                 //<Avatar color='light-info' icon={<FaHeart size={25} style={{ color: 'red' }} />} onClick={handleNotFav} />
                 //<Avatar color='light' icon={<FaRegHeart size={25} style={{ color: 'red' }} />} onClick={handleFav} />
+                flag === 0 &&
+                    item?.isFav === true && hicon === true ? (<Avatar color='light-info' icon={<FaHeart size={25} style={{ color: 'red' }} />} onClick={handleNotFav} />) : (null)
+            }
+            {
 
-                item?.isFav === true && hicon === true ? (<Avatar color='light-info' icon={<FaHeart size={25} style={{ color: 'red' }} />} onClick={handleNotFav} />) : (null)
+                flag === 1 &&
+                    item?.isFav === true && hicon === true ? (<Avatar color='light' icon={<FaRegHeart size={25} style={{ color: 'red' }} />} onClick={handleFav} />) : (null)
             }
             {
                 item?.isFav === false && hicon === false ? (<Avatar color='light' icon={<FaRegHeart size={25} style={{ color: 'red' }} />} onClick={handleFav} />) : (null)
