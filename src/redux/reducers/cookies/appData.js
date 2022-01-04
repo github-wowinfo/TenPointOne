@@ -4,6 +4,7 @@ const initialState = {
   appMessages: '',
   network: { icon: 'eth', name: 'Ethereum' },
   globalFlag: false,
+  globalFavFlag: 0,
   globalAdrs: '',
   globalNickName: ''
 }
@@ -31,6 +32,13 @@ const appData = (state = initialState, action) => {
       return {
         ...state,
         globalFlag: payload,
+      }
+    }
+
+    case AppDataTypes.GLOBAL_FAV_FLAG: {
+      return {
+        ...state,
+        globalFavFlag: payload,
       }
     }
 

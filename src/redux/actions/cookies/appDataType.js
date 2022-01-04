@@ -15,6 +15,11 @@ export const globalFlag = payload => ({
   payload
 })
 
+export const globalFavFlag = payload => ({
+  type: AppDataTypes.GLOBAL_FAV_FLAG,
+  payload
+})
+
 export const globalAdrs = payload => ({
   type: AppDataTypes.GLOBAL_ADRS,
   payload

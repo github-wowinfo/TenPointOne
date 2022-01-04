@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import * as AppData from '../../redux/actions/cookies/appDataType'
 import { Link } from 'react-router-dom'
 
-const Favourites = ({ globalAdrs, dispatch, globalNickName }) => {
+const Favourites = ({ globalAdrs, dispatch, globalNickName, globalFavFlag }) => {
 
     const { account } = useEthers()
 
@@ -22,19 +22,10 @@ const Favourites = ({ globalAdrs, dispatch, globalNickName }) => {
         }
     }
     // console.log('fav_list', fav_list)
-    let data
-    if (fav_list === null || fav_list === []) {
-        console.log('no data')
-    } else {
-        // data = fav_list.slice(0, 3)
-        data = fav_list
-    }
-
-    console.log('data', data)
 
     useEffect(() => {
         getFavListFromLocal()
-    }, [account, globalAdrs, globalNickName])
+    }, [account, globalAdrs, globalNickName, globalFavFlag])
 
     const handleGlobal = (adrs, name) => {
         dispatch(AppData.globalAdrs(adrs))
@@ -46,20 +37,23 @@ const Favourites = ({ globalAdrs, dispatch, globalNickName }) => {
             <Col>
                 <Badge color='light-primary'>Favourites</Badge>
             </Col>
-            {data && data.map(i => {
-                return (
-                    <>
-                        <Row className='px-1 d-flex flex-row justify-conten-center' >
-                            <Col>
-                                <Link onClick={() => handleGlobal(i.fav_adrs, i.fav_name)} >{i.nickname}</Link>
-                            </Col>
-                            <Col>
-                                <h6>{shortenIfAddress(i.adrs)}</h6>
-                            </Col>
-                        </Row>
-                    </>
-                )
-            })}
+            {fav_list !== null || fav_list !== [] ? (
+                fav_list && fav_list.map(i => {
+                    return (
+                        <>
+                            <Row className='px-1 d-flex flex-row justify-conten-center' >
+                                <Col>
+                                    <Link onClick={() => handleGlobal(i.fav_adrs, i.fav_name)} >{i.nickname}</Link>
+                                </Col>
+                                <Col>
+                                    <h6>{shortenIfAddress(i.adrs)}</h6>
+                                </Col>
+                            </Row>
+                        </>
+                    )
+                })
+            ) : (<>{console.log('no data')}</>)
+            }
         </div>
     )
 }
@@ -67,7 +61,8 @@ const Favourites = ({ globalAdrs, dispatch, globalNickName }) => {
 // export default Favourites
 const mapStateToProps = (state) => ({
     globalAdrs: state.appData.globalAdrs,
-    globalNickName: state.appData.globalNickName
+    globalNickName: state.appData.globalNickName,
+    globalFavFlag: state.appData.globalFavFlag
 })
 const mapDispatchToProp = dispatch => ({ dispatch })
 export default connect(mapStateToProps, mapDispatchToProp)(Favourites)

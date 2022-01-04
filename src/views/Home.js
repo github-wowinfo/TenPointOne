@@ -16,7 +16,7 @@ import { connect } from 'react-redux'
 import * as AppData from '../redux/actions/cookies/appDataType'
 import axios from 'axios'
 
-const Home = ({ globalFlag, globalAdrs, dispatch, globalNickName }) => {
+const Home = ({ globalAdrs, dispatch, globalNickName }) => {
 
   const { account, chainId } = useEthers()
 
@@ -203,7 +203,6 @@ const Home = ({ globalFlag, globalAdrs, dispatch, globalNickName }) => {
 // export default Home
 
 const mapStateToProps = (state) => ({
-  globalFlag: state.appData.globalFlag,
   globalAdrs: state.appData.globalAdrs,
   globalNickName: state.appData.globalNickName
 })

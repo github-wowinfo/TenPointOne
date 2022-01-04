@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import Avatar from '@components/avatar'
 import { FaHeart, FaRegHeart } from 'react-icons/fa'
+import { connect } from 'react-redux'
+import * as AppData from '../../redux/actions/cookies/appDataType'
 
-const Heart = ({ item }) => {
+const Heart = ({ item, globalFavFlag, dispatch }) => {
 
 
     const [hicon, setHicon] = useState(false)
     const [flag, setflag] = useState(0)
 
     const handleFav = () => {
+        dispatch(AppData.globalFavFlag(1))
         setHicon(!hicon)
         setflag(1)
         const getFavData = JSON.parse(localStorage.getItem('fav'))
@@ -31,7 +34,6 @@ const Heart = ({ item }) => {
                 }
             }
             localStorage.setItem('adrsbook', JSON.stringify(getAdrsBookData))
-
         } else {
             console.log('No fav data')
         }
@@ -56,7 +58,6 @@ const Heart = ({ item }) => {
                 }
             }
             localStorage.setItem('adrsbook', JSON.stringify(getAdrsBookData))
-
         } else {
             console.log('No fav data')
         }
@@ -95,4 +96,11 @@ const Heart = ({ item }) => {
     )
 }
 
-export default Heart
+// export default Heart
+const mapStateToProps = (state) => ({
+    globalAdrs: state.appData.globalAdrs,
+    globalNickName: state.appData.globalNickName,
+    globalFavFlag: state.appData.globalFavFlag
+})
+const mapDispatchToProp = dispatch => ({ dispatch })
+export default connect(mapStateToProps, mapDispatchToProp)(Heart)
