@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Avatar from '@components/avatar'
 import { FaHeart, FaRegHeart } from 'react-icons/fa'
 
 const Heart = ({ item }) => {
 
 
-    const [hicon, setHicon] = useState(true)
+    const [hicon, setHicon] = useState(false)
 
     const handleFav = () => {
         setHicon(false)
@@ -29,6 +29,7 @@ const Heart = ({ item }) => {
                 }
             }
             localStorage.setItem('adrsbook', JSON.stringify(getAdrsBookData))
+
         } else {
             console.log('No fav data')
         }
@@ -45,21 +46,28 @@ const Heart = ({ item }) => {
                 }
             }
             localStorage.setItem('fav', JSON.stringify(getFavData))
+            const getAdrsBookData = JSON.parse(localStorage.getItem('adrsbook'))
+            for (const i in getAdrsBookData) {
+                if (getAdrsBookData[i].adrs === item.adrs) {
+                    getAdrsBookData[i].isFav = false
+                }
+            }
+            localStorage.setItem('adrsbook', JSON.stringify(getAdrsBookData))
+
         } else {
             console.log('No fav data')
         }
     }
     // console.log('ok', hicon)
-    console.log('isFav', item.isFav)
+    // console.log('isFav', item.isFav)
 
     return (
         <div>
             {
-                item?.isFav ? <Avatar color='light-info' icon={<FaHeart size={25} style={{ color: 'red' }} />} onClick={handleNotFav} /> : (
-                    hicon ? (<Avatar color='light' icon={<FaRegHeart size={25} style={{ color: 'red' }} />} onClick={handleFav} />) : (
-                        <Avatar color='light-info' icon={<FaHeart size={25} style={{ color: 'red' }} />} onClick={handleNotFav} />
-                    )
-                )
+
+                item?.isFav ? (<Avatar color='light-info' icon={<FaHeart size={25} style={{ color: 'red' }} />} onClick={handleNotFav} />) : (
+                    <Avatar color='light' icon={<FaRegHeart size={25} style={{ color: 'red' }} />} onClick={handleFav} />)
+
 
             }
         </div>
