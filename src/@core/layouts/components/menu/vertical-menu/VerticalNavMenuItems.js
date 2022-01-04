@@ -27,8 +27,8 @@ const VerticalMenuNavItems = props => {
   return (
     <>
       <OwnerDisplay menuCollapsed={props.menuCollapsed} menuHover={props.menuHover} />
-      <Favourites />
       {RenderNavItems}
+      <Favourites />
     </>
   )
 }

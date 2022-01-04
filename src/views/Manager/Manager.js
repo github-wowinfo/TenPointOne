@@ -4,7 +4,7 @@ import RecoverAcc from "./recover/RecoverAcc"
 import ManageSecurity from "./security/ManageSecurity"
 import { Card, CardHeader, CardTitle } from 'reactstrap'
 import ImportExport from "./importExport/ImportExport"
-import { useEthers } from "@usedapp/core"
+import { useEthers, shortenIfAddress } from "@usedapp/core"
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import helperConfig from '../../helper-config.json'
@@ -28,7 +28,7 @@ const Manager = ({ globalAdrs, globalNickName, dispatch }) => {
         const valueData = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account)
         const vaultlist = valueData && valueData.map((vault, index) => ({ value: index, adrs: vault.address, name: vault.name }))
         console.log('vaultlist', vaultlist)
-        if (vaultlist === null || vaultlist === []) {
+        if (vaultlist === null || vaultlist === [] || vaultlist.length === 0) {
             dispatch(AppData.globalAdrs(''))
             dispatch(AppData.globalNickName('Create a Vault'))
         } else {
@@ -57,11 +57,15 @@ const Manager = ({ globalAdrs, globalNickName, dispatch }) => {
         }
     }, [account])
 
+    const [curt_account, setCurt_account] = useState(account)
     const [curt_chain, setCurt_chain] = useState(chainId)
     const MySwal = withReactContent(Swal)
 
     const netchange = async (netid) => {
         await ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: `${netid}` }] })
+    }
+    const accountChange = async () => {
+        await ethereum.request({ method: "wallet_requestPermissions", params: [{ eth_accounts: {} }] })
     }
     const handleAjax = () => {
         return MySwal.fire({
@@ -89,11 +93,42 @@ const Manager = ({ globalAdrs, globalNickName, dispatch }) => {
         })
     }
 
+    const handleAccount = () => {
+        return MySwal.fire({
+            title: 'Your account is Changed!',
+            // text: `Current network is "${helperConfig.network[chainId].name}"`,
+            allowOutsideClick: false,
+            showCancelButton: true,
+            confirmButtonText: `Continue with current account ("${shortenIfAddress(account)}"), and log in again `,
+            cancelButtonText: `Stay on previous account ("${shortenIfAddress(curt_account)}"), and log in again`,
+            customClass: {
+                confirmButton: 'btn btn-primary mx-1',
+                cancelButton: 'btn btn-danger my-1'
+            },
+            showClass: {
+                popup: 'animate__animated animate__flipInX'
+            },
+        }).then(function (result) {
+            if (result.isConfirmed) {
+                disconnect()
+            } else if (result.isDismissed) {
+                disconnect()
+                accountChange()
+            }
+        })
+    }
+
+    console.log('curt_account', curt_account)
+
     useEffect(() => {
         if (chainId !== curt_chain) {
             handleAjax()
         }
-    }, [chainId])
+        if (account !== curt_account) {
+            handleAccount()
+            setCurt_account(account)
+        }
+    }, [chainId, account])
 
     return (
         <div>

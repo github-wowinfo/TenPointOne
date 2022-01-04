@@ -29,11 +29,15 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName }) => {
         window.location.href = '/login'
     }
 
+    const [curt_account, setCurt_account] = useState(account)
     const [curt_chain, setCurt_chain] = useState(chainId)
     const MySwal = withReactContent(Swal)
 
     const netchange = async (netid) => {
         await ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: `${netid}` }] })
+    }
+    const accountChange = async () => {
+        await ethereum.request({ method: "wallet_requestPermissions", params: [{ eth_accounts: {} }] })
     }
     const handleAjax = () => {
         return MySwal.fire({
@@ -61,11 +65,42 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName }) => {
         })
     }
 
+    const handleAccount = () => {
+        return MySwal.fire({
+            title: 'Your account is Changed!',
+            // text: `Current network is "${helperConfig.network[chainId].name}"`,
+            allowOutsideClick: false,
+            showCancelButton: true,
+            confirmButtonText: `Continue with current account ("${shortenIfAddress(account)}"), and log in again `,
+            cancelButtonText: `Stay on previous account ("${shortenIfAddress(curt_account)}"), and log in again`,
+            customClass: {
+                confirmButton: 'btn btn-primary mx-1',
+                cancelButton: 'btn btn-danger my-1'
+            },
+            showClass: {
+                popup: 'animate__animated animate__flipInX'
+            },
+        }).then(function (result) {
+            if (result.isConfirmed) {
+                disconnect()
+            } else if (result.isDismissed) {
+                disconnect()
+                accountChange()
+            }
+        })
+    }
+
+    console.log('curt_account', curt_account)
+
     useEffect(() => {
         if (chainId !== curt_chain) {
             handleAjax()
         }
-    }, [chainId])
+        if (account !== curt_account) {
+            handleAccount()
+            setCurt_account(account)
+        }
+    }, [chainId, account])
 
     const [modalVisible, setModalVisible] = useState(false)
     const [getTransaction, setTransaction] = useState([])

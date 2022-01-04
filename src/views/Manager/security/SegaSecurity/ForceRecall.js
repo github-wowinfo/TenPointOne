@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react'
 import { BsSafe2, BsArrowDown } from 'react-icons/bs'
 import Select, { components } from 'react-select'
-import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, CustomInput } from 'reactstrap'
+import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, CustomInput, Alert } from 'reactstrap'
 import Badge from 'reactstrap/lib/Badge'
 import axios from 'axios'
-import { CurrencyValue, Token, useEthers, useEtherBalance, useTokenBalance, getExplorerTransactionLink } from "@usedapp/core"
+import { CurrencyValue, Token, useEthers, useEtherBalance, useTokenBalance, getExplorerTransactionLink, shortenIfTransactionHash, getExplorerAddressLink } from "@usedapp/core"
 import helperConfig from "../../../../helper-config.json"
 import { constants, utils, BigNumber } from "ethers"
 import { useTokens } from '../../../../utility/hooks/useTokens'
 import { useTransfers } from '../../../../utility/hooks/useTransfers'
+import { SiWebmoney } from 'react-icons/si'
 
 const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, haveInfo }) => {
 
@@ -195,6 +196,33 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
         }
     }
 
+    //SNACKBAR FOR GENERAL TRANSACTIONS
+    const [txnID, setTxnID] = useState("")
+    const [showTxnMiningSnack, setShowTxnMiningSnack] = useState(false)
+    const [showTxnSuccessSnack, setTxnSuccessSnack] = useState(false)
+    const handleTxnSnackClose = () => {
+        console.log("Txn In Progress / Completed:", getExplorerTransactionLink(txnID, Number(chainId)))
+        setShowTxnMiningSnack(false)
+        setTxnSuccessSnack(false)
+    }
+
+    const handleForceReacallAlert = () => {
+        setTimeout(() => {
+            setShowTxnMiningSnack(false)
+            setTxnSuccessSnack(false)
+        }, 30000)
+    }
+
+    useEffect(() => {
+        if (TransferState.status === "Mining") {
+            const tx_id = String(TransferState.transaction?.hash)
+            setTxnID(tx_id.toString())
+            console.log("***Handle TX_ID: ", TransferState.status, tx_id)
+            setShowTxnMiningSnack(true)
+        }
+        if (TransferState.status === "Success") { setTxnSuccessSnack(true) }
+    }, [TransferState])
+
     const handleLog = () => {
         const y = new CurrencyValue(nativeToken, BigNumber.from("100000000000000000000"))
         // const z = new CurrencyValue(ercToken, BigNumber.from("100000000000000000000"))
@@ -226,12 +254,14 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
     // const CloseBtn = <X className='cursor-pointer' size={25} onClick={handleModal} />
     return (
         <Modal className='modal-dialog-centered modal-lg' isOpen={openrecallmodal} toggle={() => {
+            handleForceReacallAlert()
             handlRecoverModal()
         }} >
             {/* {console.log('assest', asset)} */}
             {/* {console.log('assestlist', assetList)} */}
             {/* {console.log('networkname', helperConfig[chainId])} */}
             <ModalHeader tag='h1' toggle={() => {
+                handleForceReacallAlert()
                 handlRecoverModal()
             }}>
                 Force Recall
@@ -243,9 +273,9 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
                     </Col>
                     <Col className='my-1'>
                         <Row className='d-flex flex-row'>
-                            <Col md='1'><BsSafe2 size={40} /></Col>
+                            <Col md='1'><SiWebmoney size={40} /></Col>
                             <Col className='d-flex flex-column justify-content-start'>
-                                <h3>SBI Savings</h3>
+                                <h3>Selected Sega</h3>
                                 <h5>{selectSega}</h5>
                             </Col>
                         </Row>
@@ -319,6 +349,20 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
                 </Button.Ripple>
                 <Button.Ripple onClick={handleLog}>TestLog</Button.Ripple>
             </ModalFooter>
+            <Col className='d-flex flex-column justify-content-center'>
+                <Alert isOpen={showTxnMiningSnack} toggle={() => handleTxnSnackClose()} color="info">
+                    <div>Transaction in Progress- Txn ID : &emsp; </div>
+                    <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
+                        target="_blank" rel="noreferrer">
+                        {(txnID)} </a>
+                </Alert>
+                <Alert isOpen={showTxnSuccessSnack} toggle={() => handleTxnSnackClose()} color="success">
+                    <div>Transaction Completed - Txn ID :</div>
+                    <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
+                        target="_blank" rel="noreferrer">
+                        {(txnID)} </a>
+                </Alert>
+            </Col>
         </Modal>
     )
 }
