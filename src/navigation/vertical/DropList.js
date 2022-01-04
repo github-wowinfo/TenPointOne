@@ -197,6 +197,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                             setAdrs('')
                             setNick_Name('')
                             handleDropList()
+                            setSelect_Flag(false)
                         }} >OK</Button.Ripple>
                     ) : (<Button.Ripple color='primary' disabled >OK</Button.Ripple>)}
                 </ModalFooter>

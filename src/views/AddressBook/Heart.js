@@ -58,7 +58,8 @@ const Heart = ({ item }) => {
             console.log('No fav data')
         }
     }
-    console.log('ok', hicon)
+    console.log('hicon', hicon)
+    console.log('item.isFav', item.isFav)
     // console.log('isFav', item.isFav)
 
     return (
@@ -70,7 +71,7 @@ const Heart = ({ item }) => {
                 item?.isFav === true && hicon === true ? (<Avatar color='light-info' icon={<FaHeart size={25} style={{ color: 'red' }} />} onClick={handleNotFav} />) : (null)
             }
             {
-                item?.isFav === false && hicon === false ? (<Avatar color='light' icon={<FaRegHeart size={25} style={{ color: 'red' }} />} onClick={handleFav} />) : (null)
+                (item?.isFav === false || item?.isFav === undefined) && hicon === false ? (<Avatar color='light' icon={<FaRegHeart size={25} style={{ color: 'red' }} />} onClick={handleFav} />) : (null)
             }
             {
                 item?.isFav === true && hicon === false ? (<Avatar color='light-info' icon={<FaHeart size={25} style={{ color: 'red' }} />} onClick={handleNotFav} />) : (null)

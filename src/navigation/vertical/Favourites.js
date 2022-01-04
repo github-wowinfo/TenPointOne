@@ -13,7 +13,7 @@ const Favourites = ({ globalAdrs, dispatch, globalNickName }) => {
     const getFavListFromLocal = () => {
         const getdata = JSON.parse(localStorage.getItem('adrsbook'))
         // console.log('getdata', getdata)
-        const valuedata = getdata && getdata.filter(i => i.isFav === true)
+        const valuedata = getdata && getdata.filter(i => i.owner === account && i.isFav === true)
         // console.log('valuedata', valuedata)
         if (valuedata !== undefined || valuedata !== []) {
             setFav_list(valuedata)

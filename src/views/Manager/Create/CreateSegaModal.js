@@ -74,6 +74,16 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
 
     }
 
+    const [vname, setVname] = useState(false)
+    const onChangeName = (e) => {
+        if (e.target.value === '') {
+            setVname(false)
+        } else {
+            setVname(true)
+            setNickName(e.target.value)
+        }
+    }
+
     //SNACKBAR Settings for Sega Launches
     const [launchSegaTxn, setLaunchSegaTxn] = useState("")
     const [newSegaAddress, setNewSegaAddress] = useState("")
@@ -83,7 +93,19 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
         console.log("Snack Close - Sega Creation Txn:", getExplorerTransactionLink(launchSegaTxn, Number(chainId)))
         console.log("Snack Close - New Sega Created:", getExplorerAddressLink(newSegaAddress, Number(chainId)))
         setShowSegaLaunchingSnack(false)
+    }
+
+    const handleSegaCreatedSnackClose = () => {
+        setShowSegaLaunchingSnack(false)
         setShowSegaCreatedSnack(false)
+    }
+
+    const handleModalSegaSnackClose = () => {
+        setVname(false)
+        setTimeout(() => {
+            setShowSegaLaunchingSnack(false)
+            setShowSegaCreatedSnack(false)
+        }, 5 * 60 * 1000)
     }
 
     // Launch Sega Button Handles
@@ -91,16 +113,6 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
     const handleLaunchSega = () => {
         console.log("Trying to Launch Sega :")
         return createNewSega()
-    }
-
-    const [vname, setVname] = useState(false)
-    const onChangeName = (e) => {
-        if (e.target.value === '') {
-            setVname(false)
-        } else {
-            setVname(true)
-            setNickName(e.target.value)
-        }
     }
 
     // To track state of Sega creation Trasnactions
@@ -178,8 +190,11 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
     }, [opensega, chainId])
 
     return (
-        <Modal className='modal-dialog-centered modal-lg' isOpen={opensega} toggle={handleSegaModal} >
-            <ModalHeader tag='h2' toggle={handleSegaModal}>
+        <Modal className='modal-dialog-centered modal-lg' isOpen={opensega} >
+            <ModalHeader tag='h2' toggle={() => {
+                handleModalSegaSnackClose()
+                handleSegaModal()
+            }}>
                 New Sega
             </ModalHeader>
             <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -239,7 +254,7 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
                         target="_blank" rel="noreferrer">
                         {shortenIfTransactionHash(launchSegaTxn)} </a>
                 </Alert>
-                <Alert isOpen={showSegaCreatedSnack} toggle={() => handleSnackClose()} color="success">
+                <Alert isOpen={showSegaCreatedSnack} toggle={() => handleSegaCreatedSnackClose()} color="success">
                     New Sega Launched :
                     <div><a href={getExplorerAddressLink(newSegaAddress, chainId ? chainId : 1)} target="_blank" rel="noreferrer">
                         {newSegaAddress} </a> </div>

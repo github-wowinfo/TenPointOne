@@ -39,10 +39,20 @@ const CreateVaultModal = ({ openvault, handleVaultModal }) => {
     const handleSnackClose = () => {
         console.log("Vault Creation Txn:", getExplorerTransactionLink(launchVaultTxn, Number(chainId)))
         console.log("New Vault Created:", getExplorerAddressLink(newVaultAddress, Number(chainId)))
+        setShowLaunchingSnack(false)
+    }
 
+    const handleVaultCreatedSnackClose = () => {
         setShowLaunchingSnack(false)
         setShowVaultCreatedSnack(false)
+    }
 
+    const handleModalVaultSnackClose = () => {
+        setVname(false)
+        setTimeout(() => {
+            setShowLaunchingSnack(false)
+            setShowVaultCreatedSnack(false)
+        }, 5 * 60 * 1000)
     }
 
     // Smart Contract Handle Functions from useRCU.ts file
@@ -57,33 +67,16 @@ const CreateVaultModal = ({ openvault, handleVaultModal }) => {
     // Smart Contract Handle Functions
     const isLaunchInProgress = (launchVaultState.status === "Mining")
     const handleLaunchVault = () => {
+        handleVaultCreatedSnackClose()
         console.log("Trying to Launch Vault :")
         return launchVault()
     }
-
-    // const { getVaultList } = useRCU()
     const handleGetAllVaults = () => {
-        // const x = getVaultList()
-        // setVaultList(x)
-        // console.log("Vault-List", x)
-
         const getdata = JSON.parse(localStorage.getItem('vaultdata'))
         if (getdata) {
             setVaultList(getdata.filter(a => a.show === true && a.network === chainId && a.owner === account))
             console.log("Vault-List", getdata)
         }
-
-        // localStorage.removeItem('testdata')
-        // const getdata = JSON.parse(localStorage.getItem('testdata'))
-        // const postdata = { owner: '', name: "svault", address: "0x3CC798a14360F3aa00d8e2b06c8AC147cDE0B925", network: 97 }
-        // let vaultdata = []
-        // if (getdata) {
-        //     vaultdata = [...getdata, postdata]
-        // } else {
-        //     vaultdata = [postdata]
-        // }
-        // localStorage.setItem('testdata', JSON.stringify(vaultdata))
-
     }
 
     useEffect(() => {
@@ -148,8 +141,11 @@ const CreateVaultModal = ({ openvault, handleVaultModal }) => {
 
 
     return (
-        <Modal className='modal-dialog-centered modal-lg' isOpen={openvault} toggle={handleVaultModal} >
-            <ModalHeader tag='h2' toggle={handleVaultModal} >
+        <Modal className='modal-dialog-centered modal-lg' isOpen={openvault} >
+            <ModalHeader tag='h2' toggle={() => {
+                handleModalVaultSnackClose()
+                handleVaultModal()
+            }} >
                 New Vault
             </ModalHeader>
             <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -194,7 +190,7 @@ const CreateVaultModal = ({ openvault, handleVaultModal }) => {
                         target="_blank" rel="noreferrer">
                         {shortenIfTransactionHash(launchVaultTxn)} </a>
                 </Alert>
-                <Alert isOpen={showVaultCreatedSnack} toggle={() => handleSnackClose()} color="success">
+                <Alert isOpen={showVaultCreatedSnack} toggle={() => handleVaultCreatedSnackClose()} color="success">
                     New Vault Launched :
                     <div><a href={getExplorerAddressLink(newVaultAddress, chainId ? chainId : 1)} target="_blank" rel="noreferrer">
                         {newVaultAddress} </a> </div>
