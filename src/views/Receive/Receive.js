@@ -13,7 +13,6 @@ import { useEthers, shortenIfAddress, getExplorerAddressLink } from '@usedapp/co
 import helperConfig from '../../helper-config.json'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import Qrcode from './Qrcode'
 import 'animate.css'
 
 const Receive = ({ networkC, globalAdrs, globalNickName }) => {
@@ -90,25 +89,7 @@ const Receive = ({ networkC, globalAdrs, globalNickName }) => {
 
   const [tooltipOpen, setTooltipOpen] = useState(false)
 
-  // const pathname = `https://etherscan.io/address/${account}`
-  // const pathname = `https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl= ${account}`
-  const handleImageAlert = () => {
-    return MySwal.fire({
-      title: 'SBI Vault',
-      text: shortenIfAddress(account),
-      imageUrl: pathname,
-      imageWidth: 250,
-      imageHeight: 250,
-      imageAlt: 'Custom image',
-      customClass: {
-        confirmButton: 'btn btn-primary',
-      },
-      showClass: {
-        popup: 'animate__animated animate__flipInX'
-      },
-      buttonsStyling: false
-    })
-  }
+  const pathname = `https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl= ${globalAdrs}`
 
   const networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"
   const networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
@@ -155,13 +136,11 @@ const Receive = ({ networkC, globalAdrs, globalNickName }) => {
                       <a href={getExplorerAddressLink(account, chainId)} target='_blank'><GoLinkExternal className='mx-1 mt-1' color='grey' size={20} /></a>
                     </span>
                   </Col>
+                  <Col className='text-center '>
+                    <img src={pathname} alt='QR CODE' width='200' height='200' />
+                  </Col>
                 </Row>
-                <Row className='my-1 d-flex flex-column justify-content-center align-items-center'>
-                  <Button.Ripple size='sm' color='primary' style={{ width: 'fit-content' }} onClick={handleQrcode}>Click here for QR Code</Button.Ripple>
-                  {/* <a href={pathname} target='_blank'>click for qr code</a>
-              <Col style={{ textAlign: 'center' }}><img src={qrcode} style={{ width: '100px', height: '100px' }} /></Col> */}
-                </Row>
-                <Col className='my-1' style={{ textAlign: 'right' }}>
+                <Col style={{ textAlign: 'right' }}>
                   <Avatar className='animate__animated animate__flash animate__delay-1s' size='sm' id='DepositInfo' color='primary' icon={<Info />} />
                   <Tooltip
                     placement='right'
@@ -178,7 +157,6 @@ const Receive = ({ networkC, globalAdrs, globalNickName }) => {
             )}
           </CardBody>
         </Card>
-        <Qrcode openqrcode={qrcode} handleQrcode={handleQrcode} account={globalAdrs} nickName={globalNickName} />
       </Col>
       ) : disconnect()
       }

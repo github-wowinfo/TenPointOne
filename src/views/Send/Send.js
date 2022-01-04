@@ -72,7 +72,7 @@ const Send = ({ globalAdrs, globalNickName }) => {
     }
   }, [chainId])
 
-  const [is_sega, setis_sega] = useState(false)
+  const [is_sega, setis_sega] = useState()
   const [segaList, setSegaList] = useState([])
   const getSegaListFromLocal = () => {
     const getdata = JSON.parse(localStorage.getItem('segadata'))
@@ -90,7 +90,9 @@ const Send = ({ globalAdrs, globalNickName }) => {
     } else {
       setis_sega(true)
     }
-  }, [globalAdrs, account, chainId])
+  }, [globalAdrs, account, chainId, is_sega])
+
+  console.log('is_sega', is_sega)
 
   const cardStyle = {
     display: 'flex',
