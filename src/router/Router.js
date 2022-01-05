@@ -25,7 +25,7 @@ import { connect } from 'react-redux'
 import * as AppData from '../redux/actions/cookies/appDataType'
 import { useEthers } from '@usedapp/core'
 
-const Router = ({ globalAdrs, dispatch, globalNickName }) => {
+const Router = ({ globalAdrs, dispatch, globalNickName, globalVaultFlag }) => {
 
   const { account, chainId } = useEthers()
 
@@ -53,7 +53,7 @@ const Router = ({ globalAdrs, dispatch, globalNickName }) => {
 
   useEffect(() => {
     handleGlobalLocal()
-  }, [account, chainId])
+  }, [account, chainId, globalVaultFlag])
 
   // ** Hooks
   const [layout, setLayout] = useLayout()
@@ -255,7 +255,8 @@ const Router = ({ globalAdrs, dispatch, globalNickName }) => {
 // export default Router
 const mapStateToProps = (state) => ({
   globalAdrs: state.appData.globalAdrs,
-  globalNickName: state.appData.globalNickName
+  globalNickName: state.appData.globalNickName,
+  globalVaultFlag: state.appData.globalVaultFlag
 })
 const mapDispatchToProp = dispatch => ({ dispatch })
 export default connect(mapStateToProps, mapDispatchToProp)(Router)

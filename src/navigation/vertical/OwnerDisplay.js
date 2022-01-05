@@ -18,7 +18,7 @@ import helperConfig from '../../helper-config.json'
 import Text from '../../views/CustomComponent/Text'
 import DropList from "./DropList"
 
-const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNickName }) => {
+const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNickName, globalVaultFlag }) => {
 
   const { account, chainId } = useEthers()
 
@@ -246,6 +246,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
 const mapStateToProps = (state) => ({
   networkC: state.appData.network,
   globalAdrs: state.appData.globalAdrs,
-  globalNickName: state.appData.globalNickName
+  globalNickName: state.appData.globalNickName,
+  globalVaultFlag: state.appData.globalVaultFlag
 })
 export default connect(mapStateToProps, null)(OwnerDisplay)
