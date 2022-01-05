@@ -85,9 +85,9 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
     // console.log('nickName', nickName)
 
     const onChangeAdrs = (e) => {
-        const vaultadd = e.target.value
-        if (isAddress(vaultadd)) {
-            setVadrs(vaultadd)
+        const vaultadrs = e.target.value
+        if (isAddress(vaultadrs)) {
+            setVadrs(vaultadrs)
             setAdrs_flag(true)
         } else {
             alert("Enter a valid address!")
