@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Avatar from '@components/avatar'
-import { FaHeart, FaRegHeart } from 'react-icons/fa'
+import { FaStar, FaRegStar } from 'react-icons/fa'
 import { connect } from 'react-redux'
 import * as AppData from '../../redux/actions/cookies/appDataType'
 
@@ -78,27 +78,27 @@ const Heart = ({ item, globalFavFlag, dispatch }) => {
     return (
         <div>
             {
-                //<Avatar color='light-info' icon={<FaHeart size={25} style={{ color: 'red' }} />} onClick={handleNotFav} />
-                //<Avatar color='light' icon={<FaRegHeart size={25} style={{ color: 'red' }} />} onClick={handleFav} />
+                //<Avatar color='light-info' icon={<FaStar size={25} style={{ color: '#FFCD3C' }} />} onClick={handleNotFav} />
+                //<Avatar color='light' icon={<FaRegStar size={25} style={{ color: '#FFCD3C' }} />} onClick={handleFav} />
                 flag === 0 &&
-                    item?.isFav === true && hicon === true ? (<Avatar color='light-info' icon={<FaHeart size={25} style={{ color: 'red' }} />} onClick={handleNotFav} />) : (null)
+                    item?.isFav === true && hicon === true ? (<Avatar color='light-info' icon={<FaStar size={25} style={{ color: '#FFCD3C' }} />} onClick={handleNotFav} />) : (null)
             }
             {
 
                 flag === 1 &&
-                    item?.isFav === true && hicon === true ? (<Avatar color='light' icon={<FaRegHeart size={25} style={{ color: 'red' }} />} onClick={handleFav} />) : (null)
+                    item?.isFav === true && hicon === true ? (<Avatar color='light' icon={<FaRegStar size={25} style={{ color: '#FFCD3C' }} />} onClick={handleFav} />) : (null)
             }
             {
-                (item?.isFav === false || item?.isFav === undefined) && hicon === false ? (<Avatar color='light' icon={<FaRegHeart size={25} style={{ color: 'red' }} />} onClick={handleFav} />) : (null)
+                (item?.isFav === false || item?.isFav === undefined) && hicon === false ? (<Avatar color='light' icon={<FaRegStar size={25} style={{ color: '#FFCD3C' }} />} onClick={handleFav} />) : (null)
             }
             {
-                item?.isFav === true && hicon === false ? (<Avatar color='light-info' icon={<FaHeart size={25} style={{ color: 'red' }} />} onClick={handleNotFav} />) : (null)
+                item?.isFav === true && hicon === false ? (<Avatar color='light-info' icon={<FaStar size={25} style={{ color: '#FFCD3C' }} />} onClick={handleNotFav} />) : (null)
             }
             {
-                item?.isFav === false && hicon === true ? (<Avatar color='light-info' icon={<FaHeart size={25} style={{ color: 'red' }} />} onClick={handleNotFav} />) : (null)
+                item?.isFav === false && hicon === true ? (<Avatar color='light-info' icon={<FaStar size={25} style={{ color: '#FFCD3C' }} />} onClick={handleNotFav} />) : (null)
             }
             {/* {
-                item?.isFav === true && hicon === false ? (<Avatar color='light' icon={<FaRegHeart size={25} style={{ color: 'red' }} />} onClick={handleFav} />) : (null)
+                item?.isFav === true && hicon === false ? (<Avatar color='light' icon={<FaRegStar size={25} style={{ color: '#FFCD3C' }} />} onClick={handleFav} />) : (null)
             } */}
 
         </div>

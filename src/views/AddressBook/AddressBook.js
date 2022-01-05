@@ -136,8 +136,16 @@ const AdddressBook = ({ globalFavFlag }) => {
         getAdrsBookList()
     }, [chainId, account, globalFavFlag])
 
+
+    const getVaultList = JSON.parse(localStorage.getItem('vaultdata'))
+    console.log('getVaultList', getVaultList)
+
+    const getSegaList = JSON.parse(localStorage.getItem('segadata'))
+    console.log('getSegaList', getSegaList)
+
     const [modal, setModal] = useState(false)
     const handleModal = () => setModal(!modal)
+
     const columns = [
         {
             name: 'Name',
@@ -166,7 +174,8 @@ const AdddressBook = ({ globalFavFlag }) => {
                     {<CopyAdrs item={row} />}
                     {<a href={getExplorerAddressLink(row.adrs, chainId ? chainId : 1)} target='_blank'><GoLinkExternal className='mr-1' size={25} color='grey' /></a>}
                     {/* {<Heart name={row.nickname} adrs={row.adrs} isFav={row.isFav} />} */}
-                    {<Heart item={row} />}
+                    {getVaultList.find(i => i.address === row.adrs) || getSegaList.find(i => i.address === row.adrs) ? <Heart item={row} /> : null}
+                    {/* {<Heart item={row} />} */}
                 </span>
             )
         },
