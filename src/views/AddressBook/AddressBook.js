@@ -174,7 +174,7 @@ const AdddressBook = ({ globalFavFlag }) => {
                     {<CopyAdrs item={row} />}
                     {<a href={getExplorerAddressLink(row.adrs, chainId ? chainId : 1)} target='_blank'><GoLinkExternal className='mr-1' size={25} color='grey' /></a>}
                     {/* {<Heart name={row.nickname} adrs={row.adrs} isFav={row.isFav} />} */}
-                    {getVaultList.find(i => i.address === row.adrs) || getSegaList.find(i => i.address === row.adrs) ? <Heart item={row} /> : null}
+                    {(getVaultList && getVaultList.find(i => i.address === row.adrs)) || (getSegaList && getSegaList.find(i => i.address === row.adrs)) ? <Heart item={row} /> : null}
                     {/* {<Heart item={row} />} */}
                 </span>
             )
