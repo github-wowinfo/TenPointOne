@@ -12,7 +12,7 @@ import { useState, useEffect } from "react"
 import { connect } from "react-redux"
 import * as AppData from '../../redux/actions/cookies/appDataType'
 
-const Manager = ({ globalAdrs, globalNickName, dispatch }) => {
+const Manager = ({ globalAdrs, globalNickName, dispatch, globalVaultFlag }) => {
     const { account, chainId } = useEthers()
 
     const isConnected = account !== undefined
@@ -55,7 +55,7 @@ const Manager = ({ globalAdrs, globalNickName, dispatch }) => {
             setCurr_Acc(account)
             getVaultListFromLocal()
         }
-    }, [account])
+    }, [account, globalVaultFlag])
 
     const [curt_account, setCurt_account] = useState(account)
     const [curt_chain, setCurt_chain] = useState(chainId)
@@ -141,7 +141,8 @@ const Manager = ({ globalAdrs, globalNickName, dispatch }) => {
 // export default Manager
 const mapStateToProps = (state) => ({
     globalAdrs: state.appData.globalAdrs,
-    globalNickName: state.appData.globalNickName
+    globalNickName: state.appData.globalNickName,
+    globalVaultFlag: state.appData.globalVaultFlag
 })
 const mapDispatchToProp = dispatch => ({ dispatch })
 

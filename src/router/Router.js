@@ -1,5 +1,5 @@
 // ** React Imports
-import { Suspense, useContext, lazy, useEffect } from 'react'
+import { Suspense, useContext, lazy, useEffect, useState } from 'react'
 
 // ** Utils
 import { isUserLoggedIn } from '@utils'
@@ -53,7 +53,7 @@ const Router = ({ globalAdrs, dispatch, globalNickName, globalVaultFlag }) => {
 
   useEffect(() => {
     handleGlobalLocal()
-  }, [account, chainId, globalVaultFlag])
+  }, [account, chainId])
 
   // ** Hooks
   const [layout, setLayout] = useLayout()

@@ -111,6 +111,7 @@ const CreateVaultModal = ({ openvault, handleVaultModal, globalVaultFlag, dispat
             console.log("***Handle New Vault: ", newVault)
             console.log("***Handle Short Vault: ", shortenAddress(newVault))
             setShowVaultCreatedSnack(true)
+
             if (globalVaultFlag === 0) {
                 dispatch(AppData.globalVaultFlag(1))
             } else {
