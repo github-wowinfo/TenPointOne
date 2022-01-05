@@ -204,12 +204,14 @@ const Send = ({ globalAdrs, globalNickName }) => {
     symbol: 'USDC'
   }
 
+  const [adrs_flag, setAdrs_flag] = useState(false)
   const fromAddress = globalAdrs
   const [toAddress, setToAddress] = useState('')
   const handleToAddressInput = (e) => {
     const newAddress = e.target.value
     if (isAddress(newAddress)) {
       setToAddress(newAddress)
+      setAdrs_flag(true)
       console.log("Setting To Address:", newAddress)
     }
   }
@@ -284,6 +286,7 @@ const Send = ({ globalAdrs, globalNickName }) => {
   }, [ercToken, tokenTicker, nativeToken, TokenZero])
 
   const [amount, setAmount] = useState('0')
+  const [amt_flag, setAmt_flag] = useState(false)
   const handleInputAmount = (event) => {
     // const newAmount = (event.target.value) === "" ? "0" : event.target.value
     let newAmount
@@ -294,6 +297,7 @@ const Send = ({ globalAdrs, globalNickName }) => {
     }
     if (newAmount) {
       setAmount(newAmount.toString())
+      setAmt_flag(true)
     } else {
       setAmount(0)
     }
@@ -505,27 +509,59 @@ const Send = ({ globalAdrs, globalNickName }) => {
             <Row >
               {is_sega ? (
                 <>
+                  {adrs_flag && amt_flag ? (
+                    <>
+                      <Col>
+                        <Button.Ripple color='primary' onClick={handleSegaTransfer} block >
+                          Send
+                        </Button.Ripple>
+                      </Col>
+                      <Col>
+                        <Button.Ripple color='primary' onClick={handleSegaApprove} block>
+                          Approve ERC
+                        </Button.Ripple>
+                      </Col>
+                      <Col>
+                        <Button.Ripple onClick={handleLog}>TestLog</Button.Ripple>
+                      </Col>
+                    </>
+                  ) : (
+                    <>
+                      <Col>
+                        <Button.Ripple color='primary' disabled block >
+                          Send
+                        </Button.Ripple>
+                      </Col>
+                      <Col>
+                        <Button.Ripple color='primary' disabled block>
+                          Approve ERC
+                        </Button.Ripple>
+                      </Col>
+                      <Col>
+                        <Button.Ripple disabled >TestLog</Button.Ripple>
+                      </Col>
+                    </>
+                  )}
+
+                </>
+              ) : (<>
+                {adrs_flag && amt_flag ? (
                   <Col>
-                    <Button.Ripple color='primary' onClick={handleSegaTransfer} block >
+                    <Button.Ripple color='primary' onClick={handleVaultSend} block>
                       Send
                     </Button.Ripple>
-                  </Col>
-                  <Col>
-                    <Button.Ripple color='primary' onClick={handleSegaApprove} block>
-                      Approve ERC
-                    </Button.Ripple>
-                  </Col>
-                  <Col>
                     <Button.Ripple onClick={handleLog}>TestLog</Button.Ripple>
                   </Col>
-                </>
-              ) : (
-                <Col>
-                  <Button.Ripple color='primary' onClick={handleVaultSend} block>
-                    Send
-                  </Button.Ripple>
-                  <Button.Ripple onClick={handleLog}>TestLog</Button.Ripple>
-                </Col>
+                ) : (
+                  <Col>
+                    <Button.Ripple color='primary' disabled block>
+                      Send
+                    </Button.Ripple>
+                    <Button.Ripple disabled>TestLog</Button.Ripple>
+                  </Col>
+                )}
+              </>
+
               )}
             </Row>
           </CardFooter>) : null}

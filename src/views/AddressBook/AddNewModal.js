@@ -23,20 +23,27 @@ import {
 } from 'reactstrap'
 import 'animate.css'
 import { useEthers } from '@usedapp/core'
+import { connect } from 'react-redux'
+import * as AppData from '../../redux/actions/cookies/appDataType'
 
-const AddNewModal = ({ open, handleModal }) => {
+const AddNewModal = ({ open, handleModal, dispatch, globalFavFlag }) => {
 
   const { account } = useEthers()
 
   const [name, setName] = useState('')
+  const [name_flag, setName_flag] = useState(false)
   const [adrss, setAdrss] = useState('')
+  const [adrs_flag, setAdrs_flag] = useState(false)
   const [chain, setChain] = useState([])
+  const [chain_flag, setChain_flag] = useState(false)
 
   const handleName = (e) => {
     if (e.target.value === '') {
       alert("Name cannot be blank!")
+      setName_flag(false)
     } else {
       setName(e.target.value)
+      setName_flag(true)
     }
   }
   console.log('name', name)
@@ -45,8 +52,10 @@ const AddNewModal = ({ open, handleModal }) => {
     const input_adrs = e.target.value
     if (isAddress(input_adrs)) {
       setAdrss(input_adrs)
+      setAdrs_flag(true)
     } else {
       alert("Enter a valid address")
+      setAdrs_flag(false)
     }
   }
   console.log('adrs', adrss)
@@ -55,10 +64,12 @@ const AddNewModal = ({ open, handleModal }) => {
     const isCheck = e.target.checked
     if (isCheck) {
       setChain([...chain, Number(e.target.value)])
+      setChain_flag(true)
     } else {
       const index = chain.indexOf(e.target.value)
       chain.splice(index, 1)
       setChain(chain)
+      setChain_flag(true)
     }
   }
   console.log('chain', chain)
@@ -77,16 +88,6 @@ const AddNewModal = ({ open, handleModal }) => {
       <Alert className='animate__animated animate__slideInDown' color='danger' isOpen={visible} toggle={() => setVisible(false)}>
         <div className='my-1 alert-heading'>
           <AlertTriangle size={20} /><span className='ml-1'>Please fill all the values!</span>
-        </div>
-      </Alert>
-    </Fragment>
-  )
-
-  const NameEmptyAlert = () => (
-    <Fragment>
-      <Alert className='animate__animated animate__slideInDown' color='warning' isOpen={visible} toggle={() => setVisible(false)}>
-        <div className='my-1 alert-heading'>
-          <AlertTriangle size={20} /><span className='ml-1'>Name cannot be blank!</span>
         </div>
       </Alert>
     </Fragment>
@@ -111,10 +112,21 @@ const AddNewModal = ({ open, handleModal }) => {
       }
       localStorage.setItem('adrsbook', JSON.stringify(adrsbook))
       setChain([])
+      if (globalFavFlag === 0) {
+        dispatch(AppData.globalFavFlag(1))
+      } else {
+        dispatch(AppData.globalFavFlag(0))
+      }
+      setName_flag(false)
+      setAdrs_flag(false)
+      setChain_flag(false)
       handleModal()
     } else {
       handleAlert()
     }
+    setName_flag(false)
+    setAdrs_flag(false)
+    setChain_flag(false)
   }
 
 
@@ -188,11 +200,16 @@ const AddNewModal = ({ open, handleModal }) => {
             <Label check>Mumbai</Label>
           </FormGroup>
         </FormGroup>
-        <Button className='mr-1' color='primary' onClick={() => {
-          handleSubmit()
-        }}>
-          Submit
-        </Button>
+        {name_flag && adrs_flag && chain_flag ? (
+          <Button className='mr-1' color='primary' onClick={() => {
+            handleSubmit()
+          }}>
+            Submit
+          </Button>
+        ) : (
+          <Button className='mr-1' color='primary' disabled> Submit </Button>
+        )}
+
         <Button color='secondary' onClick={handleModal} outline>
           Cancel
         </Button>
@@ -201,4 +218,11 @@ const AddNewModal = ({ open, handleModal }) => {
   )
 }
 
-export default AddNewModal
+// export default AddNewModal
+const mapStateToProps = (state) => ({
+  globalAdrs: state.appData.globalAdrs,
+  globalNickName: state.appData.globalNickName,
+  globalFavFlag: state.appData.globalFavFlag
+})
+const mapDispatchToProp = dispatch => ({ dispatch })
+export default connect(mapStateToProps, mapDispatchToProp)(AddNewModal)
