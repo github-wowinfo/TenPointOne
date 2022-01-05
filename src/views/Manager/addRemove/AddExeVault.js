@@ -9,7 +9,7 @@ import Select from 'react-select'
 import { connect } from 'react-redux'
 import * as AppData from '../../../redux/actions/cookies/appDataType'
 
-const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNickName, dispatch }) => {
+const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNickName, dispatch, globalVaultFlag }) => {
 
     const { account, chainId } = useEthers()
 
@@ -122,6 +122,11 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
             vaultdata = [postdata]
         }
         localStorage.setItem('vaultdata', JSON.stringify(vaultdata))
+        if (globalVaultFlag === 0) {
+            dispatch(AppData.globalVaultFlag(1))
+        } else {
+            dispatch(AppData.globalVaultFlag(0))
+        }
         setName_flag(false)
         setAdrs_flag(false)
         console.log('Vault added')

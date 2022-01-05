@@ -16,7 +16,7 @@ import { connect } from 'react-redux'
 import * as AppData from '../redux/actions/cookies/appDataType'
 import axios from 'axios'
 
-const Home = ({ globalAdrs, dispatch, globalNickName }) => {
+const Home = ({ globalVaultFlag, globalAdrs, dispatch, globalNickName }) => {
 
   const { account, chainId } = useEthers()
 
@@ -126,7 +126,7 @@ const Home = ({ globalAdrs, dispatch, globalNickName }) => {
       setCurr_Acc(account)
       getVaultListFromLocal()
     }
-  }, [account])
+  }, [account, globalVaultFlag])
 
   console.log('globalNickName', globalNickName)
   const [assetList, setAssetList] = useState([])
@@ -204,7 +204,8 @@ const Home = ({ globalAdrs, dispatch, globalNickName }) => {
 
 const mapStateToProps = (state) => ({
   globalAdrs: state.appData.globalAdrs,
-  globalNickName: state.appData.globalNickName
+  globalNickName: state.appData.globalNickName,
+  globalVaultFlag: state.appData.globalVaultFlag
 })
 const mapDispatchToProp = dispatch => ({ dispatch })
 export default connect(mapStateToProps, mapDispatchToProp)(Home)

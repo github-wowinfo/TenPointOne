@@ -29,12 +29,14 @@ import { useEthers, shortenIfAddress, getExplorerAddressLink } from '@usedapp/co
 import Heart from './Heart'
 import { FaRegCopy } from 'react-icons/fa'
 import { GoLinkExternal } from 'react-icons/go'
-import { toast } from 'react-toastify'
-import Avatar from '@components/avatar'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import CopyAdrs from './CopyAdrs'
+import ChangeName from './ChangeName'
+import { connect } from 'react-redux'
+import * as AppData from '../../redux/actions/cookies/appDataType'
 
-const AdddressBook = () => {
+const AdddressBook = ({ globalFavFlag }) => {
 
     const { account, chainId } = useEthers()
 
@@ -117,98 +119,22 @@ const AdddressBook = () => {
         }
     }, [chainId, account])
 
-    const [text, setText] = useState(account)
 
-    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false })
-
-    const copy = async () => {
-        await navigator.clipboard.writeText(text)
-        notifySuccess()
+    const [data, setData] = useState([])
+    const getAdrsBookList = () => {
+        const getdata = JSON.parse(localStorage.getItem('adrsbook'))
+        const adrsData = getdata && getdata.filter(i => i.owner === account)
+        console.log()
+        if (getdata) {
+            setData(adrsData)
+        } else {
+            setData([])
+        }
     }
 
-    const SuccessToast = () => (
-        <Fragment>
-            <div className='toastify-header'>
-                <div className='title-wrapper'>
-                    <Avatar size='sm' color='success' icon={<Clipboard size={12} />} />
-                    <h6 className='toast-title'>Copied to Clipboard!</h6>
-                </div>
-            </div>
-        </Fragment>
-    )
-
-    // const vaultData = JSON.parse(localStorage.getItem('vaultdata'))
-    // const vfilter = vaultData.map(v => ({
-    //     nickname: v.name,
-    //     adrs: v.address,
-    //     chain: v.network,
-    //     icon1: <FaRegCopy className='mx-1' size={20} />,
-    //     icon2: <GoLinkExternal className='mx-1' size={20} />,
-    //     fav: <Heart />
-    // }))
-
-    // const segaData = JSON.parse(localStorage.getItem('segadata'))
-    // const sfilter = segaData.map(s => ({
-    //     nickname: s.name,
-    //     adrs: s.address,
-    //     chain: s.network,
-    //     icon1: <FaRegCopy className='mx-1' size={20} />,
-    //     icon2: <GoLinkExternal className='mx-1' size={20} />,
-    //     fav: <Heart />
-    // }))
-
-    // const adrslist = [...vfilter, ...sfilter]
-    // const adrslist = Array.prototype.push.apply(vfilter, sfilter)
-
-    // localStorage.setItem('adrsbook', JSON.stringify(vfilter))
-
-    // const adrsbook = adrslist
-    // if (getdata) {
-    //     adrsbook = [adrslist]
-    // }
-    // useEffect(() => {
-    //     const getdata = JSON.parse(localStorage.getItem('adrsbook'))
-    //     if (getdata) {
-    //         const adrsbook = adrslist
-    //         localStorage.setItem('adrsbook', JSON.stringify(adrsbook))
-    //     } else {
-    //         const adrsbook = adrslist
-    //         localStorage.setItem('adrsbook', JSON.stringify(adrsbook))
-    //     }
-
-    //     console.log('adrsbook', adrsbook)
-    // }, [])
-    // localStorage.setItem('adrsbook', JSON.stringify(adrsbook))
-    // console.log('adrsbook', adrsbook)
-
-    // console.log('vaultData', vaultData)
-    // console.log('vfilter', vfilter)
-
-    // console.log('segaData', segaData)
-    // console.log('sfilter', sfilter)
-
-    // console.log('adrslist', adrslist)
-
-    // useEffect(() => {
-    //     const getdata = JSON.parse(localStorage.getItem('adrsbook'))
-    //     let data = []
-    //     if (getdata) {
-    //         data = getdata
-    //     } else {
-    //         data = []
-    //     }
-
-    // }, [])
-
-
-    const getdata = JSON.parse(localStorage.getItem('adrsbook'))
-    const adrsData = getdata && getdata.filter(i => i.owner === account)
-    let data = []
-    if (getdata) {
-        data = adrsData
-    } else {
-        data = []
-    }
+    useEffect(() => {
+        getAdrsBookList()
+    }, [chainId, account, globalFavFlag])
 
     const [modal, setModal] = useState(false)
     const handleModal = () => setModal(!modal)
@@ -216,28 +142,29 @@ const AdddressBook = () => {
         {
             name: 'Name',
             sortable: true,
-            selector: row => row.nickname
-            // selector: row => row.name
+            selector: row => (
+                <div className='d-flex flex-row justify-content-between'>
+                    <span className='mr-1'>
+                        {<ChangeName item={row} />}
+                    </span>
+                    <span>
+                        {row.nickname}
+                    </span>
+                </div>
+            )
         },
         {
             name: 'Address',
             selector: 'adrs',
-            // cell: row => (
-            //     <div className='d-flex flex-row flex-nowrap justify-center'>
-            //         {/* {row.avatar} */}
-            //         <label style={{ fontSize: '14px' }} className='font-weight-bold mx-1'>{row.adrs}</label>
-            //     </div>
-            // )
             cell: row => shortenIfAddress(row.adrs)
-
-            // cell: row => row.adrs
         },
         {
             name: '',
             cell: row => (
                 <span className='d-flex felx-row align-items-center'>
-                    {<FaRegCopy style={{ cursor: 'pointer' }} className='mx-1' size={25} />}
-                    {<a href={getExplorerAddressLink(row.adrs, row.network)} target='_blank'><GoLinkExternal className='mr-1' size={25} /></a>}
+                    {/* {<FaRegCopy style={{ cursor: 'pointer' }} className='mx-1' size={25} />} */}
+                    {<CopyAdrs item={row} />}
+                    {<a href={getExplorerAddressLink(row.adrs, chainId ? chainId : 1)} target='_blank'><GoLinkExternal className='mr-1' size={25} color='grey' /></a>}
                     {/* {<Heart name={row.nickname} adrs={row.adrs} isFav={row.isFav} />} */}
                     {<Heart item={row} />}
                 </span>
@@ -254,17 +181,7 @@ const AdddressBook = () => {
                     {/* <Icon name={row.network} size={25} /> */}
                 </div>
             )
-        },
-        // {
-        //     name: '',
-        //     maxWidth: '10px',
-        //     right: true,
-        //     selector: row => (
-        //         <div className='text-center'>
-        //             {row.fav}
-        //         </div>
-        //     )
-        // }
+        }
     ]
 
     const tablestyle = {
@@ -361,4 +278,11 @@ const AdddressBook = () => {
     )
 }
 
-export default AdddressBook
+// export default AdddressBook
+const mapStateToProps = (state) => ({
+    globalAdrs: state.appData.globalAdrs,
+    globalNickName: state.appData.globalNickName,
+    globalFavFlag: state.appData.globalFavFlag
+})
+const mapDispatchToProp = dispatch => ({ dispatch })
+export default connect(mapStateToProps, mapDispatchToProp)(AdddressBook)

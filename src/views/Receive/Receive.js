@@ -168,7 +168,7 @@ const Receive = ({ networkC, globalAdrs, globalNickName }) => {
                   <Col>
                     <span className='d-flex flex-row justify-content-center'>
                       <FaRegCopy style={{ cursor: 'pointer' }} className='mx-1 mt-1' color='grey' size={20} onClick={copy} />
-                      <a href={getExplorerAddressLink(account, chainId)} target='_blank'><GoLinkExternal className='mx-1 mt-1' color='grey' size={20} /></a>
+                      <a href={getExplorerAddressLink(globalAdrs, chainId)} target='_blank'><GoLinkExternal className='mx-1 mt-1' color='grey' size={20} /></a>
                     </span>
                   </Col>
                   <Col className='text-center '>

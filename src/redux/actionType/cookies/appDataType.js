@@ -6,6 +6,8 @@ export const GLOBAL_FLAG = 'GLOBAL_FLAG'
 
 export const GLOBAL_FAV_FLAG = 'GLOBAL_FAV_FLAG'
 
+export const GLOBAL_VAULT_FLAG = 'GLOBAL_VAULT_FLAG'
+
 export const GLOBAL_ADRS = 'GLOBAL_ADRS'
 
 export const GLOBAL_NICK_NAME = 'GLOBAL_NICK_NAME'

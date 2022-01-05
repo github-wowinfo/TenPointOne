@@ -11,6 +11,7 @@ import ChildrenSega from './ChildrenSega'
 import { useRCU } from '../../../../utility/hooks/useRCU'
 import { useVault } from '../../../../utility/hooks/useVaults'
 import { useEthers, getExplorerAddressLink, getExplorerTransactionLink } from "@usedapp/core"
+import CopyAdrsSegaList from './CopyAdrsSegaList'
 
 const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
 
@@ -95,33 +96,10 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
         // }
     }
 
-
-    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
-
-    // const copy = async () => {
-    //     await navigator.clipboard.writeText(sega)
-    //     notifySuccess()
-    // }
-
-    const SuccessToast = () => (
-        <Fragment>
-            <div className='toastify-header'>
-                <div className='title-wrapper'>
-                    <Avatar size='sm' color='success' icon={<Clipboard size={12} />} />
-                    <h6 className='toast-title'>Copied to Clipboard!</h6>
-                </div>
-            </div>
-        </Fragment>
-    )
-
     const slist = SegaList && SegaList.map((sega, index) => ({
         id: index,
         address: sega,
-        icon1: <FaRegCopy className='mx-1' onClick={() => {
-            navigator.clipboard.writeText(sega)
-            // notifySuccess()
-            alert('hi')
-        }} />,
+        icon1: <CopyAdrsSegaList item={sega} />,
         icon2: <a href={getExplorerAddressLink(sega.address, chainId ? chainId : 1)} target='_blank'><GoLinkExternal className='mx-1' /></a>
     }))
 

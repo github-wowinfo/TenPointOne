@@ -25,36 +25,8 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultN
                 </div>
             )
         }
-        // {
-        //     name: 'Created On',
-        //     maxWidth: '130px',
-        //     selector: row => row.date
-        // }
     ]
 
-    // const data = [
-    //     {
-    //         id: '1',
-    //         address: '0x851De59419E68133803eC175159b9F3ecFf8C5A0',
-    //         icon1: <FaRegCopy className='mx-1' />,
-    //         icon2: <GoLinkExternal className='mx-1' />,
-    //         date: '12 Sep 2021'
-    //     },
-    //     {
-    //         id: '2',
-    //         address: '0x851De59419E68133803eC175159b9F3ecFf8C5A0',
-    //         icon1: <FaRegCopy className='mx-1' />,
-    //         icon2: <GoLinkExternal className='mx-1' />,
-    //         date: '01 Oct 2021'
-    //     },
-    //     {
-    //         id: '3',
-    //         address: '0x851De59419E68133803eC175159b9F3ecFf8C5A0',
-    //         icon1: <FaRegCopy className='mx-1' />,
-    //         icon2: <GoLinkExternal className='mx-1' />,
-    //         date: '10 Oct 2021'
-    //     }
-    // ]
     const actualSegas = segas.filter((sega) => { return sega.address !== "0x0000000000000000000000000000000000000000" })
 
     const data = actualSegas
@@ -112,9 +84,6 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultN
                     <Button.Ripple className='mx-1' style={{ minWidth: '10vw' }} color='primary' onClick={handleSegaLocalModal}>
                         Add Selected Sega
                     </Button.Ripple>
-                    {/* <Button.Ripple className='mx-1' style={{ minWidth: '10vw' }} color='primary' onClick={handleChildSegatModal}>
-                        Add All Sega
-                    </Button.Ripple> */}
                 </ModalFooter>
             </Modal>
             <SegaLocal opensegaLocalModal={segaLocalModal} handleSegaLocalModal={handleSegaLocalModal} vault={vault} segas={selectedRows} />

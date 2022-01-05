@@ -87,6 +87,11 @@ const UserDropdown = ({ networkC }) => {
 
   // const networkName = chainId ? helperConfig[chainId] : "Not Connected"
 
+  const externalLink = () => {
+    // window.location.href = getExplorerAddressLink(account, chainId)
+    window.open(getExplorerAddressLink(account, chainId), '_blank')
+  }
+
   return (
     <>
       <Dropdown isOpen={dropdownOpen} toggle={toggle} tag='li' className='nav-item'>
@@ -127,7 +132,6 @@ const UserDropdown = ({ networkC }) => {
                   flex: 1,
                   justifyContent: 'center'
                 }}>
-
                   <Avatar size='lg' color='light-success' title='SBI Vault' icon={<User size={25} />} href='/home' />
                 </div>
                 <br />
@@ -137,10 +141,9 @@ const UserDropdown = ({ networkC }) => {
                 }}>
                   {/* <label className='mr-1'> {account && account.slice(0, 4)}...{account && account.slice(account.length - 4, account.length)}</label> */}
                   <label className='mr-1'> {shortenIfAddress(account)}</label>
-                  {/* {account.slice(0, 4)}...{account.slice(account.length - 4, account.length)} */}
-                  {/* <Text name={account} fchar={4} lchar={4} /> */}
                   <FaRegCopy style={{ cursor: 'pointer' }} size={15} className='mr-1' onClick={copy} />
-                  <a href={getExplorerAddressLink(account, chainId)} target='_main'><GoLinkExternal size={15} /></a>
+                  {/* <a href={getExplorerAddressLink(account, chainId)} target='blank'><GoLinkExternal size={15} color='grey' /></a> */}
+                  <GoLinkExternal size={15} style={{ cursor: 'pointer' }} color='grey' onClick={externalLink} />
                 </div>
               </div>
             </DropdownItem>

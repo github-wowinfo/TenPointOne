@@ -14,7 +14,7 @@ import { toast } from 'react-toastify'
 import { Clipboard } from "react-feather"
 import { connect } from 'react-redux'
 import { useState, Fragment, useEffect } from 'react'
-import { useEthers, getExplorerAddressLink, shortenIfAddress, CurrencyValue, Token, useEtherBalance, useTokenBalance, getExplorerTransactionLink } from '@usedapp/core'
+import { useEthers, getExplorerAddressLink, shortenIfAddress, CurrencyValue, Token, useEtherBalance, useTokenBalance, getExplorerTransactionLink, shortenIfTransactionHash } from '@usedapp/core'
 import axios from 'axios'
 import helperConfig from '../../helper-config.json'
 import { constants, utils, BigNumber } from "ethers"
@@ -136,7 +136,7 @@ const Send = ({ globalAdrs, globalNickName }) => {
   }
 
   // const [text, setText] = useState(globalAdrs)
-  const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
+  const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false })
   const copy = async () => {
     await navigator.clipboard.writeText(globalAdrs)
     notifySuccess()
@@ -207,7 +207,7 @@ const Send = ({ globalAdrs, globalNickName }) => {
   const fromAddress = globalAdrs
   const [toAddress, setToAddress] = useState('')
   const handleToAddressInput = (e) => {
-    const newAddress = event.target.value
+    const newAddress = e.target.value
     if (isAddress(newAddress)) {
       setToAddress(newAddress)
       console.log("Setting To Address:", newAddress)
@@ -321,7 +321,19 @@ const Send = ({ globalAdrs, globalNickName }) => {
     TransferState
   } = useTransfers(fromAddress, toAddress)
 
+  //SNACKBAR FOR GENERAL TRANSACTIONS
+  const [txnID, setTxnID] = useState("")
+  const [showTxnMiningSnack, setShowTxnMiningSnack] = useState(false)
+  const [showTxnSuccessSnack, setTxnSuccessSnack] = useState(false)
+
+  const handleTxnSnackClose = () => {
+    console.log("Txn In Progress / Completed:", getExplorerTransactionLink(txnID, Number(chainId)))
+    setShowTxnMiningSnack(false)
+    setTxnSuccessSnack(false)
+  }
+
   const handleVaultSend = () => {
+    handleTxnSnackClose()
     console.log("handleVaultSend")
     if (usingNative) {
       vaultTransferNative(toAddress.toString(), bigNumAmount)
@@ -331,6 +343,7 @@ const Send = ({ globalAdrs, globalNickName }) => {
   }
 
   const handleSegaTransfer = () => {
+    handleTxnSnackClose()
     console.log("handleSegaTransfer")
     if (usingNative) {
       segaTransferNative(toAddress.toString(), bigNumAmount)
@@ -340,6 +353,7 @@ const Send = ({ globalAdrs, globalNickName }) => {
   }
 
   const handleSegaApprove = () => {
+    handleTxnSnackClose()
     console.log("handleSegaApprove")
     segaApproveErc(toAddress.toString(), tokenAddress.toString(), bigNumAmount)
   }
@@ -358,24 +372,15 @@ const Send = ({ globalAdrs, globalNickName }) => {
     console.log("To Address", toAddress)
   }
 
-  // const [txnID, setTxnID] = useState("")
-  // const [showTxnMiningSnack, setShowTxnMiningSnack] = useState(false)
-  // const [showTxnSuccessSnack, setTxnSuccessSnack] = useState(false)
-  // const handleTxnSnackClose = () => {
-  //   console.log("Txn In Progress / Completed:", getExplorerTransactionLink(txnID, Number(chainId)))
-  //   setShowTxnMiningSnack(false)
-  //   setTxnSuccessSnack(false)
-  // }
-
-  // useEffect(() => {
-  //   if (TransferState.status === "Mining") {
-  //     const tx_id = String(TransferState.transaction?.hash)
-  //     setTxnID(tx_id.toString())
-  //     console.log("***Handle TX_ID: ", TransferState.status, tx_id)
-  //     setShowTxnMiningSnack(true)
-  //   }
-  //   if (TransferState.status === "Success") { setTxnSuccessSnack(true) }
-  // }, [TransferState])
+  useEffect(() => {
+    if (TransferState.status === "Mining") {
+      const tx_id = String(TransferState.transaction?.hash)
+      setTxnID(tx_id.toString())
+      console.log("***Handle TX_ID: ", TransferState.status, tx_id)
+      setShowTxnMiningSnack(true)
+    }
+    if (TransferState.status === "Success") { setTxnSuccessSnack(true) }
+  }, [TransferState])
 
   const logos = [
     {
@@ -501,7 +506,7 @@ const Send = ({ globalAdrs, globalNickName }) => {
               {is_sega ? (
                 <>
                   <Col>
-                    <Button.Ripple color='primary' onClick={handleVaultSend} block >
+                    <Button.Ripple color='primary' onClick={handleSegaTransfer} block >
                       Send
                     </Button.Ripple>
                   </Col>
@@ -516,28 +521,28 @@ const Send = ({ globalAdrs, globalNickName }) => {
                 </>
               ) : (
                 <Col>
-                  <Button.Ripple color='primary' onClick={handleSegaTransfer} block>
+                  <Button.Ripple color='primary' onClick={handleVaultSend} block>
                     Send
                   </Button.Ripple>
                   <Button.Ripple onClick={handleLog}>TestLog</Button.Ripple>
                 </Col>
               )}
             </Row>
-            {/* <Col className='d-flex flex-column justify-content-center'>
-              <Alert open={showTxnMiningSnack} onClose={handleTxnSnackClose} color="info">
-                <div>Transaction in Progress- Txn ID : &emsp; </div>
-                <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
-                  target="_blank" rel="noreferrer">
-                  {(txnID)} </a>
-              </Alert>
-              <Alert open={showTxnSuccessSnack} onClose={handleTxnSnackClose} color="success">
-                <div>Transaction Completed - Txn ID :</div>
-                <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
-                  target="_blank" rel="noreferrer">
-                  {(txnID)} </a>
-              </Alert>
-            </Col> */}
           </CardFooter>) : null}
+          <Col className='d-flex flex-column justify-content-center'>
+            <Alert isOpen={showTxnMiningSnack} toggle={() => handleTxnSnackClose()} color="info">
+              <div>Transaction in Progress- Txn ID : &emsp; </div>
+              <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
+                target="_blank" rel="noreferrer">
+                {shortenIfTransactionHash(txnID)} </a>
+            </Alert>
+            <Alert isOpen={showTxnSuccessSnack} toggle={() => handleTxnSnackClose()} color="success">
+              <div>Transaction Completed - Txn ID :</div>
+              <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
+                target="_blank" rel="noreferrer">
+                {shortenIfTransactionHash(txnID)} </a>
+            </Alert>
+          </Col>
         </Card>
       </Col>) : disconnect()}
     </>

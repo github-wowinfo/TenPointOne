@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import * as AppData from '../../redux/actions/cookies/appDataType'
 import { isAddress } from "ethers/lib/utils"
 import { X } from 'react-feather'
+import CopyAdrsDropList from './CopyAdrsDropList'
 
 const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNickName }) => {
 
@@ -113,7 +114,8 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                                                     <h6 className='font-weight-light'>{shortenIfAddress(i.adrs)}</h6>
                                                 </Col>
                                                 <Col>
-                                                    <FaRegCopy color='grey' size={15} />
+                                                    {/* <FaRegCopy color='grey' size={15} /> */}
+                                                    <CopyAdrsDropList item={i} />
                                                     <a href={getExplorerAddressLink(i.adrs, chainId)} target='_blank'><GoLinkExternal color='grey' size={15} /></a>
                                                 </Col>
                                             </Row>
@@ -130,7 +132,8 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                                                                     <h6 className='font-weight-light'>{shortenIfAddress(j.adrs)}</h6>
                                                                 </Col>
                                                                 <Col>
-                                                                    <FaRegCopy color='grey' size={15} />
+                                                                    {/* <FaRegCopy color='grey' size={15} /> */}
+                                                                    <CopyAdrsDropList item={j} />
                                                                     <a href={getExplorerAddressLink(j.adrs, chainId)} target='_blank'><GoLinkExternal color='grey' size={15} /></a>
                                                                 </Col>
                                                             </Row>

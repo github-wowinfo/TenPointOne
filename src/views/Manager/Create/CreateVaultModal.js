@@ -6,8 +6,10 @@ import { useEthers, useNotifications, shortenAddress, getExplorerAddressLink, ge
 import { useRCU } from '../../../utility/hooks/useRCU'
 import { getAddress, hexStripZeros } from "ethers/lib/utils"
 import React, { useState, useEffect, Fragment } from "react"
+import { connect } from 'react-redux'
+import * as AppData from '../../../redux/actions/cookies/appDataType'
 
-const CreateVaultModal = ({ openvault, handleVaultModal }) => {
+const CreateVaultModal = ({ openvault, handleVaultModal, globalVaultFlag, dispatch }) => {
 
     // const CloseBtn = <X className='cursor-pointer' size={25} onClick={handleModal} />
 
@@ -109,6 +111,11 @@ const CreateVaultModal = ({ openvault, handleVaultModal }) => {
             console.log("***Handle New Vault: ", newVault)
             console.log("***Handle Short Vault: ", shortenAddress(newVault))
             setShowVaultCreatedSnack(true)
+            if (globalVaultFlag === 0) {
+                dispatch(AppData.globalVaultFlag(1))
+            } else {
+                dispatch(AppData.globalVaultFlag(0))
+            }
 
             const getAdrsdata = JSON.parse(localStorage.getItem('adrsbook'))
             const adrsdata =
@@ -203,4 +210,11 @@ const CreateVaultModal = ({ openvault, handleVaultModal }) => {
     )
 }
 
-export default CreateVaultModal
+// export default CreateVaultModal
+const mapStateToProps = (state) => ({
+    globalAdrs: state.appData.globalAdrs,
+    globalNickName: state.appData.globalNickName,
+    globalVaultFlag: state.appData.globalVaultFlag
+})
+const mapDispatchToProp = dispatch => ({ dispatch })
+export default connect(mapStateToProps, mapDispatchToProp)(CreateVaultModal)

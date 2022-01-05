@@ -11,7 +11,11 @@ const Heart = ({ item, globalFavFlag, dispatch }) => {
     const [flag, setflag] = useState(0)
 
     const handleFav = () => {
-        dispatch(AppData.globalFavFlag(1))
+        if (globalFavFlag === 0) {
+            dispatch(AppData.globalFavFlag(1))
+        } else {
+            dispatch(AppData.globalFavFlag(0))
+        }
         setHicon(!hicon)
         setflag(1)
         const getFavData = JSON.parse(localStorage.getItem('fav'))
@@ -40,6 +44,11 @@ const Heart = ({ item, globalFavFlag, dispatch }) => {
     }
 
     const handleNotFav = () => {
+        if (globalFavFlag === 0) {
+            dispatch(AppData.globalFavFlag(1))
+        } else {
+            dispatch(AppData.globalFavFlag(0))
+        }
         setHicon(!hicon)
         setflag(1)
         const getFavData = JSON.parse(localStorage.getItem('fav'))
@@ -62,9 +71,9 @@ const Heart = ({ item, globalFavFlag, dispatch }) => {
             console.log('No fav data')
         }
     }
-    console.log('hicon', hicon)
-    console.log('item.isFav', item.isFav)
-    // console.log('isFav', item.isFav)
+    // console.log('hicon', hicon)
+    // console.log('item.isFav', item.isFav)
+    console.log('globalFavFlag', globalFavFlag)
 
     return (
         <div>
