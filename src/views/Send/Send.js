@@ -323,7 +323,7 @@ const Send = ({ globalAdrs, globalNickName }) => {
     segaTransferErc,
     segaApproveErc,
     TransferState
-  } = useTransfers(fromAddress, toAddress)
+  } = useTransfers(fromAddress, fromAddress)
 
   //SNACKBAR FOR GENERAL TRANSACTIONS
   const [txnID, setTxnID] = useState("")
