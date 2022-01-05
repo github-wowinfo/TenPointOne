@@ -32,6 +32,10 @@ const Favourites = ({ globalAdrs, dispatch, globalNickName, globalFavFlag }) => 
         dispatch(AppData.globalNickName(name))
     }
 
+    // console.log('fav_list', fav_list)
+    // console.log('globalNickName', globalNickName)
+    // console.log('globalAdrs', globalAdrs)
+
     return (
         <div className='mb-1'>
             <Col>
@@ -43,7 +47,7 @@ const Favourites = ({ globalAdrs, dispatch, globalNickName, globalFavFlag }) => 
                         <>
                             <Row className='px-1 d-flex flex-row justify-conten-center' >
                                 <Col>
-                                    <Link onClick={() => handleGlobal(i.fav_adrs, i.fav_name)} >{i.nickname}</Link>
+                                    <Link onClick={() => handleGlobal(i.adrs, i.nickname)} >{i.nickname}</Link>
                                 </Col>
                                 <Col>
                                     <h6>{shortenIfAddress(i.adrs)}</h6>
