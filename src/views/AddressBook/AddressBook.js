@@ -119,14 +119,15 @@ const AdddressBook = ({ globalFavFlag, dispatch }) => {
             }
         }
         localStorage.setItem('adrsbook', JSON.stringify(getAdrsBookList))
+        // if (getdata) {
+        //     localStorage.removeItem('adrsbook')
+        // }
         if (globalFavFlag === 0) {
             dispatch(AppData.globalFavFlag(1))
         } else {
             dispatch(AppData.globalFavFlag(0))
         }
-        // if (getdata) {
-        //     localStorage.removeItem('adrsbook')
-        // }
+
     }
 
     const handleConfirmDelete = () => {
