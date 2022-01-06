@@ -155,7 +155,7 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
                 owner: account,
                 nickname: nickName,
                 adrs: newSega,
-                network: [chainId]
+                network: chainId
             }
             let adrsbook = []
             if (getAdrsdata) {

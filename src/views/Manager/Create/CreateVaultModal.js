@@ -124,7 +124,7 @@ const CreateVaultModal = ({ openvault, handleVaultModal, globalVaultFlag, dispat
                 owner: account,
                 nickname: nickName,
                 adrs: newVault,
-                network: [chainId]
+                network: chainId
             }
             let adrsbook = []
             if (getAdrsdata) {

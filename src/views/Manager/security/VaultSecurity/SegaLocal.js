@@ -45,7 +45,7 @@ const SegaLocal = ({ opensegaLocalModal, handleSegaLocalModal, segas, vault }) =
             owner: account,
             nickname: segaList.name,
             adrs: segaList.address,
-            network: [chainId]
+            network: chainId
         }
         let adrsbook = []
         if (getAdrsdata) {
