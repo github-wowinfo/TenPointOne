@@ -4,7 +4,7 @@ import Select, { components } from 'react-select'
 import { selectThemeColors } from '@utils'
 import { FaRegCopy } from 'react-icons/fa'
 import { GoLinkExternal } from 'react-icons/go'
-import { BsArrowDown, BsSafe2 } from 'react-icons/bs'
+import { BsArrowDown, BsArrowRightCircle, BsSafe2 } from 'react-icons/bs'
 import { SiWebmoney } from 'react-icons/si'
 import { IoQrCodeOutline } from 'react-icons/io5'
 import { Card, CardHeader, CardTitle, CardBody, CardFooter, Form, FormGroup, Label, Input, Button, Row, Col, CardText, NavLink, Alert } from 'reactstrap'
@@ -95,7 +95,7 @@ const Send = ({ globalAdrs, globalNickName }) => {
     })
   }
 
-  console.log('curt_account', curt_account)
+  // console.log('curt_account', curt_account)
 
   useEffect(() => {
     if (chainId !== curt_chain) {
@@ -119,7 +119,7 @@ const Send = ({ globalAdrs, globalNickName }) => {
   useEffect(() => {
     getSegaListFromLocal()
     const segaadrs = segaList && segaList.find(i => i.adrs === globalAdrs)
-    console.log('segaadrs', segaadrs)
+    // console.log('segaadrs', segaadrs)
     if (segaadrs === undefined) {
       setis_sega(false)
     } else {
@@ -127,7 +127,7 @@ const Send = ({ globalAdrs, globalNickName }) => {
     }
   }, [globalAdrs, account, chainId, is_sega])
 
-  console.log('is_sega', is_sega)
+  // console.log('is_sega', is_sega)
 
   const cardStyle = {
     display: 'flex',
@@ -243,10 +243,15 @@ const Send = ({ globalAdrs, globalNickName }) => {
   let tokenList
   helperConfig.testnetworks.includes(chainId) ? tokenList = [native].concat(erc20List).concat(apiList) : tokenList = apiList
 
-  // const tokenList = [native].concat(erc20List).concat(apiList)
-  // const tokenList = [nativeToken.ticker].concat(erc20List).concat(apiList).concat(native)
-  // const tokenList = [nativeToken.ticker].concat(erc20List)
-  // const tokenList = [nativeToken.ticker].concat(erc20List).concat(apiList)
+  // let curr_acc_token
+  // let curr_acc_balance
+  // let acc_balance
+  // if (helperConfig.testnetworks.includes(chainId)) {
+  //   curr_acc_token = native
+  //   curr_acc_balance = useEtherBalance(fromAddress)
+  //   acc_balance = new CurrencyValue(nativeToken, curr_acc_balance ? curr_acc_balance : BigNumber.from(0))
+  // }
+  // console.log('curr_acc_token', curr_acc_token)
 
   const [haveToken, setHaveToken] = useState(0)
   const [usingNative, setUsingNative] = useState(0)
@@ -408,20 +413,20 @@ const Send = ({ globalAdrs, globalNickName }) => {
             <CardTitle>Send Funds</CardTitle>
           </CardHeader>
           <hr />
-          <CardBody className='p-1'>
-            <Row>
-              <Col className='py-1' style={{ ...backgroundChange, textAlign: 'center', height: '100%' }}>
-                <CardText style={{ color: 'white' }}><Icon className='mr-1' name={networkIcon} size={20} />Only send to {networkName} address</CardText>
-              </Col>
-            </Row>
-            {globalNickName === 'Create a Vault' ? (
-              <Col style={{ fontSize: '2em' }} className='my-1 d-flex flex-row justify-content-center align-items-center'>
-                <NavLink href='/manager' >
-                  CREATE A VAULT
-                </NavLink>
-              </Col>
-            ) : (
-              <>
+          {globalNickName === 'Create a Vault' ? (
+            <Col style={{ fontSize: '2em' }} className='d-flex flex-row justify-content-center align-items-center'>
+              <NavLink href='/manager' >
+                CREATE A VAULT <BsArrowRightCircle size={35} />
+              </NavLink>
+            </Col>
+          ) : (
+            <>
+              <CardBody className='p-1'>
+                <Row>
+                  <Col className='py-1' style={{ ...backgroundChange, textAlign: 'center', height: '100%' }}>
+                    <CardText style={{ color: 'white' }}><Icon className='mr-1' name={networkIcon} size={20} />Only send to {networkName} address</CardText>
+                  </Col>
+                </Row>
                 <Row className='d-flex flex-column'>
                   <Col className='d-flex flex-row py-1'>
                     {is_sega ? (
@@ -439,7 +444,15 @@ const Send = ({ globalAdrs, globalNickName }) => {
                         <a href={getExplorerAddressLink(globalAdrs, chainId)} target='_blank'><GoLinkExternal color='grey' size={15} /></a>
                       </Col>
                     </Col>
-                    <Badge style={{ width: '130px' }} color='secondary'>Balance: <strong>0 MATIC</strong></Badge>
+                    {/* <Badge style={{ width: '130px' }} color='secondary'>Balance: <strong>{acc_balance && acc_balance.format()}</strong></Badge> */}
+                    {
+                      usingNative ? (
+                        <Badge style={{ width: '130px' }} color='secondary'>Balance: <strong>{acc_balance}</strong></Badge>
+                      ) : (
+                        <Badge style={{ width: '130px' }} color='secondary'>Balance: <strong>{ercTokenBal.format()}</strong></Badge>
+                      )
+                    }
+                    {/* <Badge style={{ width: '130px' }} color='secondary'>Balance: <strong>0 MATIC</strong></Badge> */}
                   </Col>
                 </Row>
                 <Row className='mt-1' style={{ display: 'flex', flexDirection: 'row' }}>
@@ -502,9 +515,10 @@ const Send = ({ globalAdrs, globalNickName }) => {
                     </Col>
                   </Row>
                 </Form>
-              </>
-            )}
-          </CardBody>
+              </CardBody>
+            </>
+          )}
+
           {globalNickName !== 'Create a Vault' ? (<CardFooter>
             <Row >
               {is_sega ? (

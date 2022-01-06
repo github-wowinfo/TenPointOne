@@ -1,6 +1,6 @@
 import { useState, Fragment, useEffect } from 'react'
 import { Eye, EyeOff } from 'react-feather'
-import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, TabPane, TabContent, Nav, NavItem, NavLink } from 'reactstrap'
+import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, TabPane, TabContent, Nav, NavItem, NavLink, Alert, UncontrolledAlert } from 'reactstrap'
 import { useEthers } from '@usedapp/core'
 import { toast } from 'react-toastify'
 import { isAddress } from "ethers/lib/utils"
@@ -8,6 +8,7 @@ import Avatar from '@components/avatar'
 import Select from 'react-select'
 import { connect } from 'react-redux'
 import * as AppData from '../../../redux/actions/cookies/appDataType'
+import { useVault } from '../../../utility/hooks/useVaults'
 
 const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNickName, dispatch, globalVaultFlag }) => {
 
@@ -94,7 +95,8 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
             setAdrs_flag(false)
         }
     }
-    // console.log('vadrs', vadrs)
+
+    const [exesega_flag, setExeSega_flag] = useState(false)
 
     const hideOnChangeAdrs = (adrs) => {
         const selected_adrs = adrs.value
@@ -103,6 +105,17 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
             setAdrs_flag(true)
         } else {
             alert("Select a valid address!")
+        }
+        console.log('selected_adrs', selected_adrs)
+        const getSegaList = JSON.parse(localStorage.getItem('segadata'))
+        const segaListFilter = getSegaList && getSegaList.filter(i => i.owner === account && i.network === chainId)
+        // console.log('segaListFilter', segaListFilter)
+        const list = segaListFilter && segaListFilter.filter(i => i.vault === selected_adrs)
+        console.log('list', list)
+        if (list.length > 0) {
+            setExeSega_flag(true)
+        } else {
+            setExeSega_flag(false)
         }
     }
 
@@ -133,7 +146,23 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
         handleExeVaultModal()
     }
 
+    const { getRecoveryInfo } = useVault(vadrs)
+    const [owner_flag, setOwner_flag] = useState()
+
+    const getVaultRecoveryInfo = () => {
+        setOwner_flag(false)
+        const { _owner, _backup, _releaseDt, _unlockDays } = getRecoveryInfo()
+        console.log('_owner', _owner)
+        console.log('account', account)
+        if (_owner === account) {
+            setOwner_flag(true)
+        } else {
+            setOwner_flag(false)
+        }
+    }
+
     const handleAdd = () => {
+        getVaultRecoveryInfo()
         const getdata = JSON.parse(localStorage.getItem('vaultdata'))
         console.log('getdata', getdata)
         if (getdata.length > 0) {
@@ -159,39 +188,16 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
             }
             const vaultdata = [postdata]
             localStorage.setItem('vaultdata', JSON.stringify(vaultdata))
+            if (globalVaultFlag === 0) {
+                dispatch(AppData.globalVaultFlag(1))
+            } else {
+                dispatch(AppData.globalVaultFlag(0))
+            }
             setName_flag(false)
             setAdrs_flag(false)
             console.log('Vault added')
             handleExeVaultModal()
         }
-        // if (getdata === null || getdata === []) {
-        //     const postdata =
-        //     {
-        //         owner: account,
-        //         name: nickName,
-        //         address: vadrs,
-        //         network: chainId,
-        //         show: true
-        //     }
-        //     const vaultdata = [postdata]
-        //     localStorage.setItem('vaultdata', JSON.stringify(vaultdata))
-        //     setName_flag(false)
-        //     setAdrs_flag(false)
-        //     console.log('Vault added')
-        //     handleExeVaultModal()
-        // } else {
-        //     for (const i in getdata) {
-        //         console.log('getdatafor', getdata)
-        //         if (getdata && getdata[i].address === vadrs) {
-        //             handleExeVaultModal()
-        //             alert('The Vault is already Added!')
-        //             break
-        //         } else {
-        //             vaultAdd(getdata)
-        //             break
-        //         }
-        //     }
-        // }
 
     }
 
@@ -259,11 +265,15 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
             handleExeVaultModal()
             setName_flag(false)
             setAdrs_flag(false)
+            setExeSega_flag(false)
+            setOwner_flag()
         }} >
             <ModalHeader tag='h2' toggle={() => {
                 handleExeVaultModal()
                 setName_flag(false)
                 setAdrs_flag(false)
+                setExeSega_flag(false)
+                setOwner_flag()
             }} >
                 Show or Hide Existing Vault
             </ModalHeader>
@@ -315,6 +325,18 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
                                     <Input type='text' id='accadrs' onChange={onChangeAdrs} />
                                 </FormGroup>
                             </Col>
+                            {owner_flag === false ? (
+                                <Col>
+                                    <UncontrolledAlert color='warning'>
+                                        <h4 className='alert-heading'>The current user is not the owner of this Vault</h4>
+                                        <div className='alert-body'>
+                                            Do you still want to add this Vault?
+                                            <br />
+                                            If Yes, click to continue.
+                                        </div>
+                                    </UncontrolledAlert>
+                                </Col>
+                            ) : null}
                         </TabPane>
                         <TabPane tabId='2'>
                             <Col className='mb-1'>
@@ -330,22 +352,19 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
                                     options={VaultList}
                                     onChange={hideOnChangeAdrs}
                                 />
+                                {exesega_flag ? (
+                                    <Col>
+                                        <UncontrolledAlert className='my-1' color='danger'>
+                                            <h4 className='alert-heading'>There are SEGAs associated with this Vault.</h4>
+                                            <div className='alert-body'>
+                                                Please remove all associated SEGAs first, before remmoving the Vault.
+                                            </div>
+                                        </UncontrolledAlert>
+                                    </Col>
+                                ) : null
+                                }
                             </Col>
                         </TabPane>
-                        {/* <TabPane tabId='2'>
-                            <Col>
-                                <FormGroup>
-                                    <Label for='nickname' style={{ fontSize: "1.3em" }}>Nickname</Label>
-                                    <Input type='text' id='nickname' />
-                                </FormGroup>
-                            </Col>
-                            <Col>
-                                <FormGroup>
-                                    <Label for='accadrs' style={{ fontSize: "1.3em" }}>Account Address</Label>
-                                    <Input type='text' id='accadrs' onChange={accountAdrsChange} />
-                                </FormGroup>
-                            </Col>
-                        </TabPane> */}
                     </TabContent>
                 </Row>
             </ModalBody>
@@ -366,7 +385,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
                     </>
                 ) : (
                     <>
-                        {adrs_flag ? (
+                        {adrs_flag && exesega_flag === false ? (
                             <Button.Ripple color='primary' onClick={handleRemove} >
                                 <EyeOff className='mr-1' size={17} />
                                 REMOVE

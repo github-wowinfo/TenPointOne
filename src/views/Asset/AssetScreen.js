@@ -12,7 +12,8 @@ import {
     CardText,
     CardFooter,
     CardHeader,
-    Button
+    Button,
+    NavLink
 } from 'reactstrap'
 import Icon from 'react-crypto-icons'
 import DataTable from 'react-data-table-component'
@@ -28,6 +29,7 @@ import { isAddress } from 'ethers/lib/utils'
 import { connect } from 'react-redux'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import { BsArrowRightCircle } from 'react-icons/bs'
 
 // const currencyOptions = [
 //     { value: 'usd', label: 'USD' },
@@ -235,60 +237,73 @@ const Asset = ({ globalAdrs, globalNickName }) => {
 
 
             {isConnected ? (<>
-                {/* <Row>
-                    <Col>
-                        <p>${etherPrice}</p>
+                {globalNickName === 'Create a Vault' ? (
+                    <Col className='d-flex justify-content-center align-items-center' md={{ offset: 3, size: 6 }} sm="12">
+                        <Card className='my-1 card-payment'>
+                            <CardHeader style={{ paddingBottom: '.3em' }}>
+                                <CardTitle>Assets</CardTitle>
+                            </CardHeader>
+                            <hr />
+                            <Col style={{ fontSize: '2em' }} className='d-flex flex-row justify-content-center align-items-center'>
+                                <NavLink href='/manager' >
+                                    CREATE A VAULT <BsArrowRightCircle size={35} />
+                                </NavLink>
+                            </Col>
+                        </Card>
                     </Col>
-                </Row> */}
-                <Card className='my-1'>
-                    <CardBody>
-                        <Row>
-                            <Col >
-                                <CardHeader>
-                                    <CardTitle >Asset</CardTitle>
-                                </CardHeader>
-                                <CardBody>
-                                    <CardText>View all your assets here</CardText>
-                                </CardBody>
-                            </Col>
+                ) : (
+                    <>
+                        <Card className='my-1'>
+                            <CardBody>
+                                <Row>
+                                    <Col >
+                                        <CardHeader>
+                                            <CardTitle >Asset</CardTitle>
+                                        </CardHeader>
+                                        <CardBody>
+                                            <CardText>View all your assets here</CardText>
+                                        </CardBody>
+                                    </Col>
 
-                            <Col className='mb-1' md='2' sm='12'>
-                                <Input type='select' name='select' id='select-basic'>
-                                    <option>USD</option>
-                                    <option>INR</option>
-                                    <option>SAR</option>
-                                </Input>
-                            </Col>
-                        </Row>
-                        <div className='d-flex flex-column align-items-end pb-0'>
-                            <CardTitle className='mb-25' tag='h4'>
-                                Total balance: ${sum}
-                            </CardTitle>
-                            {/* <CardText className='mb-0'>Total balance</CardText> */}
-                        </div>
-                    </CardBody>
-                </Card>
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Check assest for an Address</CardTitle>
-                    </CardHeader>
-                    <CardBody className='d-flex flex-row justify-content-between'>
-                        <Input className='mx-1' type='text' placeholder="Add address of the account to see it's assests" onChange={handleChange} />
-                        <Button color='primary round' onClick={handleClick}>
-                            Search
-                        </Button>
-                    </CardBody>
-                </Card>
-                <Card>
-                    <DataTable
-                        className='react-dataTable'
-                        noHeader
-                        customStyles={tablestyle}
-                        data={assetList}
-                        columns={columns}
-                        sortIcon={<ChevronDown size={10} />}
-                    />
-                </Card>
+                                    <Col className='mb-1' md='2' sm='12'>
+                                        <Input type='select' name='select' id='select-basic'>
+                                            <option>USD</option>
+                                            <option>INR</option>
+                                            <option>SAR</option>
+                                        </Input>
+                                    </Col>
+                                </Row>
+                                <div className='d-flex flex-column align-items-end pb-0'>
+                                    <CardTitle className='mb-25' tag='h4'>
+                                        Total balance: ${sum}
+                                    </CardTitle>
+                                    {/* <CardText className='mb-0'>Total balance</CardText> */}
+                                </div>
+                            </CardBody>
+                        </Card>
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Check assest for an Address</CardTitle>
+                            </CardHeader>
+                            <CardBody className='d-flex flex-row justify-content-between'>
+                                <Input className='mx-1' type='text' placeholder="Add address of the account to see it's assests" onChange={handleChange} />
+                                <Button color='primary round' onClick={handleClick}>
+                                    Search
+                                </Button>
+                            </CardBody>
+                        </Card>
+                        <Card>
+                            <DataTable
+                                className='react-dataTable'
+                                noHeader
+                                customStyles={tablestyle}
+                                data={assetList}
+                                columns={columns}
+                                sortIcon={<ChevronDown size={10} />}
+                            />
+                        </Card>
+                    </>
+                )}
             </>) : disconnect()}
         </>
 

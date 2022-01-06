@@ -14,8 +14,8 @@ export default [
     navLink: "/home",
   },
   {
-    id: "assests",
-    title: "Assests",
+    id: "assets",
+    title: "Assets",
     icon: <BsWallet2 size={20} />,
     navLink: "/asset"
   },

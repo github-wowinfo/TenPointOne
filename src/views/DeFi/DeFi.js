@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { TabContent, TabPane, Nav, NavItem, NavLink, Button, Col, Card } from 'reactstrap'
+import { TabContent, TabPane, Nav, NavItem, NavLink, Button, Col, Card, CardHeader, CardTitle } from 'reactstrap'
 import Buy from './Buy'
 import Swap from './Swap'
 import Yield from './Yield'
@@ -7,8 +7,11 @@ import { useEthers } from '@usedapp/core'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import helperConfig from '../../helper-config.json'
+import { connect } from 'react-redux'
+import * as AppData from '../../redux/actions/cookies/appDataType'
+import { BsArrowRightCircle } from 'react-icons/bs'
 
-const DeFi = () => {
+const DeFi = ({ dispatch, globalAdrs, globalNickName }) => {
 
     const { account, chainId } = useEthers()
 
@@ -102,59 +105,83 @@ const DeFi = () => {
     return (
         <>
             {isConnected ? (<React.Fragment>
-                <Card className='pt-2'>
-                    <Nav tabs>
-                        <div style={{ display: 'flex', flex: 1, justifyContent: 'space-evenly' }}>
-                            <NavItem>
-                                <Col md={6} sm={12}>
-                                    <div className='d-inline-block mr-1 mb-1'>
-                                        <Button.Ripple outline color='primary' size='lg' active={active === '1'} onClick={() => {
-                                            toggle('1')
-                                        }}>
-                                            Buy
-                                        </Button.Ripple>
-                                    </div>
-                                </Col>
-                            </NavItem>
-                            <NavItem>
-                                <Col md={6} sm={12}>
-                                    <div className='d-inline-block mr-1 mb-1'>
-                                        <Button.Ripple outline color='primary' size='lg' active={active === '2'} onClick={() => {
-                                            toggle('2')
-                                        }}>
-                                            Swap
-                                        </Button.Ripple>
-                                    </div>
-                                </Col>
-                            </NavItem>
-                            <NavItem>
-                                <Col md={6} sm={12}>
-                                    <div className='d-inline-block mr-1 mb-1'>
-                                        <Button.Ripple outline color='primary' size='lg' active={active === '3'} onClick={() => {
-                                            toggle('3')
-                                        }}>
-                                            Yield
-                                        </Button.Ripple>
-                                    </div>
-                                </Col>
-                            </NavItem>
-                        </div>
-                    </Nav>
-                </Card>
-                <TabContent className='py-50' activeTab={active}>
-                    <TabPane tabId='1'>
-                        <Buy />
-                    </TabPane>
-                    <TabPane tabId='2'>
-                        <Swap />
-                    </TabPane>
-                    <TabPane tabId='3'>
-                        <Yield />
-                    </TabPane>
-                </TabContent>
+                {globalNickName === 'Create a Vault' ? (
+                    <Col className='d-flex justify-content-center align-items-center' md={{ offset: 3, size: 6 }} sm="12">
+                        <Card className='my-1 card-payment'>
+                            <CardHeader style={{ paddingBottom: '.3em' }}>
+                                <CardTitle>DeFi</CardTitle>
+                            </CardHeader>
+                            <hr />
+                            <Col style={{ fontSize: '2em' }} className='d-flex flex-row justify-content-center align-items-center'>
+                                <NavLink href='/manager' >
+                                    CREATE A VAULT <BsArrowRightCircle size={35} />
+                                </NavLink>
+                            </Col>
+                        </Card>
+                    </Col>
+                ) : (<>
+                    <Card className='pt-2'>
+                        <Nav tabs>
+                            <div style={{ display: 'flex', flex: 1, justifyContent: 'space-evenly' }}>
+                                <NavItem>
+                                    <Col md={6} sm={12}>
+                                        <div className='d-inline-block mr-1 mb-1'>
+                                            <Button.Ripple outline color='primary' size='lg' active={active === '1'} onClick={() => {
+                                                toggle('1')
+                                            }}>
+                                                Buy
+                                            </Button.Ripple>
+                                        </div>
+                                    </Col>
+                                </NavItem>
+                                <NavItem>
+                                    <Col md={6} sm={12}>
+                                        <div className='d-inline-block mr-1 mb-1'>
+                                            <Button.Ripple outline color='primary' size='lg' active={active === '2'} onClick={() => {
+                                                toggle('2')
+                                            }}>
+                                                Swap
+                                            </Button.Ripple>
+                                        </div>
+                                    </Col>
+                                </NavItem>
+                                <NavItem>
+                                    <Col md={6} sm={12}>
+                                        <div className='d-inline-block mr-1 mb-1'>
+                                            <Button.Ripple outline color='primary' size='lg' active={active === '3'} onClick={() => {
+                                                toggle('3')
+                                            }}>
+                                                Yield
+                                            </Button.Ripple>
+                                        </div>
+                                    </Col>
+                                </NavItem>
+                            </div>
+                        </Nav>
+                    </Card>
+                    <TabContent className='py-50' activeTab={active}>
+                        <TabPane tabId='1'>
+                            <Buy />
+                        </TabPane>
+                        <TabPane tabId='2'>
+                            <Swap />
+                        </TabPane>
+                        <TabPane tabId='3'>
+                            <Yield />
+                        </TabPane>
+                    </TabContent>
+                </>)}
             </React.Fragment>) : disconnect()}
         </>
     )
 }
 
-export default DeFi
+// export default DeFi
+const mapStateToProps = (state) => ({
+    message: state.appData.appMessages,
+    globalAdrs: state.appData.globalAdrs,
+    globalNickName: state.appData.globalNickName
+})
+const mapDispatchToProp = dispatch => ({ dispatch })
+
+export default connect(mapStateToProps, mapDispatchToProp)(DeFi)

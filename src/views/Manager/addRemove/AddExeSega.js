@@ -17,6 +17,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
     const [Vault, setVault] = useState('')
     const [VaultList, setVaultList] = useState([])
     const [SegaList, setSegaList] = useState([])
+    const [rm_flag, setRm_flag] = useState(0)
 
     const getVaultListFromLocal = () => {
         const getdata = JSON.parse(localStorage.getItem('vaultdata'))
@@ -46,7 +47,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
 
     useEffect(() => {
         getValueSegaFromLocal()
-    }, [Vault])
+    }, [Vault, rm_flag])
 
     const [name_flag, setName_flag] = useState(false)
     const [adrs_flag, setAdrs_flag] = useState(false)
@@ -161,6 +162,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
             getVaultListFromLocalGlobal()
             setVault_flag(false)
             setSega_flag(false)
+            setRm_flag(1)
             handleExeSegaModal()
         }
         // console.log('aftergetdata', getdata)

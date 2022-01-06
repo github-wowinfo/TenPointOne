@@ -1,5 +1,5 @@
 import { Card, CardHeader, CardTitle, CardBody, CardFooter, Button, Row, Col, CardText, CardSubtitle, Tooltip, NavLink } from 'reactstrap'
-import { BsArrowDown, BsSafe2 } from 'react-icons/bs'
+import { BsArrowDown, BsArrowRightCircle, BsSafe2 } from 'react-icons/bs'
 import { FaRegCopy } from 'react-icons/fa'
 import { GoLinkExternal } from 'react-icons/go'
 import { connect } from 'react-redux'
@@ -7,7 +7,7 @@ import Avatar from '@components/avatar'
 import qrcode from './qrcode_localhost.png'
 import Icon from 'react-crypto-icons'
 import { toast } from 'react-toastify'
-import { Clipboard, Info } from "react-feather"
+import { ArrowDownCircle, ArrowRight, ArrowRightCircle, Clipboard, Info } from "react-feather"
 import { useState, Fragment, useEffect } from 'react'
 import { useEthers, shortenIfAddress, getExplorerAddressLink } from '@usedapp/core'
 import helperConfig from '../../helper-config.json'
@@ -141,21 +141,23 @@ const Receive = ({ networkC, globalAdrs, globalNickName }) => {
           <CardHeader style={{ paddingBottom: '.1em' }}>
             <CardTitle>Receive Assests</CardTitle>
           </CardHeader>
-          {/* <hr /> */}
-          <CardBody style={{ padding: '1em' }}>
-            <Row>
-              <Col className='py-1' style={{ ...backgroundChange, textAlign: 'center', height: '100%' }}>
-                <CardText style={{ color: 'white' }}><Icon className='mr-1' name={networkIcon} size={20} />Only send {networkName} assets to this Safe</CardText>
-              </Col>
-            </Row>
-            {globalNickName === 'Create a Vault' ? (
-              <Col style={{ fontSize: '2em' }} className='my-1 d-flex flex-row justify-content-center align-items-center'>
+          {globalNickName === 'Create a Vault' ? (
+            <>
+              <hr />
+              <Col style={{ fontSize: '2em' }} className='d-flex flex-row justify-content-center align-items-center'>
                 <NavLink href='/manager' >
-                  CREATE A VAULT
+                  CREATE A VAULT FIRST <BsArrowRightCircle size={35} />
                 </NavLink>
               </Col>
-            ) : (
-              <>
+            </>
+          ) : (
+            <>
+              <CardBody style={{ padding: '1em' }}>
+                <Row>
+                  <Col className='py-1' style={{ ...backgroundChange, textAlign: 'center', height: '100%' }}>
+                    <CardText style={{ color: 'white' }}><Icon className='mr-1' name={networkIcon} size={20} />Only send {networkName} assets to this Safe</CardText>
+                  </Col>
+                </Row>
                 <Row className='d-flex flex-column justify-content-center align-items-center'>
                   <Col className='my-1 text-center '><Avatar size='lg' color='light-danger' icon={<BsSafe2 size={25} />} /></Col>
                   <Col className='mb-1'>
@@ -163,7 +165,7 @@ const Receive = ({ networkC, globalAdrs, globalNickName }) => {
                   </Col>
                   <Col className='text-center'>
                     {/* <CardSubtitle style={{ color: 'gray' }} > <strong>{shortenIfAddress(account)}</strong></CardSubtitle> */}
-                    <CardSubtitle style={{ color: 'gray', fontSize: '1.2em' }} > <strong>{shortenIfAddress(globalAdrs)}</strong></CardSubtitle>
+                    <CardSubtitle style={{ color: 'gray', fontSize: '1em' }} ><strong>{globalAdrs}</strong></CardSubtitle>
                   </Col>
                   <Col>
                     <span className='d-flex flex-row justify-content-center'>
@@ -188,9 +190,9 @@ const Receive = ({ networkC, globalAdrs, globalNickName }) => {
                     </CardText>
                   </Tooltip>
                 </Col>
-              </>
-            )}
-          </CardBody>
+              </CardBody>
+            </>
+          )}
         </Card>
       </Col>
       ) : disconnect()

@@ -18,7 +18,7 @@ export const useTokens = (tokenTicker, assetAdrs) => {
     let tokenAddress = addressZero
     if (assetAdrs === addressZero) {
         tokenAddress = chainId ? brownieConfig["networks"][networkName][tokenTicker] : ""
-        console.log('tokenaddress', tokenAddress)
+        // console.log('tokenaddress', tokenAddress)
     } else {
         tokenAddress = assetAdrs
     }

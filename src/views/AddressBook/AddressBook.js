@@ -20,7 +20,7 @@ import { CgExport, CgImport } from 'react-icons/cg'
 import '@styles/react/libs/tables/react-dataTable-component.scss'
 
 // ** Third Party Components
-import { ChevronDown, Share, Printer, FileText, File, Grid, Copy, Plus } from 'react-feather'
+import { ChevronDown, Share, Printer, FileText, File, Grid, Copy, Plus, Trash2 } from 'react-feather'
 import DataTable from 'react-data-table-component'
 import Icon from 'react-crypto-icons'
 import CardText from 'reactstrap/lib/CardText'
@@ -35,6 +35,7 @@ import CopyAdrs from './CopyAdrs'
 import ChangeName from './ChangeName'
 import { connect } from 'react-redux'
 import * as AppData from '../../redux/actions/cookies/appDataType'
+import DeleteContact from './DeleteContact'
 
 const AdddressBook = ({ globalFavFlag }) => {
 
@@ -170,27 +171,25 @@ const AdddressBook = ({ globalFavFlag }) => {
             name: '',
             cell: row => (
                 <span className='d-flex felx-row align-items-center'>
-                    {/* {<FaRegCopy style={{ cursor: 'pointer' }} className='mx-1' size={25} />} */}
                     {<CopyAdrs item={row} />}
                     {<a href={getExplorerAddressLink(row.adrs, chainId ? chainId : 1)} target='_blank'><GoLinkExternal className='mr-1' size={25} color='grey' /></a>}
-                    {/* {<Heart name={row.nickname} adrs={row.adrs} isFav={row.isFav} />} */}
+                    {<DeleteContact item={row} />}
                     {(getVaultList && getVaultList.find(i => i.address === row.adrs)) || (getSegaList && getSegaList.find(i => i.address === row.adrs)) ? <Heart item={row} /> : null}
-                    {/* {<Heart item={row} />} */}
                 </span>
             )
         },
-        {
-            name: 'Chain',
-            selector: 'ntwrk',
-            cell: row => (
-                <div>
-                    {row.network && row.network.map((i) => <Icon className='mr-1' name={i ? helperConfig.network[i].icon : 'mty'} size={25} />)}
-                    {/* <Icon name={helperConfig.network[row.network].icon} size={25} /> */}
-                    {/* <Icon name={row.network ? helperConfig.network[row.network].icon : 'mty'} size={25} /> */}
-                    {/* <Icon name={row.network} size={25} /> */}
-                </div>
-            )
-        }
+        // {
+        //     name: 'Chain',
+        //     selector: 'ntwrk',
+        //     cell: row => (
+        //         <div>
+        //             {row.network && row.network.map((i) => <Icon className='mr-1' name={i ? helperConfig.network[i].icon : 'mty'} size={25} />)}
+        //             {/* <Icon name={helperConfig.network[row.network].icon} size={25} /> */}
+        //             {/* <Icon name={row.network ? helperConfig.network[row.network].icon : 'mty'} size={25} /> */}
+        //             {/* <Icon name={row.network} size={25} /> */}
+        //         </div>
+        //     )
+        // }
     ]
 
     const tablestyle = {

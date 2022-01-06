@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Card, CardBody, CardText, Col, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row, Table, Badge, TabContent, TabPane, CardTitle, CardHeader, Nav, NavItem, NavLink, CardFooter } from 'reactstrap'
 import { HiDownload } from 'react-icons/hi'
-import { BsArrowUpCircle, BsArrowDownCircle, BsInfoCircle } from 'react-icons/bs'
+import { BsArrowUpCircle, BsArrowDownCircle, BsInfoCircle, BsArrowRightCircle } from 'react-icons/bs'
 import { GrClose } from 'react-icons/gr'
 import { IoMdCopy } from 'react-icons/io'
 import "./ActivityScreenStyles.css"
@@ -387,110 +387,100 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName }) => {
     return (
         <>
             {isConnected ? (<>
-                {/* <Card>
-                    <CardBody>
-                        <Row className='d-flex flex-row justify-content-between'>
-                            <Card >
-                                <CardHeader>
-                                    <CardTitle>Transaction</CardTitle>
-                                </CardHeader>
-                            </Card>
-
-                            <Col className='mb-1' md='2' sm='12'>
-
-                                <Button.Ripple color='primary'
-                                    onClick={setMessage}
-                                >
-                                    <Row>
-                                        Export
-                                        <HiDownload style={{ marginLeft: 5 }} />
-                                    </Row>
-                                </Button.Ripple>
+                {globalNickName === 'Create a Vault' ? (
+                    <Col className='d-flex justify-content-center align-items-center' md={{ offset: 3, size: 6 }} sm="12">
+                        <Card className='my-1 card-payment'>
+                            <CardHeader style={{ paddingBottom: '.3em' }}>
+                                <CardTitle>Activity</CardTitle>
+                            </CardHeader>
+                            <hr />
+                            <Col style={{ fontSize: '2em' }} className='d-flex flex-row justify-content-center align-items-center'>
+                                <NavLink href='/manager' >
+                                    CREATE A VAULT <BsArrowRightCircle size={35} />
+                                </NavLink>
                             </Col>
-                        </Row>
-                    </CardBody>
-                </Card> */}
+                        </Card>
+                    </Col>
+                ) : (<>
+                    <Card className='my-1'>
+                        <CardHeader className='d-flex flex-row '>
+                            <CardTitle>Transaction</CardTitle>
+                            <Button.Ripple color='primary' onClick={setMessage}>
+                                Export
+                                <HiDownload style={{ marginLeft: 5 }} />
+                            </Button.Ripple>
+                        </CardHeader>
+                        <CardBody>
+                            <CardText>Track your transaction status here</CardText>
+                        </CardBody>
+                    </Card>
 
-                {/* <Card className='pt-2 align-items-center'> */}
-                <Card className='my-1'>
-                    <CardHeader className='d-flex flex-row '>
-                        <CardTitle>Transaction</CardTitle>
-                        <Button.Ripple color='primary' onClick={setMessage}>
-                            Export
-                            <HiDownload style={{ marginLeft: 5 }} />
-                        </Button.Ripple>
-                    </CardHeader>
-                    <CardBody>
-                        <CardText>Track your transaction status here</CardText>
-                    </CardBody>
-                </Card>
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Check Activity for an Address</CardTitle>
+                        </CardHeader>
+                        <CardBody className='d-flex flex-row justify-content-between'>
+                            <Input className='mx-1' type='text' placeholder="Add address of the account to see it's activity" onChange={handleChange} />
+                            <Button color='primary round' onClick={handleClick}>
+                                Search
+                            </Button>
+                        </CardBody>
+                    </Card>
 
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Check Activity for an Address</CardTitle>
-                    </CardHeader>
-                    <CardBody className='d-flex flex-row justify-content-between'>
-                        <Input className='mx-1' type='text' placeholder="Add address of the account to see it's activity" onChange={handleChange} />
-                        <Button color='primary round' onClick={handleClick}>
-                            Search
-                        </Button>
-                    </CardBody>
-                </Card>
+                    <Card>
+                        <Nav tabs style={{ display: 'flex', flex: 1, justifyContent: 'space-evenly', textAlign: 'center' }}>
 
-                <Card>
-                    <Nav tabs style={{ display: 'flex', flex: 1, justifyContent: 'space-evenly', textAlign: 'center' }}>
+                            <Col md={6} sm={6}>
+                                <NavItem className='d-inline-block mr-1 mb-1'>
+                                    <NavLink color='primary' active={active === '1'} onClick={() => {
+                                        toggle('1')
+                                    }}>
+                                        Transactions
+                                    </NavLink>
+                                </NavItem>
+                            </Col>
 
-                        <Col md={6} sm={6}>
-                            <NavItem className='d-inline-block mr-1 mb-1'>
-                                <NavLink color='primary' active={active === '1'} onClick={() => {
-                                    toggle('1')
-                                }}>
-                                    Transactions
-                                </NavLink>
-                            </NavItem>
-                        </Col>
+                            <Col md={6} sm={6}>
+                                <NavItem className='d-inline-block mr-1 mb-1'>
+                                    <NavLink color='primary' active={active === '2'} onClick={() => {
+                                        toggle('2')
+                                    }}>
+                                        Contract Interaction
+                                    </NavLink>
+                                </NavItem>
+                            </Col>
+                        </Nav>
+                        <TabContent activeTab={active}>
+                            <TabPane tabId='1'>
+                                <DataTable
+                                    className='react-dataTable'
+                                    customStyles={tablestyle}
+                                    noHeader
+                                    data={dataList}
+                                    columns={columns}
+                                    pagination
+                                    paginationPerPage={20}
+                                    paginationDefaultPage={currentPage + 1}
+                                    paginationComponent={CustomPagination}
+                                />
+                            </TabPane>
+                            <TabPane tabId='2'>
+                                <DataTable
+                                    className='react-dataTable'
+                                    customStyles={tablestyle}
+                                    noHeader
+                                    data={edataList}
+                                    columns={columns}
+                                    pagination
+                                    paginationPerPage={20}
+                                    paginationDefaultPage={currentPage + 1}
+                                    paginationComponent={CustomPagination}
+                                />
+                            </TabPane>
+                        </TabContent>
+                    </Card>
 
-                        <Col md={6} sm={6}>
-                            <NavItem className='d-inline-block mr-1 mb-1'>
-                                <NavLink color='primary' active={active === '2'} onClick={() => {
-                                    toggle('2')
-                                }}>
-                                    Contract Interaction
-                                </NavLink>
-                            </NavItem>
-                        </Col>
-                    </Nav>
-                    <TabContent activeTab={active}>
-                        <TabPane tabId='1'>
-                            <DataTable
-                                className='react-dataTable'
-                                customStyles={tablestyle}
-                                noHeader
-                                data={dataList}
-                                columns={columns}
-                                pagination
-                                paginationPerPage={20}
-                                paginationDefaultPage={currentPage + 1}
-                                paginationComponent={CustomPagination}
-                            />
-                        </TabPane>
-                        <TabPane tabId='2'>
-                            <DataTable
-                                className='react-dataTable'
-                                customStyles={tablestyle}
-                                noHeader
-                                data={edataList}
-                                columns={columns}
-                                pagination
-                                paginationPerPage={20}
-                                paginationDefaultPage={currentPage + 1}
-                                paginationComponent={CustomPagination}
-                            />
-                        </TabPane>
-                    </TabContent>
-                </Card>
-
-                {/* <Card>
+                    {/* <Card>
                     <DataTable
                         className='react-dataTable'
                         customStyles={tablestyle}
@@ -503,8 +493,8 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName }) => {
                         paginationComponent={CustomPagination}
                     />
                 </Card> */}
-                <CustomModal open={modalVisible} handleModal={handleModal} trxnId={trxnId} description={desc} />
-
+                    <CustomModal open={modalVisible} handleModal={handleModal} trxnId={trxnId} description={desc} />
+                </>)}
             </>) : disconnect()}
         </>
 

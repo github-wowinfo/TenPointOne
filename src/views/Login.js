@@ -1,5 +1,5 @@
 import { useSkin } from '@hooks/useSkin'
-import { Row, Col, CardTitle, CardText, Form, FormGroup, Label, Input, CustomInput, Button } from 'reactstrap'
+import { Row, Col, CardTitle, CardText, Form, FormGroup, Label, Input, CustomInput, Button, Badge } from 'reactstrap'
 import RecoverModal from "./RecoverModal"
 import { Fragment, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
@@ -7,8 +7,11 @@ import Avatar from '@components/avatar'
 import { ArrowRight, Check, ChevronsRight } from 'react-feather'
 import '@styles/base/pages/page-auth.scss'
 import { connect } from 'react-redux'
-import { ChainId, useEthers } from '@usedapp/core'
+import { ChainId, shortenIfAddress, useEthers } from '@usedapp/core'
 import logo from '../assets/images/logo/finallog.png'
+import CardBody from 'reactstrap/lib/CardBody'
+import helperConfig from '../helper-config.json'
+import Icon from 'react-crypto-icons'
 
 const SuccessProgressToast = () => (
   <Fragment>
@@ -48,6 +51,10 @@ const Login = () => {
     }
   }
 
+  const networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"
+  const networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
+  const backgroundChange = { backgroundColor: networkName === "BSC testnet" ? '#cc9b00' : networkName === "Polygon Network" ? '#8146e4' : networkName === "Ethereum" ? '#4559f4' : networkName === "Kovan" ? '#6435c9' : networkName === "BSC Mainet" ? '#cc9b00' : networkName === "Polygon Mumbai" ? '#140035' : null }
+
   return (
     <div className='auth-wrapper auth-v2'>
       <Row className='auth-inner m-0'>
@@ -71,8 +78,36 @@ const Login = () => {
                 block>CONNECT WALLET
               </Button.Ripple>
             )}
-            {<p>Network: {chainId}</p>}
-            {<p>Account: {account}</p>}
+            <CardBody>
+              <Col className='my-1 d-flex flex-row justify-content-first'>
+                <strong>Current Network</strong> :
+                <CardText className='mx-1' style={{ ...backgroundChange, width: 'fit-content', color: 'white' }}>
+                  <Icon className='mr-1' name={networkIcon} size={20} />
+                  {networkName}
+                </CardText>
+              </Col>
+              <Col className='my-1 d-flex flex-row justify-content-first'>
+                <strong>Current Account</strong> :
+                <CardText className='mx-1'>
+                  {shortenIfAddress(account)}
+                </CardText>
+              </Col>
+              <Col className='my-1'>
+                <ul className='list-unstyled'>
+                  <li>The supported network's are,</li>
+                  <ul>
+                    <li>"Polygon Network"</li>
+                    <li>"Kovan"</li>
+                    <li>"BSC testnet"</li>
+                    <li>"Polygon Mumbai"</li>
+                  </ul>
+                </ul>
+              </Col>
+              {/* <p>Network: {networkName}</p>
+              <p>Account: {shortenIfAddress(account)}</p> */}
+            </CardBody>
+            {/* {<p>Network: {networkName}</p>}
+            {<p>Account: {account}</p>} */}
             {/* {console.log(account)} */}
             {/* <Button size='sm' onClick={deactivate}>Deactivate</Button> */}
             {/* {isConnected ? <p>Connected</p> : <p>Disconnected</p>} */}
