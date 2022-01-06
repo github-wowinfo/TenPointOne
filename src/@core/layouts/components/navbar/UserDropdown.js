@@ -39,7 +39,15 @@ const UserDropdown = ({ networkC }) => {
   const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false })
 
   const copy = async () => {
-    await navigator.clipboard.writeText(text)
+    // await navigator.clipboard.writeText(text)
+    // notifySuccess()
+    const textField = document.createElement('textarea')
+    textField.innerText = text
+    document.body.appendChild(textField)
+    textField.select()
+    document.execCommand('copy')
+    textField.remove()
+
     notifySuccess()
   }
 

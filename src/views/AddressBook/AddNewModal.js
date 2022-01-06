@@ -28,14 +28,14 @@ import * as AppData from '../../redux/actions/cookies/appDataType'
 
 const AddNewModal = ({ open, handleModal, dispatch, globalFavFlag }) => {
 
-  const { account } = useEthers()
+  const { account, chainId } = useEthers()
 
   const [name, setName] = useState('')
   const [name_flag, setName_flag] = useState(false)
   const [adrss, setAdrss] = useState('')
   const [adrs_flag, setAdrs_flag] = useState(false)
-  const [chain, setChain] = useState([])
-  const [chain_flag, setChain_flag] = useState(false)
+  // const [chain, setChain] = useState([])
+  // const [chain_flag, setChain_flag] = useState(false)
 
   const handleName = (e) => {
     if (e.target.value === '') {
@@ -60,19 +60,19 @@ const AddNewModal = ({ open, handleModal, dispatch, globalFavFlag }) => {
   }
   console.log('adrs', adrss)
 
-  const handleChecked = (e) => {
-    const isCheck = e.target.checked
-    if (isCheck) {
-      setChain([...chain, Number(e.target.value)])
-      setChain_flag(true)
-    } else {
-      const index = chain.indexOf(e.target.value)
-      chain.splice(index, 1)
-      setChain(chain)
-      setChain_flag(true)
-    }
-  }
-  console.log('chain', chain)
+  // const handleChecked = (e) => {
+  //   const isCheck = e.target.checked
+  //   if (isCheck) {
+  //     setChain([...chain, Number(e.target.value)])
+  //     // setChain_flag(true)
+  //   } else {
+  //     const index = chain.indexOf(e.target.value)
+  //     chain.splice(index, 1)
+  //     setChain(chain)
+  //     // setChain_flag(true)
+  //   }
+  // }
+  // console.log('chain', chain)
 
   const [visible, setVisible] = useState(false)
 
@@ -94,14 +94,14 @@ const AddNewModal = ({ open, handleModal, dispatch, globalFavFlag }) => {
   )
 
   const handleSubmit = () => {
-    if (name && adrss && chain) {
+    if (name && adrss) {
       const getdata = JSON.parse(localStorage.getItem('adrsbook'))
       const postdata =
       {
         owner: account,
         nickname: name,
         adrs: adrss,
-        network: chain
+        network: chainId
       }
       console.log('postdat', postdata.network)
       let adrsbook = []
@@ -111,7 +111,7 @@ const AddNewModal = ({ open, handleModal, dispatch, globalFavFlag }) => {
         adrsbook = [postdata]
       }
       localStorage.setItem('adrsbook', JSON.stringify(adrsbook))
-      setChain([])
+      // setChain([])
       if (globalFavFlag === 0) {
         dispatch(AppData.globalFavFlag(1))
       } else {
@@ -119,14 +119,14 @@ const AddNewModal = ({ open, handleModal, dispatch, globalFavFlag }) => {
       }
       setName_flag(false)
       setAdrs_flag(false)
-      setChain_flag(false)
+      // setChain_flag(false)
       handleModal()
     } else {
       handleAlert()
     }
     setName_flag(false)
     setAdrs_flag(false)
-    setChain_flag(false)
+    // setChain_flag(false)
   }
 
 
@@ -177,7 +177,7 @@ const AddNewModal = ({ open, handleModal, dispatch, globalFavFlag }) => {
             <Input id='adrs' placeholder='Address goes here..' onChange={handleAdrss} />
           </InputGroup>
         </FormGroup>
-        <Label for='chain'>Select Network</Label>
+        {/* <Label for='chain'>Select Network</Label>
         <FormGroup>
           <FormGroup check>
             <Input id='1' type="checkbox" name='97' value='97' onChange={handleChecked} />
@@ -199,8 +199,8 @@ const AddNewModal = ({ open, handleModal, dispatch, globalFavFlag }) => {
             <Input id='5' type="checkbox" name='80001' value='80001' onChange={handleChecked} />
             <Label check>Mumbai</Label>
           </FormGroup>
-        </FormGroup>
-        {name_flag && adrs_flag && chain_flag ? (
+        </FormGroup> */}
+        {name_flag && adrs_flag ? (
           <Button className='mr-1' color='primary' onClick={() => {
             handleSubmit()
           }}>

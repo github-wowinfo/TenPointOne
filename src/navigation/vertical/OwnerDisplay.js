@@ -25,9 +25,28 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
   const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
 
   const copy = async () => {
-    await navigator.clipboard.writeText(globalAdrs)
+    // await navigator.clipboard.writeText(globalAdrs)
+    // notifySuccess()
+    const textField = document.createElement('textarea')
+    textField.innerText = globalAdrs
+    document.body.appendChild(textField)
+    textField.select()
+    document.execCommand('copy')
+    textField.remove()
+
     notifySuccess()
   }
+
+  const SuccessToast = () => (
+    <Fragment>
+      <div className='toastify-header'>
+        <div className='title-wrapper'>
+          <Avatar size='sm' color='success' icon={<Clipboard size={12} />} />
+          <h6 className='toast-title'>Copied to Clipboard!</h6>
+        </div>
+      </div>
+    </Fragment>
+  )
 
   const stylecontainer = {
     textAlign: 'center',
@@ -47,16 +66,6 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
   const networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"
   const networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
   const backgroundChange = { backgroundColor: networkName === "BSC testnet" ? '#cc9b00' : networkName === "Polygon Network" ? '#8146e4' : networkName === "Ethereum" ? '#4559f4' : networkName === "Kovan" ? '#6435c9' : networkName === "BSC Mainet" ? '#cc9b00' : networkName === "Polygon Mumbai" ? '#140035' : null }
-  const SuccessToast = () => (
-    <Fragment>
-      <div className='toastify-header'>
-        <div className='title-wrapper'>
-          <Avatar size='sm' color='success' icon={<Clipboard size={12} />} />
-          <h6 className='toast-title'>Copied to Clipboard!</h6>
-        </div>
-      </div>
-    </Fragment>
-  )
 
   const [dropList, setDropList] = useState(false)
   const handleDropList = () => setDropList(!dropList)

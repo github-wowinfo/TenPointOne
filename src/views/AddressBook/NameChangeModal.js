@@ -31,7 +31,7 @@ const NameChangeModal = ({ openmodal, handleModal, item, dispatch, globalFavFlag
             }
             localStorage.setItem('adrsbook', JSON.stringify(getAdrsBookList))
         } else {
-            console.log('No vault data')
+            console.log('No AddressBook data')
         }
 
         const getVaultList = JSON.parse(localStorage.getItem('vaultdata'))

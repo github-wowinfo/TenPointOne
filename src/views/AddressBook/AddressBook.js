@@ -20,7 +20,7 @@ import { CgExport, CgImport } from 'react-icons/cg'
 import '@styles/react/libs/tables/react-dataTable-component.scss'
 
 // ** Third Party Components
-import { ChevronDown, Share, Printer, FileText, File, Grid, Copy, Plus, Trash2 } from 'react-feather'
+import { ChevronDown, Share, Printer, FileText, File, Grid, Copy, Plus, Trash2, X } from 'react-feather'
 import DataTable from 'react-data-table-component'
 import Icon from 'react-crypto-icons'
 import CardText from 'reactstrap/lib/CardText'
@@ -37,7 +37,7 @@ import { connect } from 'react-redux'
 import * as AppData from '../../redux/actions/cookies/appDataType'
 import DeleteContact from './DeleteContact'
 
-const AdddressBook = ({ globalFavFlag }) => {
+const AdddressBook = ({ globalFavFlag, dispatch }) => {
 
     const { account, chainId } = useEthers()
 
@@ -108,6 +108,54 @@ const AdddressBook = ({ globalFavFlag }) => {
         })
     }
 
+    const handleAdrsBookDeleteLocal = () => {
+        const getAdrsBookList = JSON.parse(localStorage.getItem('adrsbook'))
+        for (const i in getAdrsBookList) {
+            if (getAdrsBookList[i].owner === account) {
+                // console.log('getAdrsBookList[i].owner', getAdrsBookList[i].owner)
+                getAdrsBookList.splice(i, 1)
+            } else {
+                console.log('No matching data')
+            }
+        }
+        localStorage.setItem('adrsbook', JSON.stringify(getAdrsBookList))
+        if (globalFavFlag === 0) {
+            dispatch(AppData.globalFavFlag(1))
+        } else {
+            dispatch(AppData.globalFavFlag(0))
+        }
+        // if (getdata) {
+        //     localStorage.removeItem('adrsbook')
+        // }
+    }
+
+    const handleConfirmDelete = () => {
+        return MySwal.fire({
+            title: 'Are you sure, you want to delete the whole Address Book data?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                cancelButton: 'btn btn-outline-danger ml-1'
+            },
+            buttonsStyling: false
+        }).then(function (result) {
+            if (result.value) {
+                handleAdrsBookDeleteLocal()
+                MySwal.fire({
+                    icon: 'success',
+                    title: 'Deleted!',
+                    text: 'Your file has been deleted.',
+                    customClass: {
+                        confirmButton: 'btn btn-success'
+                    }
+                })
+            }
+        })
+    }
+
     console.log('curt_account', curt_account)
 
     useEffect(() => {
@@ -124,7 +172,7 @@ const AdddressBook = ({ globalFavFlag }) => {
     const [data, setData] = useState([])
     const getAdrsBookList = () => {
         const getdata = JSON.parse(localStorage.getItem('adrsbook'))
-        const adrsData = getdata && getdata.filter(i => i.owner === account)
+        const adrsData = getdata && getdata.filter(i => i.owner === account && i.network === chainId)
         console.log()
         if (getdata) {
             setData(adrsData)
@@ -174,7 +222,7 @@ const AdddressBook = ({ globalFavFlag }) => {
                     {<CopyAdrs item={row} />}
                     {<a href={getExplorerAddressLink(row.adrs, chainId ? chainId : 1)} target='_blank'><GoLinkExternal className='mr-1' size={25} color='grey' /></a>}
                     {<DeleteContact item={row} />}
-                    {(getVaultList && getVaultList.find(i => i.address === row.adrs)) || (getSegaList && getSegaList.find(i => i.address === row.adrs)) ? <Heart item={row} /> : null}
+                    {(getVaultList && getVaultList.find(i => i.address === row.adrs && i.network === row.network)) || (getSegaList && getSegaList.find(i => i.address === row.adrs && i.network === row.network)) ? <Heart item={row} /> : null}
                 </span>
             )
         },
@@ -275,6 +323,10 @@ const AdddressBook = ({ globalFavFlag }) => {
                             <Button className='ml-2' color='success' caret outline onClick={handleModal}>
                                 <Plus size={15} />
                                 <span className='align-middle ml-50'>Create Entry</span>
+                            </Button>
+                            <Button className='ml-2' color='danger' caret outline onClick={handleConfirmDelete}>
+                                <X size={15} />
+                                <span className='align-middle ml-50'>Delete Address Book</span>
                             </Button>
                         </div>
                     </CardHeader>

@@ -1,7 +1,0 @@
-.avatar_flash {
-    
-}
-@keyframes flash {
-    0% {display: none;}
-    100% {display: block;}
-}

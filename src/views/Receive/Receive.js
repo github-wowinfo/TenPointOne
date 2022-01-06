@@ -107,7 +107,15 @@ const Receive = ({ networkC, globalAdrs, globalNickName }) => {
 
   const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
   const copy = async () => {
-    await navigator.clipboard.writeText(globalAdrs)
+    // await navigator.clipboard.writeText(globalAdrs)
+    // notifySuccess()
+    const textField = document.createElement('textarea')
+    textField.innerText = globalAdrs
+    document.body.appendChild(textField)
+    textField.select()
+    document.execCommand('copy')
+    textField.remove()
+
     notifySuccess()
   }
 

@@ -9,7 +9,15 @@ const CopyAdrsSegaList = ({ item }) => {
     const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false })
 
     const copy = async () => {
-        await navigator.clipboard.writeText(item)
+        // await navigator.clipboard.writeText(item)
+        // notifySuccess()
+        const textField = document.createElement('textarea')
+        textField.innerText = item
+        document.body.appendChild(textField)
+        textField.select()
+        document.execCommand('copy')
+        textField.remove()
+
         notifySuccess()
     }
 
