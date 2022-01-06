@@ -138,7 +138,22 @@ const Send = ({ globalAdrs, globalNickName }) => {
   // const [text, setText] = useState(globalAdrs)
   const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false })
   const copy = async () => {
-    await navigator.clipboard.writeText(globalAdrs)
+    // let text
+    // if (navigator.clipboard) {
+    //   text = await navigator.clipboard.writeText(globalAdrs)
+    //   notifySuccess()
+    // } else {
+    //   text = window.clipboardData.setData('text/plain')
+    // }
+    // console.log('Got pasted text: ', text)
+
+    const textField = document.createElement('textarea')
+    textField.innerText = globalAdrs
+    document.body.appendChild(textField)
+    textField.select()
+    document.execCommand('copy')
+    textField.remove()
+
     notifySuccess()
   }
 
