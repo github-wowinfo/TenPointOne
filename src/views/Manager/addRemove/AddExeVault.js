@@ -200,8 +200,8 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
 
     const handleConfirmText = () => {
         return MySwal.fire({
-            title: 'Are you sure, you want to add it in the list?',
-            icon: 'warning',
+            title: 'The current user is not the owner of the vault, are you sure you want to add it?',
+            icon: 'danger',
             showCancelButton: true,
             confirmButtonText: 'Yes, Add it!',
             customClass: {
