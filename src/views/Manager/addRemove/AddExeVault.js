@@ -9,10 +9,14 @@ import Select from 'react-select'
 import { connect } from 'react-redux'
 import * as AppData from '../../../redux/actions/cookies/appDataType'
 import { useVault } from '../../../utility/hooks/useVaults'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNickName, dispatch, globalVaultFlag }) => {
 
     const { account, chainId } = useEthers()
+
+    const MySwal = withReactContent(Swal)
 
     // const CloseBtn = <X className='cursor-pointer' size={25} onClick={handleModal} />
 
@@ -84,19 +88,33 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
         }
     }
     // console.log('nickName', nickName)
+    const [exesega_flag, setExeSega_flag] = useState(false)
+    const [present_flag, setPresent_flag] = useState(false)
 
     const onChangeAdrs = (e) => {
         const vaultadrs = e.target.value
         if (isAddress(vaultadrs)) {
             setVadrs(vaultadrs)
             setAdrs_flag(true)
+            const getAdrsBookData = JSON.parse(localStorage.getItem('vaultdata'))
+            const adrsBookFilter = getAdrsBookData && getAdrsBookData.filter(i => i.owner === account && i.network === chainId)
+            console.log('adrsBookFilter', adrsBookFilter)
+            if (adrsBookFilter && adrsBookFilter.length > 0) {
+                for (const i in adrsBookFilter) {
+                    if (adrsBookFilter[i].address === vaultadrs) {
+                        setPresent_flag(true)
+                        // alert('The Vault is already Added!')
+                        break
+                    }
+                }
+            }
         } else {
             alert("Enter a valid address!")
+            setPresent_flag(false)
             setAdrs_flag(false)
         }
     }
 
-    const [exesega_flag, setExeSega_flag] = useState(false)
 
     const hideOnChangeAdrs = (adrs) => {
         const selected_adrs = adrs.value
@@ -119,7 +137,25 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
         }
     }
 
-    const vaultAdd = (getdata) => {
+    const { getRecoveryInfo } = useVault(vadrs)
+    // const [owner_flag, setOwner_flag] = useState('')
+    let owner_flag
+
+    const getVaultRecoveryInfo = () => {
+        const { _owner, _backup, _releaseDt, _unlockDays } = getRecoveryInfo()
+        console.log('vadrs', vadrs)
+        console.log('_owner', _owner)
+        console.log('account', account)
+        console.log('owner_flag', owner_flag)
+        if (_owner === account) {
+            owner_flag = true
+        } else {
+            owner_flag = false
+        }
+    }
+
+    const vaultAdd = () => {
+        const getVaultdata = JSON.parse(localStorage.getItem('vaultdata'))
         const postdata =
         {
             owner: account,
@@ -128,13 +164,28 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
             network: chainId,
             show: true
         }
-        let vaultdata = []
-        if (getdata) {
-            vaultdata = [...getdata, postdata]
+        let vaultlist = []
+        if (getVaultdata) {
+            vaultlist = [...getVaultdata, postdata]
         } else {
-            vaultdata = [postdata]
+            vaultlist = [postdata]
         }
-        localStorage.setItem('vaultdata', JSON.stringify(vaultdata))
+        localStorage.setItem('vaultdata', JSON.stringify(vaultlist))
+        const getAdrsdata = JSON.parse(localStorage.getItem('adrsbook'))
+        const adrsdata =
+        {
+            owner: account,
+            nickname: nickName,
+            adrs: vadrs,
+            network: chainId
+        }
+        let adrsbook = []
+        if (getAdrsdata) {
+            adrsbook = [...getAdrsdata, adrsdata]
+        } else {
+            adrsbook = [adrsdata]
+        }
+        localStorage.setItem('adrsbook', JSON.stringify(adrsbook))
         if (globalVaultFlag === 0) {
             dispatch(AppData.globalVaultFlag(1))
         } else {
@@ -143,41 +194,59 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
         setName_flag(false)
         setAdrs_flag(false)
         console.log('Vault added')
+
         handleExeVaultModal()
     }
 
-    const { getRecoveryInfo } = useVault(vadrs)
-    const [owner_flag, setOwner_flag] = useState()
-
-    const getVaultRecoveryInfo = () => {
-        setOwner_flag(false)
-        const { _owner, _backup, _releaseDt, _unlockDays } = getRecoveryInfo()
-        console.log('_owner', _owner)
-        console.log('account', account)
-        if (_owner === account) {
-            setOwner_flag(true)
-        } else {
-            setOwner_flag(false)
-        }
+    const handleConfirmText = () => {
+        return MySwal.fire({
+            title: 'Are you sure, you want to add it in the list?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Add it!',
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                cancelButton: 'btn btn-outline-danger ml-1'
+            },
+            buttonsStyling: false
+        }).then(function (result) {
+            if (result.value) {
+                vaultAdd()
+                MySwal.fire({
+                    icon: 'success',
+                    title: 'Added!',
+                    text: 'Your Vault has been added.',
+                    customClass: {
+                        confirmButton: 'btn btn-success'
+                    }
+                }).then(function (result) {
+                    if (result.isConfirmed) {
+                        if (globalVaultFlag === 0) {
+                            dispatch(AppData.globalVaultFlag(1))
+                        } else {
+                            dispatch(AppData.globalVaultFlag(0))
+                        }
+                        setVadrs('')
+                        handleExeVaultModal()
+                    }
+                })
+            } else {
+                setVadrs('')
+                handleExeVaultModal()
+            }
+        })
     }
 
     const handleAdd = () => {
+        console.log('owner_flag', owner_flag)
+        console.log('handleAdd')
         getVaultRecoveryInfo()
-        const getdata = JSON.parse(localStorage.getItem('vaultdata'))
-        console.log('getdata', getdata)
-        if (getdata.length > 0) {
-            for (const i in getdata) {
-                console.log('getdatafor', getdata)
-                if (getdata && getdata[i].address === vadrs) {
-                    handleExeVaultModal()
-                    alert('The Vault is already Added!')
-                    break
-                } else {
-                    vaultAdd(getdata)
-                    break
-                }
-            }
+        if (owner_flag === false) {
+            handleConfirmText()
         } else {
+            // setVadrs('')
+            // console.log('add')
+            const getVaultdata = JSON.parse(localStorage.getItem('vaultdata'))
             const postdata =
             {
                 owner: account,
@@ -186,8 +255,28 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
                 network: chainId,
                 show: true
             }
-            const vaultdata = [postdata]
-            localStorage.setItem('vaultdata', JSON.stringify(vaultdata))
+            let vaultlist = []
+            if (getVaultdata) {
+                vaultlist = [...getVaultdata, postdata]
+            } else {
+                vaultlist = [postdata]
+            }
+            localStorage.setItem('vaultdata', JSON.stringify(vaultlist))
+            const getAdrsdata = JSON.parse(localStorage.getItem('adrsbook'))
+            const adrsdata =
+            {
+                owner: account,
+                nickname: nickName,
+                adrs: vadrs,
+                network: chainId
+            }
+            let adrsbook = []
+            if (getAdrsdata) {
+                adrsbook = [...getAdrsdata, adrsdata]
+            } else {
+                adrsbook = [adrsdata]
+            }
+            localStorage.setItem('adrsbook', JSON.stringify(adrsbook))
             if (globalVaultFlag === 0) {
                 dispatch(AppData.globalVaultFlag(1))
             } else {
@@ -196,9 +285,10 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
             setName_flag(false)
             setAdrs_flag(false)
             console.log('Vault added')
+            setVadrs('')
+
             handleExeVaultModal()
         }
-
     }
 
     const getVaultListFromLocalGlobal = () => {
@@ -206,7 +296,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
         const valueData = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account)
         const vaultlist = valueData && valueData.map((vault, index) => ({ value: index, adrs: vault.address, name: vault.name }))
         console.log('vaultlist', vaultlist)
-        if (vaultlist.length > 0) {
+        if (vaultlist && vaultlist.length > 0) {
             console.log('vaultlist', vaultlist)
             dispatch(AppData.globalAdrs(vaultlist[0].adrs))
             dispatch(AppData.globalNickName(vaultlist[0].name))
@@ -216,6 +306,10 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
             dispatch(AppData.globalNickName('Create a Vault'))
         }
     }
+
+    useEffect(() => {
+        getVaultListFromLocalGlobal()
+    }, [globalVaultFlag])
 
     const handleRemove = () => {
         const getdata = JSON.parse(localStorage.getItem('vaultdata'))
@@ -265,15 +359,17 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
             handleExeVaultModal()
             setName_flag(false)
             setAdrs_flag(false)
+            setPresent_flag(false)
             setExeSega_flag(false)
-            setOwner_flag()
+            setVadrs('')
         }} >
             <ModalHeader tag='h2' toggle={() => {
                 handleExeVaultModal()
                 setName_flag(false)
                 setAdrs_flag(false)
+                setPresent_flag(false)
                 setExeSega_flag(false)
-                setOwner_flag()
+                setVadrs('')
             }} >
                 Show or Hide Existing Vault
             </ModalHeader>
@@ -325,15 +421,22 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
                                     <Input type='text' id='accadrs' onChange={onChangeAdrs} />
                                 </FormGroup>
                             </Col>
-                            {owner_flag === false ? (
+                            {/* {owner_flag === false ? (
                                 <Col>
-                                    <UncontrolledAlert color='warning'>
+                                    <UncontrolledAlert color='danger'>
                                         <h4 className='alert-heading'>The current user is not the owner of this Vault</h4>
                                         <div className='alert-body'>
                                             Do you still want to add this Vault?
                                             <br />
                                             If Yes, click to continue.
                                         </div>
+                                    </UncontrolledAlert>
+                                </Col>
+                            ) : null} */}
+                            {present_flag ? (
+                                <Col>
+                                    <UncontrolledAlert color='warning'>
+                                        <h4 className='alert-heading'>The Vault is already added!</h4>
                                     </UncontrolledAlert>
                                 </Col>
                             ) : null}
@@ -371,7 +474,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
             <ModalFooter className='justify-content-center'>
                 {active === '1' ? (
                     <>
-                        {name_flag && adrs_flag === true ? (
+                        {(name_flag && adrs_flag) && present_flag === false ? (
                             <Button.Ripple color='primary' onClick={handleAdd}>
                                 <Eye className='mr-1' size={17} />
                                 ADD
@@ -408,7 +511,8 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
 // export default AddExeVault
 const mapStateToProps = (state) => ({
     globalAdrs: state.appData.globalAdrs,
-    globalNickName: state.appData.globalNickName
+    globalNickName: state.appData.globalNickName,
+    globalVaultFlag: state.appData.globalVaultFlag
 })
 const mapDispatchToProp = dispatch => ({ dispatch })
 

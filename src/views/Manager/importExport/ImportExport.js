@@ -15,8 +15,31 @@ import { ChevronDown, Share, Printer, FileText, File, Grid, Copy, Plus, Unlock }
 import CardText from 'reactstrap/lib/CardText'
 import { CgExport, CgImport } from 'react-icons/cg'
 import '@styles/react/libs/tables/react-dataTable-component.scss'
+import { CSVLink } from "react-csv"
+import { useEthers } from '@usedapp/core'
+import { useEffect } from 'react'
 
 const ImportExport = () => {
+
+    const { account, chainId } = useEthers()
+
+    const headers = [
+        { label: "Nickname", key: "nickname" },
+        { label: "Network", key: "network" },
+        { label: "Address", key: "adrs" },
+        { label: "Owner", key: "owner" }
+    ]
+
+    let data
+    useEffect(() => {
+        const adrsBookdata = JSON.parse(localStorage.getItem('adrsbook'))
+        const filterAdrsBook = adrsBookdata && adrsBookdata.map(i => i.owner === account && i.network === chainId)
+        data = filterAdrsBook
+    }, [account, chainId])
+
+    console.log('data', data)
+
+
     return (
         <div>
             <Card>

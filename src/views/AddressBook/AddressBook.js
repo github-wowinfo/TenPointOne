@@ -34,10 +34,11 @@ import withReactContent from 'sweetalert2-react-content'
 import CopyAdrs from './CopyAdrs'
 import ChangeName from './ChangeName'
 import { connect } from 'react-redux'
+import { CSVLink } from "react-csv"
 import * as AppData from '../../redux/actions/cookies/appDataType'
 import DeleteContact from './DeleteContact'
 
-const AdddressBook = ({ globalFavFlag, dispatch }) => {
+const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
 
     const { account, chainId } = useEthers()
 
@@ -122,10 +123,10 @@ const AdddressBook = ({ globalFavFlag, dispatch }) => {
         // if (getdata) {
         //     localStorage.removeItem('adrsbook')
         // }
-        if (globalFavFlag === 0) {
-            dispatch(AppData.globalFavFlag(1))
+        if (globalVaultFlag === 0) {
+            dispatch(AppData.globalVaultFlag(1))
         } else {
-            dispatch(AppData.globalFavFlag(0))
+            dispatch(AppData.globalVaultFlag(0))
         }
 
     }
@@ -184,7 +185,7 @@ const AdddressBook = ({ globalFavFlag, dispatch }) => {
 
     useEffect(() => {
         getAdrsBookList()
-    }, [chainId, account, globalFavFlag])
+    }, [chainId, account, globalVaultFlag, globalFavFlag])
 
 
     const getVaultList = JSON.parse(localStorage.getItem('vaultdata'))
@@ -262,6 +263,28 @@ const AdddressBook = ({ globalFavFlag, dispatch }) => {
             }
         }
     }
+
+    const headers = [
+        { label: "Nickname", key: "nickname" },
+        { label: "Network", key: "network" },
+        { label: "Address", key: "adrs" },
+        { label: "Owner", key: "owner" }
+    ]
+
+    const [adrsdata, setAdrsdata] = useState([])
+    useEffect(() => {
+        const adrsBookdata = JSON.parse(localStorage.getItem('adrsbook'))
+        const filterAdrsBook = adrsBookdata && adrsBookdata.filter(i => i.owner === account && i.network === chainId)
+        setAdrsdata(filterAdrsBook)
+    }, [account, chainId, globalVaultFlag, globalFavFlag])
+
+    // const csvReport = {
+    //     data: adrsdata,
+    //     headers: headers,
+    //     filename: 'AddresBookData.csv'
+    //   }
+    console.log('adrsdata', adrsdata)
+
     return (
         <>
             {isConnected ? (<div>
@@ -289,7 +312,7 @@ const AdddressBook = ({ globalFavFlag, dispatch }) => {
                 <Card>
                     <CardHeader className='flex-md-row flex-column align-md-items-center align-items-start border-bottom'>
                         <div className='d-flex mt-md-0 mt-1'>
-                            <UncontrolledButtonDropdown direction='up'>
+                            {/* <UncontrolledButtonDropdown direction='up'>
                                 <DropdownToggle color='success' caret outline>
                                     <CgExport size={15} />
                                     <span className='align-middle ml-50'>Export</span>
@@ -316,7 +339,7 @@ const AdddressBook = ({ globalFavFlag, dispatch }) => {
                                         <span className='align-middle ml-50'>Copy</span>
                                     </DropdownItem>
                                 </DropdownMenu>
-                            </UncontrolledButtonDropdown>
+                            </UncontrolledButtonDropdown> */}
                             <Button className='ml-2' color='success' caret outline>
                                 <CgImport size={15} />
                                 <span className='align-middle ml-50'>Import</span>
@@ -328,6 +351,10 @@ const AdddressBook = ({ globalFavFlag, dispatch }) => {
                             <Button className='ml-2' color='danger' caret outline onClick={handleConfirmDelete}>
                                 <X size={15} />
                                 <span className='align-middle ml-50'>Delete Address Book</span>
+                            </Button>
+                            <Button className='ml-2' color='success' caret outline>
+                                <CgExport className='mx-1' size={15} />
+                                <CSVLink style={{ color: '#31c975' }} data={adrsdata} headers={headers} filename='Addres_Book_Data.csv'>Export</CSVLink>
                             </Button>
                         </div>
                     </CardHeader>
@@ -343,6 +370,7 @@ const AdddressBook = ({ globalFavFlag, dispatch }) => {
 const mapStateToProps = (state) => ({
     globalAdrs: state.appData.globalAdrs,
     globalNickName: state.appData.globalNickName,
+    globalVaultFlag: state.appData.globalVaultFlag,
     globalFavFlag: state.appData.globalFavFlag
 })
 const mapDispatchToProp = dispatch => ({ dispatch })

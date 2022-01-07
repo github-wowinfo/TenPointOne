@@ -26,7 +26,7 @@ import { useEthers } from '@usedapp/core'
 import { connect } from 'react-redux'
 import * as AppData from '../../redux/actions/cookies/appDataType'
 
-const AddNewModal = ({ open, handleModal, dispatch, globalFavFlag }) => {
+const AddNewModal = ({ open, handleModal, dispatch, globalVaultFlag }) => {
 
   const { account, chainId } = useEthers()
 
@@ -112,10 +112,10 @@ const AddNewModal = ({ open, handleModal, dispatch, globalFavFlag }) => {
       }
       localStorage.setItem('adrsbook', JSON.stringify(adrsbook))
       // setChain([])
-      if (globalFavFlag === 0) {
-        dispatch(AppData.globalFavFlag(1))
+      if (globalVaultFlag === 0) {
+        dispatch(AppData.globalVaultFlag(1))
       } else {
-        dispatch(AppData.globalFavFlag(0))
+        dispatch(AppData.globalVaultFlag(0))
       }
       setName_flag(false)
       setAdrs_flag(false)
@@ -222,7 +222,7 @@ const AddNewModal = ({ open, handleModal, dispatch, globalFavFlag }) => {
 const mapStateToProps = (state) => ({
   globalAdrs: state.appData.globalAdrs,
   globalNickName: state.appData.globalNickName,
-  globalFavFlag: state.appData.globalFavFlag
+  globalVaultFlag: state.appData.globalVaultFlag
 })
 const mapDispatchToProp = dispatch => ({ dispatch })
 export default connect(mapStateToProps, mapDispatchToProp)(AddNewModal)

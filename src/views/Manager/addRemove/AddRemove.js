@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Card,
     CardHeader,
@@ -12,8 +12,34 @@ import { Edit3 } from "react-feather"
 import CardText from 'reactstrap/lib/CardText'
 import AddExeVault from './AddExeVault'
 import AddExeSega from './AddExeSega'
+import { connect } from 'react-redux'
+import * as AppData from '../../../redux/actions/cookies/appDataType'
+import { useEthers } from '@usedapp/core'
 
-const AddRemove = () => {
+const AddRemove = ({ dispatch, globalVaultFlag }) => {
+
+    const { account, chainId } = useEthers()
+
+    const getVaultListFromLocalGlobal = () => {
+        const getdata = JSON.parse(localStorage.getItem('vaultdata'))
+        const valueData = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account)
+        const vaultlist = valueData && valueData.map((vault, index) => ({ value: index, adrs: vault.address, name: vault.name }))
+        console.log('vaultlist', vaultlist)
+        if (vaultlist && vaultlist.length > 0) {
+            console.log('vaultlist', vaultlist)
+            dispatch(AppData.globalAdrs(vaultlist[0].adrs))
+            dispatch(AppData.globalNickName(vaultlist[0].name))
+            // setVaultList(vaultlist)
+        } else {
+            dispatch(AppData.globalAdrs(''))
+            dispatch(AppData.globalNickName('Create a Vault'))
+        }
+    }
+
+    useEffect(() => {
+        getVaultListFromLocalGlobal()
+    }, [globalVaultFlag])
+
     const [exevaultmodal, setExeVaultModal] = useState(false)
     const handleExeVaultModal = () => setExeVaultModal(!exevaultmodal)
 
@@ -45,4 +71,11 @@ const AddRemove = () => {
     )
 }
 
-export default AddRemove
+// export default AddRemove
+const mapStateToProps = (state) => ({
+    globalAdrs: state.appData.globalAdrs,
+    globalNickName: state.appData.globalNickName
+})
+const mapDispatchToProp = dispatch => ({ dispatch })
+
+export default connect(mapStateToProps, mapDispatchToProp)(AddRemove)
