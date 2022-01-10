@@ -9,8 +9,16 @@ const CopyAdrsDropList = ({ item }) => {
     const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false })
 
     const copy = async () => {
-        await navigator.clipboard.writeText(item.adrs)
+        const textField = document.createElement('textarea')
+        textField.innerText = item.adrs
+        document.body.appendChild(textField)
+        textField.select()
+        document.execCommand('copy')
+        textField.remove()
+
         notifySuccess()
+        // await navigator.clipboard.writeText(item.adrs)
+        // notifySuccess()
     }
 
     const SuccessToast = () => (

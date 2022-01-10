@@ -17,10 +17,34 @@ import { CgExport, CgImport } from 'react-icons/cg'
 import '@styles/react/libs/tables/react-dataTable-component.scss'
 import { CSVLink } from "react-csv"
 import { useEthers } from '@usedapp/core'
-import { useEffect } from 'react'
+import { BsSafe2 } from 'react-icons/bs'
+import { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
+import * as AppData from '../../../redux/actions/cookies/appDataType'
 
-const ImportExport = () => {
+const ImportExport = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
     const { account, chainId } = useEthers()
+
+    // const [Vaultdata, setVaultdata] = useState([])
+    const getVaultData = JSON.parse(localStorage.getItem('vaultdata'))
+    if (getVaultData !== undefined || getVaultData !== []) {
+        const LocalVaultData = getVaultData && getVaultData.map(i => i.owner === account && i.network === chainId)
+        // setVaultdata(LocalVaultData)
+    } else {
+        alert('Create a Vault')
+    }
+
+    useEffect(() => {
+        getVaultData()
+    }, [globalFavFlag, globalVaultFlag])
+
+    const Vheaders = [
+        { label: "Nickname", key: "name" },
+        { label: "Network", key: "network" },
+        { label: "Address", key: "address" },
+        { label: "User", key: "owner" }
+    ]
+
     return (
         <div>
             <Card>
@@ -43,14 +67,14 @@ const ImportExport = () => {
                                 </DropdownToggle>
                                 <DropdownMenu right>
                                     <DropdownItem className='w-100'>
-                                        <Printer size={15} />
-                                        <span className='align-middle ml-50'>Print</span>
+                                        <BsSafe2 className='mx-1' size={15} />
+                                        <CSVLink style={{ color: '#31c975' }} data={LocalVaultData} headers={Vheaders} filename='Addres_Book_Data.csv'>VAULT DATA</CSVLink>
                                     </DropdownItem>
                                     <DropdownItem className='w-100' onClick={() => downloadCSV(data)}>
-                                        <FileText size={15} />
-                                        <span className='align-middle ml-50'>CSV</span>
+                                        <CgExport className='mx-1' size={15} />
+                                        {/* <CSVLink style={{ color: '#31c975' }} data={adrsdata} headers={headers} filename='Addres_Book_Data.csv'>Export</CSVLink> */}
                                     </DropdownItem>
-                                    <DropdownItem className='w-100'>
+                                    {/* <DropdownItem className='w-100'>
                                         <Grid size={15} />
                                         <span className='align-middle ml-50'>Excel</span>
                                     </DropdownItem>
@@ -61,7 +85,7 @@ const ImportExport = () => {
                                     <DropdownItem className='w-100'>
                                         <Copy size={15} />
                                         <span className='align-middle ml-50'>Copy</span>
-                                    </DropdownItem>
+                                    </DropdownItem> */}
                                 </DropdownMenu>
                             </UncontrolledButtonDropdown>
                             <Button className='mr-1 mb-1' color='primary' style={{ fontSize: '1.5em' }} color='primary' caret >
@@ -76,4 +100,12 @@ const ImportExport = () => {
     )
 }
 
-export default ImportExport
+// export default ImportExport
+const mapStateToProps = (state) => ({
+    globalAdrs: state.appData.globalAdrs,
+    globalNickName: state.appData.globalNickName,
+    globalVaultFlag: state.appData.globalVaultFlag,
+    globalFavFlag: state.appData.globalFavFlag
+})
+const mapDispatchToProp = dispatch => ({ dispatch })
+export default connect(mapStateToProps, mapDispatchToProp)(ImportExport)
