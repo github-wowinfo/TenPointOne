@@ -1,8 +1,8 @@
-import { X, PlusCircle, Info } from 'react-feather'
+import { X, PlusCircle, Info, Check } from 'react-feather'
 import { toast } from 'react-toastify'
 import Avatar from '@components/avatar'
 import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, Popover, Alert, Spinner } from 'reactstrap'
-import { useEthers, useNotifications, shortenAddress, getExplorerAddressLink, getExplorerTransactionLink, shortenIfTransactionHash } from "@usedapp/core"
+import { useEthers, useNotifications, shortenAddress, getExplorerAddressLink, getExplorerTransactionLink, shortenIfTransactionHash, shortenIfAddress } from "@usedapp/core"
 import { useRCU } from '../../../utility/hooks/useRCU'
 import { getAddress, hexStripZeros } from "ethers/lib/utils"
 import React, { useState, useEffect, Fragment } from "react"
@@ -81,6 +81,24 @@ const CreateVaultModal = ({ openvault, handleVaultModal, globalVaultFlag, dispat
         }
     }
 
+    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
+    const SuccessToast = () => (
+        <Fragment>
+            <div className='toastify-header'>
+                <div className='title-wrapper'>
+                    <Avatar size='sm' color='success' icon={<Check size={12} />} />
+                    <h6 className='toast-title'>Vault Created!</h6>
+                </div>
+            </div>
+            <div className='toastify-body'>
+                <span role='img' aria-label='toast-text'>
+                    {/* Vault with Address "{shortenIfAddress(newVaultAddress)}" has been created and can be found in your navigation pane. */}
+                    Vault has been created and can be found in your navigation pane.
+                </span>
+            </div>
+        </Fragment>
+    )
+
     useEffect(() => {
         if (launchVaultState.status === "Mining") {
             const tx_id = String(launchVaultState.transaction?.hash)
@@ -133,6 +151,8 @@ const CreateVaultModal = ({ openvault, handleVaultModal, globalVaultFlag, dispat
                 adrsbook = [adrsdata]
             }
             localStorage.setItem('adrsbook', JSON.stringify(adrsbook))
+
+            notifySuccess()
         }
     }, [launchVaultState])
 

@@ -34,7 +34,7 @@ const ImportExport = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
     // } else {
     //     alert('Create a Vault')
     // }
-
+    const [noData, setNoData] = useState(false)
     const [Vaultdata, setVaultdata] = useState([])
     const [SegaData, setSegaData] = useState([])
     useEffect(() => {
@@ -42,14 +42,18 @@ const ImportExport = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
         if (getVaultData !== undefined || getVaultData !== []) {
             const LocalVaultData = getVaultData && getVaultData.filter(i => i.owner === account && i.network === chainId)
             setVaultdata(LocalVaultData)
+            setNoData(false)
         } else {
+            setNoData(true)
             alert('Create a Vault')
         }
         const getSegaData = JSON.parse(localStorage.getItem('segadata'))
         if (getSegaData !== undefined || getSegaData !== []) {
             const LocalSegaData = getSegaData && getSegaData.filter(i => i.owner === account && i.network === chainId)
             setSegaData(LocalSegaData)
+            setNoData(false)
         } else {
+            setNoData(true)
             alert('Create a Vault')
         }
     }, [globalFavFlag, globalVaultFlag])
@@ -89,16 +93,18 @@ const ImportExport = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
                                     <CgExport size={15} />
                                     <span className='align-middle ml-50'>Export</span>
                                 </DropdownToggle>
-                                <DropdownMenu right>
-                                    <DropdownItem className='w-100'>
-                                        <BsSafe2 className='mx-1' size={15} />
-                                        <CSVLink style={{ color: '#31c975' }} data={Vaultdata} headers={Vheaders} filename='Addres_Book_Data.csv'>VAULT DATA</CSVLink>
-                                    </DropdownItem>
-                                    <DropdownItem className='w-100' >
-                                        <SiWebmoney className='mx-1' size={15} />
-                                        <CSVLink style={{ color: '#31c975' }} data={SegaData} headers={Sheaders} filename='Addres_Book_Data.csv'>SEGA DATA</CSVLink>
-                                    </DropdownItem>
-                                </DropdownMenu>
+                                {noData ? (
+                                    <DropdownMenu right>
+                                        <DropdownItem className='w-100'>
+                                            <BsSafe2 className='mx-1' size={15} />
+                                            <CSVLink style={{ color: '#31c975' }} data={Vaultdata} headers={Vheaders} filename='Addres_Book_Data.csv'>VAULT DATA</CSVLink>
+                                        </DropdownItem>
+                                        <DropdownItem className='w-100' >
+                                            <SiWebmoney className='mx-1' size={15} />
+                                            <CSVLink style={{ color: '#31c975' }} data={SegaData} headers={Sheaders} filename='Addres_Book_Data.csv'>SEGA DATA</CSVLink>
+                                        </DropdownItem>
+                                    </DropdownMenu>
+                                ) : null}
                             </UncontrolledButtonDropdown>
                             <Button className='mr-1 mb-1' color='primary' style={{ fontSize: '1.5em' }} color='primary' caret >
                                 <CgImport size={15} />

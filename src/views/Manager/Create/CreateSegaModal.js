@@ -1,12 +1,14 @@
 import Select from 'react-select'
-import { X, PlusCircle } from 'react-feather'
+import { X, PlusCircle, Check } from 'react-feather'
+import Avatar from '@components/avatar'
 import { selectThemeColors } from '@utils'
 import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, Alert, Spinner } from 'reactstrap'
 import { getAddress, hexStripZeros } from "ethers/lib/utils"
 import { useEthers, getExplorerAddressLink, getExplorerTransactionLink, shortenIfAddress, shortenIfTransactionHash } from "@usedapp/core"
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, Fragment } from "react"
 import { useRCU } from '../../../utility/hooks/useRCU'
 import { useVault } from '../../../utility/hooks/useVaults'
+import { toast } from 'react-toastify'
 
 const CreateSegaModal = ({ opensega, handleSegaModal }) => {
 
@@ -115,6 +117,24 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
         return createNewSega()
     }
 
+    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
+    const SuccessToast = () => (
+        <Fragment>
+            <div className='toastify-header'>
+                <div className='title-wrapper'>
+                    <Avatar size='sm' color='success' icon={<Check size={12} />} />
+                    <h6 className='toast-title'>Sega Created!</h6>
+                </div>
+            </div>
+            <div className='toastify-body'>
+                <span role='img' aria-label='toast-text'>
+                    {/* Sega with Address "{shortenIfAddress(newSegaAddress)}" has been created and can be found in your navigation pane. */}
+                    Sega has been created and can be found in your navigation pane.
+                </span>
+            </div>
+        </Fragment>
+    )
+
     // To track state of Sega creation Trasnactions
     useEffect(() => {
         if (createNewSegaState.status === "Mining") {
@@ -164,6 +184,8 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
                 adrsbook = [adrsdata]
             }
             localStorage.setItem('adrsbook', JSON.stringify(adrsbook))
+
+            notifySuccess()
         }
     }, [createNewSegaState])
 
