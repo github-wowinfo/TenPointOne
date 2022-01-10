@@ -21,21 +21,37 @@ import { BsSafe2 } from 'react-icons/bs'
 import { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import * as AppData from '../../../redux/actions/cookies/appDataType'
+import { SiWebmoney } from 'react-icons/si'
 
 const ImportExport = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
     const { account, chainId } = useEthers()
 
-    // const [Vaultdata, setVaultdata] = useState([])
-    const getVaultData = JSON.parse(localStorage.getItem('vaultdata'))
-    if (getVaultData !== undefined || getVaultData !== []) {
-        const LocalVaultData = getVaultData && getVaultData.map(i => i.owner === account && i.network === chainId)
-        // setVaultdata(LocalVaultData)
-    } else {
-        alert('Create a Vault')
-    }
+    // // const [Vaultdata, setVaultdata] = useState([])
+    // const getVaultData = JSON.parse(localStorage.getItem('vaultdata'))
+    // if (getVaultData !== undefined || getVaultData !== []) {
+    //     const LocalVaultData = getVaultData && getVaultData.map(i => i.owner === account && i.network === chainId)
+    //     // setVaultdata(LocalVaultData)
+    // } else {
+    //     alert('Create a Vault')
+    // }
 
+    const [Vaultdata, setVaultdata] = useState([])
+    const [SegaData, setSegaData] = useState([])
     useEffect(() => {
-        getVaultData()
+        const getVaultData = JSON.parse(localStorage.getItem('vaultdata'))
+        if (getVaultData !== undefined || getVaultData !== []) {
+            const LocalVaultData = getVaultData && getVaultData.filter(i => i.owner === account && i.network === chainId)
+            setVaultdata(LocalVaultData)
+        } else {
+            alert('Create a Vault')
+        }
+        const getSegaData = JSON.parse(localStorage.getItem('segadata'))
+        if (getSegaData !== undefined || getSegaData !== []) {
+            const LocalSegaData = getSegaData && getSegaData.filter(i => i.owner === account && i.network === chainId)
+            setSegaData(LocalSegaData)
+        } else {
+            alert('Create a Vault')
+        }
     }, [globalFavFlag, globalVaultFlag])
 
     const Vheaders = [
@@ -43,6 +59,14 @@ const ImportExport = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
         { label: "Network", key: "network" },
         { label: "Address", key: "address" },
         { label: "User", key: "owner" }
+    ]
+
+    const Sheaders = [
+        { label: "Nickname", key: "name" },
+        { label: "Network", key: "network" },
+        { label: "Address", key: "address" },
+        { label: "Of_Vault", key: "vault" },
+        // { label: "User", key: "owner" }
     ]
 
     return (
@@ -68,24 +92,12 @@ const ImportExport = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
                                 <DropdownMenu right>
                                     <DropdownItem className='w-100'>
                                         <BsSafe2 className='mx-1' size={15} />
-                                        <CSVLink style={{ color: '#31c975' }} data={LocalVaultData} headers={Vheaders} filename='Addres_Book_Data.csv'>VAULT DATA</CSVLink>
+                                        <CSVLink style={{ color: '#31c975' }} data={Vaultdata} headers={Vheaders} filename='Addres_Book_Data.csv'>VAULT DATA</CSVLink>
                                     </DropdownItem>
-                                    <DropdownItem className='w-100' onClick={() => downloadCSV(data)}>
-                                        <CgExport className='mx-1' size={15} />
-                                        {/* <CSVLink style={{ color: '#31c975' }} data={adrsdata} headers={headers} filename='Addres_Book_Data.csv'>Export</CSVLink> */}
+                                    <DropdownItem className='w-100' >
+                                        <SiWebmoney className='mx-1' size={15} />
+                                        <CSVLink style={{ color: '#31c975' }} data={SegaData} headers={Sheaders} filename='Addres_Book_Data.csv'>SEGA DATA</CSVLink>
                                     </DropdownItem>
-                                    {/* <DropdownItem className='w-100'>
-                                        <Grid size={15} />
-                                        <span className='align-middle ml-50'>Excel</span>
-                                    </DropdownItem>
-                                    <DropdownItem className='w-100'>
-                                        <File size={15} />
-                                        <span className='align-middle ml-50'>PDF</span>
-                                    </DropdownItem>
-                                    <DropdownItem className='w-100'>
-                                        <Copy size={15} />
-                                        <span className='align-middle ml-50'>Copy</span>
-                                    </DropdownItem> */}
                                 </DropdownMenu>
                             </UncontrolledButtonDropdown>
                             <Button className='mr-1 mb-1' color='primary' style={{ fontSize: '1.5em' }} color='primary' caret >
