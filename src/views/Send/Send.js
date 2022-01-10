@@ -258,6 +258,9 @@ const Send = ({ globalAdrs, globalNickName }) => {
   let tokenList
   helperConfig.testnetworks.includes(chainId) ? tokenList = [native].concat(erc20List).concat(apiList) : tokenList = apiList
 
+  const curr_acc_balance = useEtherBalance(fromAddress)
+  const acc_balance = new CurrencyValue(nativeToken, curr_acc_balance ? curr_acc_balance : BigNumber.from(0))
+
   // let curr_acc_token
   // let curr_acc_balance
   // let acc_balance
@@ -459,14 +462,14 @@ const Send = ({ globalAdrs, globalNickName }) => {
                         <a href={getExplorerAddressLink(globalAdrs, chainId)} target='_blank'><GoLinkExternal color='grey' size={15} /></a>
                       </Col>
                     </Col>
-                    {/* <Badge style={{ width: '130px' }} color='secondary'>Balance: <strong>{acc_balance && acc_balance.format()}</strong></Badge> */}
-                    {
+                    <Badge style={{ width: '100%' }} color='secondary'>Balance: <strong>{acc_balance && acc_balance.format()}</strong></Badge>
+                    {/* {
                       usingNative ? (
                         <Badge style={{ width: '130px' }} color='secondary'>Balance: <strong>{acc_balance}</strong></Badge>
                       ) : (
                         <Badge style={{ width: '130px' }} color='secondary'>Balance: <strong>{ercTokenBal.format()}</strong></Badge>
-                      )
-                    }
+                      ) 
+                    */}
                     {/* <Badge style={{ width: '130px' }} color='secondary'>Balance: <strong>0 MATIC</strong></Badge> */}
                   </Col>
                 </Row>

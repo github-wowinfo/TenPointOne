@@ -5,20 +5,14 @@ import AddNicknameForSega from './AddNicknameForSega'
 
 const SegaLocal = ({ opensegaLocalModal, handleSegaLocalModal, segas, vault }) => {
 
+    // console.log('segaslocal', segas)
+
     const { account, chainId } = useEthers()
+
     const pvault = vault
 
     const [getSega, setSega] = useState([])
 
-    // const handleSegaNickName = (e) => {
-    //     if (e.target.value === '') {
-    //         alert('Nickname cannot be blank!')
-    //     } else {
-    //         setNickName(e.target.value)
-    //         // setNewSega(item.address)
-
-    //     }
-    // }
     const data = segas.map((item, index) => (
         <AddNicknameForSega item={item} index={index} segas={segas} getSega={getSega} setSega={setSega} />
     ))
@@ -37,23 +31,27 @@ const SegaLocal = ({ opensegaLocalModal, handleSegaLocalModal, segas, vault }) =
         }
 
         localStorage.setItem('segadata', JSON.stringify(segadata))
-        handleSegaLocalModal()
 
         const getAdrsdata = JSON.parse(localStorage.getItem('adrsbook'))
-        const adrsdata =
-        {
-            owner: account,
-            nickname: segaList.name,
-            adrs: segaList.address,
-            network: chainId
+
+        console.log('SEGALIST', segaList)
+        for (const i in segaList) {
+            const adrsdata =
+            {
+                owner: account,
+                nickname: segaList[i].name,
+                adrs: segaList[i].address,
+                network: chainId
+            }
+            let adrsbook = []
+            if (getAdrsdata) {
+                adrsbook = [...getAdrsdata, adrsdata]
+            } else {
+                adrsbook = [adrsdata]
+            }
+            localStorage.setItem('adrsbook', JSON.stringify(adrsbook))
         }
-        let adrsbook = []
-        if (getAdrsdata) {
-            adrsbook = [...getAdrsdata, adrsdata]
-        } else {
-            adrsbook = [adrsdata]
-        }
-        localStorage.setItem('adrsbook', JSON.stringify(adrsbook))
+        handleSegaLocalModal()
     }
     return (
         <>

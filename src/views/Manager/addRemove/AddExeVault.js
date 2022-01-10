@@ -96,12 +96,12 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
         if (isAddress(vaultadrs)) {
             setVadrs(vaultadrs)
             setAdrs_flag(true)
-            const getAdrsBookData = JSON.parse(localStorage.getItem('vaultdata'))
-            const adrsBookFilter = getAdrsBookData && getAdrsBookData.filter(i => i.owner === account && i.network === chainId)
-            console.log('adrsBookFilter', adrsBookFilter)
-            if (adrsBookFilter && adrsBookFilter.length > 0) {
-                for (const i in adrsBookFilter) {
-                    if (adrsBookFilter[i].address === vaultadrs) {
+            const getVault_data = JSON.parse(localStorage.getItem('vaultdata'))
+            const vault_data_filter = getVault_data && getVault_data.filter(i => i.owner === account && i.network === chainId)
+            console.log('vault_data_filter', vault_data_filter)
+            if (vault_data_filter && vault_data_filter.length > 0) {
+                for (const i in vault_data_filter) {
+                    if (vault_data_filter[i].address === vaultadrs) {
                         setPresent_flag(true)
                         // alert('The Vault is already Added!')
                         break

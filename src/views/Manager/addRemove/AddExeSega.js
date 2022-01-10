@@ -2,15 +2,20 @@ import { useEffect, useState } from 'react'
 import Select from 'react-select'
 import { Eye, EyeOff } from 'react-feather'
 import { selectThemeColors } from '@utils'
-import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap'
-import { useEthers } from '@usedapp/core'
+import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, Nav, NavItem, NavLink, TabContent, TabPane, UncontrolledAlert } from 'reactstrap'
+import { shortenIfAddress, useEthers } from '@usedapp/core'
 import { isAddress } from "ethers/lib/utils"
 import * as AppData from '../../../redux/actions/cookies/appDataType'
 import { connect } from 'react-redux'
+import { useManager } from '../../../utility/hooks/useManager'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
-const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickName, dispatch }) => {
+const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickName, dispatch, globalVaultFlag }) => {
 
     const { chainId, account } = useEthers()
+
+    const MySwal = withReactContent(Swal)
 
     // const CloseBtn = <X className='cursor-pointer' size={25} onClick={handleModal} />
 
@@ -75,46 +80,178 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
         }
     }
 
+    const [sega_pesent_flag, setSega_present_flag] = useState(false)
+
     const accountAdrsInput = (e) => {
         const segaadd = e.target.value
         if (isAddress(segaadd)) {
             setSadrs(segaadd)
             setAdrs_flag(true)
+            const getSegaData = JSON.parse(localStorage.getItem('segadata'))
+            const segaDataFilter = getSegaData && getSegaData.filter(i => i.owner === account && i.network === chainId)
+            console.log('segaDataFilter', segaDataFilter)
+            if (segaDataFilter && segaDataFilter.length > 0) {
+                for (const i in segaDataFilter) {
+                    if (segaDataFilter[i].address === segaadd) {
+                        setSega_present_flag(true)
+                        break
+                    }
+                }
+            }
         } else {
             alert("Enter a valid address!")
             setAdrs_flag(false)
         }
     }
 
-    const handleOnAdd = () => {
-        const getdata = JSON.parse(localStorage.getItem('segadata'))
-        for (const i in getdata) {
-            if (getdata[i].address === sadrs) {
-                handleExeSegaModal()
-                alert('The Sega is already Added!')
-                break
-            } else {
-                const postdata =
-                {
-                    owner: account,
-                    vault: Vault,
-                    name: nickName,
-                    address: sadrs,
-                    network: chainId,
-                    show: true
-                }
-                let segadata = []
-                if (getdata) {
-                    segadata = [...getdata, postdata]
+    const {
+        getSegaInfo,
+        pauseSega, unpauseSega, changeSegaTrader,
+        txnState
+    } = useManager(Vault, sadrs)
+    const { _parentVault, _trader, _active } = getSegaInfo()
+
+    const addSega = () => {
+        const getSegaData = JSON.parse(localStorage.getItem('segadata'))
+        const postdata =
+        {
+            owner: account,
+            vault: _parentVault,
+            name: nickName,
+            address: sadrs,
+            network: chainId,
+            show: true
+        }
+        let segadata = []
+        if (getSegaData) {
+            segadata = [...getSegaData, postdata]
+        } else {
+            segadata = [postdata]
+        }
+        localStorage.setItem('segadata', JSON.stringify(segadata))
+
+        const getAdrsdata = JSON.parse(localStorage.getItem('adrsbook'))
+        const adrsdata =
+        {
+            owner: account,
+            nickname: nickName,
+            adrs: sadrs,
+            network: chainId
+        }
+        let adrsbook = []
+        if (getAdrsdata) {
+            adrsbook = [...getAdrsdata, adrsdata]
+        } else {
+            adrsbook = [adrsdata]
+        }
+        localStorage.setItem('adrsbook', JSON.stringify(adrsbook))
+
+        if (globalVaultFlag === 0) {
+            dispatch(AppData.globalVaultFlag(1))
+        } else {
+            dispatch(AppData.globalVaultFlag(0))
+        }
+        setAdrs_flag(false)
+        setName_flag(false)
+        handleExeSegaModal()
+    }
+
+    const handleAddVaultToLocal = () => {
+        MySwal.fire({
+            title: 'The Vault for the corresponding Sega needs to be added first, please select an appropriate nickname for the same.',
+            input: 'text',
+            inputPlaceholder: `Nickname for ${shortenIfAddress(_parentVault)}`,
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                cancelButton: 'btn btn-danger ml-1'
+            },
+            buttonsStyling: false,
+            inputAttributes: {
+                autocapitalize: 'off'
+            },
+            showCancelButton: true,
+            confirmButtonText: 'ADD VAULT',
+            showLoaderOnConfirm: true,
+        }).then(function (result) {
+            if (result.isConfirmed) {
+                if (result.value === '') {
+                    alert('Nickname cannot be blank')
                 } else {
-                    segadata = [postdata]
+
+                    const getVaultdata = JSON.parse(localStorage.getItem('vaultdata'))
+                    const postdata =
+                    {
+                        owner: account,
+                        name: result.value,
+                        address: _parentVault,
+                        network: chainId,
+                        show: true
+                    }
+                    let vaultlist = []
+                    if (getVaultdata) {
+                        vaultlist = [...getVaultdata, postdata]
+                    } else {
+                        vaultlist = [postdata]
+                    }
+                    localStorage.setItem('vaultdata', JSON.stringify(vaultlist))
+
+                    const getAdrsdata = JSON.parse(localStorage.getItem('adrsbook'))
+                    const adrsdata =
+                    {
+                        owner: account,
+                        nickname: result.value,
+                        adrs: _parentVault,
+                        network: chainId
+                    }
+                    let adrsbook = []
+                    if (getAdrsdata) {
+                        adrsbook = [...getAdrsdata, adrsdata]
+                    } else {
+                        adrsbook = [adrsdata]
+                    }
+                    localStorage.setItem('adrsbook', JSON.stringify(adrsbook))
+
+                    addSega()
+
+                    if (globalVaultFlag === 0) {
+                        dispatch(AppData.globalVaultFlag(1))
+                    } else {
+                        dispatch(AppData.globalVaultFlag(0))
+                    }
+
+                    // setVault_added(true)
+
+                    // vault_added = true
+
+                    MySwal.fire({
+                        title: `You Vault has been Added`,
+                        customClass: {
+                            confirmButton: 'btn btn-primary'
+                        }
+                    }).then(function (answer) {
+                        if (answer.isConfirmed) {
+                            handleExeSegaModal()
+                        }
+                    })
                 }
-                localStorage.setItem('segadata', JSON.stringify(segadata))
-                setVault_flag(false)
-                setAdrs_flag(false)
-                setName_flag(false)
-                setVault('')
-                handleExeSegaModal()
+            }
+        })
+    }
+
+    const handleGetSegaInfo = () => {
+        const getVaultData = JSON.parse(localStorage.getItem('vaultdata'))
+        console.log('getVaultData', getVaultData)
+        if (getVaultData === null || getVaultData === []) {
+            console.log('no vault data')
+            handleAddVaultToLocal()
+        } else {
+            for (const i in getVaultData) {
+                if (getVaultData[i].address === _parentVault) {
+                    addSega()
+                    break
+                } else {
+                    handleAddVaultToLocal()
+                }
             }
         }
     }
@@ -162,40 +299,21 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
             getVaultListFromLocalGlobal()
             setVault_flag(false)
             setSega_flag(false)
-            setRm_flag(1)
+            if (rm_flag === 0) {
+                setRm_flag(1)
+            } else {
+                setRm_flag(0)
+            }
             handleExeSegaModal()
         }
         // console.log('aftergetdata', getdata)
+        if (rm_flag === 0) {
+            setRm_flag(1)
+        } else {
+            setRm_flag(0)
+        }
         handleExeSegaModal()
     }
-
-    // const [nickName, setNickName] = useState('')
-    // const [sadrs, setSadrs] = useState('')
-    // const onChangeName = (e) => {
-    //     setNickName(e.target.value)
-    // }
-    // const onChangeAdrs = (e) => {
-    //     setSadrs(e.target.value)
-    // }
-
-    // const handleTempAdd = () => {
-    //     const getdata = JSON.parse(localStorage.getItem('segadata'))
-    //     const postdata =
-    //     {
-    //         owner: account,
-    //         vault: Vault,
-    //         name: nickName,
-    //         address: sadrs,
-    //         network: chainId
-    //     }
-    //     let segadata = []
-    //     if (getdata) {
-    //         segadata = [...getdata, postdata]
-    //     } else {
-    //         segadata = [postdata]
-    //     }
-    //     localStorage.setItem('segadata', JSON.stringify(segadata))
-    // }
 
     const [active, setActive] = useState('1')
 
@@ -209,11 +327,13 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
         <Modal className='modal-dialog-centered' isOpen={openexesega} toggle={() => {
             setVault_flag(false)
             setSega_flag(false)
+            setSega_present_flag(false)
             handleExeSegaModal()
         }}>
             <ModalHeader tag='h2' toggle={() => {
                 setVault_flag(false)
                 setSega_flag(false)
+                setSega_present_flag(false)
                 handleExeSegaModal()
             }}>
                 Show or Hide Existing Sega
@@ -257,7 +377,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
                     </Nav>
                     <TabContent style={{ width: '-webkit-fill-available' }} activeTab={active}>
                         <TabPane tabId='1'>
-                            <Col className='mb-1'>
+                            {/* <Col className='mb-1'>
                                 <Label style={{ fontSize: "1.3em" }}>Parent Vault</Label>
                                 <Select
                                     // theme={selectThemeColors}
@@ -268,7 +388,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
                                     options={VaultList}
                                     onChange={handleVault}
                                 />
-                            </Col>
+                            </Col> */}
                             <Col>
                                 <FormGroup>
                                     <Label for='nickname' style={{ fontSize: "1.3em" }}>Nickname</Label>
@@ -281,6 +401,13 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
                                     <Input type='text' id='accadrs' onChange={accountAdrsInput} />
                                 </FormGroup>
                             </Col>
+                            {sega_pesent_flag ? (
+                                <Col>
+                                    <UncontrolledAlert color='warning'>
+                                        <h4 className='alert-heading'>The Sega is already added!</h4>
+                                    </UncontrolledAlert>
+                                </Col>
+                            ) : null}
                         </TabPane>
                         <TabPane tabId='2'>
                             <Col className='mb-1'>
@@ -314,8 +441,8 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
             <ModalFooter className='justify-content-center'>
                 {active === '1' ? (
                     <>
-                        {vault_flag && adrs_flag && name_flag ? (
-                            <Button.Ripple color='primary' onClick={handleOnAdd} >
+                        {adrs_flag && name_flag ? (
+                            <Button.Ripple color='primary' onClick={handleGetSegaInfo} >
                                 <Eye className='mr-1' size={17} />
                                 ADD
                             </Button.Ripple>
@@ -349,7 +476,8 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
 // export default AddExeSega
 const mapStateToProps = (state) => ({
     globalAdrs: state.appData.globalAdrs,
-    globalNickName: state.appData.globalNickName
+    globalNickName: state.appData.globalNickName,
+    globalVaultFlag: state.appData.globalVaultFlag
 })
 const mapDispatchToProp = dispatch => ({ dispatch })
 

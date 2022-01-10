@@ -24,7 +24,9 @@ import {
 import 'animate.css'
 import { useEthers } from '@usedapp/core'
 import { connect } from 'react-redux'
+import helperConfig from '../../helper-config.json'
 import * as AppData from '../../redux/actions/cookies/appDataType'
+import Icon from 'react-crypto-icons'
 
 const AddNewModal = ({ open, handleModal, dispatch, globalVaultFlag }) => {
 
@@ -133,6 +135,26 @@ const AddNewModal = ({ open, handleModal, dispatch, globalVaultFlag }) => {
   // ** Custom close btn
   const CloseBtn = <X className='cursor-pointer' size={15} onClick={handleModal} />
 
+  const stylecontainer = {
+    textAlign: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    margin: ' 0px 1rem'
+  }
+  const networkstyle = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: '2em',
+    color: 'white',
+    fontSize: '1.5em'
+  }
+
+  const networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"
+  const networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
+  const backgroundChange = { backgroundColor: networkName === "BSC testnet" ? '#cc9b00' : networkName === "Polygon Network" ? '#8146e4' : networkName === "Ethereum" ? '#4559f4' : networkName === "Kovan" ? '#6435c9' : networkName === "BSC Mainet" ? '#cc9b00' : networkName === "Polygon Mumbai" ? '#140035' : null }
+
+
   return (
     <Modal
       isOpen={open}
@@ -155,6 +177,10 @@ const AddNewModal = ({ open, handleModal, dispatch, globalVaultFlag }) => {
           </Col>
         ) : null} */}
         {visible ? <EmptyAlert /> : null}
+        <Col style={{ ...networkstyle, ...backgroundChange, fontSize: '1em', marginBottom: '0px' }} className='my-1 d-flex flex-row flex-nowrap align-self-center '>
+          {/* <Icon className='mr-1' name={networkC.icon} size={20} />{networkC.name} */}
+          <Icon className='mr-1' name={networkIcon} size={20} />{networkName}
+        </Col>
         <FormGroup>
           <Label for='name'>Name</Label>
           <InputGroup>

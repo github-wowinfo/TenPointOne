@@ -268,7 +268,7 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
         { label: "Nickname", key: "nickname" },
         { label: "Network", key: "network" },
         { label: "Address", key: "adrs" },
-        { label: "Owner", key: "owner" }
+        { label: "User", key: "owner" }
     ]
 
     const [adrsdata, setAdrsdata] = useState([])

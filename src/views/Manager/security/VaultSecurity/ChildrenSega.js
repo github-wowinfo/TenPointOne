@@ -6,6 +6,7 @@ import DataTable from 'react-data-table-component'
 import '@styles/react/libs/tables/react-dataTable-component.scss'
 import { useState } from 'react'
 import SegaLocal from './SegaLocal'
+import ExistingSega from './ExistingSega'
 
 const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultName, segas }) => {
 
@@ -19,7 +20,8 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultN
             name: 'Sega Address',
             selector: row => (
                 <div>
-                    {row.address}
+                    {/* {row.address} */}
+                    {<ExistingSega item={row} />}
                     {row.icon1}
                     {row.icon2}
                 </div>

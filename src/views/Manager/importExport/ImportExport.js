@@ -20,26 +20,7 @@ import { useEthers } from '@usedapp/core'
 import { useEffect } from 'react'
 
 const ImportExport = () => {
-
     const { account, chainId } = useEthers()
-
-    const headers = [
-        { label: "Nickname", key: "nickname" },
-        { label: "Network", key: "network" },
-        { label: "Address", key: "adrs" },
-        { label: "Owner", key: "owner" }
-    ]
-
-    let data
-    useEffect(() => {
-        const adrsBookdata = JSON.parse(localStorage.getItem('adrsbook'))
-        const filterAdrsBook = adrsBookdata && adrsBookdata.map(i => i.owner === account && i.network === chainId)
-        data = filterAdrsBook
-    }, [account, chainId])
-
-    console.log('data', data)
-
-
     return (
         <div>
             <Card>
