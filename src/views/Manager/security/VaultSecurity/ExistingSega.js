@@ -1,5 +1,5 @@
 const ExistingSega = ({ item }) => {
-
+    // console.log('item', item)
     const getSegaData = JSON.parse(localStorage.getItem('segadata'))
 
     let adrs
@@ -7,10 +7,11 @@ const ExistingSega = ({ item }) => {
         for (const i in getSegaData) {
 
             if (getSegaData[i].address === item.address) {
-                // console.log('true', i, getSegaData[i].address)
                 adrs = getSegaData[i].name
+                console.log('true', i, getSegaData[i].address, adrs)
+                break
             } else {
-                // console.log('false', i, getSegaData[i].address)
+                console.log('false', i, getSegaData[i].address)
                 adrs = item.address
             }
 
@@ -18,8 +19,9 @@ const ExistingSega = ({ item }) => {
     } else {
         adrs = item.address
     }
-
+    // console.log('adrs', adrs)
     return (adrs)
+
 }
 
 export default ExistingSega

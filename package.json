@@ -13,6 +13,7 @@
     "@fullcalendar/timegrid": "5.7.2",
     "@fullcalendar/timeline": "5.7.2",
     "@hookform/resolvers": "1.3.4",
+    "@metamask/onboarding": "^1.0.1",
     "@uppy/react": "1.10.8",
     "@usedapp/coingecko": "^0.3.25",
     "@usedapp/core": "^0.6.3",
