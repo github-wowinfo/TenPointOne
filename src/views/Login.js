@@ -15,12 +15,13 @@ import Icon from 'react-crypto-icons'
 import MetaMaskOnboarding from '@metamask/onboarding'
 
 const Login = () => {
+
   const [skin, setSkin] = useSkin()
 
   const illustration = skin === 'dark' ? 'newlogo.png' : 'newlogo.png',
     source = require(`@src/assets/images/pages/${illustration}`).default
 
-  const { activateBrowserWallet, account, deactivate, chainId } = useEthers()
+  const { activateBrowserWallet, account, deactivate, chainId, activate } = useEthers()
 
   const isConnected = account !== undefined
 
@@ -71,7 +72,6 @@ const Login = () => {
     isMetaMaskInstalled()
     MetaMaskClientCheck()
   }, [is_metamask])
-
 
   const networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"
   const networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
@@ -141,18 +141,17 @@ const Login = () => {
                   </ul>
                 </ul>
               </Col>
-              {/* <p>Network: {networkName}</p>
-              <p>Account: {shortenIfAddress(account)}</p> */}
             </CardBody>
             {/* {<p>Network: {networkName}</p>}
-            {<p>Account: {account}</p>} */}
-            {/* {console.log(account)} */}
-            {/* <Button size='sm' onClick={deactivate}>Deactivate</Button> */}
-            {/* {isConnected ? <p>Connected</p> : <p>Disconnected</p>} */}
+            {<p>Account: {account}</p>}
+            {console.log(account)}
+            <Button size='sm' onClick={activateBrowserWallet}>Activate</Button>
+            <Button size='sm' onClick={deactivate}>Deactivate</Button>
+            {isConnected ? <p>Connected</p> : <p>Disconnected</p>} */}
           </Col>
         </Col>
       </Row>
-    </div >
+    </div>
   )
 }
 
