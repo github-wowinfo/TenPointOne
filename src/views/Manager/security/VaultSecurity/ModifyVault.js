@@ -5,7 +5,7 @@ import { getAddress, hexStripZeros } from "ethers/lib/utils"
 import { useState, useEffect } from 'react'
 import { useVault } from '../../../../utility/hooks/useVaults'
 
-const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault }) => {
+const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault, vaultName }) => {
 
     const [hideValue, setHideValue] = useState('')
 
@@ -112,7 +112,7 @@ const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault }) =>
                         <Row className='d-flex flex-row'>
                             <Col md='1'><BsSafe2 size={40} /></Col>
                             <Col className='d-flex flex-column justify-content-start'>
-                                <h3>SBI Vault</h3>
+                                <h3>{vaultName}</h3>
                                 <h5>{vault}</h5>
                             </Col>
                         </Row>

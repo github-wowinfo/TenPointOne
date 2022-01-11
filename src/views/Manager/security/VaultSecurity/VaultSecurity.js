@@ -214,7 +214,7 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
                         </>) : null}
                 </ModalFooter>
             </Modal>
-            <ModifyVault openmodifyvaultmodal={modifyvaultmodal} handleModifyVaultModal={handleModifyVaultModal} vault={Vault} />
+            <ModifyVault openmodifyvaultmodal={modifyvaultmodal} handleModifyVaultModal={handleModifyVaultModal} vault={Vault} vaultName={Vaultname} />
             <ChildrenSega openchildsegamodal={childsegamodal} handleChildSegatModal={handleChildSegatModal} vault={Vault} vaultName={Vaultname} segas={slist} />
         </div>
     )

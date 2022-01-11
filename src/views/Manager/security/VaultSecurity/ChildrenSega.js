@@ -15,6 +15,10 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultN
         setSegaLocalModal(!segaLocalModal)
     }
 
+    const actualSegas = segas.filter((sega) => { return sega.address !== "0x0000000000000000000000000000000000000000" })
+
+    const data = actualSegas
+
     const columns = [
         {
             name: 'Sega Address',
@@ -28,10 +32,6 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultN
             )
         }
     ]
-
-    const actualSegas = segas.filter((sega) => { return sega.address !== "0x0000000000000000000000000000000000000000" })
-
-    const data = actualSegas
 
     const [selectedRows, setSelectedRows] = useState([])
     const handleChange = ({ selectedRows }) => {

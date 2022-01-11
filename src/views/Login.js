@@ -11,21 +11,7 @@ import logo from '../assets/images/logo/finallog.png'
 import CardBody from 'reactstrap/lib/CardBody'
 import helperConfig from '../helper-config.json'
 import Icon from 'react-crypto-icons'
-
-const SuccessProgressToast = () => (
-  <Fragment>
-    <div className='toastify-header'>
-      <div className='title-wrapper'>
-        <Avatar size='sm' color='success' icon={<Check size={12} />} />
-        <h5 className='toast-title'>Hi, there OwnerName! 👋</h5>
-      </div>
-      <small className='text-muted'></small>
-    </div>
-  </Fragment>
-)
-
-
-const notifySuccessProgress = () => toast.success(<SuccessProgressToast />)
+import MetaMaskOnboarding from '@metamask/onboarding'
 
 const Login = () => {
   const { activateBrowserWallet, account, deactivate, chainId, error } = useEthers()
@@ -41,18 +27,51 @@ const Login = () => {
     window.location.href = '/home'
   }
 
-  const activate = () => {
+  // const activate = () => {
+  //   try {
+  //     activateBrowserWallet(undefined, true)
+  //     console.log('account', account)
+  //     console.log('chainId', chainId)
+  //   } catch (error) {
+  //     alert(error.message)
+  //   }
+  // }
 
-    try {
-      activateBrowserWallet()
-      console.log('account', account)
-      console.log('chainId', chainId)
-    } catch (error) {
-      console.log("Login [activate]", error)
-      alert(error.message)
+  const isMetaMaskInstalled = () => {
+    //Have to check the ethereum binding on the window object to see if it's installed
+    const { ethereum } = window
+    return Boolean(ethereum && ethereum.isMetaMask)
+  }
+
+  const forwarderOrigin = 'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn'
+
+  //We create a new MetaMask onboarding object to use in our app
+  const onboarding = new MetaMaskOnboarding({ forwarderOrigin })
+
+  //This will start the onboarding proccess
+  const onClickInstall = () => {
+    //On this object we have startOnboarding which will start the onboarding process for our end user
+    onboarding.startOnboarding()
+  }
+
+  const [is_metamask, setIs_metamask] = useState()
+  const MetaMaskClientCheck = () => {
+    //Now we check to see if MetaMask is installed
+    if (!isMetaMaskInstalled()) {
+      //If it isn't installed we ask the user to click to install it
+      setIs_metamask(false)
+    } else {
+      //If it is installed we change our button text
+      setIs_metamask(true)
     }
 
   }
+
+  useEffect(() => {
+    isMetaMaskInstalled()
+    MetaMaskClientCheck()
+  }, [is_metamask])
+
 
   const networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"
   const networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
@@ -74,11 +93,27 @@ const Login = () => {
             <CardTitle tag='h2' style={{ color: '#00cfe8' }} className='font-weight-bold text-center mb-3 px-1'>
               RISK PROTOCOL
             </CardTitle>
-            {isConnected ? (<Button.Ripple color='primary' style={{ fontSize: "1.5em", marginBottom: 10 }}
-              onClick={() => handleRoute()} block>LOGIN</Button.Ripple>) : (
+            {is_metamask ? (<>
+              {isConnected ? (<Button.Ripple color='primary' style={{ fontSize: "1.5em", marginBottom: 10 }}
+                onClick={() => handleRoute()} block>LOGIN</Button.Ripple>) : (
+                <Button.Ripple color='primary' style={{ fontSize: "1.5em", marginBottom: 10 }}
+                  onClick={async () => {
+                    try {
+                      // Will open the MetaMask UI
+                      // You should disable this button while the request is pending!
+                      // await ethereum.request({ method: 'eth_requestAccounts' })
+                      activateBrowserWallet(undefined, true)
+                    } catch (error) {
+                      console.error(error)
+                    }
+                  }}
+                  block>CONNECT WALLET
+                </Button.Ripple>
+              )}
+            </>) : (
               <Button.Ripple color='primary' style={{ fontSize: "1.5em", marginBottom: 10 }}
-                onClick={activate}
-                block>CONNECT WALLET
+                onClick={onClickInstall}
+                block>INSTALL METAMASK
               </Button.Ripple>
             )}
             <CardBody>
@@ -117,7 +152,7 @@ const Login = () => {
           </Col>
         </Col>
       </Row>
-    </div>
+    </div >
   )
 }
 
