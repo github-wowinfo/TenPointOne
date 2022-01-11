@@ -6,8 +6,7 @@ import { toast } from 'react-toastify'
 import Avatar from '@components/avatar'
 import { ArrowRight, Check, ChevronsRight } from 'react-feather'
 import '@styles/base/pages/page-auth.scss'
-import { connect } from 'react-redux'
-import { ChainId, shortenIfAddress, useEthers } from '@usedapp/core'
+import {shortenIfAddress, useEthers } from '@usedapp/core'
 import logo from '../assets/images/logo/finallog.png'
 import CardBody from 'reactstrap/lib/CardBody'
 import helperConfig from '../helper-config.json'
@@ -25,15 +24,16 @@ const SuccessProgressToast = () => (
   </Fragment>
 )
 
+
 const notifySuccessProgress = () => toast.success(<SuccessProgressToast />)
 
 const Login = () => {
+  const { activateBrowserWallet, account, deactivate, chainId, error } = useEthers()
   const [skin, setSkin] = useSkin()
 
   const illustration = skin === 'dark' ? 'newlogo.png' : 'newlogo.png',
     source = require(`@src/assets/images/pages/${illustration}`).default
 
-  const { activateBrowserWallet, account, deactivate, chainId } = useEthers()
 
   const isConnected = account !== undefined
 
@@ -42,13 +42,16 @@ const Login = () => {
   }
 
   const activate = () => {
+
     try {
-      activateBrowserWallet(undefined, true)
+      activateBrowserWallet()
       console.log('account', account)
       console.log('chainId', chainId)
     } catch (error) {
+      console.log("Login [activate]", error)
       alert(error.message)
     }
+
   }
 
   const networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"

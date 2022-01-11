@@ -27,7 +27,7 @@ import { useEthers } from '@usedapp/core'
 
 const Router = ({ globalAdrs, dispatch, globalNickName, globalVaultFlag }) => {
 
-  const { account, chainId } = useEthers()
+  const {activateBrowserWallet, account, chainId } = useEthers()
 
   const handleGlobalLocal = () => {
     const getdata = JSON.parse(localStorage.getItem('g_acc'))
