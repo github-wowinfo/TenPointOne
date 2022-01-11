@@ -6,8 +6,7 @@ import { toast } from 'react-toastify'
 import Avatar from '@components/avatar'
 import { ArrowRight, Check, ChevronsRight } from 'react-feather'
 import '@styles/base/pages/page-auth.scss'
-import { connect } from 'react-redux'
-import { ChainId, shortenIfAddress, useEthers } from '@usedapp/core'
+import { shortenIfAddress, useEthers } from '@usedapp/core'
 import logo from '../assets/images/logo/finallog.png'
 import CardBody from 'reactstrap/lib/CardBody'
 import helperConfig from '../helper-config.json'
@@ -15,7 +14,6 @@ import Icon from 'react-crypto-icons'
 import MetaMaskOnboarding from '@metamask/onboarding'
 
 const Login = () => {
-
   const [skin, setSkin] = useSkin()
 
   const illustration = skin === 'dark' ? 'newlogo.png' : 'newlogo.png',
@@ -66,6 +64,7 @@ const Login = () => {
       //If it is installed we change our button text
       setIs_metamask(true)
     }
+
   }
 
   useEffect(() => {
