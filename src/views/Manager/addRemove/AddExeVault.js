@@ -389,7 +389,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
                                         <NavLink color='primary' size='lg' active={active === '1'} onClick={() => {
                                             toggle('1')
                                         }}>
-                                            ADD
+                                            Show
                                         </NavLink>
                                     </div>
                                 </Col>
@@ -400,7 +400,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
                                         <NavLink color='primary' size='lg' active={active === '2'} onClick={() => {
                                             toggle('2')
                                         }}>
-                                            REMOVE
+                                            HIDE
                                         </NavLink>
                                     </div>
                                 </Col>
@@ -477,12 +477,12 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
                         {(name_flag && adrs_flag) && present_flag === false ? (
                             <Button.Ripple color='primary' onClick={handleAdd}>
                                 <Eye className='mr-1' size={17} />
-                                ADD
+                                SHOW
                             </Button.Ripple>
                         ) : (
                             <Button.Ripple color='primary' disabled>
                                 <Eye className='mr-1' size={17} />
-                                ADD
+                                SHOW
                             </Button.Ripple>
                         )}
                     </>
@@ -491,12 +491,12 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
                         {adrs_flag && exesega_flag === false ? (
                             <Button.Ripple color='primary' onClick={handleRemove} >
                                 <EyeOff className='mr-1' size={17} />
-                                REMOVE
+                                HIDE
                             </Button.Ripple>
                         ) : (
                             <Button.Ripple color='primary' disabled >
                                 <EyeOff className='mr-1' size={17} />
-                                REMOVE
+                                HIDE
                             </Button.Ripple>
                         )}
                     </>

@@ -11,7 +11,7 @@ import { randomHexColor } from 'random-hex-color-generator'
 import { toast } from 'react-toastify'
 import Avatar from '@components/avatar'
 import { connect } from 'react-redux'
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { useEthers, getExplorerAddressLink, getExplorerTransactionLink, shortenIfAddress } from "@usedapp/core"
 import Icon from 'react-crypto-icons'
 import helperConfig from '../../helper-config.json'
@@ -48,6 +48,26 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
     </Fragment>
   )
 
+  const [is_sega, setis_sega] = useState()
+  const [segaList, setSegaList] = useState([])
+  const getSegaListFromLocal = () => {
+    const getdata = JSON.parse(localStorage.getItem('segadata'))
+    const valueData = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account)
+    const segalist = valueData && valueData.map((sega, index) => ({ value: index, adrs: sega.address, name: sega.name, ofvault: sega.vault }))
+    setSegaList(segalist)
+  }
+
+  useEffect(() => {
+    getSegaListFromLocal()
+    const segaadrs = segaList && segaList.find(i => i.adrs === globalAdrs)
+    // console.log('segaadrs', segaadrs)
+    if (segaadrs === undefined) {
+      setis_sega(false)
+    } else {
+      setis_sega(true)
+    }
+  }, [globalAdrs, account, chainId, is_sega])
+
   const stylecontainer = {
     textAlign: 'center',
     display: 'flex',
@@ -70,6 +90,19 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
   const [dropList, setDropList] = useState(false)
   const handleDropList = () => setDropList(!dropList)
 
+  const logos = [
+    {
+      icon: <BsSafe2 size={25} />,
+      color: 'primary',
+      // color: 'light-primary'
+    },
+    {
+      icon: <SiWebmoney size={25} />,
+      color: 'primary',
+      // color: 'light-primary'
+    }
+  ]
+
   const renderItem = () => {
     return (
       <>
@@ -79,7 +112,12 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
             <Icon className='mr-1' name={networkIcon} size={20} />{networkName}
           </Col>
           <Link to='/home'>
-            <Avatar size='xl' color='light-danger' title='SBI Vault' icon={<BsSafe2 size={25} />} href='/home' />
+            {/* <Avatar size='xl' color='light-danger' title='SBI Vault' icon={<BsSafe2 size={25} />} href='/home' /> */}
+            {is_sega ? (
+              <Avatar size='xl' color={logos[1].color} title={globalNickName} icon={logos[1].icon} href='/home' />
+            ) : (
+              <Avatar size='xl' color={logos[0].color} title={globalNickName} icon={logos[0].icon} href='/home' />
+            )}
           </Link>
         </Col>
 

@@ -357,7 +357,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
                                         <NavLink color='primary' size='lg' active={active === '1'} onClick={() => {
                                             toggle('1')
                                         }}>
-                                            ADD
+                                            SHOW
                                         </NavLink>
                                     </div>
                                 </Col>
@@ -368,7 +368,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
                                         <NavLink color='primary' size='lg' active={active === '2'} onClick={() => {
                                             toggle('2')
                                         }}>
-                                            REMOVE
+                                            HIDE
                                         </NavLink>
                                     </div>
                                 </Col>
@@ -444,12 +444,12 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
                         {adrs_flag && name_flag ? (
                             <Button.Ripple color='primary' onClick={handleGetSegaInfo} >
                                 <Eye className='mr-1' size={17} />
-                                ADD
+                                SHOW
                             </Button.Ripple>
                         ) : (
                             <Button.Ripple color='primary' disabled >
                                 <Eye className='mr-1' size={17} />
-                                ADD
+                                SHOW
                             </Button.Ripple>
                         )}
                     </>
@@ -458,12 +458,12 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
                         {vault_flag && sega_flag ? (
                             <Button.Ripple color='primary' onClick={handleOnRemove} >
                                 <EyeOff className='mr-1' size={17} />
-                                REMOVE
+                                HIDE
                             </Button.Ripple>
                         ) : (
                             <Button.Ripple color='primary' disabled >
                                 <EyeOff className='mr-1' size={17} />
-                                REMOVE
+                                HIDE
                             </Button.Ripple>
                         )}
                     </>
