@@ -11,7 +11,6 @@ import logo from '../assets/images/logo/finallog.png'
 const LoginModal = ({ openloginmodal, disconnect }) => {
 
     const [skin, setSkin] = useSkin()
-
     const illustration = skin === 'dark' ? 'newlogo.png' : 'newlogo.png',
         source = require(`@src/assets/images/pages/${illustration}`).default
 
@@ -72,13 +71,9 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
     const networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
     const backgroundChange = { backgroundColor: networkName === "BSC testnet" ? '#cc9b00' : networkName === "Polygon Network" ? '#8146e4' : networkName === "Ethereum" ? '#4559f4' : networkName === "Kovan" ? '#6435c9' : networkName === "BSC Mainet" ? '#cc9b00' : networkName === "Polygon Mumbai" ? '#140035' : null }
 
-    const modalStyle = {
-        height: '70vh'
-    }
-
     return (
         <>
-            <Modal className='modal-xl modal-dialog-centered' isOpen={openloginmodal} >
+            <Modal className='modal-xl modal-dialog-centered' isOpen={openloginmodal}>
                 <ModalBody>
                     <div>
                         <Row className='auth-inner m-0'>
@@ -102,11 +97,7 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
                                                 <Button.Ripple color='primary' style={{ fontSize: "1em", marginBottom: 5 }}
                                                     onClick={async () => {
                                                         try {
-                                                            // Will open the MetaMask UI
-                                                            // You should disable this button while the request is pending!
-                                                            // await ethereum.request({ method: 'eth_requestAccounts' })
                                                             activateBrowserWallet(undefined, true)
-                                                            disconnect()
                                                         } catch (error) {
                                                             console.error(error)
                                                         }

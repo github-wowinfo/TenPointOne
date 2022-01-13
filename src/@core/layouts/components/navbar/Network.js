@@ -20,16 +20,16 @@ const Network = ({ networkC, dispatch, globalFlag }) => {
   const [loginModal, setLoginModal] = useState(false)
   const disconnect = () => {
     window.location.href = '/home'
-    setLoginModal(!loginModal)
+    // setLoginModal(!loginModal)
   }
 
   console.log('loginModal', loginModal)
 
-  useEffect(() => {
-    if (!isConnected) {
-      setLoginModal(!loginModal)
-    }
-  }, [account, chainId])
+  // useEffect(() => {
+  //   if (!isConnected) {
+  //     setLoginModal(!loginModal)
+  //   }
+  // }, [account, chainId])
 
 
   console.log('chain_detail', chain_detail)
@@ -123,6 +123,8 @@ const Network = ({ networkC, dispatch, globalFlag }) => {
 
   useEffect(() => {
     if (chainId !== curt_chain && globalFlag) {
+      // console.log('chain changed')
+      // debugger
       disconnect()
     }
   }, [chainId])

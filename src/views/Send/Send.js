@@ -25,7 +25,7 @@ import withReactContent from 'sweetalert2-react-content'
 import { isAddress } from 'ethers/lib/utils'
 import LoginModal from '../LoginModal'
 
-const Send = ({ globalAdrs, globalNickName }) => {
+const Send = ({ globalAdrs, globalNickName, globalFlag }) => {
 
   const { account, chainId } = useEthers()
 
@@ -43,7 +43,10 @@ const Send = ({ globalAdrs, globalNickName }) => {
     if (!isConnected) {
       setLoginModal(!loginModal)
     }
-  }, [account, chainId])
+    if (!globalFlag) {
+      setLoginModal(!loginModal)
+    }
+  }, [account, chainId, globalFlag])
 
   const [curt_account, setCurt_account] = useState(account)
   const [curt_chain, setCurt_chain] = useState(chainId)
@@ -632,7 +635,8 @@ const Send = ({ globalAdrs, globalNickName }) => {
 // export default Send
 const mapStateToProps = (state) => ({
   globalAdrs: state.appData.globalAdrs,
-  globalNickName: state.appData.globalNickName
+  globalNickName: state.appData.globalNickName,
+  globalFlag: state.appData.globalFlag
 })
 // const mapDispatchToProp = dispatch => ({ dispatch })
 export default connect(mapStateToProps, null)(Send)
