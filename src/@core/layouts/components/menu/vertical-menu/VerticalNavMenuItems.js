@@ -7,6 +7,7 @@ import VerticalNavMenuSectionHeader from './VerticalNavMenuSectionHeader'
 import { resolveVerticalNavMenuItemComponent as resolveNavItemComponent } from '@layouts/utils'
 import OwnerDisplay from '../../../../../navigation/vertical/OwnerDisplay'
 import Favourites from '../../../../../navigation/vertical/Favourites'
+import DisConnect from '../../../../../navigation/vertical/DisConnect'
 
 const VerticalMenuNavItems = props => {
   // ** Components Object
@@ -28,7 +29,8 @@ const VerticalMenuNavItems = props => {
     <>
       <OwnerDisplay menuCollapsed={props.menuCollapsed} menuHover={props.menuHover} />
       {RenderNavItems}
-      <Favourites />
+      <DisConnect menuCollapsed={props.menuCollapsed} menuHover={props.menuHover} />
+      <Favourites menuCollapsed={props.menuCollapsed} menuHover={props.menuHover} />
     </>
   )
 }

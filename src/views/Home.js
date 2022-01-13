@@ -30,9 +30,19 @@ const Home = ({ globalVaultFlag, globalAdrs, dispatch, globalNickName }) => {
     // window.location.href = '/login'
   }
 
+  console.log('loginModal', loginModal)
+
+  useEffect(() => {
+    if (!isConnected) {
+      setLoginModal(!loginModal)
+    }
+  }, [account, chainId])
+
   // const [chart, setChart] = useState(true)
 
+  console.log('chainId', chainId)
   const [curt_account, setCurt_account] = useState(account)
+  // const curt_chain = chainId
   const [curt_chain, setCurt_chain] = useState(chainId)
   const MySwal = withReactContent(Swal)
 
@@ -94,12 +104,14 @@ const Home = ({ globalVaultFlag, globalAdrs, dispatch, globalNickName }) => {
   }
 
   console.log('curt_account', curt_account)
+  console.log('account', account)
+  console.log('curt_chain', curt_chain)
 
   useEffect(() => {
-    if (chainId !== curt_chain) {
+    if (chainId !== undefined && curt_chain !== undefined && chainId !== curt_chain) {
       handleAjax()
     }
-    if (account !== curt_account) {
+    if (curt_account !== undefined && account !== undefined && account !== curt_account) {
       handleAccount()
       setCurt_account(account)
     }
@@ -214,7 +226,7 @@ const Home = ({ globalVaultFlag, globalAdrs, dispatch, globalNickName }) => {
             </Row>
           </Col>
         )}
-      </Row>) : disconnect()}
+      </Row>) : null}
       <LoginModal openloginmodal={loginModal} disconnect={disconnect} />
     </div>
   )

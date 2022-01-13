@@ -10,6 +10,7 @@ import helperConfig from '../../helper-config.json'
 import { connect } from 'react-redux'
 import * as AppData from '../../redux/actions/cookies/appDataType'
 import { BsArrowRightCircle } from 'react-icons/bs'
+import LoginModal from '../LoginModal'
 
 const DeFi = ({ dispatch, globalAdrs, globalNickName }) => {
 
@@ -17,9 +18,19 @@ const DeFi = ({ dispatch, globalAdrs, globalNickName }) => {
 
     const isConnected = account !== undefined
 
+    const [loginModal, setLoginModal] = useState(false)
     const disconnect = () => {
-        window.location.href = '/login'
+        window.location.href = '/home'
+        setLoginModal(!loginModal)
     }
+
+    console.log('loginModal', loginModal)
+
+    useEffect(() => {
+        if (!isConnected) {
+            setLoginModal(!loginModal)
+        }
+    }, [account, chainId])
 
     const [curt_account, setCurt_account] = useState(account)
     const [curt_chain, setCurt_chain] = useState(chainId)
@@ -85,10 +96,10 @@ const DeFi = ({ dispatch, globalAdrs, globalNickName }) => {
     console.log('curt_account', curt_account)
 
     useEffect(() => {
-        if (chainId !== curt_chain) {
+        if (chainId !== undefined && curt_chain !== undefined && chainId !== curt_chain) {
             handleAjax()
         }
-        if (account !== curt_account) {
+        if (curt_account !== undefined && account !== undefined && account !== curt_account) {
             handleAccount()
             setCurt_account(account)
         }
@@ -171,7 +182,8 @@ const DeFi = ({ dispatch, globalAdrs, globalNickName }) => {
                         </TabPane>
                     </TabContent>
                 </>)}
-            </React.Fragment>) : disconnect()}
+            </React.Fragment>) : null}
+            <LoginModal openloginmodal={loginModal} disconnect={disconnect} />
         </>
     )
 }

@@ -111,7 +111,7 @@ const UserDropdown = ({ networkC }) => {
             flexDirection: 'row',
             justifyContent: 'flex-end',
             alignItems: 'center',
-            width: 250
+            maxWidth: 500
           }}>
             <div style={{
               marginRight: 5,
@@ -178,7 +178,7 @@ const UserDropdown = ({ networkC }) => {
             </div>
           </li>
           <div className='d-flex justify-content-center p-1'>
-            <Button.Ripple color='danger' href='/' onClick={deactivate}>Disconnect</Button.Ripple>
+            <Button.Ripple color='danger' onClick={deactivate}>Disconnect</Button.Ripple>
           </div>
         </DropdownMenu>
       </Dropdown>

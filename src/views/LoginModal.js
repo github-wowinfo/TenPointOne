@@ -72,12 +72,15 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
     const networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
     const backgroundChange = { backgroundColor: networkName === "BSC testnet" ? '#cc9b00' : networkName === "Polygon Network" ? '#8146e4' : networkName === "Ethereum" ? '#4559f4' : networkName === "Kovan" ? '#6435c9' : networkName === "BSC Mainet" ? '#cc9b00' : networkName === "Polygon Mumbai" ? '#140035' : null }
 
+    const modalStyle = {
+        height: '70vh'
+    }
 
     return (
         <>
-            <Modal isOpen={openloginmodal} fullscreen>
+            <Modal className='modal-xl modal-dialog-centered' isOpen={openloginmodal} >
                 <ModalBody>
-                    <div className='auth-wrapper auth-v2'>
+                    <div>
                         <Row className='auth-inner m-0'>
                             <Col style={{ backgroundColor: "black" }} className='d-none d-lg-flex align-items-center p-5' lg='8' sm='12'>
                                 <div className='w-100 d-lg-flex align-items-center justify-content-center px-5'>
@@ -89,47 +92,54 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
                                     <Col className='mb-1 text-center'>
                                         <img src={logo} alt="Risk protocol" height='50px' width='50px' />
                                     </Col>
-                                    <CardTitle tag='h2' style={{ color: '#00cfe8' }} className='font-weight-bold text-center mb-3 px-1'>
-                                        RISK PROTOCOL
-                                    </CardTitle>
-                                    {is_metamask ? (<>
-                                        {isConnected ? (<Button.Ripple color='primary' style={{ fontSize: "1.5em", marginBottom: 10 }}
-                                            onClick={() => disconnect()} block>LOGIN</Button.Ripple>) : (
-                                            <Button.Ripple color='primary' style={{ fontSize: "1.5em", marginBottom: 10 }}
-                                                onClick={async () => {
-                                                    try {
-                                                        // Will open the MetaMask UI
-                                                        // You should disable this button while the request is pending!
-                                                        // await ethereum.request({ method: 'eth_requestAccounts' })
-                                                        activateBrowserWallet(undefined, true)
-                                                    } catch (error) {
-                                                        console.error(error)
-                                                    }
-                                                }}
-                                                block>CONNECT WALLET
+                                    <Col>
+                                        <CardTitle tag='h2' style={{ color: '#00cfe8' }} className='font-weight-bold text-center mb-1 px-1'>
+                                            RISK PROTOCOL
+                                        </CardTitle>
+                                        {is_metamask ? (<>
+                                            {isConnected ? (<Button.Ripple color='primary' style={{ fontSize: "1em", marginBottom: 5 }}
+                                                onClick={() => disconnect()} block>LOGIN</Button.Ripple>) : (
+                                                <Button.Ripple color='primary' style={{ fontSize: "1em", marginBottom: 5 }}
+                                                    onClick={async () => {
+                                                        try {
+                                                            // Will open the MetaMask UI
+                                                            // You should disable this button while the request is pending!
+                                                            // await ethereum.request({ method: 'eth_requestAccounts' })
+                                                            activateBrowserWallet(undefined, true)
+                                                        } catch (error) {
+                                                            console.error(error)
+                                                        }
+                                                    }}
+                                                    block>CONNECT WALLET
+                                                </Button.Ripple>
+                                            )}
+                                        </>) : (
+                                            <Button.Ripple color='primary' style={{ fontSize: "1em", marginBottom: 10 }}
+                                                onClick={onClickInstall}
+                                                block>INSTALL METAMASK
                                             </Button.Ripple>
                                         )}
-                                    </>) : (
-                                        <Button.Ripple color='primary' style={{ fontSize: "1.5em", marginBottom: 10 }}
-                                            onClick={onClickInstall}
-                                            block>INSTALL METAMASK
-                                        </Button.Ripple>
-                                    )}
-                                    <CardBody>
-                                        <Col className='my-1 d-flex flex-row justify-content-first'>
-                                            <strong>Current Network</strong> :
-                                            <CardText className='mx-1' style={{ ...backgroundChange, width: 'fit-content', color: 'white' }}>
-                                                <Icon className='mr-1' name={networkIcon} size={20} />
-                                                {networkName}
-                                            </CardText>
-                                        </Col>
-                                        <Col className='my-1 d-flex flex-row justify-content-first'>
-                                            <strong>Current Account</strong> :
-                                            <CardText className='mx-1'>
-                                                {shortenIfAddress(account)}
-                                            </CardText>
-                                        </Col>
-                                        <Col className='my-1'>
+                                        <CardBody className='px-0'>
+                                            <Col className='mb-1 d-flex flex-row justify-content-first'>
+                                                <strong>Network</strong> :
+                                                {networkName === 'Not Connected' ? null : (
+                                                    <CardText as='p' className='mx-1' style={{ width: 'fit-content', color: 'black' }}>
+                                                        <Icon className='mr-1' name={networkIcon} size={25} />
+                                                        {networkName}
+                                                    </CardText>
+                                                )}
+                                            </Col>
+                                            <Col className='mb-1 d-flex flex-row justify-content-first'>
+                                                <strong>Account</strong> :
+                                                <CardText className='mx-1'>
+                                                    {shortenIfAddress(account)}
+                                                </CardText>
+                                            </Col>
+                                            <Col>
+                                                <CardText>Network's supported are <strong>Polygon Mainnet, Kovan, BSC Testnet, Polygon Mumbai</strong></CardText>
+                                                {/* <CardText>Polygon Mainnet, Kovan, BSC Testnet, Polygon Mumbai</CardText> */}
+                                            </Col>
+                                            {/* <Col className='mt-1'>
                                             <ul className='list-unstyled'>
                                                 <li>The supported network's are,</li>
                                                 <ul>
@@ -139,8 +149,9 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
                                                     <li>"Polygon Mumbai"</li>
                                                 </ul>
                                             </ul>
-                                        </Col>
-                                    </CardBody>
+                                        </Col> */}
+                                        </CardBody>
+                                    </Col>
                                     {/* {<p>Network: {networkName}</p>}
                                     {<p>Account: {account}</p>}
                                     {console.log(account)}

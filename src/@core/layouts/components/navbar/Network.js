@@ -8,15 +8,30 @@ import helperConfig from '../../../../helper-config.json'
 import chain_detail from '../../../../network.json'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import LoginModal from '../../../../views/LoginModal'
 
 const Network = ({ networkC, dispatch, globalFlag }) => {
 
+  const { account, chainId } = useEthers()
+  const MySwal = withReactContent(Swal)
+
+  const isConnected = account !== undefined
+
+  const [loginModal, setLoginModal] = useState(false)
   const disconnect = () => {
-    window.location.href = '/login'
+    window.location.href = '/home'
+    setLoginModal(!loginModal)
   }
 
-  const MySwal = withReactContent(Swal)
-  const { chainId } = useEthers()
+  console.log('loginModal', loginModal)
+
+  useEffect(() => {
+    if (!isConnected) {
+      setLoginModal(!loginModal)
+    }
+  }, [account, chainId])
+
+
   console.log('chain_detail', chain_detail)
   const data = chain_detail
 
@@ -89,7 +104,7 @@ const Network = ({ networkC, dispatch, globalFlag }) => {
       text: `Current network is "${helperConfig.network[chainId].name}"`,
       allowOutsideClick: false,
       showCancelButton: true,
-      confirmButtonText: `Switch metamask to "${name} and log in again"`,
+      confirmButtonText: `Switch metamask to "${name}" and log in again`,
       customClass: {
         confirmButton: 'btn btn-primary mx-1',
         cancelButton: 'btn btn-danger my-1'
@@ -103,9 +118,6 @@ const Network = ({ networkC, dispatch, globalFlag }) => {
         dispatch(AppData.globalFlag(true))
         // disconnect()
       }
-      // if (curt_chain !== chainId) {
-      //   disconnect()
-      // }
     })
   }
 
@@ -128,19 +140,22 @@ const Network = ({ networkC, dispatch, globalFlag }) => {
   })
 
   return (
-    <UncontrolledButtonDropdown style={{ marginLeft: 20, marginRight: 20 }}>
+    <>
+      <UncontrolledButtonDropdown style={{ marginLeft: 20, marginRight: 20 }}>
 
-      <DropdownToggle color='primary' outline caret>
-        <span><Icon className='mx-1' name={network.icon} size={20} />{network.name}</span>
-      </DropdownToggle>
+        <DropdownToggle color='primary' outline caret>
+          <span><Icon className='mx-1' name={network.icon} size={20} />{network.name}</span>
+        </DropdownToggle>
 
-      <DropdownMenu style={{ relative: 'relative' }}>
+        <DropdownMenu style={{ relative: 'relative' }}>
 
-        {networkItems}
+          {networkItems}
 
-      </DropdownMenu>
+        </DropdownMenu>
 
-    </UncontrolledButtonDropdown>
+      </UncontrolledButtonDropdown>
+      <LoginModal openloginmodal={loginModal} disconnect={disconnect} />
+    </>
   )
 }
 // const mapDispatchToProps = dispatch => ({ dispatch })

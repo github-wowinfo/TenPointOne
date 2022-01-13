@@ -75,11 +75,5 @@ export default [
   //   title: 'HDFC Fixed',
   //   icon: <SiWebmoney size={25} style={{ color: randomHexColor() }} />,
   //   navLink: '#'
-  // },
-  {
-    id: "disconnet",
-    title: "Disconnect",
-    icon: <Power size={20} />,
-    navLink: "/login"
-  }
+  // }
 ]

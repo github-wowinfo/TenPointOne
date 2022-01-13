@@ -265,7 +265,11 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
           <Icon className='mt-1' name={networkIcon} size={20} />
         </Col>
         <Col className='my-1 pl-0'>
-          <Avatar size='lg' color='light-danger' title='SBI Vault' icon={<BsSafe2 size={25} />} href='/home' />
+          {is_sega ? (
+            <Avatar size='lg' color={logos[1].color} title={globalNickName} icon={logos[1].icon} href='/home' />
+          ) : (
+            <Avatar size='lg' color={logos[0].color} title={globalNickName} icon={logos[0].icon} href='/home' />
+          )}
         </Col>
         <Col className=' px-0'>
           <Button.Ripple style={{ width: '35px', padding: ' 10px 6px' }} color='primary'>{globalNickName && globalNickName.slice(0, 1)}...{globalNickName && globalNickName.slice(globalNickName.length - 1, globalAdrs.length)}</Button.Ripple>
