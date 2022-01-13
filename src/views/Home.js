@@ -16,6 +16,7 @@ import { connect } from 'react-redux'
 import * as AppData from '../redux/actions/cookies/appDataType'
 import axios from 'axios'
 import { BsArrowRightCircle } from 'react-icons/bs'
+import LoginModal from './LoginModal'
 
 const Home = ({ globalVaultFlag, globalAdrs, dispatch, globalNickName }) => {
 
@@ -23,8 +24,10 @@ const Home = ({ globalVaultFlag, globalAdrs, dispatch, globalNickName }) => {
 
   const isConnected = account !== undefined
 
+  const [loginModal, setLoginModal] = useState(false)
   const disconnect = () => {
-    window.location.href = '/login'
+    setLoginModal(!loginModal)
+    // window.location.href = '/login'
   }
 
   // const [chart, setChart] = useState(true)
@@ -170,21 +173,21 @@ const Home = ({ globalVaultFlag, globalAdrs, dispatch, globalNickName }) => {
           </Col>
         ) : (
           <Col>
-            {/* <Card className='my-1'> */}
-            {/* <CardHeader className='d-flex justify-content-start my-0 pb-0'> */}
-            {/* <Avatar className='mx-1' title='wave graph' content='1' size='sm' color='warning' onClick={() => setChart(true)} />
-              <Avatar className='mx-1' title='line graph' content='2' size='sm' color='info' onClick={() => setChart(false)} /> */}
-            {/* <Badge className='mx-1' color='primary' pill href='#' onClick={() => setChart(true)}>
+            {/* <Card className='my-1'>
+            <CardHeader className='d-flex justify-content-start my-0 pb-0'>
+            <Avatar className='mx-1' title='wave graph' content='1' size='sm' color='warning' onClick={() => setChart(true)} />
+              <Avatar className='mx-1' title='line graph' content='2' size='sm' color='info' onClick={() => setChart(false)} />
+            <Badge className='mx-1' color='primary' pill href='#' onClick={() => setChart(true)}>
                 <span className='align-middle'>.</span>
-              </Badge> */}
-            {/* <Badge className='mx-1' color='warning' pill href='#' onClick={() => setChart(false)}>
+              </Badge>
+            <Badge className='mx-1' color='warning' pill href='#' onClick={() => setChart(false)}>
                 <span className='align-middle'>.</span>
-              </Badge> */}
-            {/* </CardHeader> */}
-            {/* <CardBody>
+              </Badge>
+            </CardHeader>
+            <CardBody>
               {chart ? <MainChart2 /> : <MainChart1 />}
-            </CardBody> */}
-            {/* </Card> */}
+            </CardBody>
+            </Card> */}
             <Row>
               <Col className='pt-1'>
                 <Card className='mb-0'>
@@ -212,8 +215,8 @@ const Home = ({ globalVaultFlag, globalAdrs, dispatch, globalNickName }) => {
           </Col>
         )}
       </Row>) : disconnect()}
+      <LoginModal openloginmodal={loginModal} disconnect={disconnect} />
     </div>
-
   )
 }
 
