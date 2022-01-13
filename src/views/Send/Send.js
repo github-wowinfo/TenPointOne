@@ -436,7 +436,7 @@ const Send = ({ globalAdrs, globalNickName }) => {
   const backgroundChange = { backgroundColor: networkName === "BSC testnet" ? '#cc9b00' : networkName === "Polygon Network" ? '#8146e4' : networkName === "Ethereum" ? '#4559f4' : networkName === "Kovan" ? '#6435c9' : networkName === "BSC Mainet" ? '#cc9b00' : networkName === "Polygon Mumbai" ? '#140035' : null }
   return (
     <>
-      {isConnected ? (<Col style={cardStyle} md={{ offset: 3, size: 6 }} sm="12">
+      <Col style={cardStyle} md={{ offset: 3, size: 6 }} sm="12">
         <Card className='my-1 card-payment'>
           <CardHeader style={{ paddingBottom: '.3em' }}>
             <CardTitle>Send Funds</CardTitle>
@@ -623,7 +623,7 @@ const Send = ({ globalAdrs, globalNickName }) => {
             </Alert>
           </Col>
         </Card>
-      </Col>) : null}
+      </Col>
       <LoginModal openloginmodal={loginModal} disconnect={disconnect} />
     </>
   )

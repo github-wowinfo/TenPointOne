@@ -106,6 +106,7 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
                                                             // You should disable this button while the request is pending!
                                                             // await ethereum.request({ method: 'eth_requestAccounts' })
                                                             activateBrowserWallet(undefined, true)
+                                                            disconnect()
                                                         } catch (error) {
                                                             console.error(error)
                                                         }

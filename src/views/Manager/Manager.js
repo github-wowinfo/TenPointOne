@@ -143,7 +143,7 @@ const Manager = ({ globalAdrs, globalNickName, dispatch, globalVaultFlag }) => {
 
     return (
         <div>
-            {isConnected ? (<div className="my-1"><CreateVs /><AddRemove /><ManageSecurity /><RecoverAcc /><ImportExport /></div>) : null}
+            <div className="my-1"><CreateVs /><AddRemove /><ManageSecurity /><RecoverAcc /><ImportExport /></div>
             <LoginModal openloginmodal={loginModal} disconnect={disconnect} />
         </div>
     )

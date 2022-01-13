@@ -115,7 +115,7 @@ const DeFi = ({ dispatch, globalAdrs, globalNickName }) => {
 
     return (
         <>
-            {isConnected ? (<React.Fragment>
+            <React.Fragment>
                 {globalNickName === 'Create a Vault' ? (
                     <Col className='d-flex justify-content-center align-items-center' md={{ offset: 3, size: 6 }} sm="12">
                         <Card className='my-1 card-payment'>
@@ -182,7 +182,7 @@ const DeFi = ({ dispatch, globalAdrs, globalNickName }) => {
                         </TabPane>
                     </TabContent>
                 </>)}
-            </React.Fragment>) : null}
+            </React.Fragment>
             <LoginModal openloginmodal={loginModal} disconnect={disconnect} />
         </>
     )

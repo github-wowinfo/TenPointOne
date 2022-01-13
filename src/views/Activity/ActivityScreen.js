@@ -397,7 +397,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName }) => {
 
     return (
         <>
-            {isConnected ? (<>
+            <>
                 {globalNickName === 'Create a Vault' ? (
                     <Col className='d-flex justify-content-center align-items-center' md={{ offset: 3, size: 6 }} sm="12">
                         <Card className='my-1 card-payment'>
@@ -506,7 +506,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName }) => {
                 </Card> */}
                     <CustomModal open={modalVisible} handleModal={handleModal} trxnId={trxnId} description={desc} />
                 </>)}
-            </>) : null}
+            </>
             <LoginModal openloginmodal={loginModal} disconnect={disconnect} />
         </>
 

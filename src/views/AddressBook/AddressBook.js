@@ -298,7 +298,7 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
 
     return (
         <>
-            {isConnected ? (<div>
+            <div>
                 <Card className='my-1'>
                     <CardHeader>
                         <CardTitle>Address Book</CardTitle>
@@ -371,7 +371,7 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
                     </CardHeader>
                 </Card>
                 <AddNewModal open={modal} handleModal={handleModal} />
-            </div>) : null}
+            </div>
             <LoginModal openloginmodal={loginModal} disconnect={disconnect} />
         </>
 

@@ -168,7 +168,7 @@ const Home = ({ globalVaultFlag, globalAdrs, dispatch, globalNickName }) => {
   return (
 
     <div>
-      {isConnected ? (<Row>
+      <Row>
         {globalNickName === 'Create a Vault' ? (
           <Col className='d-flex justify-content-center align-items-center' md={{ offset: 3, size: 6 }} sm="12">
             <Card className='my-1 card-payment'>
@@ -226,7 +226,7 @@ const Home = ({ globalVaultFlag, globalAdrs, dispatch, globalNickName }) => {
             </Row>
           </Col>
         )}
-      </Row>) : null}
+      </Row>
       <LoginModal openloginmodal={loginModal} disconnect={disconnect} />
     </div>
   )

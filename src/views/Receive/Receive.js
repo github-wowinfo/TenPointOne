@@ -154,7 +154,7 @@ const Receive = ({ networkC, globalAdrs, globalNickName }) => {
 
   return (
     <>
-      {isConnected ? (<Col style={cardStyle} md={{ offset: 3, size: 6 }} sm="12">
+      <Col style={cardStyle} md={{ offset: 3, size: 6 }} sm="12">
         <Card className='my-1 card-payment' >
           <CardHeader style={{ paddingBottom: '.1em' }}>
             <CardTitle>Receive Assests</CardTitle>
@@ -213,7 +213,6 @@ const Receive = ({ networkC, globalAdrs, globalNickName }) => {
           )}
         </Card>
       </Col>
-      ) : null}
       <LoginModal openloginmodal={loginModal} disconnect={disconnect} />
     </>
 
