@@ -3,7 +3,15 @@
         "net": "97",
         "icon": "bnb",
         "name": "BSC testnet",
-        "netid": "0x61"
+        "netid": "0x61",
+        "curr_name": "TBNB",
+        "symbol": "tBNB",
+        "rpcUrl": [
+            "https://data-seed-prebsc-1-s1.binance.org:8545"
+        ],
+        "blockUrl": [
+            "https://testnet.bscscan.com"
+        ]
     },
     {
         "net": "137",

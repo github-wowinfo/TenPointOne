@@ -11,7 +11,8 @@ import {
     Input,
     Label,
     Row,
-    Col
+    Col,
+    NavLink
 } from 'reactstrap'
 import AddNewModal from './AddNewModal'
 import React, { useEffect, useState, Fragment } from 'react'
@@ -38,8 +39,9 @@ import { CSVLink } from "react-csv"
 import * as AppData from '../../redux/actions/cookies/appDataType'
 import DeleteContact from './DeleteContact'
 import LoginModal from '../LoginModal'
+import { BsArrowRightCircle } from 'react-icons/bs'
 
-const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
+const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName }) => {
 
     const { account, chainId } = useEthers()
 
@@ -282,11 +284,11 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
         { label: "User", key: "owner" }
     ]
 
-    const [adrsdata, setAdrsdata] = useState([])
+    const [adrs_data, setAdrs_data] = useState([])
     useEffect(() => {
         const adrsBookdata = JSON.parse(localStorage.getItem('adrsbook'))
         const filterAdrsBook = adrsBookdata && adrsBookdata.filter(i => i.owner === account && i.network === chainId)
-        setAdrsdata(filterAdrsBook)
+        setAdrs_data(filterAdrsBook)
     }, [account, chainId, globalVaultFlag, globalFavFlag])
 
     // const csvReport = {
@@ -294,11 +296,25 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
     //     headers: headers,
     //     filename: 'AddresBookData.csv'
     //   }
-    console.log('adrsdata', adrsdata)
+    console.log('adrs_data', adrs_data)
 
     return (
         <>
-            <div>
+            {globalNickName === 'Create a Vault' ? (
+                <Col className='d-flex justify-content-center align-items-center' md={{ offset: 3, size: 6 }} sm="12">
+                    <Card className='my-1 card-payment'>
+                        <CardHeader style={{ paddingBottom: '.3em' }}>
+                            <CardTitle>Address Book</CardTitle>
+                        </CardHeader>
+                        <hr />
+                        <Col style={{ fontSize: '2em' }} className='d-flex flex-row justify-content-center align-items-center'>
+                            <NavLink href='/manager' >
+                                CREATE A VAULT <BsArrowRightCircle size={35} />
+                            </NavLink>
+                        </Col>
+                    </Card>
+                </Col>
+            ) : (<div>
                 <Card className='my-1'>
                     <CardHeader>
                         <CardTitle>Address Book</CardTitle>
@@ -365,13 +381,13 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
                             </Button>
                             <Button className='ml-2' color='success' caret outline>
                                 <CgExport className='mx-1' size={15} />
-                                <CSVLink style={{ color: '#31c975' }} data={adrsdata} headers={headers} filename='Addres_Book_Data.csv'>Export</CSVLink>
+                                <CSVLink style={{ color: '#31c975' }} data={adrs_data} headers={headers} filename='Addres_Book_Data.csv'>Export</CSVLink>
                             </Button>
                         </div>
                     </CardHeader>
                 </Card>
                 <AddNewModal open={modal} handleModal={handleModal} />
-            </div>
+            </div>)}
             <LoginModal openloginmodal={loginModal} disconnect={disconnect} />
         </>
 

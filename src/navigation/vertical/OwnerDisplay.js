@@ -48,7 +48,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
     </Fragment>
   )
 
-  const [is_sega, setis_sega] = useState()
+  const [is_sega, setis_sega] = useState(false)
   const [segaList, setSegaList] = useState([])
   const getSegaListFromLocal = () => {
     const getdata = JSON.parse(localStorage.getItem('segadata'))
@@ -107,16 +107,21 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
     return (
       <>
         <Col style={{ padding: '0px 0px' }}>
+          <hr className="mt-0" style={{ borderTop: '1px solid black' }} />
           <Col style={{ ...networkstyle, ...backgroundChange, fontSize: '1em', marginBottom: '0px' }} className='my-1 d-flex flex-row flex-nowrap align-self-center '>
             {/* <Icon className='mr-1' name={networkC.icon} size={20} />{networkC.name} */}
             <Icon className='mr-1' name={networkIcon} size={20} />{networkName}
           </Col>
           <Link to='/home'>
             {/* <Avatar size='xl' color='light-danger' title='SBI Vault' icon={<BsSafe2 size={25} />} href='/home' /> */}
-            {is_sega ? (
-              <Avatar size='xl' color={logos[1].color} title={globalNickName} icon={logos[1].icon} href='/home' />
-            ) : (
+            {globalNickName === 'Create a Vault' ? (
               <Avatar size='xl' color={logos[0].color} title={globalNickName} icon={logos[0].icon} href='/home' />
+            ) : (
+              is_sega ? (
+                <Avatar size='xl' color={logos[1].color} title={globalNickName} icon={logos[1].icon} href='/home' />
+              ) : (
+                <Avatar size='xl' color={logos[0].color} title={globalNickName} icon={logos[0].icon} href='/home' />
+              )
             )}
           </Link>
         </Col>
@@ -129,7 +134,19 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
           ) : (
             <h2 className="text-primary my-1" style={{ cursor: 'pointer' }} onClick={handleDropList} >{globalNickName} <ChevronRight size={25} /></h2>
           )}
-          {/* <Button.Ripple className='my-1' color='flat-primary' onClick={handleDropList}>
+          <Row className='mb-1 d-flex flex-column'>
+            <Col>{shortenIfAddress(globalAdrs)}</Col>
+            <Col className='text-center'>
+              <Link to='/receive'><IoQrCodeOutline className="mx-1" color='grey' size={15} /></Link>
+
+              <FaRegCopy style={{ cursor: 'pointer' }} className="mx-1" color='grey' size={15} onClick={copy} />
+
+              <a href={getExplorerAddressLink(globalAdrs, chainId ? chainId : 1)} target='_blank'><GoLinkExternal className="mx-1" color='grey' size={15} /></a>
+            </Col>
+          </Row>
+          {/* < <Col></Col>Button.Ripple className='my-1' color='flat-primary' onClick={handleDropList}>
+          {/* < <Col></Col>Button.Ripple className='my-1' color='flat-primary' onClick={handleDropList}>
+          {/* < <Col></Col>Button.Ripple className='my-1' color='flat-primary' onClick={handleDropList}>
             {globalNickName} <ChevronRight size={25} />
           </Button.Ripple> */}
           {/* <UncontrolledButtonDropdown style={{ minWidth: "90%" }} direction='right' onClick={handleDropList}> */}
@@ -210,26 +227,26 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
             </DropdownMenu> */}
           {/* </UncontrolledButtonDropdown> */}
           <UncontrolledButtonDropdown style={{ minWidth: "90%" }}>
-            <DropdownToggle style={{ fontSize: '1.1em' }} className='mb-1 btn-gradient-primary round' color='none' caret>
+            <DropdownToggle style={{ fontSize: '1.1em' }} className=' btn-gradient-primary round' color='none' caret>
               Quick Actions
             </DropdownToggle>
             <DropdownMenu style={{ minWidth: '200px' }} >
-              <DropdownItem className='px-1 py-0' >
+              {/* <DropdownItem className='px-1 py-0' >
                 <dl>
                   <dt>{globalNickName}</dt>
-                  <dd>{shortenIfAddress(globalAdrs)}</dd>
-                  {/* <dd>{account && account.slice(0, 10)}...{account && account.slice(account.length - 4, account.length)}</dd> */}
-                  {/* <Text name={account} fchar={10} lchar={4} /> */}
-                  {/* <dd>{accAdrs}</dd> */}
-                </dl>
-              </DropdownItem>
-              <DropdownItem divider></DropdownItem>
+                  <dd>{shortenIfAddress(globalAdrs)}</dd> */}
+              {/* <dd>{account && account.slice(0, 10)}...{account && account.slice(account.length - 4, account.length)}</dd> */}
+              {/* <Text name={account} fchar={10} lchar={4} /> */}
+              {/* <dd>{accAdrs}</dd> */}
+              {/* </dl>
+              </DropdownItem> */}
+              {/* <DropdownItem divider></DropdownItem>
               <DropdownItem style={{ display: 'flex', justifyContent: 'space-between' }} href='#'>
                 <Link to='/receive'><IoQrCodeOutline color='grey' size={25} /></Link>
                 <FaRegCopy color='grey' size={25} onClick={copy} />
                 <a href={getExplorerAddressLink(globalAdrs, chainId ? chainId : 1)} target='_blank'><GoLinkExternal color='grey' size={25} /></a>
               </DropdownItem>
-              <DropdownItem divider></DropdownItem>
+              <DropdownItem divider></DropdownItem> */}
               <DropdownItem className='text-center py-0' tag='a'>
                 <Link to='/send'>
                   <Button.Ripple color='primary' style={{ minWidth: '120px' }}>SEND</Button.Ripple>
@@ -252,8 +269,8 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
               </DropdownItem>
             </DropdownMenu>
           </UncontrolledButtonDropdown>
+          <hr />
         </Col>
-
       </>
     )
   }
@@ -265,10 +282,14 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
           <Icon className='mt-1' name={networkIcon} size={20} />
         </Col>
         <Col className='my-1 pl-0'>
-          {is_sega ? (
-            <Avatar size='lg' color={logos[1].color} title={globalNickName} icon={logos[1].icon} href='/home' />
-          ) : (
+          {globalNickName === 'Create a Vault' ? (
             <Avatar size='lg' color={logos[0].color} title={globalNickName} icon={logos[0].icon} href='/home' />
+          ) : (
+            is_sega ? (
+              <Avatar size='lg' color={logos[1].color} title={globalNickName} icon={logos[1].icon} href='/home' />
+            ) : (
+              <Avatar size='lg' color={logos[0].color} title={globalNickName} icon={logos[0].icon} href='/home' />
+            )
           )}
         </Col>
         <Col className=' px-0'>

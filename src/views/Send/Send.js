@@ -118,7 +118,7 @@ const Send = ({ globalAdrs, globalNickName }) => {
     }
   }, [chainId, account])
 
-  const [is_sega, setis_sega] = useState()
+  const [is_sega, setis_sega] = useState(false)
   const [segaList, setSegaList] = useState([])
   const getSegaListFromLocal = () => {
     const getdata = JSON.parse(localStorage.getItem('segadata'))
@@ -138,7 +138,7 @@ const Send = ({ globalAdrs, globalNickName }) => {
     }
   }, [globalAdrs, account, chainId, is_sega])
 
-  // console.log('is_sega', is_sega)
+  console.log('is_sega', is_sega)
 
   const cardStyle = {
     display: 'flex',
@@ -589,15 +589,15 @@ const Send = ({ globalAdrs, globalNickName }) => {
                 </>
               ) : (<>
                 {adrs_flag && amt_flag ? (
-                  <Col>
-                    <Button.Ripple color='primary' onClick={handleVaultSend} block>
+                  <Col className='text-center'>
+                    <Button.Ripple color='primary' onClick={handleVaultSend} >
                       Send
                     </Button.Ripple>
                     <Button.Ripple onClick={handleLog}>TestLog</Button.Ripple>
                   </Col>
                 ) : (
-                  <Col>
-                    <Button.Ripple color='primary' disabled block>
+                  <Col className='text-center'>
+                    <Button.Ripple color='primary' disabled >
                       Send
                     </Button.Ripple>
                     <Button.Ripple disabled>TestLog</Button.Ripple>

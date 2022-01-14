@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import * as AppData from '../../redux/actions/cookies/appDataType'
 import { Link } from 'react-router-dom'
 import { FaRegStar, FaStar } from 'react-icons/fa'
+import FavAvatar from './FavAvatar'
 
 const Favourites = ({ globalAdrs, dispatch, globalNickName, globalFavFlag, menuCollapsed, menuHover }) => {
 
@@ -32,7 +33,6 @@ const Favourites = ({ globalAdrs, dispatch, globalNickName, globalFavFlag, menuC
         dispatch(AppData.globalAdrs(adrs))
         dispatch(AppData.globalNickName(name))
     }
-
     // console.log('fav_list', fav_list)
     // console.log('globalNickName', globalNickName)
     // console.log('globalAdrs', globalAdrs)
@@ -47,11 +47,12 @@ const Favourites = ({ globalAdrs, dispatch, globalNickName, globalFavFlag, menuC
                     fav_list && fav_list.map(i => {
                         return (
                             <>
-                                <Row className='px-1 d-flex flex-row justify-conten-center' >
-                                    <Col>
-                                        <Link onClick={() => handleGlobal(i.adrs, i.nickname)} >{i.nickname}</Link>
+                                <Row className='my-1 pl-1 d-flex flex-row ' >
+                                    <Col lg='2'>
+                                        <FavAvatar item={i} />
                                     </Col>
                                     <Col>
+                                        <h4><Link onClick={() => handleGlobal(i.adrs, i.nickname)} >{i.nickname}</Link></h4>
                                         <h6>{shortenIfAddress(i.adrs)}</h6>
                                     </Col>
                                 </Row>

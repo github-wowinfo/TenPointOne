@@ -26,6 +26,9 @@ export default [
     navLink: "/activity"
   },
   {
+    header: ''
+  },
+  {
     id: 'send',
     title: "Send",
     icon: <ArrowUpRight size={20} />,
@@ -42,6 +45,9 @@ export default [
     title: "DeFi",
     icon: <IoGitMergeOutline size={20} />,
     navLink: "/defi"
+  },
+  {
+    header: ''
   },
   {
     id: "addressbook",

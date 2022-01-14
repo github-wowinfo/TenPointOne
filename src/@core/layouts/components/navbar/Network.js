@@ -95,10 +95,41 @@ const Network = ({ networkC, dispatch, globalFlag }) => {
   // }
 
 
-  const netchange = (netid) => {
-    ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: `${netid}` }] })
+  const netchange = async (netid, name, cdetail) => {
+    try {
+      await ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: `${netid}` }]
+      })
+    } catch (error) {
+      console.log('errorcode', error.code)
+      console.log('curr name', cdetail.curr_name)
+      if (error.code === 4902) {
+        try {
+          await ethereum.request({
+            method: 'wallet_addEthereumChain',
+            params: [
+              {
+                chainId: netid, // A 0x-prefixed hexadecimal string
+                chainName: name,
+                nativeCurrency: {
+                  name: cdetail.curr_name,
+                  symbol: cdetail.symbol, // 2-6 characters long
+                  decimals: 18
+                },
+                rpcUrls: cdetail.rpcUrl,
+                blockExplorerUrls: cdetail.blockUrl
+              }
+            ],
+          })
+        } catch (addError) {
+          // handle "add" error
+        }
+      }
+    }
   }
-  const handleAjax = (netid, name) => {
+
+  const handleAjax = (netid, name, cdetail) => {
     return MySwal.fire({
       title: 'Do you want to change your current network?',
       text: `Current network is "${helperConfig.network[chainId].name}"`,
@@ -114,7 +145,7 @@ const Network = ({ networkC, dispatch, globalFlag }) => {
       },
     }).then(function (result) {
       if (result.isConfirmed) {
-        netchange(netid)
+        netchange(netid, name, cdetail)
         dispatch(AppData.globalFlag(true))
         // disconnect()
       }
@@ -134,7 +165,7 @@ const Network = ({ networkC, dispatch, globalFlag }) => {
     return (
       <DropdownItem href='/' key={index} onClick={(e) => {
         e.preventDefault()
-        handleAjax(i.netid, i.name)
+        handleAjax(i.netid, i.name, i)
         // netchange(i.netid)
         // handleNetwork(e, i.icon, i.name)
       }}><span><Icon className='mx-1' name={i.icon} size={20} />{i.name}</span></DropdownItem>
