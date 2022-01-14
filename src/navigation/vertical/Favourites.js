@@ -9,13 +9,13 @@ import FavAvatar from './FavAvatar'
 
 const Favourites = ({ globalAdrs, dispatch, globalNickName, globalFavFlag, menuCollapsed, menuHover }) => {
 
-    const { account } = useEthers()
+    const { account, chainId } = useEthers()
 
     const [fav_list, setFav_list] = useState([])
     const getFavListFromLocal = () => {
         const getdata = JSON.parse(localStorage.getItem('adrsbook'))
         // console.log('getdata', getdata)
-        const valuedata = getdata && getdata.filter(i => i.owner === account && i.isFav === true)
+        const valuedata = getdata && getdata.filter(i => i.owner === account && i.network === chainId && i.isFav === true)
         // console.log('valuedata', valuedata)
         if (valuedata !== undefined || valuedata !== []) {
             setFav_list(valuedata)

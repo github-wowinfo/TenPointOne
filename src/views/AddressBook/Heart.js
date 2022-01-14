@@ -3,9 +3,9 @@ import Avatar from '@components/avatar'
 import { FaStar, FaRegStar } from 'react-icons/fa'
 import { connect } from 'react-redux'
 import * as AppData from '../../redux/actions/cookies/appDataType'
+import { useEthers } from '@usedapp/core'
 
 const Heart = ({ item, globalFavFlag, dispatch }) => {
-
 
     const [hicon, setHicon] = useState(false)
     const [flag, setflag] = useState(0)

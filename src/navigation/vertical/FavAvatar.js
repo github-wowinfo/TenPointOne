@@ -26,7 +26,7 @@ const FavAvatar = ({ item }) => {
         console.log('segaList', segaList)
         const segaadrs = segaList && segaList.find(i => i.adrs === item.adrs)
         console.log('segaadrs', segaadrs)
-        if (segaadrs === undefined) {
+        if (segaadrs === undefined || segaadrs === null) {
             console.log('issega', is_sega)
             setis_sega(false)
         } else {
