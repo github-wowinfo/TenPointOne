@@ -21,6 +21,7 @@ import downloadCsv from 'download-csv'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import LoginModal from '../LoginModal'
+import ExistingAdrs from './ExistingAdrs'
 
 const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalVaultFlag }) => {
 
@@ -277,7 +278,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
         },
         {
             name: 'To / From',
-            minWidth: '195px',
+            minWidth: '250px',
             selector: row => (
                 <span>
                     <span>
@@ -285,13 +286,15 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                             row.type === 'receive' ? (<>
                                 <span className='align-middle font-weight-bold'>
                                     {/* {local_names && local_names.map(i => (row.from === i.ladrs ? i.lname : shortenIfAddress(row.from)))} */}
-                                    {shortenIfAddress(row.from)}
+                                    <ExistingAdrs adrs={row.from} local={local_names} />
+                                    {/* {shortenIfAddress(row.from)} */}
                                 </span>
                             </>
                             ) : (<>
                                 <span className='align-middle font-weight-bold'>
                                     {/* {local_names && local_names.map(i => (row.to === i.ladrs ? i.lname : shortenAddress(row.to)))} */}
-                                    {shortenAddress(row.to)}
+                                    <ExistingAdrs adrs={row.to} local={local_names} />
+                                    {/* {shortenAddress(row.to)} */}
                                 </span>
                             </>
                             )
