@@ -67,8 +67,13 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
         MetaMaskClientCheck()
     }, [is_metamask])
 
+    const [curr_acc, setCurr_acc] = useState(account)
 
     useEffect(() => {
+        if (curr_acc !== account) {
+            window.location.reload()
+        }
+
         const get_load_flag = JSON.parse(localStorage.getItem('load_flag'))
         if (get_load_flag === undefined || get_load_flag === null) {
             localStorage.setItem('load_flag', JSON.stringify(true))
