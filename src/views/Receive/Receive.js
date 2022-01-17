@@ -15,8 +15,9 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import 'animate.css'
 import LoginModal from '../LoginModal'
+import * as AppData from '../../redux/actions/cookies/appDataType'
 
-const Receive = ({ networkC, globalAdrs, globalNickName }) => {
+const Receive = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
 
   const { account, chainId } = useEthers()
 
@@ -35,6 +36,33 @@ const Receive = ({ networkC, globalAdrs, globalNickName }) => {
       setLoginModal(!loginModal)
     }
   }, [account, chainId])
+
+  // const [curr_acc, setCurr_Acc] = useState(account)
+  // const [vaultList, setVaultList] = useState([])
+  // const getVaultListFromLocal = () => {
+  //   const getdata = JSON.parse(localStorage.getItem('vaultdata'))
+  //   const valueData = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account)
+  //   const vaultlist = valueData && valueData.map((vault, index) => ({ value: index, adrs: vault.address, name: vault.name }))
+  //   console.log('vaultlist', vaultlist)
+  //   if (vaultlist === null || vaultlist === [] || vaultlist.length === 0) {
+  //     dispatch(AppData.globalAdrs(''))
+  //     dispatch(AppData.globalNickName('Create a Vault'))
+  //   } else {
+  //     console.log('vaultlist', vaultlist)
+  //     dispatch(AppData.globalAdrs(vaultlist[0].adrs))
+  //     dispatch(AppData.globalNickName(vaultlist[0].name))
+  //     // setVaultList(vaultlist)
+  //   }
+  // }
+  // useEffect(() => {
+  //   if (globalNickName === '' || globalNickName === 'Create a Vault') {
+  //     getVaultListFromLocal()
+  //     // dispatch(AppData.globalNickName(''))
+  //   } else if (curr_acc !== account) {
+  //     setCurr_Acc(account)
+  //     getVaultListFromLocal()
+  //   }
+  // }, [account, globalVaultFlag])
 
   const [curt_account, setCurt_account] = useState(account)
   const [curt_chain, setCurt_chain] = useState(chainId)
@@ -179,6 +207,8 @@ const Receive = ({ networkC, globalAdrs, globalNickName }) => {
                 <Row className='d-flex flex-column justify-content-center align-items-center'>
                   <Col className='my-1 text-center '><Avatar size='lg' color='light-danger' icon={<BsSafe2 size={25} />} /></Col>
                   <Col className='mb-1'>
+                    {console.log(globalNickName)}
+                    {console.log(globalAdrs)}
                     <CardTitle style={{ textAlign: 'center', marginBottom: 0 }}><strong>{globalNickName}</strong></CardTitle>
                   </Col>
                   <Col className='text-center'>
@@ -220,8 +250,9 @@ const Receive = ({ networkC, globalAdrs, globalNickName }) => {
 }
 
 const mapStateToProps = (state) => ({
-  networkC: state.appData.network,
   globalAdrs: state.appData.globalAdrs,
-  globalNickName: state.appData.globalNickName
+  globalNickName: state.appData.globalNickName,
+  globalVaultFlag: state.appData.globalVaultFlag
 })
-export default connect(mapStateToProps, null)(Receive)
+const mapDispatchToProp = dispatch => ({ dispatch })
+export default connect(mapDispatchToProp, null)(Receive)

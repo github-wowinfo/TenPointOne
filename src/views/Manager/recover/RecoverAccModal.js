@@ -1,5 +1,5 @@
-import { X, Unlock } from 'react-feather'
-import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, Alert } from 'reactstrap'
+import { X, Unlock, Check } from 'react-feather'
+import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, Alert, UncontrolledAlert } from 'reactstrap'
 import { useState, useEffect, Fragment } from 'react'
 import { useVault } from '../../../utility/hooks/useVaults'
 import { isAddress } from "ethers/lib/utils"
@@ -19,38 +19,70 @@ const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
         <Fragment>
             <div className='toastify-header'>
                 <div className='title-wrapper'>
-                    <Avatar size='sm' color='success' icon={<Clipboard size={12} />} />
+                    <Avatar size='sm' color='success' icon={<Check size={12} />} />
                     <h6 className='toast-title'>Vault is Recovered and will be visible in your vault list!</h6>
                 </div>
             </div>
         </Fragment>
     )
 
-    // Import neccesary functions from useVaults.ts
-    const { getRecoveryInfo, getSegaList,
-        changeBackup, changeUnlockPeriod, claimVault,
-        txnState,
-        createNewSega, createNewSegaState,
-    } = useVault(Vault)
-
-    const handleSetVault = (e) => {
-        const vaultadrs = e.target.value
-        if (isAddress(vaultadrs)) {
-            setVault(vaultadrs)
+    const [name_flag, setName_flag] = useState(false)
+    const [nickName, setNickName] = useState('')
+    const onChangeName = (e) => {
+        const v_adrs = e.target.value
+        if (v_adrs !== "") {
+            setName_flag(true)
+            setNickName(v_adrs)
+        } else {
+            setName_flag(false)
         }
     }
 
-    const handleClaimVault = () => {
-        return claimVault()
+    // Import neccesary functions from useVaults.ts
+    const { getRecoveryInfo, claimVault,
+        txnState,
+    } = useVault(Vault)
+
+    const [exe_vault, setExe_vault] = useState(false)
+    const handleSetVault = (e) => {
+        const vaultadrs = e.target.value
+        if (isAddress(vaultadrs) && vaultadrs !== "") {
+            setVault(vaultadrs)
+            const getVaultdata = JSON.parse(localStorage.getItem('vaultdata'))
+            if (getVaultdata !== undefined || getVaultdata !== []) {
+                for (const i in getVaultdata) {
+                    if (getVaultdata[i].address === vaultadrs && getVaultdata[i].owner === account && getVaultdata[i].network === chainId) {
+                        setExe_vault(true)
+                    }
+                }
+            }
+        }
     }
 
-    const [nickName, setNickName] = useState('')
-    const onChangeName = (e) => {
-        setNickName(e.target.value)
+    const [wrong_adrs, setWrong_adrs] = useState(false)
+    const handleClaimVault = () => {
+        const { _backup } = getRecoveryInfo()
+        console.log('_backup', _backup)
+        if (_backup === account) {
+            return claimVault()
+            // alert('works')
+        } else {
+            setWrong_adrs(true)
+        }
     }
 
     const addToLocal = () => {
         const getdata = JSON.parse(localStorage.getItem('vaultdata'))
+        if (getdata) {
+            for (const i in getdata) {
+                if (getdata[i].address === Vault && getdata[i].owner === account && getdata[i].network === chainId) {
+                    getdata.splice(i, 1)
+                    break
+                }
+            }
+            localStorage.setItem('vaultdata', JSON.stringify(getdata))
+        }
+        const getvdata = JSON.parse(localStorage.getItem('vaultdata'))
         const postdata =
         {
             owner: account,
@@ -60,8 +92,8 @@ const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
             show: true
         }
         let vaultdata = []
-        if (getdata) {
-            vaultdata = [...getdata, postdata]
+        if (getvdata) {
+            vaultdata = [...getvdata, postdata]
         } else {
             vaultdata = [postdata]
         }
@@ -70,16 +102,26 @@ const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
 
     const addToAdrsBook = () => {
         const getAdrsdata = JSON.parse(localStorage.getItem('adrsbook'))
+        if (getAdrsdata) {
+            for (const i in getAdrsdata) {
+                if (getAdrsdata[i].address === Vault && getAdrsdata[i].owner === account && getAdrsdata[i].network === chainId) {
+                    getAdrsdata.splice(i, 1)
+                    break
+                }
+            }
+            localStorage.setItem('vaultdata', JSON.stringify(getAdrsdata))
+        }
+        const getadata = JSON.parse(localStorage.getItem('adrsbook'))
         const adrsdata =
         {
             owner: account,
             nickname: nickName,
             adrs: Vault,
-            network: [chainId]
+            network: chainId
         }
         let adrsbook = []
-        if (getAdrsdata) {
-            adrsbook = [...getAdrsdata, adrsdata]
+        if (getadata) {
+            adrsbook = [...getadata, adrsdata]
         } else {
             adrsbook = [adrsdata]
         }
@@ -106,7 +148,7 @@ const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
             setTxnSuccessSnack(true)
             addToLocal()
             addToAdrsBook()
-            // notifySuccess()
+            notifySuccess()
         }
     }, [txnState])
 
@@ -115,11 +157,21 @@ const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
     return (
 
         <Modal className='modal-dialog-centered' isOpen={openrecovermodal} toggle={() => {
+            setNickName("")
+            setName_flag(false)
+            setVault("")
+            setWrong_adrs(false)
+            setExe_vault(false)
             handleRecoverModal()
             handleTxnSnackClose()
         }} >
             {/* {console.log('new vault', Vault)} */}
             <ModalHeader tag='h1' toggle={() => {
+                setNickName("")
+                setName_flag(false)
+                setVault("")
+                setWrong_adrs(false)
+                setExe_vault(false)
                 handleRecoverModal()
                 handleTxnSnackClose()
             }} >
@@ -141,17 +193,31 @@ const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
                             <p style={{ fontSize: '.75em' }}>If you are uncertain of the vault address, you can still find it. If you know the account address of the Owner. Check documentation
                                 <a href='#' style={{ color: 'red' }}> here</a> to see how.</p>
                         </FormGroup>
+                        {exe_vault ? (
+                            <Col>
+                                <UncontrolledAlert color='warning'>
+                                    <h4 className='alert-heading'>The Vault is already present,<br /> If you still continue the current Vault info will be replaced by new info.</h4>
+                                </UncontrolledAlert>
+                            </Col>
+                        ) : null}
+                        {wrong_adrs ? (
+                            <Col>
+                                <UncontrolledAlert color='danger'>
+                                    <h4 className='alert-heading'>The entered Address is not a Vault,<br /> please check the address and try again.</h4>
+                                </UncontrolledAlert>
+                            </Col>
+                        ) : null}
                     </Col>
                 </Row>
             </ModalBody>
             <ModalFooter className='justify-content-center'>
-                {Vault === '' ? (
-                    <Button.Ripple color='primary' disabled>
+                {Vault !== '' && name_flag ? (
+                    <Button.Ripple color='primary' onClick={handleClaimVault}>
                         <Unlock className='mr-1' size={17} />
                         Recover
                     </Button.Ripple>
                 ) : (
-                    <Button.Ripple color='primary' onClick={handleClaimVault}>
+                    <Button.Ripple color='primary' disabled>
                         <Unlock className='mr-1' size={17} />
                         Recover
                     </Button.Ripple>)}

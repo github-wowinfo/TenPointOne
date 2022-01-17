@@ -22,9 +22,9 @@ export const useVault = (vault) => {
     const [_owner, _backup, c, d] = useContractCall(vault && getRecoveryInfoFn) ?? []
     const getRecoveryInfo = () => {
         if (vault.length > 0) {
-            const x = new Date(c.toNumber() * 1000)
+            const x = new Date(c && c.toNumber() * 1000)
             const _releaseDt = x.toLocaleDateString('en-Gbackup', { day: 'numeric', month: 'short', year: 'numeric' }).replace(/ /g, ' ')
-            const _unlockDays = d.toNumber()
+            const _unlockDays = d && d.toNumber()
             console.log("Original Info")
             console.log(_owner, _backup, c, d)
             console.log("Rec Info:", _owner, _backup, _releaseDt, _unlockDays)

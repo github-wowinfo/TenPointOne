@@ -24,8 +24,9 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { isAddress } from 'ethers/lib/utils'
 import LoginModal from '../LoginModal'
+import * as AppData from '../../redux/actions/cookies/appDataType'
 
-const Send = ({ globalAdrs, globalNickName }) => {
+const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
 
   const { account, chainId } = useEthers()
 
@@ -44,6 +45,33 @@ const Send = ({ globalAdrs, globalNickName }) => {
       setLoginModal(!loginModal)
     }
   }, [account, chainId])
+
+  const [curr_acc, setCurr_Acc] = useState(account)
+  const [vaultList, setVaultList] = useState([])
+  const getVaultListFromLocal = () => {
+    const getdata = JSON.parse(localStorage.getItem('vaultdata'))
+    const valueData = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account)
+    const vaultlist = valueData && valueData.map((vault, index) => ({ value: index, adrs: vault.address, name: vault.name }))
+    console.log('vaultlist', vaultlist)
+    if (vaultlist === null || vaultlist === [] || vaultlist.length === 0) {
+      dispatch(AppData.globalAdrs(''))
+      dispatch(AppData.globalNickName('Create a Vault'))
+    } else {
+      console.log('vaultlist', vaultlist)
+      dispatch(AppData.globalAdrs(vaultlist[0].adrs))
+      dispatch(AppData.globalNickName(vaultlist[0].name))
+      // setVaultList(vaultlist)
+    }
+  }
+  useEffect(() => {
+    if (globalNickName === '' || globalNickName === 'Create a Vault') {
+      getVaultListFromLocal()
+      // dispatch(AppData.globalNickName(''))
+    } else if (curr_acc !== account) {
+      setCurr_Acc(account)
+      getVaultListFromLocal()
+    }
+  }, [account, globalVaultFlag])
 
   const [curt_account, setCurt_account] = useState(account)
   const [curt_chain, setCurt_chain] = useState(chainId)
@@ -632,7 +660,8 @@ const Send = ({ globalAdrs, globalNickName }) => {
 // export default Send
 const mapStateToProps = (state) => ({
   globalAdrs: state.appData.globalAdrs,
-  globalNickName: state.appData.globalNickName
+  globalNickName: state.appData.globalNickName,
+  globalVaultFlag: state.appData.globalVaultFlag
 })
-// const mapDispatchToProp = dispatch => ({ dispatch })
-export default connect(mapStateToProps, null)(Send)
+const mapDispatchToProp = dispatch => ({ dispatch })
+export default connect(mapStateToProps, mapDispatchToProp)(Send)
