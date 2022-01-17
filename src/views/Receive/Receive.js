@@ -255,4 +255,4 @@ const mapStateToProps = (state) => ({
   globalVaultFlag: state.appData.globalVaultFlag
 })
 const mapDispatchToProp = dispatch => ({ dispatch })
-export default connect(mapDispatchToProp, null)(Receive)
+export default connect(mapStateToProps, mapDispatchToProp)(Receive)
