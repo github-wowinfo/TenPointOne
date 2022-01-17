@@ -3,7 +3,7 @@ import { useState, useEffect, Fragment } from 'react'
 
 // ** Third Party Components
 import Flatpickr from 'react-flatpickr'
-import { User, Briefcase, Mail, Calendar, DollarSign, X, Clipboard } from 'react-feather'
+import { User, Briefcase, Mail, Calendar, DollarSign, X, Clipboard, Check, XCircle, AlertCircle } from 'react-feather'
 import {
   Button,
   Modal,
@@ -31,6 +31,7 @@ import { toast } from 'react-toastify'
 import Avatar from '@components/avatar'
 import { useEthers, shortenIfTransactionHash, getExplorerTransactionLink } from '@usedapp/core'
 import helperConfig from '../../helper-config.json'
+import { GoLinkExternal } from 'react-icons/go'
 
 const AddNewModal = ({ open, handleModal, trxnId, description }) => {
   // ** State
@@ -52,9 +53,15 @@ const AddNewModal = ({ open, handleModal, trxnId, description }) => {
     }
   }
 
-  const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
+  const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false })
   const copy = async () => {
-    await navigator.clipboard.writeText(details?.id)
+    // await navigator.clipboard.writeText(details?.id)
+    const textField = document.createElement('textarea')
+    textField.innerText = details?.id
+    document.body.appendChild(textField)
+    textField.select()
+    document.execCommand('copy')
+    textField.remove()
     notifySuccess()
   }
   const SuccessToast = () => (
@@ -97,10 +104,10 @@ const AddNewModal = ({ open, handleModal, trxnId, description }) => {
           <div>
             <Row>
               <Col md='1' >
-                <FaRegCopy size={15} className='mr-1' onClick={copy} />
+                <FaRegCopy style={{ cursor: 'pointer' }} size={15} className='mr-1' onClick={copy} />
               </Col>
               <Col md='1'>
-                <a href={getExplorerTransactionLink(details?.id, chainId)} target='_blank'><BsBoxArrowUpRight size={15} color='grey' /></a>
+                <a href={getExplorerTransactionLink(details?.id, chainId)} target='_blank'><GoLinkExternal size={15} color='grey' /></a>
               </Col>
             </Row>
           </div>
@@ -134,11 +141,29 @@ const AddNewModal = ({ open, handleModal, trxnId, description }) => {
         <FormGroup>
           <label className='label'>Status</label>
           <br />
-          <div className='row' style={{ marginLeft: 1, alignItems: 'center' }}>
-            <label className='text'>{details.status} </label>
+          {details.status === 'completed' ? (
+            <div className='row' style={{ marginLeft: 1, alignItems: 'center' }}>
+              <div className='mr-1'>
+                <Avatar size='sm' color='success' icon={<Check size={12} />} />
+              </div>
+              <label className='text'>{(details.status).toUpperCase()} </label>
+            </div>
+          ) : details.status === 'incomplete' ? (
+            <div className='row' style={{ marginLeft: 1, alignItems: 'center' }}>
+              <div className='mr-1'>
+                <Avatar size='sm' color='danger' icon={<XCircle size={12} />} />
+              </div>
+              <label className='text'>{(details.status).toUpperCase()} </label>
+            </div>
+          ) : details.status === 'pending' ? (
+            <div className='row' style={{ marginLeft: 1, alignItems: 'center' }}>
+              <div className='mr-1'>
+                <Avatar size='sm' color='warning' icon={<AlertCircle size={12} />} />
+              </div>
+              <label className='text'>{(details.status).toUpperCase()} </label>
+            </div>
+          ) : null}
 
-            <div className='circle'></div>
-          </div>
         </FormGroup>
         <FormGroup>
           <label className='label'>Note</label>

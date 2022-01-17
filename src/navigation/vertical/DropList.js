@@ -98,7 +98,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                     setNick_Name('')
                     setSelect_Flag(false)
                 }}>
-                    Select a Vault or Sega
+                    <h3>Select Account</h3>
                 </ModalHeader>
                 <ModalBody className='flex-grow-1'>
                     <Form>
@@ -107,16 +107,18 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                                 return (
                                     <>
                                         <Label check>
-                                            <Input key={index} name='vaults' type='radio' value={i.adrs} onChange={e => handleChange(e, i.name)} />
-                                            <Row className='d-flex flex-row justify-content-between'>
+                                            <Row style={{ width: '-webkit-fill-available' }} className='d-flex flex-row justify-content-between'>
+                                                <Col className='pt-1 pr-0'>
+                                                    <Input key={index} name='vaults' type='radio' value={i.adrs} onChange={e => handleChange(e, i.name)} />
+                                                </Col>
                                                 <Col className='d-flex flex-column'>
-                                                    <h6>{i.name}</h6>
+                                                    <h4 className='mb-0'>{i.name}</h4>
                                                     <h6 className='font-weight-light'>{shortenIfAddress(i.adrs)}</h6>
                                                 </Col>
-                                                <Col>
+                                                <Col className='mt-1 d-flex flex-row justify-content-between'>
                                                     {/* <FaRegCopy color='grey' size={15} /> */}
                                                     <CopyAdrsDropList item={i} />
-                                                    <a href={getExplorerAddressLink(i.adrs, chainId)} target='_blank'><GoLinkExternal color='grey' size={15} /></a>
+                                                    <a href={getExplorerAddressLink(i.adrs, chainId)} target='_blank'><GoLinkExternal color='grey' size={20} /></a>
                                                 </Col>
                                             </Row>
                                         </Label>
@@ -125,16 +127,18 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                                                 <>
                                                     {j.ofvault === i.adrs ? <FormGroup check>
                                                         <Label check>
-                                                            <Input key={index} id={index} type='radio' name='vaults' value={j.adrs} onChange={e => handleChange(e, j.name)} />
-                                                            <Row className='d-flex flex-row justify-content-between'>
+                                                            <Row style={{ width: '-webkit-fill-available' }} className='d-flex flex-row justify-content-between'>
+                                                                <Col className='pt-1 pr-0'>
+                                                                    <Input key={index} id={index} type='radio' name='vaults' value={j.adrs} onChange={e => handleChange(e, j.name)} />
+                                                                </Col>
                                                                 <Col className='d-flex flex-column'>
-                                                                    <h6>{j.name}</h6>
+                                                                    <h4 className='mb-0'>{j.name}</h4>
                                                                     <h6 className='font-weight-light'>{shortenIfAddress(j.adrs)}</h6>
                                                                 </Col>
-                                                                <Col>
+                                                                <Col className='mt-1 d-flex flex-row justify-content-between'>
                                                                     {/* <FaRegCopy color='grey' size={15} /> */}
                                                                     <CopyAdrsDropList item={j} />
-                                                                    <a href={getExplorerAddressLink(j.adrs, chainId)} target='_blank'><GoLinkExternal color='grey' size={15} /></a>
+                                                                    <a href={getExplorerAddressLink(j.adrs, chainId)} target='_blank'><GoLinkExternal color='grey' size={20} /></a>
                                                                 </Col>
                                                             </Row>
                                                         </Label>
@@ -193,7 +197,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                     })} */}
 
                 </ModalBody>
-                <ModalFooter>
+                <ModalFooter className='d-flex justify-content-center'>
                     {select_flag ? (
                         <Button.Ripple color='primary' onClick={() => {
                             handleGlobalAdrs()
@@ -202,7 +206,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                             handleDropList()
                             setSelect_Flag(false)
                         }} >OK</Button.Ripple>
-                    ) : (<Button.Ripple color='primary' disabled >OK</Button.Ripple>)}
+                    ) : (<Button.Ripple size='lg' color='primary' disabled >OK</Button.Ripple>)}
                 </ModalFooter>
             </Modal>
         </div>

@@ -12,10 +12,12 @@ import DataTable from 'react-data-table-component'
 import '@styles/react/libs/tables/react-dataTable-component.scss'
 import axios from 'axios'
 import moment from 'moment'
-import { shortenAddress, shortenIfAddress, shortenIfTransactionHash, useEthers } from '@usedapp/core'
+import { getExplorerTransactionLink, shortenAddress, shortenIfAddress, shortenIfTransactionHash, useEthers } from '@usedapp/core'
 import ReactPaginate from 'react-paginate'
 import helperConfig from "../../helper-config.json"
 import { isAddress } from 'ethers/lib/utils'
+import { CSVLink } from "react-csv"
+import downloadCsv from 'download-csv'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import LoginModal from '../LoginModal'
@@ -247,7 +249,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
     const columns = [
         {
             name: '',
-            width: '75px',
+            minWidth: '75px',
             selector: row => (
                 <div>
                     {row.type === 'receive' && <BsArrowDownCircle size={30} />}
@@ -259,15 +261,15 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
         },
         {
             name: 'Transaction',
-            width: '275px',
+            minWidth: '275px',
             selector: row => (
                 <div>
                     <span>
                         <span className='align-middle font-weight-bold' style={{ wordWrap: 'break-word' }}>{row.description}</span>
                         <br />
-                        <span className='align-middle font-italic' style={{
+                        <a href={getExplorerTransactionLink(row.id, chainId)} target='_blank' className='align-middle font-italic' style={{
                             fontSize: 15
-                        }}>{shortenIfTransactionHash(row.id)}</span>
+                        }}>{shortenIfTransactionHash(row.id)}</a>
                     </span>
 
                 </div>
@@ -275,7 +277,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
         },
         {
             name: 'To / From',
-            width: '195px',
+            minWidth: '195px',
             selector: row => (
                 <span>
                     <span>
@@ -305,7 +307,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
         },
         {
             name: 'Amount',
-            width: '150px',
+            minWidth: '150px',
             selector: row => (
                 <span>
                     {
@@ -341,7 +343,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
         },
         {
             name: '$ Value',
-            maxWidth: '150px',
+            minWidth: '150px',
             selector: row => (
                 <span>
                     <span className='align-middle font-weight-bold'>
@@ -360,12 +362,15 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
         },
         {
             name: 'Status',
+            minWidth: '200px',
             selector: row => (
-                <Badge pill color='light-success' className='mr-1 px-0'> {row.status} </Badge>
+                <Badge pill color='light-success' > {row.status} </Badge>
             )
         },
         {
             name: 'More Details',
+            minWidth: '200px',
+            center: 'true',
             selector: row => (
                 <Button.Ripple color='flat-primary' onClick={() => {
                     setModalVisible(!modalVisible)
@@ -422,6 +427,28 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
         />
     )
 
+    const headers = [
+        { label: "Transaction ID", key: "nickname" },
+        { label: "Description", key: "network" },
+        { label: "To/From", key: "adrs" },
+        { label: "Amount", key: "owner" },
+        // { label: "$ Value", key: "owner" },
+        { label: "Status", key: "owner" }
+    ]
+
+    const export_data = [dataList]
+
+    // console.log('dataList', dataList)
+    // const export_data = [
+    //     [
+    //         dataList.id,
+    //         dataList.description,
+    //         dataList.type === 'receive' ? (dataList.from) : (dataList.to),
+    //         dataList.type === 'receive' ? (dataList.received ? dataList.received[0].value / (10 ** dataList.received[0].decimals) : dataList.sent ? '' : '-') : (dataList.sent ? dataList.sent[0].value / (10 ** dataList.sent[0].decimals) : dataList.received ? '' : '-'),
+    //         dataList.status
+    //     ]
+    // ]
+
     return (
         <>
             <>
@@ -443,7 +470,11 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                     <Card className='my-1'>
                         <CardHeader className='d-flex flex-row '>
                             <CardTitle>Transaction</CardTitle>
-                            <Button.Ripple color='primary' onClick={setMessage}>
+                            {/* <Button color='primary' >
+                                <CSVLink style={{ color: 'white' }} data={export_data} headers={headers} filename='Activity_Data.csv'>Export</CSVLink>
+                                <HiDownload style={{ marginLeft: 5 }} size={15} />
+                            </Button> */}
+                            <Button.Ripple color='primary' onClick={() => downloadCsv(dataList)} >
                                 Export
                                 <HiDownload style={{ marginLeft: 5 }} />
                             </Button.Ripple>
@@ -473,7 +504,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                                     <NavLink color='primary' active={active === '1'} onClick={() => {
                                         toggle('1')
                                     }}>
-                                        Transactions
+                                        <h3>Transactions</h3>
                                     </NavLink>
                                 </NavItem>
                             </Col>
@@ -483,7 +514,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                                     <NavLink color='primary' active={active === '2'} onClick={() => {
                                         toggle('2')
                                     }}>
-                                        Contract Interaction
+                                        <h3>Contract Interaction</h3>
                                     </NavLink>
                                 </NavItem>
                             </Col>
