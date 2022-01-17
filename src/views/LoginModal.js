@@ -67,6 +67,22 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
         MetaMaskClientCheck()
     }, [is_metamask])
 
+
+    useEffect(() => {
+        const get_load_flag = JSON.parse(localStorage.getItem('load_flag'))
+        if (get_load_flag === undefined || get_load_flag === null) {
+            localStorage.setItem('load_flag', JSON.stringify(true))
+        } else {
+            if (get_load_flag === false) {
+                localStorage.setItem('load_flag', JSON.stringify(true))
+            }
+        }
+    }, [])
+
+    const init_flag = JSON.parse(localStorage.getItem('load_flag'))
+
+    console.log('init_flag', init_flag)
+
     const networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"
     const networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
     const backgroundChange = { backgroundColor: networkName === "BSC testnet" ? '#cc9b00' : networkName === "Polygon Network" ? '#8146e4' : networkName === "Ethereum" ? '#4559f4' : networkName === "Kovan" ? '#6435c9' : networkName === "BSC Mainet" ? '#cc9b00' : networkName === "Polygon Mumbai" ? '#140035' : null }
@@ -97,9 +113,14 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
                                                 <Button.Ripple color='primary' style={{ fontSize: "1em", marginBottom: 5 }}
                                                     onClick={async () => {
                                                         try {
+                                                            if (init_flag) {
+                                                                window.location.reload()
+                                                                localStorage.setItem('load_flag', JSON.stringify(false))
+                                                            }
                                                             activateBrowserWallet(undefined, true)
                                                         } catch (error) {
                                                             console.error(error)
+                                                            localStorage.setItem('load_flag', JSON.stringify(false))
                                                         }
                                                     }}
                                                     block>CONNECT WALLET
