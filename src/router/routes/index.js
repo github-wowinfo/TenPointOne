@@ -45,10 +45,10 @@ const Routes = [
     path: '/addressbook',
     component: lazy(() => import('../../views/AddressBook/AddressBook'))
   },
-  {
-    path: '/defi',
-    component: lazy(() => import('../../views/DeFi/DeFi'))
-  },
+  // {
+  //   path: '/defi',
+  //   component: lazy(() => import('../../views/DeFi/DeFi'))
+  // },
   {
     path: '/manager',
     component: lazy(() => import('../../views/Manager/Manager'))

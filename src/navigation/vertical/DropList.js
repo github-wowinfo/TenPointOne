@@ -98,7 +98,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                     setNick_Name('')
                     setSelect_Flag(false)
                 }}>
-                    <h3>Select Account</h3>
+                    <h3 style={{ color: '#000080' }}>Select Account</h3>
                 </ModalHeader>
                 <ModalBody className='flex-grow-1'>
                     <Form>
@@ -106,43 +106,39 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                             {vaultList && vaultList.map((i, index) => {
                                 return (
                                     <>
-                                        <Label check>
-                                            <Row style={{ width: '-webkit-fill-available' }} className='d-flex flex-row justify-content-between'>
-                                                <Col className='pt-1 pr-0'>
-                                                    <Input key={index} name='vaults' type='radio' value={i.adrs} onChange={e => handleChange(e, i.name)} />
-                                                </Col>
-                                                <Col className='d-flex flex-column'>
-                                                    <h4 className='mb-0'>{i.name}</h4>
-                                                    <h6 className='font-weight-light'>{shortenIfAddress(i.adrs)}</h6>
-                                                </Col>
-                                                <Col className='mt-1 d-flex flex-row justify-content-between'>
-                                                    {/* <FaRegCopy color='grey' size={15} /> */}
-                                                    <CopyAdrsDropList item={i} />
-                                                    <a href={getExplorerAddressLink(i.adrs, chainId)} target='_blank'><GoLinkExternal color='grey' size={20} /></a>
-                                                </Col>
-                                            </Row>
-                                        </Label>
+                                        {/* <Label style={{ width: '100%' }} check> */}
+                                        <Row className='d-flex flex-row justify-content-around'>
+                                            <Col className='d-flex flex-column '>
+                                                <Input className='px-1' key={index} name='vaults' type='radio' value={i.adrs} onChange={e => handleChange(e, i.name)} />
+                                                <h4 style={{ color: '#1919d2' }} className='mb-0 '>{i.name}</h4>
+                                                <h6 className='font-weight-light '>{shortenIfAddress(i.adrs)}</h6>
+                                            </Col>
+                                            <Col className='mt-1 d-flex flex-row justify-content-end'>
+                                                {/* <FaRegCopy color='grey' size={15} /> */}
+                                                <CopyAdrsDropList item={i} />
+                                                <a href={getExplorerAddressLink(i.adrs, chainId)} target='_blank'><GoLinkExternal color='grey' size={20} /></a>
+                                            </Col>
+                                        </Row>
+                                        {/* </Label> */}
                                         {segaList && segaList.map((j, index) => {
                                             return (
                                                 <>
-                                                    {j.ofvault === i.adrs ? <FormGroup check>
-                                                        <Label check>
-                                                            <Row style={{ width: '-webkit-fill-available' }} className='d-flex flex-row justify-content-between'>
-                                                                <Col className='pt-1 pr-0'>
-                                                                    <Input key={index} id={index} type='radio' name='vaults' value={j.adrs} onChange={e => handleChange(e, j.name)} />
-                                                                </Col>
-                                                                <Col className='d-flex flex-column'>
-                                                                    <h4 className='mb-0'>{j.name}</h4>
-                                                                    <h6 className='font-weight-light'>{shortenIfAddress(j.adrs)}</h6>
-                                                                </Col>
-                                                                <Col className='mt-1 d-flex flex-row justify-content-between'>
-                                                                    {/* <FaRegCopy color='grey' size={15} /> */}
-                                                                    <CopyAdrsDropList item={j} />
-                                                                    <a href={getExplorerAddressLink(j.adrs, chainId)} target='_blank'><GoLinkExternal color='grey' size={20} /></a>
-                                                                </Col>
-                                                            </Row>
-                                                        </Label>
-                                                    </FormGroup> : null}
+                                                    {j.ofvault === i.adrs ? <>
+                                                        {/* <Label style={{ width: '100%' }} check> */}
+                                                        <Row className='d-flex flex-row justify-content-around'>
+                                                            <Col className='d-flex flex-column'>
+                                                                <Input key={index} id={index} type='radio' name='vaults' value={j.adrs} onChange={e => handleChange(e, j.name)} />
+                                                                <h4 style={{ color: '#1919d2' }} className='mb-0 mx-2'>{j.name}</h4>
+                                                                <h6 className='font-weight-light mx-2'>{shortenIfAddress(j.adrs)}</h6>
+                                                            </Col>
+                                                            <Col className='mt-1 d-flex flex-row justify-content-end'>
+                                                                {/* <FaRegCopy color='grey' size={15} /> */}
+                                                                <CopyAdrsDropList item={j} />
+                                                                <a href={getExplorerAddressLink(j.adrs, chainId)} target='_blank'><GoLinkExternal color='grey' size={20} /></a>
+                                                            </Col>
+                                                        </Row>
+                                                        {/* </Label> */}
+                                                    </> : null}
                                                 </>
                                             )
                                         })}
