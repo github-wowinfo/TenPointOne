@@ -199,7 +199,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                 </ModalBody>
                 <ModalFooter className='d-flex justify-content-center'>
                     {select_flag ? (
-                        <Button.Ripple color='primary' onClick={() => {
+                        <Button.Ripple size='lg' color='primary' onClick={() => {
                             handleGlobalAdrs()
                             setAdrs('')
                             setNick_Name('')

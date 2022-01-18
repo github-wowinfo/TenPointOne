@@ -5,13 +5,13 @@ const ExistingAdrs = ({ adrs, local }) => {
     // const getadrsData = JSON.parse(localStorage.getItem('adrsbook'))
     // console.log('getadrsData', getadrsData)
     // console.log('adrs', adrs)
-    console.log('local', local.length)
+    // console.log('local', local.length)
     let name
     if (local.length > 0) {
         for (const i in local) {
             const Cap_LocalAdrs = local[i].ladrs.toUpperCase()
             const Cap_adrs = adrs.toUpperCase()
-            console.log(Cap_LocalAdrs, Cap_adrs)
+            // console.log(Cap_LocalAdrs, Cap_adrs)
             if (Cap_LocalAdrs === Cap_adrs) {
                 name = local[i].lname
                 break
@@ -24,7 +24,7 @@ const ExistingAdrs = ({ adrs, local }) => {
     } else {
         name = adrs
     }
-    console.log('name', name)
+    // console.log('name', name)
     return (
         <>
             {isAddress(name) ? shortenAddress(name) : name}

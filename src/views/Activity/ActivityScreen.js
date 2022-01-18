@@ -22,6 +22,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import LoginModal from '../LoginModal'
 import ExistingAdrs from './ExistingAdrs'
+import ExistingDesc from './ExistingDesc'
 
 const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalVaultFlag }) => {
 
@@ -266,7 +267,8 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
             selector: row => (
                 <div>
                     <span>
-                        <span className='align-middle font-weight-bold' style={{ wordWrap: 'break-word' }}>{row.description}</span>
+                        {/* <span className='align-middle font-weight-bold' style={{ wordWrap: 'break-word' }}>{row.description}</span> */}
+                        <ExistingDesc id={row.id} api_desc={row.description} />
                         <br />
                         <a href={getExplorerTransactionLink(row.id, chainId)} target='_blank' className='align-middle font-italic' style={{
                             fontSize: 15
@@ -350,6 +352,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
             selector: row => (
                 <span>
                     <span className='align-middle font-weight-bold'>
+
                         {
                             row.sent && `$${(row.sent[0].value / (10 ** row.sent[0].decimals)).toLocaleString()}`
                         }
@@ -357,7 +360,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                     {/* <br /> */}
                     <span className='align-middle font-weight-bold'>
                         {
-                            row.received && `$${row.received[0].value / (10 ** row.received[0].decimals)}`
+                            row.received && `$${(row.received[0].value / (10 ** row.received[0].decimals)).toLocaleString()}`
                         }
                     </span>
                 </span>

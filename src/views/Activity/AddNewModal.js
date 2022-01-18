@@ -39,9 +39,6 @@ const AddNewModal = ({ open, handleModal, trxnId, description }) => {
   const [details, setDetails] = useState({})
   const strText = ''
 
-  // ** Custom close btn
-  const CloseBtn = <X className='cursor-pointer' size={15} onClick={handleModal} />
-
   const { chainId } = useEthers()
 
   const getTransactionDetails = async () => {
@@ -81,15 +78,63 @@ const AddNewModal = ({ open, handleModal, trxnId, description }) => {
     }
   }, [trxnId])
 
+  let value = ''
+  const [desc_flag, setDesc_flag] = useState(false)
+  const new_description = (e) => {
+    if (e.target.value !== "") {
+      value = e.target.value
+      setDesc_flag(true)
+    } else {
+      setDesc_flag(false)
+    }
+  }
+
+  const handleCustomDescrp = () => {
+    const getTxnAdrsData = JSON.parse(localStorage.getItem('txnAdrsData'))
+    if (getTxnAdrsData && getTxnAdrsData.length > 0) {
+      for (const i in getTxnAdrsData) {
+        console.log('getTxnAdrsData[i].txn_id', getTxnAdrsData[i].txn_id)
+        console.log('trxnId', trxnId)
+        if (getTxnAdrsData[i].txn_id === trxnId) {
+          getTxnAdrsData.splice(i, 1)
+          break
+        }
+      }
+    }
+    localStorage.setItem('txnAdrsData', JSON.stringify(getTxnAdrsData))
+    const getadrsdata = JSON.parse(localStorage.getItem('txnAdrsData'))
+    const postdata = {
+      txn_id: trxnId,
+      custom_desc: value
+    }
+    let adrsdata = []
+    if (getadrsdata) {
+      adrsdata = [...getadrsdata, postdata]
+    } else {
+      adrsdata = [postdata]
+    }
+    localStorage.setItem('txnAdrsData', JSON.stringify(adrsdata))
+    setDesc_flag(false)
+    handleModal()
+  }
+
+  // ** Custom close btn
+  const CloseBtn = <X className='cursor-pointer' size={15} onClick={() => {
+    setDesc_flag(false)
+    handleModal()
+  }} />
+
   return (
     <Modal
       isOpen={open}
-      toggle={handleModal}
+      toggle={() => {
+        setDesc_flag(false)
+        handleModal()
+      }}
       className='sidebar-sm'
       modalClassName='modal-slide-in'
       contentClassName='pt-0'
     >
-      {/* {console.log('trxnId', trxnId)} */}
       <ModalHeader className='mb-1' toggle={handleModal} close={CloseBtn} tag='div'>
         <label style={{ fontSize: 15, fontWeight: 'bold' }}>Transaction Details</label>
         <br />
@@ -166,19 +211,23 @@ const AddNewModal = ({ open, handleModal, trxnId, description }) => {
 
         </FormGroup>
         <FormGroup>
-          <label className='label'>Note</label>
+          <label className='label'>Custom Description</label>
           <br />
-          <Input type='text' name='text' id='exampleText' rows='3' placeholder='Enter Note' />
+          <Input type='textarea' name='text' id='exampleText' rows='2' placeholder='Enter custom description over here' onChange={new_description} />
         </FormGroup>
         <div className='row' style={{ flex: 1, justifyContent: 'flex-end', marginRight: 0 }}>
-          <Button color='primary' onClick={handleModal} className='right'>
-            Update
-          </Button>
-
+          {desc_flag ? (
+            <Button color='primary' className='right' onClick={handleCustomDescrp}>
+              Update
+            </Button>
+          ) : (
+            <Button color='primary' className='right' disabled>
+              Update
+            </Button>
+          )}
         </div>
-
       </ModalBody>
-    </Modal >
+    </Modal>
   )
 }
 

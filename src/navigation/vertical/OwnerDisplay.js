@@ -6,7 +6,7 @@ import { FaRegCopy } from 'react-icons/fa'
 import { GoLinkExternal } from 'react-icons/go'
 import { BsSafe2 } from 'react-icons/bs'
 import { BiChevronDown } from 'react-icons/bi'
-import { PlusCircle, Clipboard, ChevronRight } from "react-feather"
+import { PlusCircle, Clipboard, ChevronRight, ChevronsRight } from "react-feather"
 import { randomHexColor } from 'random-hex-color-generator'
 import { toast } from 'react-toastify'
 import Avatar from '@components/avatar'
@@ -105,9 +105,8 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
 
   const renderItem = () => {
     return (
-      <>
+      <div className="mb-1 pb-1" style={{ border: '1px solid black', borderRadius: '4px' }} >
         <Col style={{ padding: '0px 0px' }}>
-          <hr className="mt-0" style={{ borderTop: '1px solid black' }} />
           <Col style={{ ...networkstyle, ...backgroundChange, fontSize: '1em', marginBottom: '0px' }} className='my-1 d-flex flex-row flex-nowrap align-self-center '>
             {/* <Icon className='mr-1' name={networkC.icon} size={20} />{networkC.name} */}
             <Icon className='mr-1' name={networkIcon} size={20} />{networkName}
@@ -129,19 +128,26 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
         <Col style={{ padding: '0px 0px' }}>
           {globalNickName === 'Create a Vault' ? (
             <Link to='/manager'>
-              <h2 className="text-primary my-1" style={{ cursor: 'pointer' }} >{globalNickName} <ChevronRight size={25} /></h2>
+              <h2 className="text-primary my-1" style={{ cursor: 'pointer' }} >{globalNickName} <Avatar size='sm' color='light-primary' icon={<ChevronRight size={25} />} /> </h2>
             </Link>
           ) : (
-            <h2 className="text-primary my-1" style={{ cursor: 'pointer' }} onClick={handleDropList} >{globalNickName} <ChevronRight size={25} /></h2>
+            <div>
+              <h2 className="text-primary mt-1" >
+                {globalNickName}
+              </h2>
+              {/* <ChevronsRight style={{ color: '#3434d7' }} className="mt-1" size={25} onClick={handleDropList} /> */}
+              {/* <Avatar className="mt-1" size='md' color='light-primary' icon={<ChevronsRight size={25} onClick={handleDropList} />} /> */}
+              <Avatar className='mb-1' size='md' color='light-primary' icon={<ChevronsRight size={25} onClick={handleDropList} />} />
+            </div>
           )}
           <Row className='mb-1 d-flex flex-column'>
-            <Col>{shortenIfAddress(globalAdrs)}</Col>
+            <h3>{shortenIfAddress(globalAdrs)}</h3>
             <Col className='text-center'>
-              <Link to='/receive'><IoQrCodeOutline className="mx-1" color='grey' size={15} /></Link>
+              <Link to='/receive'><IoQrCodeOutline className="mx-1" color='grey' size={25} /></Link>
 
-              <FaRegCopy style={{ cursor: 'pointer' }} className="mx-1" color='grey' size={15} onClick={copy} />
+              <FaRegCopy style={{ cursor: 'pointer' }} className="mx-1" color='grey' size={25} onClick={copy} />
 
-              <a href={getExplorerAddressLink(globalAdrs, chainId ? chainId : 1)} target='_blank'><GoLinkExternal className="mx-1" color='grey' size={15} /></a>
+              <a href={getExplorerAddressLink(globalAdrs, chainId ? chainId : 1)} target='_blank'><GoLinkExternal className="mx-1" color='grey' size={25} /></a>
             </Col>
           </Row>
           {/* < <Col></Col>Button.Ripple className='my-1' color='flat-primary' onClick={handleDropList}>
@@ -269,9 +275,9 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
               </DropdownItem>
             </DropdownMenu>
           </UncontrolledButtonDropdown>
-          <hr />
+          {/* <hr style={{ borderTop: '1px solid black' }} /> */}
         </Col>
-      </>
+      </div>
     )
   }
 

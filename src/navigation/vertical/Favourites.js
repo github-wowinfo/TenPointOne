@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Badge, Col, Nav, Row } from 'reactstrap'
+import { Badge, Col, Nav, NavLink, Row } from 'reactstrap'
 import { shortenIfAddress, useEthers } from '@usedapp/core'
 import { connect } from 'react-redux'
 import * as AppData from '../../redux/actions/cookies/appDataType'
 import { Link } from 'react-router-dom'
-import { FaRegStar, FaStar } from 'react-icons/fa'
 import FavAvatar from './FavAvatar'
+import { Star } from 'react-feather'
 
 const Favourites = ({ globalAdrs, dispatch, globalNickName, globalFavFlag, menuCollapsed, menuHover }) => {
 
@@ -41,7 +41,10 @@ const Favourites = ({ globalAdrs, dispatch, globalNickName, globalFavFlag, menuC
         return (
             <div className='mb-1'>
                 <Col>
-                    <Badge color='light-primary'>Favourites</Badge>
+                    <NavLink className='pl-1' >
+                        <Star className='mr-1' size={20} />
+                        Favourites
+                    </NavLink>
                 </Col>
                 {fav_list !== null || fav_list !== [] ? (
                     fav_list && fav_list.map(i => {
@@ -69,7 +72,7 @@ const Favourites = ({ globalAdrs, dispatch, globalNickName, globalFavFlag, menuC
         return (
             <>
                 <Col className='ml-1'>
-                    <FaRegStar size={20} />
+                    <Star size={20} />
                 </Col>
             </>
         )
