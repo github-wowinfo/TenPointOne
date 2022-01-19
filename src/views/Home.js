@@ -165,11 +165,6 @@ const Home = ({ globalVaultFlag, globalAdrs, dispatch, globalNickName }) => {
     getTokenBalance()
   }, [account, chainId, globalAdrs])
 
-
-  // useEffect(() => {
-  //   localStorage.setItem('load_flag', JSON.stringify(false))
-  // }, [])
-  const summ = 333333.333
   return (
 
     <div>

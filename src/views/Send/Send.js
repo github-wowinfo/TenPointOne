@@ -336,6 +336,9 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
     }
   }
 
+  const [amount, setAmount] = useState('0')
+  const [amt_flag, setAmt_flag] = useState(false)
+
   const ercToken = getToken()
   // console.log('erctoken', ercToken.name)
   useEffect(() => {
@@ -347,25 +350,6 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
       setHaveToken(1)
     }
   }, [ercToken, tokenTicker, nativeToken, TokenZero])
-
-  const [amount, setAmount] = useState('0')
-  const [amt_flag, setAmt_flag] = useState(false)
-  const handleInputAmount = (event) => {
-    // const newAmount = (event.target.value) === "" ? "0" : event.target.value
-    let newAmount
-    if (event.target.value === '') {
-      newAmount = '0'
-    } else {
-      newAmount = event.target.value
-    }
-    if (newAmount) {
-      setAmount(newAmount.toString())
-      setAmt_flag(true)
-    } else {
-      setAmount(0)
-    }
-    console.log("newAmt", newAmount)
-  }
 
   const fromAccNativeBalance = useEtherBalance(fromAddress)
   const fromAccTokenBalance = useTokenBalance(tokenAddress, fromAddress)
@@ -486,6 +470,39 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
         </div>
       </Fragment>
     )
+  }
+
+  const native_bal = nativeBal.format()
+  const erc20_bal = ercTokenBal.format()
+
+  // let balance_max
+  const [balance_max, setBalance_max] = useState("")
+  const handleMax = () => {
+    if (usingNative) {
+      setBalance_max(native_bal.split(" ")[0])
+    } else {
+      setBalance_max(erc20_bal.split(" ")[0])
+    }
+    console.log('balance_max', balance_max)
+  }
+
+  const handleInputAmount = (event) => {
+    // const newAmount = (event.target.value) === "" ? "0" : event.target.value
+    let newAmount
+    if (event.target.value === '') {
+      newAmount = '0'
+      setBalance_max('')
+    } else {
+      newAmount = event.target.value
+      setBalance_max(newAmount)
+    }
+    if (newAmount) {
+      setAmount(newAmount.toString())
+      setAmt_flag(true)
+    } else {
+      setAmount(0)
+    }
+    console.log("newAmt", newAmount)
   }
 
   const networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"
@@ -616,17 +633,17 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                           {console.log('ercTokenBal', ercTokenBal.format())} */}
                           <Col sm='6' md='6' lg='6' className='d-flex align-items-center'>
                             {usingNative ? (
-                              nativeBal.format() === '0 ERROR' ? null : (
-                                <span>Balance: {nativeBal.format()}</span>
+                              native_bal === '0 ERROR' ? null : (
+                                <span>Balance: {native_bal}</span>
                               )) : (
-                              ercTokenBal.format() === '0 ERROR' ? null : (
-                                <span>Balance: {ercTokenBal.format()}</span>
+                              erc20_bal === '0 ERROR' ? null : (
+                                <span>Balance: {erc20_bal}</span>
                               ))}
                           </Col>
-                          <a href='#' className='d-flex align-items-center' style={{ color: 'red' }}> Send Max</a>
+                          <h6 className='d-flex align-items-center' style={{ color: 'red' }} onClick={handleMax}> Send Max</h6>
                           {/* <Badge style={{ fontSize: ".9rem" }} color="primary" href='/home' pill>Send Max</Badge> */}
                         </Col>
-                        <Input placeholder='Amount' id='amount' onChange={handleInputAmount} />
+                        <Input placeholder='Amount' id='amount' value={balance_max} onChange={handleInputAmount} />
                       </FormGroup>
                     </Col>
                     <Col>
