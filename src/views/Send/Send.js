@@ -13,7 +13,7 @@ import Icon from 'react-crypto-icons'
 import { toast } from 'react-toastify'
 import { Clipboard } from "react-feather"
 import { connect } from 'react-redux'
-import { useState, Fragment, useEffect } from 'react'
+import React, { useState, Fragment, useEffect } from 'react'
 import { useEthers, getExplorerAddressLink, shortenIfAddress, CurrencyValue, Token, useEtherBalance, useTokenBalance, getExplorerTransactionLink, shortenIfTransactionHash } from '@usedapp/core'
 import axios from 'axios'
 import helperConfig from '../../helper-config.json'
@@ -25,6 +25,7 @@ import withReactContent from 'sweetalert2-react-content'
 import { isAddress } from 'ethers/lib/utils'
 import LoginModal from '../LoginModal'
 import * as AppData from '../../redux/actions/cookies/appDataType'
+import QrReader from 'react-qr-reader'
 
 const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
 
@@ -451,13 +452,41 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
   const logos = [
     {
       icon: <BsSafe2 size={25} />,
-      color: 'light-danger'
+      color: 'primary'
     },
     {
       icon: <SiWebmoney size={25} />,
-      color: 'light-danger'
+      color: 'primary'
     }
   ]
+
+  const [scanner_on, setScanner_on] = useState(false)
+  const operScanner = () => {
+    setScanner_on(true)
+  }
+
+  const [qr_result, setQr_result] = useState('')
+  const handleScan = data => {
+    if (data) {
+      setQr_result(data)
+      setScanner_on(false)
+    }
+  }
+  const handleError = err => {
+    setScanner_on(false)
+    console.log(err)
+  }
+
+  const ScanQrcode = () => {
+    console.log('clicked')
+    return (
+      <Fragment>
+        <div>
+          <QrReader delay={500} onError={handleError} onScan={handleScan} />
+        </div>
+      </Fragment>
+    )
+  }
 
   const networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"
   const networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
@@ -467,7 +496,7 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
       <Col style={cardStyle} md={{ offset: 3, size: 6 }} sm="12">
         <Card className='my-1 card-payment'>
           <CardHeader style={{ paddingBottom: '.3em' }}>
-            <CardTitle>Send Funds</CardTitle>
+            <CardTitle style={{ color: '#1919d2' }}>Send Funds</CardTitle>
           </CardHeader>
           <hr />
           {globalNickName === 'Create a Vault' ? (
@@ -485,15 +514,24 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                   </Col>
                 </Row>
                 <Row className='d-flex flex-column'>
-                  <Col className='d-flex flex-row py-1'>
+                  <Col className='d-flex flex-row pt-1 justify-content-evenly align-items-center'>
                     {is_sega ? (
-                      <Avatar className='mr-1' size='lg' color={logos[1].color} icon={logos[1].icon} />
+                      <Avatar className='m-1' size='lg' color={logos[1].color} icon={logos[1].icon} />
                     ) : (
-                      <Avatar className='mr-1' size='lg' color={logos[0].color} icon={logos[0].icon} />
+                      <Avatar className='m-1' size='lg' color={logos[0].color} icon={logos[0].icon} />
                     )}
-                    <CardTitle className='my-1 '>{globalNickName}</CardTitle>
+                    <Col className='px-0 d-flex flex-column justify-content-start'>
+                      <h3 style={{ color: '#1919d2' }} className='mt-1 mb-0'>{globalNickName}</h3>
+                      <Col className='px-0 d-flex flex-row '>
+                        <h6 className='font-weight-bold '>{shortenIfAddress(globalAdrs)}</h6>
+                        <Col>
+                          <FaRegCopy style={{ cursor: 'pointer' }} className='mx-1' color='grey' size={20} onClick={copy} />
+                          <a href={getExplorerAddressLink(globalAdrs, chainId)} target='_blank'><GoLinkExternal color='grey' size={20} /></a>
+                        </Col>
+                      </Col>
+                    </Col>
                   </Col>
-                  <Col className='d-flex flex-column justify-content-start'>
+                  {/* <Col className='d-flex flex-column justify-content-start'>
                     <Col className='d-flex flex-row '>
                       <p style={{ color: 'gray' }}>{shortenIfAddress(globalAdrs)}</p>
                       <Col>
@@ -501,44 +539,60 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                         <a href={getExplorerAddressLink(globalAdrs, chainId)} target='_blank'><GoLinkExternal color='grey' size={15} /></a>
                       </Col>
                     </Col>
-                    <Badge style={{ width: '100%' }} color='secondary'>Balance: <strong>{acc_balance && acc_balance.format()}</strong></Badge>
-                    {/* {
+                    <Badge style={{ width: '100%' }} color='secondary'>Balance: <strong>{acc_balance && acc_balance.format()}</strong></Badge> */}
+                  {/* {
                       usingNative ? (
                         <Badge style={{ width: '130px' }} color='secondary'>Balance: <strong>{acc_balance}</strong></Badge>
                       ) : (
                         <Badge style={{ width: '130px' }} color='secondary'>Balance: <strong>{ercTokenBal.format()}</strong></Badge>
                       ) 
                     */}
-                    {/* <Badge style={{ width: '130px' }} color='secondary'>Balance: <strong>0 MATIC</strong></Badge> */}
-                  </Col>
+                  {/* <Badge style={{ width: '130px' }} color='secondary'>Balance: <strong>0 MATIC</strong></Badge> */}
+                  {/* </Col> */}
                 </Row>
-                <Row className='mt-1' style={{ display: 'flex', flexDirection: 'row' }}>
-                  <Col md='1' className='mx-1'><BsArrowDown size={30} /></Col>
+                <Row className='mt-1 d-flex flex-row'>
+                  <Col xs='1' sm='1' md='1' className='mx-1'><BsArrowDown size={30} /></Col>
                   <Col>
                     <hr />
                   </Col>
                 </Row>
+                {/* {scanner_on ? (
+                  <>
+                    <Col className='py-1'>
+                      <ScanQrcode />
+                    </Col>
+                    <Col className='text-center'>
+                      <Button.Ripple color='danger' onClick={() => {
+                        setQr_result('')
+                        setScanner_on(false)
+                      }}>CLOSE</Button.Ripple>
+                    </Col>
+                  </>
+                ) : null} */}
                 <Form className='form mt-2' onSubmit={e => e.preventDefault()}>
                   <Row>
                     <Col sm='12'>
                       <FormGroup className='mb-2'>
                         <Label for='recepient' style={{ fontSize: '1.2em' }}>Recepient</Label>
                         <Row>
-                          <Col xs='8' sm='8' md='10'>
+                          <Col>
+                            {/* <Col xs='8' sm='8' md='10'> */}
                             <Input
                               className='form-control'
                               id='recepient'
+                              // value={qr_result !== "" ? qr_result : null}
                               onChange={handleToAddressInput}
                             />
                           </Col>
-                          <Col>
-                            <IoQrCodeOutline href='#' size={30} />
-                          </Col>
+                          {/* <Col>
+                            <IoQrCodeOutline onClick={operScanner} size={30} />
+                          </Col> */}
                         </Row>
                       </FormGroup>
                     </Col>
                     <Col style={{ fontSize: '1.2em' }} className='mb-1' md='12' >
                       <Select
+                        theme={selectThemeColors}
                         className='react-select'
                         classNamePrefix='select'
                         defaultValue=''
@@ -555,11 +609,15 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                       <FormGroup className='mb-1'>
                         <Col className='d-flex flex-row justify-content-between'>
                           <Label for='amount' style={{ fontSize: '1.2em' }}>Amount</Label>
+                          {console.log('nativeBal', nativeBal.format())}
+                          {console.log('ercTokenBal', ercTokenBal.format())}
                           {usingNative ? (
-                            <span>Balance: {nativeBal.format()}</span>
-                          ) : (
-                            <span>Balance: {ercTokenBal.format()}</span>
-                          )}
+                            nativeBal.format() === '0 ERROR' ? null : (
+                              <span>Balance: {nativeBal.format()}</span>
+                            )) : (
+                            ercTokenBal.format() === '0 ERROR' ? null : (
+                              <span>Balance: {ercTokenBal.format()}</span>
+                            ))}
                           <a href='#' style={{ color: 'red' }}> Send Max</a>
                           {/* <Badge style={{ fontSize: ".9rem" }} color="primary" href='/home' pill>Send Max</Badge> */}
                         </Col>
