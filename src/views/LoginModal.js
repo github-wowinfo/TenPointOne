@@ -95,9 +95,9 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
     return (
         <>
             <Modal className='modal-xl modal-dialog-centered' isOpen={openloginmodal}>
-                <ModalBody>
+                <ModalBody style={{ minHeight: '100vh' }}>
                     <div>
-                        <Row className='auth-inner m-0'>
+                        <Row style={{ minHeight: '98vh' }} className='auth-inner m-0'>
                             <Col style={{ backgroundColor: "black" }} className='d-none d-lg-flex align-items-center p-5' lg='8' sm='12'>
                                 <div className='w-100 d-lg-flex align-items-center justify-content-center px-5'>
                                     <img className='img-fluid' src={source} alt='Login V2' />
