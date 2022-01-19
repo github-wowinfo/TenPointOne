@@ -209,8 +209,9 @@ const Home = ({ globalVaultFlag, globalAdrs, dispatch, globalNickName }) => {
               <Col className='pt-1'>
                 <Card className='mb-0'>
                   <CardHeader>
-                    <CardTitle style={{ width: '100%', textAlign: 'center', fontSize: '4.5em' }}>
-                      Total :  $ {sum.toLocaleString()}
+                    <CardTitle className='d-flex flex-row justify-content-between' style={{ width: '100%', fontSize: '3.5em' }}>
+                      <Col>Total:</Col>
+                      <Col className='text-right'>$ {sum.toLocaleString()}</Col>
                     </CardTitle>
                   </CardHeader>
                 </Card>

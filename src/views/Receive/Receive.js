@@ -16,6 +16,7 @@ import withReactContent from 'sweetalert2-react-content'
 import 'animate.css'
 import LoginModal from '../LoginModal'
 import * as AppData from '../../redux/actions/cookies/appDataType'
+import { SiWebmoney } from 'react-icons/si'
 
 const Receive = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
 
@@ -137,6 +138,37 @@ const Receive = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
     }
   }, [chainId, account])
 
+  const [is_sega, setis_sega] = useState()
+  const [segaList, setSegaList] = useState([])
+  const getSegaListFromLocal = () => {
+    const getdata = JSON.parse(localStorage.getItem('segadata'))
+    const valueData = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account)
+    const segalist = valueData && valueData.map((sega, index) => ({ value: index, adrs: sega.address, name: sega.name, ofvault: sega.vault }))
+    setSegaList(segalist)
+  }
+
+  useEffect(() => {
+    getSegaListFromLocal()
+    const segaadrs = segaList && segaList.find(i => i.adrs === globalAdrs)
+    // console.log('segaadrs', segaadrs)
+    if (segaadrs === undefined) {
+      setis_sega(false)
+    } else {
+      setis_sega(true)
+    }
+  }, [globalAdrs, account, chainId, is_sega])
+
+  const logos = [
+    {
+      icon: <BsSafe2 size={25} />,
+      color: 'primary'
+    },
+    {
+      icon: <SiWebmoney size={25} />,
+      color: 'primary'
+    }
+  ]
+
   const cardStyle = {
     display: 'flex',
     justifyContent: 'center',
@@ -182,8 +214,8 @@ const Receive = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
 
   return (
     <>
-      <Col style={cardStyle} md={{ offset: 3, size: 6 }} sm="12">
-        <Card className='my-1 card-payment' >
+      <Col style={cardStyle} md={{ offset: 3, size: 6 }} lg={{ offset: 3, size: 6 }} sm="12">
+        <Card style={{ minWidth: '50vw', minHeight: '55vh' }} className='my-1 card-payment' >
           <CardHeader style={{ paddingBottom: '.1em' }}>
             <CardTitle style={{ color: '#1919d2' }}>Receive Assests</CardTitle>
           </CardHeader>
@@ -205,7 +237,14 @@ const Receive = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                   </Col>
                 </Row>
                 <Row className='d-flex flex-column justify-content-center align-items-center'>
-                  <Col className='my-1 text-center '><Avatar size='lg' color='light-danger' icon={<BsSafe2 size={25} />} /></Col>
+                  <Col className='mt-1 mb-0 text-center '>
+                    {is_sega ? (
+                      <Avatar className='m-1' size='lg' color={logos[1].color} icon={logos[1].icon} />
+                    ) : (
+                      <Avatar className='m-1' size='lg' color={logos[0].color} icon={logos[0].icon} />
+                    )}
+                    {/* <Avatar size='lg' color='light-danger' icon={<BsSafe2 size={25} />} /> */}
+                  </Col>
                   <Col className='mb-1'>
                     <h3 style={{ color: '#1919d2' }} className='text-center mb-0'>{globalNickName}</h3>
                     {/* <CardTitle style={{ textAlign: 'center', marginBottom: 0 }}><strong>{globalNickName}</strong></CardTitle> */}

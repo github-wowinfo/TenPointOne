@@ -147,7 +147,7 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
     }
   }, [chainId, account])
 
-  const [is_sega, setis_sega] = useState(false)
+  const [is_sega, setis_sega] = useState()
   const [segaList, setSegaList] = useState([])
   const getSegaListFromLocal = () => {
     const getdata = JSON.parse(localStorage.getItem('segadata'))
@@ -493,8 +493,8 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
   const backgroundChange = { backgroundColor: networkName === "BSC testnet" ? '#cc9b00' : networkName === "Polygon Network" ? '#8146e4' : networkName === "Ethereum" ? '#4559f4' : networkName === "Kovan" ? '#6435c9' : networkName === "BSC Mainet" ? '#cc9b00' : networkName === "Polygon Mumbai" ? '#140035' : null }
   return (
     <>
-      <Col style={cardStyle} md={{ offset: 3, size: 6 }} sm="12">
-        <Card className='my-1 card-payment'>
+      <Col style={cardStyle} md={{ offset: 3, size: 6 }} lg={{ offset: 3, size: 6 }} sm="12">
+        <Card style={{ minWidth: '50vw', minHeight: '55vh' }} className='my-1 card-payment'>
           <CardHeader style={{ paddingBottom: '.3em' }}>
             <CardTitle style={{ color: '#1919d2' }}>Send Funds</CardTitle>
           </CardHeader>
@@ -580,6 +580,7 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                             <Input
                               className='form-control'
                               id='recepient'
+                              placeholder="Address of the receiver goes here.."
                               // value={qr_result !== "" ? qr_result : null}
                               onChange={handleToAddressInput}
                             />
@@ -590,13 +591,15 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                         </Row>
                       </FormGroup>
                     </Col>
-                    <Col style={{ fontSize: '1.2em' }} className='mb-1' md='12' >
+                    <Col className='mb-1' md='12' >
+                      <Label style={{ fontSize: '1.2em' }} for='selectasset'>Select an Asset</Label>
                       <Select
-                        theme={selectThemeColors}
+                        // theme={selectThemeColors}
+                        maxMenuHeight={250}
                         className='react-select'
                         classNamePrefix='select'
                         defaultValue=''
-                        placeholder='Select an asset...'
+                        placeholder='Click here to check assets list'
                         name='clear'
                         options={tokenList}
                         components={{
@@ -607,21 +610,21 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                     </Col>
                     <Col sm='12'>
                       <FormGroup className='mb-1'>
-                        <Col className='d-flex flex-row justify-content-between'>
-                          <Label for='amount' style={{ fontSize: '1.2em' }}>Amount</Label>
-                          {console.log('nativeBal', nativeBal.format())}
-                          {console.log('ercTokenBal', ercTokenBal.format())}
-                          {usingNative ? (
-                            nativeBal.format() === '0 ERROR' ? null : (
-                              <span>Balance: {nativeBal.format()}</span>
-                            )) : (
-                            ercTokenBal.format() === '0 ERROR' ? null : (
-                              <span>Balance: {ercTokenBal.format()}</span>
-                            ))}
-                          <a href='#' style={{ color: 'red' }}> Send Max</a>
+                        <Col className='px-0 d-flex flex-row justify-content-between'>
+                          <Label sm='3' md='3' lg='3' for='amount' className='px-0' style={{ fontSize: '1.2em' }}>Amount</Label>
+                          {/* {console.log('nativeBal', nativeBal.format())}
+                          {console.log('ercTokenBal', ercTokenBal.format())} */}
+                          <Col sm='6' md='6' lg='6' className='d-flex align-items-center'>
+                            {usingNative ? (
+                              nativeBal.format() === '0 ERROR' ? null : (
+                                <span>Balance: {nativeBal.format()}</span>
+                              )) : (
+                              ercTokenBal.format() === '0 ERROR' ? null : (
+                                <span>Balance: {ercTokenBal.format()}</span>
+                              ))}
+                          </Col>
+                          <a href='#' className='d-flex align-items-center' style={{ color: 'red' }}> Send Max</a>
                           {/* <Badge style={{ fontSize: ".9rem" }} color="primary" href='/home' pill>Send Max</Badge> */}
-                        </Col>
-                        <Col style={{ textAlign: 'end' }}>
                         </Col>
                         <Input placeholder='Amount' id='amount' onChange={handleInputAmount} />
                       </FormGroup>

@@ -48,7 +48,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
     </Fragment>
   )
 
-  const [is_sega, setis_sega] = useState(false)
+  const [is_sega, setis_sega] = useState()
   const [segaList, setSegaList] = useState([])
   const getSegaListFromLocal = () => {
     const getdata = JSON.parse(localStorage.getItem('segadata'))
