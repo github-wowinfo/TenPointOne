@@ -169,7 +169,7 @@ const Home = ({ globalVaultFlag, globalAdrs, dispatch, globalNickName }) => {
   // useEffect(() => {
   //   localStorage.setItem('load_flag', JSON.stringify(false))
   // }, [])
-
+  const summ = 333333.333
   return (
 
     <div>
@@ -209,8 +209,8 @@ const Home = ({ globalVaultFlag, globalAdrs, dispatch, globalNickName }) => {
               <Col className='pt-1'>
                 <Card className='mb-0'>
                   <CardHeader>
-                    <CardTitle>
-                      Total Balance:  $ {sum}
+                    <CardTitle style={{ width: '100%', textAlign: 'center', fontSize: '4.5em' }}>
+                      Total :  $ {sum.toLocaleString()}
                     </CardTitle>
                   </CardHeader>
                 </Card>

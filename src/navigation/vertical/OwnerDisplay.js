@@ -105,7 +105,9 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
 
   const renderItem = () => {
     return (
-      <div className="mb-1 pb-1" style={{ border: '1px solid black', borderRadius: '4px' }} >
+      // <div className="mb-1 pb-1" style={{ border: '1px solid black', borderRadius: '4px' }} >
+      // <div className="mb-1 pb-1" style={{ background: 'linear-gradient(225deg, #e3e1e6, #ffffff)', boxShadow: '20px 20px 60px #d6d5d9, -80px -80px 12px #ffffff', borderRadius: '10px' }} >
+      <div className="mb-2 pb-1" style={{ background: '#fcfaff', boxShadow: '-20px 20px 60px #d6d5d9, 20px -20px 60px #ffffff', borderRadius: '10px' }} >
         <Col style={{ padding: '0px 0px' }}>
           <Col style={{ ...networkstyle, ...backgroundChange, fontSize: '1em', marginBottom: '0px' }} className='my-1 d-flex flex-row flex-nowrap align-self-center '>
             {/* <Icon className='mr-1' name={networkC.icon} size={20} />{networkC.name} */}
@@ -137,7 +139,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
               </h2>
               {/* <ChevronsRight style={{ color: '#3434d7' }} className="mt-1" size={25} onClick={handleDropList} /> */}
               {/* <Avatar className="mt-1" size='md' color='light-primary' icon={<ChevronsRight size={25} onClick={handleDropList} />} /> */}
-              <Avatar className='mb-1' size='md' color='light-primary' icon={<ChevronsRight size={25} onClick={handleDropList} />} />
+              <Avatar className='mb-1' size='md' color='light-primary' onClick={handleDropList} icon={<ChevronsRight size={25} />} />
             </div>
           )}
           <Row className='mb-1 d-flex flex-column'>

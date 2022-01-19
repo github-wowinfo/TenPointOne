@@ -318,6 +318,18 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                                 </div>
                             </CardBody>
                         </Card>
+
+                        <Card>
+                            <DataTable
+                                className='react-dataTable'
+                                noHeader
+                                customStyles={tablestyle}
+                                data={assetList}
+                                columns={columns}
+                                sortIcon={<ChevronDown size={10} />}
+                            />
+                        </Card>
+
                         <Card>
                             <CardHeader>
                                 <CardTitle>Check assest for an Address</CardTitle>
@@ -328,16 +340,6 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                                     Search
                                 </Button>
                             </CardBody>
-                        </Card>
-                        <Card>
-                            <DataTable
-                                className='react-dataTable'
-                                noHeader
-                                customStyles={tablestyle}
-                                data={assetList}
-                                columns={columns}
-                                sortIcon={<ChevronDown size={10} />}
-                            />
                         </Card>
                     </>
                 )}

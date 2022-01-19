@@ -55,9 +55,13 @@
       }
 
       &.select__option--is-selected {
-        background-color: $primary;
-        color: $white;
+        background-color: rgba($color: $primary, $alpha: 0.12);
+        color: $primary;
       }
+      // &.select__option--is-selected {
+      //   background-color: $primary;
+      //   color: $white;
+      // }
     }
   }
 

@@ -30,7 +30,7 @@ const VerticalMenuNavItems = props => {
       <OwnerDisplay menuCollapsed={props.menuCollapsed} menuHover={props.menuHover} />
       {RenderNavItems}
       <DisConnect menuCollapsed={props.menuCollapsed} menuHover={props.menuHover} />
-      <hr className='mx-1' style={{ borderTop: '1px solid black' }} />
+      <hr className='mx-1' />
       <Favourites menuCollapsed={props.menuCollapsed} menuHover={props.menuHover} />
     </>
   )

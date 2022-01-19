@@ -107,12 +107,13 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
         setTimeout(() => {
             setShowSegaLaunchingSnack(false)
             setShowSegaCreatedSnack(false)
-        }, 5 * 60 * 1000)
+        }, 60 * 1000)
     }
 
     // Launch Sega Button Handles
     const isLaunchInProgress = (createNewSegaState.status === "Mining")
     const handleLaunchSega = () => {
+        handleSegaCreatedSnackClose()
         console.log("Trying to Launch Sega :")
         return createNewSega()
     }

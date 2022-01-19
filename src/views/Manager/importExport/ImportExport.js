@@ -34,26 +34,27 @@ const ImportExport = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
     // } else {
     //     alert('Create a Vault')
     // }
-    const [noData, setNoData] = useState(false)
+    const [noData, setNoData] = useState()
     const [Vaultdata, setVaultdata] = useState([])
     const [SegaData, setSegaData] = useState([])
+
     useEffect(() => {
         const getVaultData = JSON.parse(localStorage.getItem('vaultdata'))
         if (getVaultData !== undefined || getVaultData !== []) {
             const LocalVaultData = getVaultData && getVaultData.filter(i => i.owner === account && i.network === chainId)
             setVaultdata(LocalVaultData)
-            setNoData(false)
-        } else {
             setNoData(true)
+        } else {
+            setNoData(false)
             alert('Create a Vault')
         }
         const getSegaData = JSON.parse(localStorage.getItem('segadata'))
         if (getSegaData !== undefined || getSegaData !== []) {
             const LocalSegaData = getSegaData && getSegaData.filter(i => i.owner === account && i.network === chainId)
             setSegaData(LocalSegaData)
-            setNoData(false)
-        } else {
             setNoData(true)
+        } else {
+            setNoData(false)
             alert('Create a Vault')
         }
     }, [globalFavFlag, globalVaultFlag])

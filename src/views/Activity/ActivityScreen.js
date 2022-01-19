@@ -480,25 +480,13 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                                 <CSVLink style={{ color: 'white' }} data={export_data} headers={headers} filename='Activity_Data.csv'>Export</CSVLink>
                                 <HiDownload style={{ marginLeft: 5 }} size={15} />
                             </Button> */}
-                            <Button.Ripple color='primary' onClick={() => downloadCsv(dataList)} >
+                            {/* <Button.Ripple color='primary' onClick={() => downloadCsv(dataList)} >
                                 Export
                                 <HiDownload style={{ marginLeft: 5 }} />
-                            </Button.Ripple>
+                            </Button.Ripple> */}
                         </CardHeader>
                         <CardBody>
                             <CardText>Track your transaction status here</CardText>
-                        </CardBody>
-                    </Card>
-
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Check Activity for an Address</CardTitle>
-                        </CardHeader>
-                        <CardBody className='d-flex flex-row justify-content-between'>
-                            <Input className='mx-1' type='text' placeholder="Add address of the account to see it's activity" onChange={handleChange} />
-                            <Button color='primary round' onClick={handleClick}>
-                                Search
-                            </Button>
                         </CardBody>
                     </Card>
 
@@ -553,6 +541,18 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                                 />
                             </TabPane>
                         </TabContent>
+                    </Card>
+
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Check Activity for an Address</CardTitle>
+                        </CardHeader>
+                        <CardBody className='d-flex flex-row justify-content-between'>
+                            <Input className='mx-1' type='text' placeholder="Add address of the account to see it's activity" onChange={handleChange} />
+                            <Button color='primary round' onClick={handleClick}>
+                                Search
+                            </Button>
+                        </CardBody>
                     </Card>
 
                     {/* <Card>

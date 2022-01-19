@@ -185,7 +185,7 @@ const Receive = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
       <Col style={cardStyle} md={{ offset: 3, size: 6 }} sm="12">
         <Card className='my-1 card-payment' >
           <CardHeader style={{ paddingBottom: '.1em' }}>
-            <CardTitle>Receive Assests</CardTitle>
+            <CardTitle style={{ color: '#1919d2' }}>Receive Assests</CardTitle>
           </CardHeader>
           {globalNickName === 'Create a Vault' ? (
             <>
@@ -198,7 +198,7 @@ const Receive = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
             </>
           ) : (
             <>
-              <CardBody style={{ padding: '1em' }}>
+              <CardBody className='p-1' >
                 <Row>
                   <Col className='py-1' style={{ ...backgroundChange, textAlign: 'center', height: '100%' }}>
                     <CardText style={{ color: 'white' }}><Icon className='mr-1' name={networkIcon} size={20} />Only send {networkName} assets to this Safe</CardText>
@@ -207,18 +207,18 @@ const Receive = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                 <Row className='d-flex flex-column justify-content-center align-items-center'>
                   <Col className='my-1 text-center '><Avatar size='lg' color='light-danger' icon={<BsSafe2 size={25} />} /></Col>
                   <Col className='mb-1'>
-                    {console.log(globalNickName)}
-                    {console.log(globalAdrs)}
-                    <CardTitle style={{ textAlign: 'center', marginBottom: 0 }}><strong>{globalNickName}</strong></CardTitle>
+                    <h3 style={{ color: '#1919d2' }} className='text-center mb-0'>{globalNickName}</h3>
+                    {/* <CardTitle style={{ textAlign: 'center', marginBottom: 0 }}><strong>{globalNickName}</strong></CardTitle> */}
                   </Col>
                   <Col className='text-center'>
                     {/* <CardSubtitle style={{ color: 'gray' }} > <strong>{shortenIfAddress(account)}</strong></CardSubtitle> */}
-                    <CardSubtitle style={{ color: 'gray', fontSize: '1em' }} ><strong>{globalAdrs}</strong></CardSubtitle>
+                    {/* <CardSubtitle style={{ color: 'gray', fontSize: '1em' }} ><strong>{globalAdrs}</strong></CardSubtitle> */}
+                    <h6 className='font-weight-bold '>{globalAdrs}</h6>
                   </Col>
                   <Col>
                     <span className='d-flex flex-row justify-content-center'>
-                      <FaRegCopy style={{ cursor: 'pointer' }} className='mx-1 mt-1' color='grey' size={20} onClick={copy} />
-                      <a href={getExplorerAddressLink(globalAdrs, chainId)} target='_blank'><GoLinkExternal className='mx-1 mt-1' color='grey' size={20} /></a>
+                      <FaRegCopy style={{ cursor: 'pointer' }} className='mx-1 mt-1' color='grey' size={25} onClick={copy} />
+                      <a href={getExplorerAddressLink(globalAdrs, chainId)} target='_blank'><GoLinkExternal className='mx-1 mt-1' color='grey' size={25} /></a>
                     </span>
                   </Col>
                   <Col className='text-center '>
