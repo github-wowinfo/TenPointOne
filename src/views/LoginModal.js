@@ -136,7 +136,7 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
                                                 onClick={() => disconnect()} block>LOGIN</Button.Ripple>) : (
                                                 <Button.Ripple color='primary' style={{ fontSize: "1em", marginBottom: 5 }}
                                                     onClick={async () => {
-                                                        if (init_flag) {
+                                                        if (!isConnected && init_flag) {
                                                             window.location.reload()
                                                             localStorage.setItem('load_flag', JSON.stringify(false))
                                                         } else {
@@ -147,19 +147,18 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
                                                             }
                                                             activateBrowserWallet(onError)
                                                             localStorage.setItem('load_flag', JSON.stringify(true))
-                                                            // try {
-                                                            //     activateBrowserWallet(undefined, true)
-                                                            // } catch (err) {
-                                                            //     // alert(err.message)
-                                                            //     // console.error(error)
-                                                            //     // console.log(error)
-                                                            //     // if (error.code === 4001) {
-                                                            //     //     const emsg = error.message
-                                                            //     //     console.log('error', error)
-                                                            //     //     notifyError(emsg)
-                                                            //     // }
-                                                            // }
                                                         }
+                                                        // if (init_flag) {
+                                                        //     window.location.reload()
+                                                        //     localStorage.setItem('load_flag', JSON.stringify(false))
+                                                        // } else {
+                                                        //     const onError = (error) => {
+                                                        //         // console.log(error.message)
+                                                        //         notifyError(error.message)
+                                                        //         localStorage.setItem('load_flag', JSON.stringify(false))
+                                                        //     }
+                                                        //     activateBrowserWallet(onError)
+                                                        //     localStorage.setItem('load_flag', JSON.stringify(true))                                                        
                                                     }}
                                                     block>CONNECT WALLET
                                                 </Button.Ripple>
