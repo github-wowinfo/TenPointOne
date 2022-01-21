@@ -7,6 +7,9 @@ import '@styles/base/pages/page-auth.scss'
 import { useSkin } from '@hooks/useSkin'
 import helperConfig from '../helper-config.json'
 import logo from '../assets/images/logo/finallog.png'
+import { XCircle } from 'react-feather'
+import { toast } from 'react-toastify'
+import Avatar from '@components/avatar'
 
 const LoginModal = ({ openloginmodal, disconnect }) => {
 
@@ -77,16 +80,32 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
         const get_load_flag = JSON.parse(localStorage.getItem('load_flag'))
         if (get_load_flag === undefined || get_load_flag === null) {
             localStorage.setItem('load_flag', JSON.stringify(true))
-        } else {
-            if (get_load_flag === false) {
-                localStorage.setItem('load_flag', JSON.stringify(true))
-            }
         }
+        // else {
+        //     if (get_load_flag === false) {
+        //         localStorage.setItem('load_flag', JSON.stringify(true))
+        //     }
+        // }
     }, [])
 
     const init_flag = JSON.parse(localStorage.getItem('load_flag'))
 
-    console.log('init_flag', init_flag)
+    const notifyError = (emsg) => toast.error(<ErrorToast msg={emsg} />, { hideProgressBar: false })
+    const ErrorToast = ({ msg }) => (
+        <Fragment>
+            <div className='toastify-header'>
+                <div className='title-wrapper'>
+                    <Avatar size='sm' color='danger' icon={<XCircle size={12} />} />
+                    <h6 className='toast-title'>Error !</h6>
+                </div>
+            </div>
+            <div className='toastify-body'>
+                <span role='img' aria-label='toast-text'>
+                    {msg}
+                </span>
+            </div>
+        </Fragment>
+    )
 
     const networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"
     const networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
@@ -117,15 +136,26 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
                                                 onClick={() => disconnect()} block>LOGIN</Button.Ripple>) : (
                                                 <Button.Ripple color='primary' style={{ fontSize: "1em", marginBottom: 5 }}
                                                     onClick={async () => {
-                                                        try {
-                                                            if (init_flag) {
-                                                                window.location.reload()
-                                                                localStorage.setItem('load_flag', JSON.stringify(false))
-                                                            }
-                                                            activateBrowserWallet(undefined, true)
-                                                        } catch (error) {
-                                                            console.error(error)
+                                                        if (init_flag) {
+                                                            window.location.reload()
                                                             localStorage.setItem('load_flag', JSON.stringify(false))
+                                                        } else {
+                                                            const onError = (error) => {
+                                                                // console.log(error.message)
+                                                                notifyError(error.message)
+                                                            }
+                                                            activateBrowserWallet(onError)
+                                                            // try {
+                                                            //     activateBrowserWallet(undefined, true)
+                                                            // } catch (error) {
+                                                            //     // console.error(error)
+                                                            //     // console.log(error)
+                                                            //     if (error.code === 4001) {
+                                                            //         const emsg = error.message
+                                                            //         console.log('error', error)
+                                                            //         notifyError(emsg)
+                                                            //     }
+                                                            // }
                                                         }
                                                     }}
                                                     block>CONNECT WALLET

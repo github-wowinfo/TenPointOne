@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Card, CardBody, CardText, Col, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row, Table, Badge, TabContent, TabPane, CardTitle, CardHeader, Nav, NavItem, NavLink, CardFooter } from 'reactstrap'
+import { Button, Card, CardBody, CardText, Col, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row, Table, Badge, TabContent, TabPane, CardTitle, CardHeader, Nav, NavItem, NavLink, CardFooter, Tooltip, UncontrolledTooltip } from 'reactstrap'
 import { HiDownload } from 'react-icons/hi'
 import { BsArrowUpCircle, BsArrowDownCircle, BsInfoCircle, BsArrowRightCircle } from 'react-icons/bs'
 import { GrClose } from 'react-icons/gr'
@@ -18,11 +18,14 @@ import helperConfig from "../../helper-config.json"
 import { isAddress } from 'ethers/lib/utils'
 import { CSVLink } from "react-csv"
 import downloadCsv from 'download-csv'
+import Avatar from '@components/avatar'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import LoginModal from '../LoginModal'
 import ExistingAdrs from './ExistingAdrs'
 import ExistingDesc from './ExistingDesc'
+import { AlertCircle, Check, Eye, Info, XCircle } from 'react-feather'
+import { BiDetail } from 'react-icons/bi'
 
 const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalVaultFlag }) => {
 
@@ -313,42 +316,51 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
         {
             name: 'Amount',
             minWidth: '150px',
+            center: true,
             selector: row => (
                 <span>
                     {
                         row.type === 'receive' ? (
-                            <>
-                                <span className='align-middle font-weight-bold'>
-                                    {
-                                        row.received ? row.received[0].value / (10 ** row.received[0].decimals) : row.sent ? '' : '-'
-                                    }
-                                    <br />
-                                </span>
-                                <span className='align-middle font-weight-light' style={{
-                                    fontSize: 12
-                                }}>{row.received && row.received[0].symbol}</span>
-                            </>
+                            <span className='align-middle font-weight-bold'>
+                                {
+                                    row.received ? row.received[0].value / (10 ** row.received[0].decimals) : row.sent ? '' : '-'
+                                }
+                            </span>
                         ) : (
-                            <>
-                                <span className='align-middle font-weight-bold'>
-                                    {
-                                        row.sent ? row.sent[0].value / (10 ** row.sent[0].decimals) : row.received ? '' : '-'
-                                    }
-                                    <br />
-                                    <span className='align-middle font-weight-light' style={{
-                                        fontSize: 12
-                                    }}>{row.sent && row.sent[0].symbol}</span>
-                                </span>
-                            </>
+                            <span className='align-middle font-weight-bold'>
+                                {
+                                    row.sent ? row.sent[0].value / (10 ** row.sent[0].decimals) : row.received ? '' : '-'
+                                }
+                            </span>
                         )
                     }
-                    {/* <br /> */}
+                </span>
+            )
+        },
+        {
+            name: 'Token',
+            minWidth: '170px',
+            center: 'true',
+            selector: row => (
+                <span>
+                    {
+                        row.type === 'receive' ? (
+                            <span className='font-weight-bold'>
+                                {row.received && row.received[0].symbol}
+                            </span>
+                        ) : (
+                            <span className='font-weight-bold'>
+                                {row.sent && row.sent[0].symbol}
+                            </span>
+                        )
+                    }
                 </span>
             )
         },
         {
             name: '$ Value',
             minWidth: '150px',
+            center: 'true',
             selector: row => (
                 <span>
                     <span className='align-middle font-weight-bold'>
@@ -368,23 +380,58 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
         },
         {
             name: 'Status',
-            minWidth: '200px',
+            minWidth: '250px',
+            center: true,
             selector: row => (
-                <Badge pill color='light-success' > {row.status} </Badge>
+                <div className='d-flex flex-row justify-content-center'>
+                    <span className='mx-1'>
+                        {
+                            row.status === 'completed' ? (
+                                <div className='mr-1'>
+                                    <Avatar style={{ cursor: 'default' }} size='md' color='success' icon={<Check size={22} />} />
+                                </div>
+                            ) : row.status === 'error' ? (
+                                <div className='mr-1'>
+                                    <Avatar style={{ cursor: 'default' }} size='md' color='danger' icon={<XCircle size={22} />} />
+                                </div>
+                            ) : (
+                                <div className='mr-1'>
+                                    <Avatar style={{ cursor: 'default' }} size='md' color='warning' icon={<AlertCircle size={22} />} />
+                                </div>
+
+                            )
+                        }
+                    </span>
+                    <span>
+                        <Avatar color='light-primary' size='md' id='details' onClick={() => {
+                            setModalVisible(!modalVisible)
+                            setTrxnId(row.id)
+                            setDesc(row.description)
+                        }} icon={<Info size={22} />} />
+                        {/* <Avatar color='light-primary' size='md' id='details' onClick={() => {
+                            setModalVisible(!modalVisible)
+                            setTrxnId(row.id)
+                            setDesc(row.description)
+                        }} icon={<Eye size={22} />} /> */}
+                        <UncontrolledTooltip placement='top' target='details'>
+                            Click for more details
+                        </UncontrolledTooltip>
+                    </span>
+                </div>
             )
         },
-        {
-            name: 'More Details',
-            minWidth: '200px',
-            center: 'true',
-            selector: row => (
-                <Button.Ripple color='flat-primary' onClick={() => {
-                    setModalVisible(!modalVisible)
-                    setTrxnId(row.id)
-                    setDesc(row.description)
-                }}>VIEW</Button.Ripple>
-            )
-        }
+        // {
+        //     name: 'More Details',
+        //     minWidth: '200px',
+        //     center: 'true',
+        //     selector: row => (
+        //         <Button.Ripple color='flat-primary' onClick={() => {
+        //             setModalVisible(!modalVisible)
+        //             setTrxnId(row.id)
+        //             setDesc(row.description)
+        //         }}>VIEW</Button.Ripple>
+        //     )
+        // }
     ]
 
     const tablestyle = {

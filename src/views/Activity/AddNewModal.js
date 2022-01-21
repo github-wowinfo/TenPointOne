@@ -145,14 +145,14 @@ const AddNewModal = ({ open, handleModal, trxnId, description }) => {
         <FormGroup>
           <label className='label'>Transaction Hash</label>
           <br />
-          <label className='text' style={{ lineBreak: 'anywhere' }}>{shortenIfTransactionHash(details?.id)}</label>
-          <div>
+          <div className='d-flex flex-row justify-content-start'>
+            <label className='text' style={{ lineBreak: 'anywhere' }}>{shortenIfTransactionHash(details?.id)}</label>
             <Row>
               <Col md='1' >
-                <FaRegCopy style={{ cursor: 'pointer' }} size={15} className='mr-1' onClick={copy} />
+                <FaRegCopy style={{ cursor: 'pointer' }} size={15} className='mx-1' onClick={copy} />
               </Col>
               <Col md='1'>
-                <a href={getExplorerTransactionLink(details?.id, chainId)} target='_blank'><GoLinkExternal size={15} color='grey' /></a>
+                <a href={getExplorerTransactionLink(details?.id, chainId)} className='mx-1' target='_blank'><GoLinkExternal size={15} color='grey' /></a>
               </Col>
             </Row>
           </div>
@@ -193,21 +193,21 @@ const AddNewModal = ({ open, handleModal, trxnId, description }) => {
               </div>
               <label className='text'>{(details.status).toUpperCase()} </label>
             </div>
-          ) : details.status === 'incomplete' ? (
+          ) : details.status === 'error' ? (
             <div className='row' style={{ marginLeft: 1, alignItems: 'center' }}>
               <div className='mr-1'>
                 <Avatar size='sm' color='danger' icon={<XCircle size={12} />} />
               </div>
               <label className='text'>{(details.status).toUpperCase()} </label>
             </div>
-          ) : details.status === 'pending' ? (
+          ) : (
             <div className='row' style={{ marginLeft: 1, alignItems: 'center' }}>
               <div className='mr-1'>
                 <Avatar size='sm' color='warning' icon={<AlertCircle size={12} />} />
               </div>
-              <label className='text'>{(details.status).toUpperCase()} </label>
+              <label className='text'>PENDING</label>
             </div>
-          ) : null}
+          )}
 
         </FormGroup>
         <FormGroup>
