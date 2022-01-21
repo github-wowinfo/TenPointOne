@@ -143,18 +143,21 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
                                                             const onError = (error) => {
                                                                 // console.log(error.message)
                                                                 notifyError(error.message)
+                                                                localStorage.setItem('load_flag', JSON.stringify(false))
                                                             }
                                                             activateBrowserWallet(onError)
+                                                            localStorage.setItem('load_flag', JSON.stringify(true))
                                                             // try {
                                                             //     activateBrowserWallet(undefined, true)
-                                                            // } catch (error) {
+                                                            // } catch (err) {
+                                                            //     // alert(err.message)
                                                             //     // console.error(error)
                                                             //     // console.log(error)
-                                                            //     if (error.code === 4001) {
-                                                            //         const emsg = error.message
-                                                            //         console.log('error', error)
-                                                            //         notifyError(emsg)
-                                                            //     }
+                                                            //     // if (error.code === 4001) {
+                                                            //     //     const emsg = error.message
+                                                            //     //     console.log('error', error)
+                                                            //     //     notifyError(emsg)
+                                                            //     // }
                                                             // }
                                                         }
                                                     }}

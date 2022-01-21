@@ -11,7 +11,7 @@ import { Card, CardHeader, CardTitle, CardBody, CardFooter, Form, FormGroup, Lab
 import Badge from 'reactstrap/lib/Badge'
 import Icon from 'react-crypto-icons'
 import { toast } from 'react-toastify'
-import { Clipboard } from "react-feather"
+import { Clipboard, XCircle } from "react-feather"
 import { connect } from 'react-redux'
 import React, { useState, Fragment, useEffect } from 'react'
 import { useEthers, getExplorerAddressLink, shortenIfAddress, CurrencyValue, Token, useEtherBalance, useTokenBalance, getExplorerTransactionLink, shortenIfTransactionHash } from '@usedapp/core'
@@ -39,7 +39,7 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
     setLoginModal(!loginModal)
   }
 
-  console.log('loginModal', loginModal)
+  // console.log('loginModal', loginModal)
 
   useEffect(() => {
     if (!isConnected) {
@@ -167,7 +167,7 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
     }
   }, [globalAdrs, account, chainId, is_sega])
 
-  console.log('is_sega', is_sega)
+  // console.log('is_sega', is_sega)
 
   const cardStyle = {
     display: 'flex',
@@ -204,6 +204,23 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
           <Avatar size='sm' color='success' icon={<Clipboard size={12} />} />
           <h6 className='toast-title'>Copied to Clipboard!</h6>
         </div>
+      </div>
+    </Fragment>
+  )
+
+  const notifyError = (emsg) => toast.error(<ErrorToast msg={emsg} />, { hideProgressBar: false })
+  const ErrorToast = ({ msg }) => (
+    <Fragment>
+      <div className='toastify-header'>
+        <div className='title-wrapper'>
+          <Avatar size='sm' color='danger' icon={<XCircle size={12} />} />
+          <h6 className='toast-title'>Error !</h6>
+        </div>
+      </div>
+      <div className='toastify-body'>
+        <span role='img' aria-label='toast-text'>
+          {msg}
+        </span>
       </div>
     </Fragment>
   )
@@ -661,12 +678,24 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                   {adrs_flag && amt_flag ? (
                     <>
                       <Col>
-                        <Button.Ripple color='primary' onClick={handleSegaTransfer} block >
+                        <Button.Ripple color='primary' onClick={() => {
+                          try {
+                            handleSegaTransfer()
+                          } catch (error) {
+                            notifyError(error.message)
+                          }
+                        }} block >
                           Send
                         </Button.Ripple>
                       </Col>
                       <Col>
-                        <Button.Ripple color='primary' onClick={handleSegaApprove} block>
+                        <Button.Ripple color='primary' onClick={() => {
+                          try {
+                            handleSegaApprove()
+                          } catch (error) {
+                            notifyError(error.message)
+                          }
+                        }} block>
                           Approve ERC
                         </Button.Ripple>
                       </Col>
@@ -696,7 +725,7 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
               ) : (<>
                 {adrs_flag && amt_flag ? (
                   <Col className='text-center'>
-                    <Button.Ripple color='primary' onClick={handleVaultSend} >
+                    <Button.Ripple color='primary' onClick={handleVaultSend}>
                       Send
                     </Button.Ripple>
                     <Button.Ripple onClick={handleLog}>TestLog</Button.Ripple>
