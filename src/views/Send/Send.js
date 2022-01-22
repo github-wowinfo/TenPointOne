@@ -440,6 +440,7 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
     console.log("To Address", toAddress)
   }
 
+  // console.log('TransferState', TransferState)
   useEffect(() => {
     if (TransferState.status === "Mining") {
       const tx_id = String(TransferState.transaction?.hash)

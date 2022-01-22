@@ -124,6 +124,7 @@ export const useTransfers = (vault, sega) => {
         } else { console.log("Not Mining") }
 
         console.log("Txn State After: ", TransferState.transaction?.hash, TransferState.status)
+        console.log('TransferState', TransferState)
 
     }, [
         vaultTransferNativeState,
