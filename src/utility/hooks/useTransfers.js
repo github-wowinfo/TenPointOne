@@ -38,6 +38,13 @@ export const useTransfers = (vault, sega) => {
         if (isAddress(_to)) { return vaultTransferERCSend(getAddress(_to), _token, _amount) }
     }
 
+    // useEffect(() => {
+    //     console.log('vaultTransferERCState', vaultTransferERCState.status)
+    //     if (vaultTransferERCState.status === "Exception") {
+    //         console.log('Error msg', vaultTransferERCState.errorMessage)
+    //     }
+    // }, [vaultTransferERCState])
+
     // Force Recall Assets From Sega - VAULT - Native & Tokens
 
     const { send: recallNativeSend, state: recallNativeState } =
@@ -93,19 +100,47 @@ export const useTransfers = (vault, sega) => {
     useEffect(() => {
         console.log("Txn State Before: ", TransferState.transaction?.hash, TransferState.status)
 
-        if (vaultTransferNativeState.status === "Mining") {
+        if (vaultTransferNativeState.status === "Exception") {
             setTransferState(vaultTransferNativeState)
-        } else if (vaultTransferERCState.status === "Mining") {
+        } else if (vaultTransferERCState.status === "Exception") {
             setTransferState(vaultTransferERCState)
-        } else if (recallNativeState.status === "Mining") {
+        } else if (recallNativeState.status === "Exception") {
             setTransferState(recallNativeState)
-        } else if (recallErcState.status === "Mining") {
+        } else if (recallErcState.status === "Exception") {
             setTransferState(recallErcState)
-        } else if (segaTransferNativeState.status === "Mining") {
+        } else if (segaTransferNativeState.status === "Exception") {
             setTransferState(segaTransferNativeState)
-        } else if (segaTransferERCState.status === "Mining") {
+        } else if (segaTransferERCState.status === "Exception") {
             setTransferState(segaTransferERCState)
-        } else if (segaApproveState.status === "Mining") {
+        } else if (segaApproveState.status === "Exception") {
+            setTransferState(segaApproveState)
+        } else if (testSameTxn(TransferState, vaultTransferNativeState) && vaultTransferNativeState.status === "Mining") {
+            setTransferState(vaultTransferNativeState)
+        } else if (testSameTxn(TransferState, vaultTransferERCState) && vaultTransferERCState.status === "Mining") {
+            setTransferState(vaultTransferERCState)
+        } else if (testSameTxn(TransferState, recallNativeState) && recallNativeState.status === "Mining") {
+            setTransferState(recallNativeState)
+        } else if (testSameTxn(TransferState, recallErcState) && recallErcState.status === "Mining") {
+            setTransferState(recallErcState)
+        } else if (testSameTxn(TransferState, segaTransferNativeState) && segaTransferNativeState.status === "Mining") {
+            setTransferState(segaTransferNativeState)
+        } else if (testSameTxn(TransferState, segaTransferERCState) && segaTransferERCState.status === "Mining") {
+            setTransferState(segaTransferERCState)
+        } else if (testSameTxn(TransferState, segaApproveState) && segaApproveState.status === "Mining") {
+            setTransferState(segaApproveState)
+        } else if (testSameTxn(TransferState, vaultTransferNativeState) && vaultTransferNativeState.status === "Fail`") {
+            setTransferState(vaultTransferNativeState)
+        } else if (testSameTxn(TransferState, vaultTransferERCState) && vaultTransferERCState.status === "Fail") {
+            setTransferState(vaultTransferERCState)
+        } else if (testSameTxn(TransferState, recallNativeState) && recallNativeState.status === "Fail") {
+            setTransferState(recallNativeState)
+        } else if (testSameTxn(TransferState, recallErcState) && recallErcState.status === "Fail") {
+            setTransferState(recallErcState)
+        } else if (testSameTxn(TransferState, segaTransferNativeState) && segaTransferNativeState.status === "Fail") {
+            setTransferState(segaTransferNativeState)
+        } else if (testSameTxn(TransferState, segaTransferERCState) && segaTransferERCState.status === "Fail") {
+            setTransferState(segaTransferERCState)
+        } else if (testSameTxn(TransferState, segaApproveState) && segaApproveState.status === "Fail") {
             setTransferState(segaApproveState)
         } else if (testSameTxn(TransferState, vaultTransferNativeState) && vaultTransferNativeState.status === "Success") {
             setTransferState(vaultTransferNativeState)
@@ -124,7 +159,7 @@ export const useTransfers = (vault, sega) => {
         } else { console.log("Not Mining") }
 
         console.log("Txn State After: ", TransferState.transaction?.hash, TransferState.status)
-        console.log('TransferState', TransferState)
+        // console.log('TransferState', TransferState)
 
     }, [
         vaultTransferNativeState,

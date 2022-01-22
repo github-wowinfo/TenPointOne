@@ -72,28 +72,6 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
 
     const [curr_acc, setCurr_acc] = useState(account)
 
-    useEffect(() => {
-        if (curr_acc !== account) {
-            window.location.reload()
-        }
-
-        const get_load_flag = JSON.parse(localStorage.getItem('load_flag'))
-        if (get_load_flag === undefined || get_load_flag === null) {
-            localStorage.setItem('load_flag', JSON.stringify(true))
-        }
-        // else {
-        //     if (get_load_flag === false) {
-        //         localStorage.setItem('load_flag', JSON.stringify(true))
-        //     }
-        // }
-
-        return (() => {
-            if (get_load_flag === false) {
-                localStorage.setItem('load_flag', JSON.stringify(true))
-            }
-        })
-    }, [])
-
     const init_flag = JSON.parse(localStorage.getItem('load_flag'))
 
     const notifyError = (emsg) => toast.error(<ErrorToast msg={emsg} />, { hideProgressBar: false })
@@ -113,6 +91,24 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
         </Fragment>
     )
 
+    useEffect(() => {
+        const onError = (error) => {
+            // console.log(error.message)
+            notifyError(error.message)
+        }
+
+        activateBrowserWallet()
+
+        if (curr_acc !== account) {
+            window.location.reload()
+        }
+
+        const get_load_flag = JSON.parse(localStorage.getItem('load_flag'))
+        if (get_load_flag === undefined || get_load_flag === null) {
+            localStorage.setItem('load_flag', JSON.stringify(true))
+        }
+
+    }, [])
     const networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"
     const networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
     const backgroundChange = { backgroundColor: networkName === "BSC testnet" ? '#cc9b00' : networkName === "Polygon Network" ? '#8146e4' : networkName === "Ethereum" ? '#4559f4' : networkName === "Kovan" ? '#6435c9' : networkName === "BSC Mainet" ? '#cc9b00' : networkName === "Polygon Mumbai" ? '#140035' : null }
@@ -144,27 +140,17 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
                                                     onClick={async () => {
                                                         if (!isConnected && init_flag) {
                                                             window.location.reload()
-                                                            localStorage.setItem('load_flag', JSON.stringify(false))
-                                                        } else {
-                                                            const onError = (error) => {
-                                                                // console.log(error.message)
-                                                                notifyError(error.message)
-                                                                localStorage.setItem('load_flag', JSON.stringify(false))
-                                                            }
-                                                            activateBrowserWallet(onError)
-                                                            localStorage.setItem('load_flag', JSON.stringify(true))
+                                                            // localStorage.setItem('load_flag', JSON.stringify(false))
                                                         }
-                                                        // if (init_flag) {
-                                                        //     window.location.reload()
-                                                        //     localStorage.setItem('load_flag', JSON.stringify(false))
-                                                        // } else {
+                                                        //  else {
                                                         //     const onError = (error) => {
                                                         //         // console.log(error.message)
                                                         //         notifyError(error.message)
-                                                        //         localStorage.setItem('load_flag', JSON.stringify(false))
+                                                        //         // localStorage.setItem('load_flag', JSON.stringify(false))
                                                         //     }
                                                         //     activateBrowserWallet(onError)
-                                                        //     localStorage.setItem('load_flag', JSON.stringify(true))                                                        
+                                                        //     localStorage.setItem('load_flag', JSON.stringify(true))
+                                                        // }
                                                     }}
                                                     block>CONNECT WALLET
                                                 </Button.Ripple>
