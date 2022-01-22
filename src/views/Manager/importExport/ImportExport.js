@@ -94,15 +94,25 @@ const ImportExport = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
                                     <CgExport size={15} />
                                     <span className='align-middle ml-50'>Export</span>
                                 </DropdownToggle>
+                                {console.log('noData', noData)}
+                                {console.log('Vaultdata', Vaultdata)}
                                 {noData ? (
                                     <DropdownMenu right>
                                         <DropdownItem className='w-100'>
-                                            <BsSafe2 className='mx-1' size={15} />
-                                            <CSVLink style={{ color: '#31c975' }} data={Vaultdata} headers={Vheaders} filename='Addres_Book_Data.csv'>VAULT DATA</CSVLink>
+                                            {Vaultdata && Vaultdata.length > 0 ? (
+                                                <>
+                                                    <BsSafe2 className='mx-1' size={15} />
+                                                    <CSVLink style={{ color: '#31c975' }} data={Vaultdata} headers={Vheaders} filename='Addres_Book_Data.csv'>VAULT DATA</CSVLink>
+                                                </>
+                                            ) : null}
                                         </DropdownItem>
                                         <DropdownItem className='w-100' >
-                                            <SiWebmoney className='mx-1' size={15} />
-                                            <CSVLink style={{ color: '#31c975' }} data={SegaData} headers={Sheaders} filename='Addres_Book_Data.csv'>SEGA DATA</CSVLink>
+                                            {SegaData && SegaData.length > 0 ? (
+                                                <>
+                                                    <SiWebmoney className='mx-1' size={15} />
+                                                    <CSVLink style={{ color: '#31c975' }} data={SegaData} headers={Sheaders} filename='Addres_Book_Data.csv'>SEGA DATA</CSVLink>
+                                                </>
+                                            ) : null}
                                         </DropdownItem>
                                     </DropdownMenu>
                                 ) : null}

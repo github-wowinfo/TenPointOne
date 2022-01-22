@@ -81,6 +81,9 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
         if (get_load_flag === undefined || get_load_flag === null) {
             localStorage.setItem('load_flag', JSON.stringify(true))
         }
+        // return (
+        //     localStorage.setItem('load_flag', JSON.stringify(true))
+        // )
         // else {
         //     if (get_load_flag === false) {
         //         localStorage.setItem('load_flag', JSON.stringify(true))
@@ -143,7 +146,7 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
                                                             const onError = (error) => {
                                                                 // console.log(error.message)
                                                                 notifyError(error.message)
-                                                                localStorage.setItem('load_flag', JSON.stringify(false))
+                                                                // localStorage.setItem('load_flag', JSON.stringify(false))
                                                             }
                                                             activateBrowserWallet(onError)
                                                             localStorage.setItem('load_flag', JSON.stringify(true))
