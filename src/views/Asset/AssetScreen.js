@@ -316,7 +316,7 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                                             <CardTitle className='mb-25' tag='h4'>
                                                 TOTAL BALANCE
                                             </CardTitle>
-                                            <CardTitle>${sum}</CardTitle>
+                                            <CardTitle>${sum.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</CardTitle>
                                             {/* <CardText className='mb-0'>Total balance</CardText> */}
                                         </Col>
                                     </Col>
