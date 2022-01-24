@@ -1,4 +1,4 @@
-import { ArrowUp, ArrowDown } from 'react-feather'
+import { ArrowUp, ArrowDown, Check, XCircle, AlertCircle } from 'react-feather'
 import { Table, Badge, Card } from 'reactstrap'
 import CardHeader from 'reactstrap/lib/CardHeader'
 import CardTitle from 'reactstrap/lib/CardTitle'
@@ -95,14 +95,33 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
     },
     {
       name: 'Status',
-      minWidth: '120px',
+      minWidth: '90px',
+      center: 'true',
       selector: row => (
-        <Badge pill color='light-success' className='mr-1'> {row.status} </Badge>
+        <span className='mx-1'>
+          {
+            row.status === 'completed' ? (
+              <div className='mr-1'>
+                <Avatar style={{ cursor: 'default' }} size='md' color='success' icon={<Check size={22} />} />
+              </div>
+            ) : row.status === 'error' ? (
+              <div className='mr-1'>
+                <Avatar style={{ cursor: 'default' }} size='md' color='danger' icon={<XCircle size={22} />} />
+              </div>
+            ) : (
+              <div className='mr-1'>
+                <Avatar style={{ cursor: 'default' }} size='md' color='warning' icon={<AlertCircle size={22} />} />
+              </div>
+
+            )
+          }
+        </span>
       )
     },
     {
       name: 'Amount',
-      minWidth: '120px',
+      minWidth: '90px',
+      center: 'true',
       compact: true,
       selector: row => (
         <span>
@@ -113,11 +132,7 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
                   {
                     row.received ? row.received[0].value / (10 ** row.received[0].decimals) : row.sent ? '' : '-'
                   }
-                  <br />
                 </span>
-                <span className='align-middle font-weight-light' style={{
-                  fontSize: 12
-                }}>{row.received && row.received[0].symbol}</span>
               </>
             ) : (
               <>
@@ -125,10 +140,6 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
                   {
                     row.sent ? row.sent[0].value / (10 ** row.sent[0].decimals) : row.received ? '' : '-'
                   }
-                  <br />
-                  <span className='align-middle font-weight-light' style={{
-                    fontSize: 12
-                  }}>{row.sent && row.sent[0].symbol}</span>
                 </span>
               </>
             )
@@ -136,7 +147,28 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
           {/* <br /> */}
         </span>
       )
-    }
+    },
+    {
+      name: 'Token',
+      minWidth: '100px',
+      center: 'true',
+      compact: true,
+      selector: row => (
+        <span>
+          {
+            row.type === 'receive' ? (
+              <span className='font-weight-bold'>
+                {row.received && row.received[0].symbol}
+              </span>
+            ) : (
+              <span className='font-weight-bold'>
+                {row.sent && row.sent[0].symbol}
+              </span>
+            )
+          }
+        </span>
+      )
+    },
   ]
 
   return (
