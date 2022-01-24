@@ -230,7 +230,7 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                 <span className='align-middle font-weight-bold'>
                     {
 
-                        row.balance && (row.balance / (10 ** row.contract_decimals)).toFixed(6)
+                        row.balance && (row.balance / (10 ** row.contract_decimals))
 
                     }
                 </span>
@@ -304,22 +304,31 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                                         </CardBody>
                                     </Col>
 
-                                    <Col className='d-flex flex-column align-items-end'>
-                                        <Col className='mt-1 mb-0' md='6' sm='6'>
+                                    <Col className='d-flex flex-column align-items-end pb-0'>
+                                        <CardHeader className='pr-0'>
+                                            <CardTitle>TOTAL BALANCE</CardTitle>
+                                        </CardHeader>
+                                        <CardBody className='px-0'>
+                                            <CardText>${sum.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</CardText>
+                                        </CardBody>
+                                    </Col>
+
+                                    {/* <Col className='mt-2 d-flex flex-column align-items-end'> */}
+                                    {/* <Col className='mt-1 mb-0' md='6' sm='6'>
                                             <Input type='select' name='select' id='select-basic'>
                                                 <option>USD</option>
                                                 <option>INR</option>
                                                 <option>SAR</option>
                                             </Input>
-                                        </Col>
-                                        <Col className='d-flex flex-column align-items-end pb-0'>
+                                        </Col> */}
+                                    {/* <Col className='d-flex flex-column align-items-end pb-0'>
                                             <CardTitle className='mb-25' tag='h4'>
                                                 TOTAL BALANCE
                                             </CardTitle>
-                                            <CardTitle>${sum.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</CardTitle>
-                                            {/* <CardText className='mb-0'>Total balance</CardText> */}
-                                        </Col>
-                                    </Col>
+                                            <CardTitle>${sum.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</CardTitle> */}
+                                    {/* <CardText className='mb-0'>Total balance</CardText> */}
+                                    {/* </Col> */}
+                                    {/* </Col> */}
                                 </Row>
                             </CardBody>
                         </Card>
