@@ -440,8 +440,11 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
     console.log("To Address", toAddress)
   }
 
-  // console.log('TransferState', TransferState)
   useEffect(() => {
+    // console.log('TransferState', TransferState)
+    if (TransferState.status === "Exception" || TransferState.status === "Fail") {
+      notifyError(TransferState.errorMessage)
+    }
     if (TransferState.status === "Mining") {
       const tx_id = String(TransferState.transaction?.hash)
       setTxnID(tx_id.toString())
@@ -529,7 +532,7 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
   return (
     <>
       <Col style={cardStyle} md={{ offset: 3, size: 6 }} lg={{ offset: 3, size: 6 }} sm="12">
-        <Card style={{ minWidth: '50vw', minHeight: '55vh' }} className='my-1 card-payment'>
+        <Card style={{ minWidth: '40vw', minHeight: '55vh' }} className='my-1 card-payment'>
           <CardHeader style={{ paddingBottom: '.3em' }}>
             <CardTitle style={{ color: '#1919d2' }}>Send Funds</CardTitle>
           </CardHeader>
@@ -559,11 +562,12 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                       <h3 style={{ color: '#1919d2' }} className='mt-1 mb-0'>{globalNickName}</h3>
                       <Col className='px-0 d-flex flex-row '>
                         <h6 className='font-weight-bold '>{shortenIfAddress(globalAdrs)}</h6>
-                        <Col>
-                          <FaRegCopy style={{ cursor: 'pointer' }} className='mx-1' color='grey' size={20} onClick={copy} />
-                          <a href={getExplorerAddressLink(globalAdrs, chainId)} target='_blank'><GoLinkExternal color='grey' size={20} /></a>
-                        </Col>
+
                       </Col>
+                    </Col>
+                    <Col className='d-flex flex-row justify-content-end'>
+                      <FaRegCopy style={{ cursor: 'pointer' }} className='mx-1' color='grey' size={20} onClick={copy} />
+                      <a href={getExplorerAddressLink(globalAdrs, chainId)} target='_blank'><GoLinkExternal color='grey' size={20} /></a>
                     </Col>
                   </Col>
                   {/* <Col className='d-flex flex-column justify-content-start'>
@@ -658,7 +662,7 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                                 <span>Balance: {erc20_bal}</span>
                               ))}
                           </Col>
-                          <h6 className='d-flex align-items-center' style={{ color: 'red' }} onClick={handleMax}> Send Max</h6>
+                          <h6 className='d-flex align-items-center' style={{ color: 'red', cursor: 'pointer' }} onClick={handleMax}> Send Max</h6>
                           {/* <Badge style={{ fontSize: ".9rem" }} color="primary" href='/home' pill>Send Max</Badge> */}
                         </Col>
                         <Input placeholder='Amount' id='amount' value={balance_max} onChange={handleInputAmount} />
@@ -679,30 +683,18 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                   {adrs_flag && amt_flag ? (
                     <>
                       <Col>
-                        <Button.Ripple color='primary' onClick={() => {
-                          try {
-                            handleSegaTransfer()
-                          } catch (error) {
-                            notifyError(error.message)
-                          }
-                        }} block >
+                        <Button.Ripple color='primary' onClick={handleSegaTransfer} block >
                           Send
                         </Button.Ripple>
                       </Col>
                       <Col>
-                        <Button.Ripple color='primary' onClick={() => {
-                          try {
-                            handleSegaApprove()
-                          } catch (error) {
-                            notifyError(error.message)
-                          }
-                        }} block>
+                        <Button.Ripple color='primary' onClick={handleSegaApprove} block>
                           Approve ERC
                         </Button.Ripple>
                       </Col>
-                      <Col>
+                      {/* <Col>
                         <Button.Ripple onClick={handleLog}>TestLog</Button.Ripple>
-                      </Col>
+                      </Col> */}
                     </>
                   ) : (
                     <>
@@ -716,9 +708,9 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                           Approve ERC
                         </Button.Ripple>
                       </Col>
-                      <Col>
+                      {/* <Col>
                         <Button.Ripple disabled >TestLog</Button.Ripple>
-                      </Col>
+                      </Col> */}
                     </>
                   )}
 
@@ -729,14 +721,14 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                     <Button.Ripple color='primary' onClick={handleVaultSend}>
                       Send
                     </Button.Ripple>
-                    <Button.Ripple onClick={handleLog}>TestLog</Button.Ripple>
+                    {/* <Button.Ripple onClick={handleLog}>TestLog</Button.Ripple> */}
                   </Col>
                 ) : (
                   <Col className='text-center'>
                     <Button.Ripple color='primary' disabled >
                       Send
                     </Button.Ripple>
-                    <Button.Ripple disabled>TestLog</Button.Ripple>
+                    {/* <Button.Ripple disabled>TestLog</Button.Ripple> */}
                   </Col>
                 )}
               </>

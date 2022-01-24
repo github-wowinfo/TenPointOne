@@ -246,13 +246,16 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
             handleAddVaultToLocal()
         } else {
             for (const i in getVaultData) {
+                // console.log(i)
                 if (getVaultData[i].address === _parentVault) {
+                    // console.log('getVaultData[i].address', getVaultData[i].address)
+                    // console.log('_parentVault', _parentVault)
+                    // console.log('parsed')
                     addSega()
-                    break
-                } else {
-                    handleAddVaultToLocal()
+                    return
                 }
             }
+            handleAddVaultToLocal()
         }
     }
 
@@ -336,7 +339,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
                 setSega_present_flag(false)
                 handleExeSegaModal()
             }}>
-                Show or Hide Existing Sega
+                <span style={{ color: '#1919d2' }}>Track or Hide Existing Sega</span>
             </ModalHeader>
             <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -357,7 +360,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
                                         <NavLink color='primary' size='lg' active={active === '1'} onClick={() => {
                                             toggle('1')
                                         }}>
-                                            SHOW
+                                            TRACK
                                         </NavLink>
                                     </div>
                                 </Col>

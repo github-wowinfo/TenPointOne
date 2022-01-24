@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import Select from 'react-select'
 import { selectThemeColors } from '@utils'
 import { getAddress, isAddress } from "ethers/lib/utils"
@@ -8,6 +8,9 @@ import { useRCU } from '../../../../utility/hooks/useRCU'
 import { useVault } from '../../../../utility/hooks/useVaults'
 import { useManager } from '../../../../utility/hooks/useManager'
 import { useEthers, getExplorerAddressLink, getExplorerTransactionLink, shortenIfTransactionHash } from "@usedapp/core"
+import { toast } from 'react-toastify'
+import { Tool, XCircle } from 'react-feather'
+import Avatar from '@components/avatar'
 
 const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
 
@@ -150,7 +153,27 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
         // handleGetSegas()
     }, [Vault])
 
+    const notifyError = (emsg) => toast.error(<ErrorToast msg={emsg} />, { hideProgressBar: false })
+    const ErrorToast = ({ msg }) => (
+        <Fragment>
+            <div className='toastify-header'>
+                <div className='title-wrapper'>
+                    <Avatar size='sm' color='danger' icon={<XCircle size={12} />} />
+                    <h6 className='toast-title'>Error !</h6>
+                </div>
+            </div>
+            <div className='toastify-body'>
+                <span role='img' aria-label='toast-text'>
+                    {msg}
+                </span>
+            </div>
+        </Fragment>
+    )
+
     useEffect(() => {
+        if (txnState.status === "Exception" || txnState.status === "Fail") {
+            notifyError(txnState.errorMessage)
+        }
         if (txnState.status === "Mining") {
             const tx_id = String(txnState.transaction?.hash)
             setTxnID(tx_id.toString())
@@ -196,7 +219,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                     setVault('')
                     setSega('')
                 }}>
-                    Select Account to Manage
+                    <span style={{ color: '#1919d2' }}>Select Account to Manage</span>
                 </ModalHeader>
                 <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                     <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -237,7 +260,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                             <hr />
                         </Col>
                         <Col className='text-center'>
-                            <Button.Ripple onClick={handleGetSegaInfo}>Get Sega Info</Button.Ripple>
+                            <Button.Ripple color='primary' onClick={handleGetSegaInfo}><Tool className='mr-1' size={20} />Get Sega Info</Button.Ripple>
                         </Col>
                         {haveInfo ? (
                             <>

@@ -1,4 +1,4 @@
-import { X, Unlock, Check } from 'react-feather'
+import { X, Unlock, Check, XCircle } from 'react-feather'
 import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, Alert, UncontrolledAlert } from 'reactstrap'
 import { useState, useEffect, Fragment } from 'react'
 import { useVault } from '../../../utility/hooks/useVaults'
@@ -128,6 +128,23 @@ const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
         localStorage.setItem('adrsbook', JSON.stringify(adrsbook))
     }
 
+    const notifyError = (emsg) => toast.error(<ErrorToast msg={emsg} />, { hideProgressBar: false })
+    const ErrorToast = ({ msg }) => (
+        <Fragment>
+            <div className='toastify-header'>
+                <div className='title-wrapper'>
+                    <Avatar size='sm' color='danger' icon={<XCircle size={12} />} />
+                    <h6 className='toast-title'>Error !</h6>
+                </div>
+            </div>
+            <div className='toastify-body'>
+                <span role='img' aria-label='toast-text'>
+                    {msg}
+                </span>
+            </div>
+        </Fragment>
+    )
+
     //SNACKBAR FOR GENERAL TRANSACTIONS
     const [txnID, setTxnID] = useState("")
     const [showTxnMiningSnack, setShowTxnMiningSnack] = useState(false)
@@ -138,6 +155,9 @@ const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
         setTxnSuccessSnack(false)
     }
     useEffect(() => {
+        if (txnState.status === "Exception" || txnState.status === "Fail") {
+            notifyError(txnState.errorMessage)
+        }
         if (txnState.status === "Mining") {
             const tx_id = String(txnState.transaction?.hash)
             setTxnID(tx_id.toString())
@@ -175,12 +195,13 @@ const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
                 handleRecoverModal()
                 handleTxnSnackClose()
             }} >
-                Recover Vault
+                <span style={{ color: '#1919d2' }}>Recover Vault</span>
             </ModalHeader>
             <ModalBody>
                 <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                     <Col>
-                        <h3>Recovery is only possible by the designated Backup Account and only after the owner has been inactive for the time period as set by Owner.</h3>
+                        <p>Recovery is only possible by the designated Backup Account and only after the owner has been inactive
+                            for the time period as set by Owner.</p>
                     </Col>
                     <Col className="my-1">
                         <FormGroup>
@@ -190,7 +211,7 @@ const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
                         <FormGroup>
                             <Label for='vaultadrs' style={{ fontSize: "1.3em" }}>Vault Address</Label>
                             <Input type='text' id='vaultadrs' onChange={handleSetVault} placeholder="Paste the address of the vault you want to recover over here!" />
-                            <p style={{ fontSize: '.75em' }}>If you are uncertain of the vault address, you can still find it. If you know the account address of the Owner. Check documentation
+                            <p className='pt-1' style={{ fontSize: '.70em', lineHeight: 'normal' }}>If you are uncertain of the vault address, you can still find it. If you know the account address of the Owner. Check documentation
                                 <a href='#' style={{ color: 'red' }}> here</a> to see how.</p>
                         </FormGroup>
                         {exe_vault ? (

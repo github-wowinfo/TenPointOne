@@ -128,7 +128,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                                                         <Row className='d-flex flex-row justify-content-around'>
                                                             <Col className='d-flex flex-column'>
                                                                 <Input key={index} id={index} type='radio' name='vaults' value={j.adrs} onChange={e => handleChange(e, j.name)} />
-                                                                <h4 style={{ color: '#1919d2' }} className='mb-0 mx-2'>{j.name}</h4>
+                                                                <h4 style={{ color: '#1919d2' }} className='mb-0 ml-2'>{j.name}</h4>
                                                                 <h6 className='font-weight-light mx-2'>{shortenIfAddress(j.adrs)}</h6>
                                                             </Col>
                                                             <Col className='mt-1 d-flex flex-row justify-content-end'>

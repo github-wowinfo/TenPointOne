@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { BsSafe2, BsArrowDown } from 'react-icons/bs'
 import Select, { components } from 'react-select'
 import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, CustomInput, Alert } from 'reactstrap'
@@ -10,6 +10,9 @@ import { constants, utils, BigNumber } from "ethers"
 import { useTokens } from '../../../../utility/hooks/useTokens'
 import { useTransfers } from '../../../../utility/hooks/useTransfers'
 import { SiWebmoney } from 'react-icons/si'
+import { toast } from 'react-toastify'
+import { XCircle } from 'react-feather'
+import Avatar from '@components/avatar'
 
 const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, haveInfo }) => {
 
@@ -123,6 +126,7 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
         }
     }
 
+    const [amount, setAmount] = useState('0')
     const ercToken = getToken()
     // console.log('erctoken', ercToken.name)
     useEffect(() => {
@@ -147,24 +151,6 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
     //////////////////////////////////////////////////
     // Getting Amount To Transfer
     //////////////////////////////////////////////////
-
-
-    const [amount, setAmount] = useState('0')
-    const handleInputAmount = (event) => {
-        // const newAmount = (event.target.value) === "" ? "" : event.target.value
-        let newAmount
-        if (event.target.value === '') {
-            newAmount = '0'
-        } else {
-            newAmount = event.target.value
-        }
-        if (newAmount) {
-            setAmount(newAmount.toString())
-        } else {
-            setAmount(0)
-        }
-        console.log("newAmt", newAmount)
-    }
 
     const fromAccNativeBalance = useEtherBalance(selectSega)
     const fromAccTokenBalance = useTokenBalance(tokenAddress, selectSega)
@@ -213,7 +199,28 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
         }, 30000)
     }
 
+    const notifyError = (emsg) => toast.error(<ErrorToast msg={emsg} />, { hideProgressBar: false })
+    const ErrorToast = ({ msg }) => (
+        <Fragment>
+            <div className='toastify-header'>
+                <div className='title-wrapper'>
+                    <Avatar size='sm' color='danger' icon={<XCircle size={12} />} />
+                    <h6 className='toast-title'>Error !</h6>
+                </div>
+            </div>
+            <div className='toastify-body'>
+                <span role='img' aria-label='toast-text'>
+                    {msg}
+                </span>
+            </div>
+        </Fragment>
+    )
+
     useEffect(() => {
+        if (TransferState.status === "Exception" || TransferState.status === "Fail") {
+            notifyError(TransferState.errorMessage)
+        }
+
         if (TransferState.status === "Mining") {
             const tx_id = String(TransferState.transaction?.hash)
             setTxnID(tx_id.toString())
@@ -252,8 +259,41 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
     //     setBalance(data.balance)
     // }
     // const CloseBtn = <X className='cursor-pointer' size={25} onClick={handleModal} />
+
+    const native_bal = nativeBal.format()
+    const erc20_bal = ercTokenBal.format()
+    // let balance_max
+    const [balance_max, setBalance_max] = useState("")
+    const handleMax = () => {
+        if (usingNative) {
+            setBalance_max(native_bal.split(" ")[0])
+        } else {
+            setBalance_max(erc20_bal.split(" ")[0])
+        }
+        console.log('balance_max', balance_max)
+    }
+
+    const handleInputAmount = (event) => {
+        // const newAmount = (event.target.value) === "" ? "" : event.target.value
+        let newAmount
+        if (event.target.value === '') {
+            newAmount = '0'
+            setBalance_max('')
+        } else {
+            newAmount = event.target.value
+            setBalance_max(newAmount)
+        }
+        if (newAmount) {
+            setAmount(newAmount.toString())
+        } else {
+            setAmount(0)
+        }
+        console.log("newAmt", newAmount)
+    }
+
     return (
         <Modal className='modal-dialog-centered modal-lg' isOpen={openrecallmodal} toggle={() => {
+            setBalance_max('')
             handleForceReacallAlert()
             handlRecoverModal()
         }} >
@@ -261,6 +301,7 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
             {/* {console.log('assestlist', assetList)} */}
             {/* {console.log('networkname', helperConfig[chainId])} */}
             <ModalHeader tag='h1' toggle={() => {
+                setBalance_max('')
                 handleForceReacallAlert()
                 handlRecoverModal()
             }}>
@@ -332,13 +373,16 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
                                 <Label for='amount' style={{ fontSize: "1.3em" }}>Amount</Label>
                                 {/* <span>Balance: {(balance / (10 ** decimal)).toFixed(6)}</span> */}
                                 {usingNative ? (
-                                    <span>Balance: {nativeBal.format()}</span>
-                                ) : (
-                                    <span>Balance: {ercTokenBal.format()}</span>
-                                )}
-                                <a href='#' style={{ color: 'red' }}> Send Max</a>
+                                    native_bal === '0 ERROR' ? null : (
+                                        <span>Balance: {native_bal}</span>
+                                    )) : (
+                                    erc20_bal === '0 ERROR' ? null : (
+                                        <span>Balance: {erc20_bal}</span>
+                                    ))}
+                                {/* <a href='#' style={{ color: 'red' }}> Send Max</a> */}
+                                <h6 className='d-flex align-items-center' style={{ color: 'red', cursor: 'pointer' }} onClick={handleMax}> Send Max</h6>
                             </Col>
-                            <Input type='text' id='amount' onChange={handleInputAmount} />
+                            <Input type='text' id='amount' value={balance_max} onChange={handleInputAmount} />
                         </FormGroup>
                     </Col>
                 </Row>

@@ -68,28 +68,42 @@ export const useVault = (vault) => {
 
     //Clubbing All non-sega contract creation txns
     const [txnState, setTxnState] = useState(changeBackupState)
-    const testSameTxn = (a, b) => {
-        return (a.transaction?.hash === b.transaction?.hash)
-    }
-    useEffect(() => {
-        console.log("Txn State Before: ", txnState.transaction?.hash, txnState.status)
-        if (changeBackupState.status === "Mining") {
-            setTxnState(changeBackupState)
-        } else if (changeUnlockPeriodState.status === "Mining") {
-            setTxnState(changeUnlockPeriodState)
-        } else if (claimVaultState.status === "Mining") {
-            setTxnState(claimVaultState)
-        } else if (testSameTxn(txnState, changeBackupState) && changeBackupState.status === "Success") {
-            setTxnState(changeBackupState)
-        } else if (testSameTxn(txnState, changeUnlockPeriodState) && changeUnlockPeriodState.status === "Success") {
-            setTxnState(changeUnlockPeriodState)
-        } else if (testSameTxn(txnState, claimVaultState) && claimVaultState.status === "Success") {
-            setTxnState(claimVaultState)
-        } else { console.log("Not Mining") }
 
-        console.log("Txn State After: ", txnState.transaction?.hash, txnState.status)
-    }, [changeBackupState, changeUnlockPeriodState, claimVaultState, txnState]
-    )
+    //-----updated code for aggregating txnState
+    useEffect(() => {
+        setTxnState(changeBackupState)
+    }, [changeBackupState])
+
+    useEffect(() => {
+        setTxnState(changeUnlockPeriodState)
+    }, [changeUnlockPeriodState])
+
+    useEffect(() => {
+        setTxnState(claimVaultState)
+    }, [claimVaultState])
+
+    // const testSameTxn = (a, b) => {
+    //     return (a.transaction?.hash === b.transaction?.hash)
+    // }
+    // useEffect(() => {
+    //     console.log("Txn State Before: ", txnState.transaction?.hash, txnState.status)
+    //     if (changeBackupState.status === "Mining") {
+    //         setTxnState(changeBackupState)
+    //     } else if (changeUnlockPeriodState.status === "Mining") {
+    //         setTxnState(changeUnlockPeriodState)
+    //     } else if (claimVaultState.status === "Mining") {
+    //         setTxnState(claimVaultState)
+    //     } else if (testSameTxn(txnState, changeBackupState) && changeBackupState.status === "Success") {
+    //         setTxnState(changeBackupState)
+    //     } else if (testSameTxn(txnState, changeUnlockPeriodState) && changeUnlockPeriodState.status === "Success") {
+    //         setTxnState(changeUnlockPeriodState)
+    //     } else if (testSameTxn(txnState, claimVaultState) && claimVaultState.status === "Success") {
+    //         setTxnState(claimVaultState)
+    //     } else { console.log("Not Mining") }
+
+    //     console.log("Txn State After: ", txnState.transaction?.hash, txnState.status)
+    // }, [changeBackupState, changeUnlockPeriodState, claimVaultState, txnState]
+    // )
 
     return {
         getRecoveryInfo,

@@ -11,6 +11,7 @@ import { useEthers } from '@usedapp/core'
 import { BsArrowDownCircle, BsArrowUpCircle, BsInfoCircle } from 'react-icons/bs'
 import helperConfig from '../../helper-config.json'
 import axios from 'axios'
+import Avatar from '@components/avatar'
 import moment from 'moment'
 
 const RecentTrans = ({ globalAdrs, globalNickName }) => {
@@ -76,33 +77,32 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
     {
       name: '',
       maxWidth: '20px',
+      center: true,
       compact: true,
       wrap: true,
       selector: row => (
         <>
-          {row.type === 'receive' && <BsArrowDownCircle className='mr-1' size={30} />}
-          {row.type === 'send' && <BsArrowUpCircle className='mr-1' size={30} />}
-          {row.type === 'approve' && <BsInfoCircle className='mr-1' size={30} />}
+          {row.type === 'receive' && <Avatar color='light-success' icon={<BsArrowDownCircle size={30} />} />}
+          {row.type === 'send' && <Avatar color='light-danger' icon={<BsArrowUpCircle size={30} />} />}
+          {row.type === 'approve' && <Avatar color='light-primary' icon={<BsInfoCircle size={30} />} />}
         </>
       )
     },
     {
       name: 'Transaction',
-      maxWidth: '250px',
-      compact: true,
-      wrap: true,
+
       selector: row => row.description
     },
     {
       name: 'Status',
-      maxWidth: '120px',
+      minWidth: '120px',
       selector: row => (
         <Badge pill color='light-success' className='mr-1'> {row.status} </Badge>
       )
     },
     {
       name: 'Amount',
-      maxWidth: '120px',
+      minWidth: '120px',
       compact: true,
       selector: row => (
         <span>

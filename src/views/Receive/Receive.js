@@ -215,7 +215,7 @@ const Receive = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
   return (
     <>
       <Col style={cardStyle} md={{ offset: 3, size: 6 }} lg={{ offset: 3, size: 6 }} sm="12">
-        <Card style={{ minWidth: '50vw', minHeight: '55vh' }} className='my-1 card-payment' >
+        <Card style={{ minWidth: '40vw', minHeight: '55vh' }} className='my-1 card-payment' >
           <CardHeader style={{ paddingBottom: '.1em' }}>
             <CardTitle style={{ color: '#1919d2' }}>Receive Assests</CardTitle>
           </CardHeader>

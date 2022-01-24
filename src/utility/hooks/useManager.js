@@ -40,29 +40,42 @@ export const useManager = (vault, sega) => {
 
     //Clubbing All Txns States into 1 Variable
     const [txnState, setTxnState] = useState(pauseSegaState)
-    const testSameTxn = (a, b) => {
-        return (a.transaction?.hash === b.transaction?.hash)
-    }
+    //-----updated code for aggregating txnState
     useEffect(() => {
-        console.log("Txn State Before: ", txnState.transaction?.hash, txnState.status)
+        setTxnState(pauseSegaState)
+    }, [pauseSegaState])
 
-        if (pauseSegaState.status === "Mining") {
-            setTxnState(pauseSegaState)
-        } else if (unpauseSegaState.status === "Mining") {
-            setTxnState(unpauseSegaState)
-        } else if (changeSegaTraderState.status === "Mining") {
-            setTxnState(changeSegaTraderState)
-        } else if (testSameTxn(txnState, pauseSegaState) && pauseSegaState.status === "Success") {
-            setTxnState(pauseSegaState)
-        } else if (testSameTxn(txnState, unpauseSegaState) && unpauseSegaState.status === "Success") {
-            setTxnState(unpauseSegaState)
-        } else if (testSameTxn(txnState, changeSegaTraderState) && changeSegaTraderState.status === "Success") {
-            setTxnState(changeSegaTraderState)
-        } else { console.log("Not Mining") }
+    useEffect(() => {
+        setTxnState(unpauseSegaState)
+    }, [unpauseSegaState])
 
-        console.log("Txn State After: ", txnState.transaction?.hash, txnState.status)
+    useEffect(() => {
+        setTxnState(changeSegaTraderState)
+    }, [changeSegaTraderState])
 
-    }, [pauseSegaState, unpauseSegaState, changeSegaTraderState, txnState])
+    // const testSameTxn = (a, b) => {
+    //     return (a.transaction?.hash === b.transaction?.hash)
+    // }
+    // useEffect(() => {
+    //     console.log("Txn State Before: ", txnState.transaction?.hash, txnState.status)
+
+    //     if (pauseSegaState.status === "Mining") {
+    //         setTxnState(pauseSegaState)
+    //     } else if (unpauseSegaState.status === "Mining") {
+    //         setTxnState(unpauseSegaState)
+    //     } else if (changeSegaTraderState.status === "Mining") {
+    //         setTxnState(changeSegaTraderState)
+    //     } else if (testSameTxn(txnState, pauseSegaState) && pauseSegaState.status === "Success") {
+    //         setTxnState(pauseSegaState)
+    //     } else if (testSameTxn(txnState, unpauseSegaState) && unpauseSegaState.status === "Success") {
+    //         setTxnState(unpauseSegaState)
+    //     } else if (testSameTxn(txnState, changeSegaTraderState) && changeSegaTraderState.status === "Success") {
+    //         setTxnState(changeSegaTraderState)
+    //     } else { console.log("Not Mining") }
+
+    //     console.log("Txn State After: ", txnState.transaction?.hash, txnState.status)
+
+    // }, [pauseSegaState, unpauseSegaState, changeSegaTraderState, txnState])
 
     return {
         getSegaInfo,

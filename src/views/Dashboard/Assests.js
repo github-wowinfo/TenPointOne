@@ -83,7 +83,7 @@ const Assests = ({ cols = 0, globalAdrs }) => {
             {/* <img src={item.logo_url && item.logo_url} alt={item.contract_ticker_symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} /> */}
             <Media className='my-auto' body>
               <h5 className='font-weight-bolder mb-0'>{item.contract_ticker_symbol}</h5>
-              <CardText className='font-small-3 mb-0'>$ {(item.balance / (10 ** item.contract_decimals) * item.quote_rate).toFixed(6).toLocaleString()}</CardText>
+              <CardText className='font-small-3 mb-0'>$ {(item.balance / (10 ** item.contract_decimals) * item.quote_rate).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</CardText>
             </Media>
           </Media>
         </Col>

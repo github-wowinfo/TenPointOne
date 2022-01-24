@@ -224,7 +224,8 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
             )
         },
         {
-            name: 'Balance',
+            name: 'Amount',
+            center: true,
             selector: row => (
                 <span className='align-middle font-weight-bold'>
                     {
@@ -238,10 +239,11 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
         },
         {
             name: '$ value',
+            right: true,
             selector: row => (
                 <span className='align-middle font-weight-bold'>
                     {
-                        row.balance && `$${(row.balance / (10 ** row.contract_decimals) * row.quote_rate).toLocaleString()}`
+                        row.balance && `$${(row.balance / (10 ** row.contract_decimals) * row.quote_rate).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`
                     }
                 </span>
             )
@@ -292,30 +294,33 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                     <>
                         <Card className='my-1'>
                             <CardBody>
-                                <Row>
-                                    <Col >
-                                        <CardHeader>
+                                <Row className='d-flex flex-row justify-content-between'>
+                                    <Col>
+                                        <CardHeader className='px-0'>
                                             <CardTitle >Asset</CardTitle>
                                         </CardHeader>
-                                        <CardBody>
+                                        <CardBody className='px-0'>
                                             <CardText>View all your assets here</CardText>
                                         </CardBody>
                                     </Col>
 
-                                    <Col className='mb-1' md='2' sm='12'>
-                                        <Input type='select' name='select' id='select-basic'>
-                                            <option>USD</option>
-                                            <option>INR</option>
-                                            <option>SAR</option>
-                                        </Input>
+                                    <Col className='d-flex flex-column align-items-end'>
+                                        <Col className='mt-1 mb-0' md='6' sm='6'>
+                                            <Input type='select' name='select' id='select-basic'>
+                                                <option>USD</option>
+                                                <option>INR</option>
+                                                <option>SAR</option>
+                                            </Input>
+                                        </Col>
+                                        <Col className='d-flex flex-column align-items-end pb-0'>
+                                            <CardTitle className='mb-25' tag='h4'>
+                                                TOTAL BALANCE
+                                            </CardTitle>
+                                            <CardTitle>${sum}</CardTitle>
+                                            {/* <CardText className='mb-0'>Total balance</CardText> */}
+                                        </Col>
                                     </Col>
                                 </Row>
-                                <div className='d-flex flex-column align-items-end pb-0'>
-                                    <CardTitle className='mb-25' tag='h4'>
-                                        Total balance: ${sum}
-                                    </CardTitle>
-                                    {/* <CardText className='mb-0'>Total balance</CardText> */}
-                                </div>
                             </CardBody>
                         </Card>
 

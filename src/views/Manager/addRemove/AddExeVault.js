@@ -371,7 +371,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
                 setExeSega_flag(false)
                 setVadrs('')
             }} >
-                Show or Hide Existing Vault
+                <span style={{ color: '#1919d2' }}>Track or Hide Existing Vault</span>
             </ModalHeader>
             <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -389,7 +389,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
                                         <NavLink color='primary' size='lg' active={active === '1'} onClick={() => {
                                             toggle('1')
                                         }}>
-                                            Show
+                                            TRACK
                                         </NavLink>
                                     </div>
                                 </Col>

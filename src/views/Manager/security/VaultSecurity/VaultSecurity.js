@@ -12,6 +12,7 @@ import { useRCU } from '../../../../utility/hooks/useRCU'
 import { useVault } from '../../../../utility/hooks/useVaults'
 import { useEthers, getExplorerAddressLink, getExplorerTransactionLink } from "@usedapp/core"
 import CopyAdrsSegaList from './CopyAdrsSegaList'
+import { Tool } from 'react-feather'
 
 const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
 
@@ -61,9 +62,10 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
             setReleaseDt(_releaseDt)
             setUnlockDays(_unlockDays)
             setHaveInfo(1)
-        } else {
-            handleGetAllVaults()
         }
+        // else {
+        //     handleGetAllVaults()
+        // }
     }
 
     const handleSetVault = (value) => {
@@ -138,14 +140,16 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
     return (
         <div>
             <Modal className='modal-dialog-centered' isOpen={openvaultsec} toggle={() => {
+                setVault("")
                 handleVaultSecModal()
                 setHaveInfo(0)
             }} >
                 <ModalHeader tag='h2' toggle={() => {
+                    setVault("")
                     handleVaultSecModal()
                     setHaveInfo(0)
                 }}>
-                    Select Account to Manage
+                    <span style={{ color: '#1919d2' }}>Select Account to Manage</span>
                 </ModalHeader>
                 <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                     <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '-webkit-fill-available' }}>
@@ -168,7 +172,7 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
                             <hr />
                         </Col>
                         <Col className='text-center'>
-                            <Button.Ripple onClick={handleGetRecoveryInfo}>Get Recovery Info</Button.Ripple>
+                            <Button.Ripple color='primary' onClick={handleGetRecoveryInfo}><Tool className='mr-1' size={20} />Get Vault Info</Button.Ripple>
                         </Col>
                         {haveInfo ? (<>
                             <Col>

@@ -1,5 +1,5 @@
 import Select from 'react-select'
-import { X, PlusCircle, Check } from 'react-feather'
+import { X, PlusCircle, Check, XCircle } from 'react-feather'
 import Avatar from '@components/avatar'
 import { selectThemeColors } from '@utils'
 import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, Alert, Spinner } from 'reactstrap'
@@ -136,8 +136,28 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
         </Fragment>
     )
 
+    const notifyError = (emsg) => toast.error(<ErrorToast msg={emsg} />, { hideProgressBar: false })
+    const ErrorToast = ({ msg }) => (
+        <Fragment>
+            <div className='toastify-header'>
+                <div className='title-wrapper'>
+                    <Avatar size='sm' color='danger' icon={<XCircle size={12} />} />
+                    <h6 className='toast-title'>Error !</h6>
+                </div>
+            </div>
+            <div className='toastify-body'>
+                <span role='img' aria-label='toast-text'>
+                    {msg}
+                </span>
+            </div>
+        </Fragment>
+    )
+
     // To track state of Sega creation Trasnactions
     useEffect(() => {
+        if (createNewSegaState.status === "Exception" || createNewSegaState.status === "Fail") {
+            notifyError(createNewSegaState.errorMessage)
+        }
         if (createNewSegaState.status === "Mining") {
             const tx_id = createNewSegaState.transaction?.hash
             setLaunchSegaTxn(tx_id)
@@ -218,7 +238,7 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
                 handleModalSegaSnackClose()
                 handleSegaModal()
             }}>
-                New Sega
+                <span style={{ color: '#1919d2' }}>New Sega</span>
             </ModalHeader>
             <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -227,11 +247,8 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
                     </Col>
                     <Col>
                         <p>All names set by you are stored locally on your PC and are not collected by Risk Protocol. Current user will also be designated as the owner
-                            for the new Vault.
+                            for the new Vault. You will be required to pay the network fees for new Vault creation.
                         </p>
-                    </Col>
-                    <Col>
-                        <p>You will be required to pay the network fees for new Vault creation.</p>
                     </Col>
                     <Col className='mb-1'>
                         <div className='d-flex flex-row justify-content-between my-1'>
@@ -253,12 +270,12 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
                             <Input type='text' id='nickname' onChange={onChangeName} />
                         </FormGroup>
                     </Col>
-                    <Col>
+                    {/* <Col>
                         <Button.Ripple className='mx-1' onClick={handleGetSegas}>Show all SEGA's</Button.Ripple>
                         <span>
                             {SegaList.length > 0 ? (`${SegaList.length} SEGAs - see console`) : "Get List of All SEGAs"}
                         </span>
-                    </Col>
+                    </Col> */}
                 </Row>
             </ModalBody>
             <ModalFooter className='d-flex flex-column align-items-center justify-content-center'>

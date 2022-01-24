@@ -1,4 +1,4 @@
-import { X, PlusCircle, Info, Check } from 'react-feather'
+import { X, PlusCircle, Info, Check, XCircle } from 'react-feather'
 import { toast } from 'react-toastify'
 import Avatar from '@components/avatar'
 import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, Popover, Alert, Spinner } from 'reactstrap'
@@ -99,7 +99,27 @@ const CreateVaultModal = ({ openvault, handleVaultModal, globalVaultFlag, dispat
         </Fragment>
     )
 
+    const notifyError = (emsg) => toast.error(<ErrorToast msg={emsg} />, { hideProgressBar: false })
+    const ErrorToast = ({ msg }) => (
+        <Fragment>
+            <div className='toastify-header'>
+                <div className='title-wrapper'>
+                    <Avatar size='sm' color='danger' icon={<XCircle size={12} />} />
+                    <h6 className='toast-title'>Error !</h6>
+                </div>
+            </div>
+            <div className='toastify-body'>
+                <span role='img' aria-label='toast-text'>
+                    {msg}
+                </span>
+            </div>
+        </Fragment>
+    )
+
     useEffect(() => {
+        if (launchVaultState.status === "Exception" || launchVaultState.status === "Fail") {
+            notifyError(launchVaultState.errorMessage)
+        }
         if (launchVaultState.status === "Mining") {
             const tx_id = String(launchVaultState.transaction?.hash)
             setLaunchVaultTxn(tx_id)
@@ -174,7 +194,7 @@ const CreateVaultModal = ({ openvault, handleVaultModal, globalVaultFlag, dispat
                 handleModalVaultSnackClose()
                 handleVaultModal()
             }} >
-                New Vault
+                <span style={{ color: '#1919d2' }}>New Vault</span>
             </ModalHeader>
             <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -183,11 +203,8 @@ const CreateVaultModal = ({ openvault, handleVaultModal, globalVaultFlag, dispat
                     </Col>
                     <Col>
                         <p>All names set by you are stored locally on your PC and are not collected by Risk Protocol. Current user will also be designated as the owner
-                            for the new Vault.
+                            for the new Vault. You will be required to pay the network fees for new Vault creation.
                         </p>
-                    </Col>
-                    <Col>
-                        <p>You will be required to pay the network fees for new Vault creation.</p>
                     </Col>
                     <Col>
                         <FormGroup>
@@ -195,12 +212,12 @@ const CreateVaultModal = ({ openvault, handleVaultModal, globalVaultFlag, dispat
                             <Input type='text' id='nickname' onChange={onChangeName} />
                         </FormGroup>
                     </Col>
-                    <Col>
+                    {/* <Col>
                         <Button.Ripple className='mx-1' onClick={handleGetAllVaults}>Show All Vaults</Button.Ripple>
                         <span>
                             {VaultList?.length > 0 ? `${VaultList.length} Vaults - see console` : "Get List of All Vaults"}
                         </span>
-                    </Col>
+                    </Col> */}
                 </Row>
             </ModalBody>
             <ModalFooter className='d-flex flex-column align-items-center justify-content-center'>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Button, Card, CardBody, CardText, Col, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row, Table, Badge, TabContent, TabPane, CardTitle, CardHeader, Nav, NavItem, NavLink, CardFooter, Tooltip, UncontrolledTooltip } from 'reactstrap'
 import { HiDownload } from 'react-icons/hi'
 import { BsArrowUpCircle, BsArrowDownCircle, BsInfoCircle, BsArrowRightCircle } from 'react-icons/bs'
-import { GrClose } from 'react-icons/gr'
+import { GrClose, GrCloudComputer } from 'react-icons/gr'
 import { IoMdCopy } from 'react-icons/io'
 import "./ActivityScreenStyles.css"
 import CustomModal from './AddNewModal'
@@ -25,7 +25,7 @@ import LoginModal from '../LoginModal'
 import ExistingAdrs from './ExistingAdrs'
 import ExistingDesc from './ExistingDesc'
 import { AlertCircle, Check, Eye, Info, XCircle } from 'react-feather'
-import { BiDetail } from 'react-icons/bi'
+import { VscServerProcess } from 'react-icons/vsc'
 
 const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalVaultFlag }) => {
 
@@ -251,22 +251,33 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
         getNameFromAddressBook()
     }, [currentPage, chainId, account, have_custom_adrs, globalAdrs])
 
+    const addDefaultSrc = (ev) => {
+        ev.target.src = require(`@src/assets/images/logo/question.jpg`).default
+
+    }
+
     const columns = [
         {
             name: '',
-            minWidth: '75px',
+            maxWidth: '75px',
+            center: true,
+            compact: true,
+            wrap: true,
             selector: row => (
                 <div>
-                    {row.type === 'receive' && <BsArrowDownCircle size={30} />}
-                    {row.type === 'send' && <BsArrowUpCircle size={30} />}
-                    {row.type === 'approve' && <BsInfoCircle size={30} />}
+                    {row.type === 'receive' && <Avatar color='light-success' icon={<BsArrowDownCircle size={30} />} />}
+                    {row.type === 'send' && <Avatar color='light-danger' icon={<BsArrowUpCircle size={30} />} />}
+                    {row.type === 'approve' && <Avatar color='light-primary' icon={<BsInfoCircle size={30} />} />}
+                    {row.type === 'contract_execution' && <Avatar color='light-info' icon={<VscServerProcess size={30} />} />}
 
                 </div>
             )
         },
         {
             name: 'Transaction',
-            minWidth: '275px',
+            minWidth: '250px',
+            compact: true,
+            wrap: true,
             selector: row => (
                 <div>
                     <span>
@@ -338,6 +349,28 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
             )
         },
         {
+            name: 'Asset',
+            center: true,
+            compact: true,
+            wrap: true,
+            selector: row => (
+                <span>
+                    {
+                        row.type === 'receive' ? (
+                            <div className='align-middle font-weight-bold'>
+                                <img src={row.received && row.received[0].logo_url} alt={row.received[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
+                            </div>
+                        ) : row.type === 'send' ? (
+                            <div className='align-middle font-weight-bold'>
+                                <img src={row.sent && row.sent[0].logo_url} alt={row.sent[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
+                            </div>
+                        ) : null
+                    }
+                </span>
+
+            )
+        },
+        {
             name: 'Token',
             minWidth: '170px',
             center: 'true',
@@ -357,27 +390,27 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                 </span>
             )
         },
-        {
-            name: '$ Value',
-            minWidth: '150px',
-            center: 'true',
-            selector: row => (
-                <span>
-                    <span className='align-middle font-weight-bold'>
+        // {
+        //     name: '$ Value',
+        //     minWidth: '150px',
+        //     center: 'true',
+        //     selector: row => (
+        //         <span>
+        //             <span className='align-middle font-weight-bold'>
 
-                        {
-                            row.sent && `$${(row.sent[0].value / (10 ** row.sent[0].decimals)).toLocaleString()}`
-                        }
-                    </span>
-                    {/* <br /> */}
-                    <span className='align-middle font-weight-bold'>
-                        {
-                            row.received && `$${(row.received[0].value / (10 ** row.received[0].decimals)).toLocaleString()}`
-                        }
-                    </span>
-                </span>
-            )
-        },
+        //                 {
+        //                     row.sent && `$${(row.sent[0].value / (10 ** row.sent[0].decimals)).toLocaleString()}`
+        //                 }
+        //             </span>
+        //             {/* <br /> */}
+        //             <span className='align-middle font-weight-bold'>
+        //                 {
+        //                     row.received && `$${(row.received[0].value / (10 ** row.received[0].decimals)).toLocaleString()}`
+        //                 }
+        //             </span>
+        //         </span>
+        //     )
+        // },
         {
             name: 'Status',
             minWidth: '250px',

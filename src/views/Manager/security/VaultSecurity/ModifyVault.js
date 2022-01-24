@@ -1,9 +1,12 @@
 import { BsSafe2 } from 'react-icons/bs'
 import { Modal, ModalBody, ModalHeader, InputGroup, InputGroupAddon, Row, Col, Input, Label, FormGroup, Button, Alert } from 'reactstrap'
-import { useEthers, getExplorerAddressLink, getExplorerTransactionLink, shortenIfTransactionHash } from "@usedapp/core"
+import { useEthers, getExplorerAddressLink, getExplorerTransactionLink, shortenIfTransactionHash, shortenIfAddress } from "@usedapp/core"
 import { getAddress, hexStripZeros } from "ethers/lib/utils"
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Fragment } from 'react'
 import { useVault } from '../../../../utility/hooks/useVaults'
+import { toast } from 'react-toastify'
+import Avatar from '@components/avatar'
+import { XCircle } from 'react-feather'
 
 const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault, vaultName }) => {
 
@@ -53,6 +56,23 @@ const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault, vaul
         }
     }
 
+    const notifyError = (emsg) => toast.error(<ErrorToast msg={emsg} />, { hideProgressBar: false })
+    const ErrorToast = ({ msg }) => (
+        <Fragment>
+            <div className='toastify-header'>
+                <div className='title-wrapper'>
+                    <Avatar size='sm' color='danger' icon={<XCircle size={12} />} />
+                    <h6 className='toast-title'>Error !</h6>
+                </div>
+            </div>
+            <div className='toastify-body'>
+                <span role='img' aria-label='toast-text'>
+                    {msg}
+                </span>
+            </div>
+        </Fragment>
+    )
+
     //SNACKBAR FOR GENERAL TRANSACTIONS
     const [txnID, setTxnID] = useState("")
     const [showTxnMiningSnack, setShowTxnMiningSnack] = useState(false)
@@ -79,6 +99,9 @@ const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault, vaul
     }
 
     useEffect(() => {
+        if (txnState.status === "Exception" || txnState.status === "Fail") {
+            notifyError(txnState.errorMessage)
+        }
         if (txnState.status === "Mining") {
             const tx_id = String(txnState.transaction?.hash)
             setTxnID(tx_id.toString())
@@ -101,7 +124,7 @@ const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault, vaul
                 handleTxnSnackClose()
             }
             }>
-                Modify Vault Settings
+                <span style={{ color: '#1919d2' }}>Modify Vault Settings</span>
             </ModalHeader>
             <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -109,11 +132,11 @@ const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault, vaul
                         <h3>Update your Vault with new security parameters and modify.</h3>
                     </Col>
                     <Col className='my-1'>
-                        <Row className='d-flex flex-row'>
-                            <Col md='1'><BsSafe2 size={40} /></Col>
+                        <Row className='d-flex flex-row justify-content-evenly'>
+                            <Col md='1' sm='1' className='mx-1'><Avatar size='lg' color='light-primary' icon={<BsSafe2 size={35} />} /></Col>
                             <Col className='d-flex flex-column justify-content-start'>
-                                <h3>{vaultName}</h3>
-                                <h5>{vault}</h5>
+                                <h3 style={{ color: '#1919d2' }}>{vaultName}</h3>
+                                <h5 className='font-weight-bold'>{shortenIfAddress(vault)}</h5>
                             </Col>
                         </Row>
                     </Col>
@@ -146,7 +169,7 @@ const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault, vaul
                             </InputGroup>
                         </FormGroup>
                     </Col>
-                    <Col>
+                    {/* <Col>
                         <FormGroup>
                             <Label for='hide' style={{ fontSize: "1.3em" }}>Hide</Label>
                             <InputGroup>
@@ -158,7 +181,7 @@ const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault, vaul
                                 </InputGroupAddon>
                             </InputGroup>
                         </FormGroup>
-                    </Col>
+                    </Col> */}
                 </Row>
             </ModalBody>
             <Col className='d-flex flex-column justify-content-center'>

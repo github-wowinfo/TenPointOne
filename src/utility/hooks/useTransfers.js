@@ -38,12 +38,12 @@ export const useTransfers = (vault, sega) => {
         if (isAddress(_to)) { return vaultTransferERCSend(getAddress(_to), _token, _amount) }
     }
 
-    useEffect(() => {
-        console.log('vaultTransferERCState', vaultTransferERCState.status)
-        if (vaultTransferERCState.status === "Exception") {
-            console.log('Error msg', vaultTransferERCState.errorMessage)
-        }
-    }, [vaultTransferERCState])
+    // useEffect(() => {
+    //     console.log('vaultTransferERCState', vaultTransferERCState.status)
+    //     if (vaultTransferERCState.status === "Exception") {
+    //         console.log('Error msg', vaultTransferERCState.errorMessage)
+    //     }
+    // }, [vaultTransferERCState])
 
     // Force Recall Assets From Sega - VAULT - Native & Tokens
 
@@ -94,72 +94,101 @@ export const useTransfers = (vault, sega) => {
     -------------------------------------------------------*/
 
     const [TransferState, setTransferState] = useState(vaultTransferNativeState)
-    const testSameTxn = (a, b) => {
-        return (a.transaction?.hash === b.transaction?.hash)
-    }
+
     useEffect(() => {
-        console.log("Txn State Before: ", TransferState.transaction?.hash, TransferState.status)
+        setTransferState(vaultTransferNativeState)
+    }, [vaultTransferNativeState])
 
-        if (vaultTransferNativeState.status === "Mining") {
-            setTransferState(vaultTransferNativeState)
-        } else if (vaultTransferERCState.status === "Mining") {
-            setTransferState(vaultTransferERCState)
-        } else if (recallNativeState.status === "Mining") {
-            setTransferState(recallNativeState)
-        } else if (recallErcState.status === "Mining") {
-            setTransferState(recallErcState)
-        } else if (segaTransferNativeState.status === "Mining") {
-            setTransferState(segaTransferNativeState)
-        } else if (segaTransferERCState.status === "Mining") {
-            setTransferState(segaTransferERCState)
-        } else if (segaApproveState.status === "Mining") {
-            setTransferState(segaApproveState)
-        } else if (testSameTxn(TransferState, vaultTransferNativeState) && vaultTransferNativeState.status === "Success") {
-            setTransferState(vaultTransferNativeState)
-        } else if (testSameTxn(TransferState, vaultTransferERCState) && vaultTransferERCState.status === "Success") {
-            setTransferState(vaultTransferERCState)
-        } else if (testSameTxn(TransferState, recallNativeState) && recallNativeState.status === "Success") {
-            setTransferState(recallNativeState)
-        } else if (testSameTxn(TransferState, recallErcState) && recallErcState.status === "Success") {
-            setTransferState(recallErcState)
-        } else if (testSameTxn(TransferState, segaTransferNativeState) && segaTransferNativeState.status === "Success") {
-            setTransferState(segaTransferNativeState)
-        } else if (testSameTxn(TransferState, segaTransferERCState) && segaTransferERCState.status === "Success") {
-            setTransferState(segaTransferERCState)
-        } else if (testSameTxn(TransferState, segaApproveState) && segaApproveState.status === "Success") {
-            setTransferState(segaApproveState)
+    useEffect(() => {
+        setTransferState(vaultTransferERCState)
+    }, [vaultTransferERCState])
 
-            // else if (testSameTxn(TransferState, vaultTransferNativeState) && vaultTransferNativeState.status === "Success") {
-            //     setTransferState(vaultTransferNativeState)
-            // } else if (testSameTxn(TransferState, vaultTransferERCState) && vaultTransferERCState.status === "Success") {
-            //     setTransferState(vaultTransferERCState)
-            // } else if (testSameTxn(TransferState, recallNativeState) && recallNativeState.status === "Success") {
-            //     setTransferState(recallNativeState)
-            // } else if (testSameTxn(TransferState, recallErcState) && recallErcState.status === "Success") {
-            //     setTransferState(recallErcState)
-            // } else if (testSameTxn(TransferState, segaTransferNativeState) && segaTransferNativeState.status === "Success") {
-            //     setTransferState(segaTransferNativeState)
-            // } else if (testSameTxn(TransferState, segaTransferERCState) && segaTransferERCState.status === "Success") {
-            //     setTransferState(segaTransferERCState)
-            // } else if (testSameTxn(TransferState, segaApproveState) && segaApproveState.status === "Success") {
-            //     setTransferState(segaApproveState)
-            // }       
-        } else { console.log("Not Mining") }
+    useEffect(() => {
+        setTransferState(recallNativeState)
+    }, [recallNativeState])
 
-        console.log("Txn State After: ", TransferState.transaction?.hash, TransferState.status)
-        console.log('TransferState', TransferState)
+    useEffect(() => {
+        setTransferState(recallErcState)
+    }, [recallErcState])
 
-    }, [
-        vaultTransferNativeState,
-        vaultTransferERCState,
-        recallNativeState,
-        recallErcState,
-        segaTransferNativeState,
-        segaTransferERCState,
-        segaApproveState,
-        TransferState
-    ]
-    )
+    useEffect(() => {
+        setTransferState(segaTransferNativeState)
+    }, [segaTransferNativeState])
+
+    useEffect(() => {
+        setTransferState(segaTransferERCState)
+    }, [segaTransferERCState])
+
+    useEffect(() => {
+        setTransferState(segaApproveState)
+    }, [segaApproveState])
+
+    // const testSameTxn = (a, b) => {
+    //     return (a.transaction?.hash === b.transaction?.hash)
+    // }
+    // useEffect(() => {
+    //     console.log("Txn State Before: ", TransferState.transaction?.hash, TransferState.status)
+
+    //     if (vaultTransferNativeState.status === "Mining") {
+    //         setTransferState(vaultTransferNativeState)
+    //     } else if (vaultTransferERCState.status === "Mining") {
+    //         setTransferState(vaultTransferERCState)
+    //     } else if (recallNativeState.status === "Mining") {
+    //         setTransferState(recallNativeState)
+    //     } else if (recallErcState.status === "Mining") {
+    //         setTransferState(recallErcState)
+    //     } else if (segaTransferNativeState.status === "Mining") {
+    //         setTransferState(segaTransferNativeState)
+    //     } else if (segaTransferERCState.status === "Mining") {
+    //         setTransferState(segaTransferERCState)
+    //     } else if (segaApproveState.status === "Mining") {
+    //         setTransferState(segaApproveState)
+    //     } else if (testSameTxn(TransferState, vaultTransferNativeState) && vaultTransferNativeState.status === "Success") {
+    //         setTransferState(vaultTransferNativeState)
+    //     } else if (testSameTxn(TransferState, vaultTransferERCState) && vaultTransferERCState.status === "Success") {
+    //         setTransferState(vaultTransferERCState)
+    //     } else if (testSameTxn(TransferState, recallNativeState) && recallNativeState.status === "Success") {
+    //         setTransferState(recallNativeState)
+    //     } else if (testSameTxn(TransferState, recallErcState) && recallErcState.status === "Success") {
+    //         setTransferState(recallErcState)
+    //     } else if (testSameTxn(TransferState, segaTransferNativeState) && segaTransferNativeState.status === "Success") {
+    //         setTransferState(segaTransferNativeState)
+    //     } else if (testSameTxn(TransferState, segaTransferERCState) && segaTransferERCState.status === "Success") {
+    //         setTransferState(segaTransferERCState)
+    //     } else if (testSameTxn(TransferState, segaApproveState) && segaApproveState.status === "Success") {
+    //         setTransferState(segaApproveState)
+
+    //         // else if (testSameTxn(TransferState, vaultTransferNativeState) && vaultTransferNativeState.status === "Success") {
+    //         //     setTransferState(vaultTransferNativeState)
+    //         // } else if (testSameTxn(TransferState, vaultTransferERCState) && vaultTransferERCState.status === "Success") {
+    //         //     setTransferState(vaultTransferERCState)
+    //         // } else if (testSameTxn(TransferState, recallNativeState) && recallNativeState.status === "Success") {
+    //         //     setTransferState(recallNativeState)
+    //         // } else if (testSameTxn(TransferState, recallErcState) && recallErcState.status === "Success") {
+    //         //     setTransferState(recallErcState)
+    //         // } else if (testSameTxn(TransferState, segaTransferNativeState) && segaTransferNativeState.status === "Success") {
+    //         //     setTransferState(segaTransferNativeState)
+    //         // } else if (testSameTxn(TransferState, segaTransferERCState) && segaTransferERCState.status === "Success") {
+    //         //     setTransferState(segaTransferERCState)
+    //         // } else if (testSameTxn(TransferState, segaApproveState) && segaApproveState.status === "Success") {
+    //         //     setTransferState(segaApproveState)
+    //         // }       
+    //     } else { console.log("Not Mining") }
+
+    //     console.log("Txn State After: ", TransferState.transaction?.hash, TransferState.status)
+    //     console.log('TransferState', TransferState)
+
+    // }, [
+    //     vaultTransferNativeState,
+    //     vaultTransferERCState,
+    //     recallNativeState,
+    //     recallErcState,
+    //     segaTransferNativeState,
+    //     segaTransferERCState,
+    //     segaApproveState,
+    //     TransferState
+    // ]
+    // )
 
     return {
         vaultTransferNative,
