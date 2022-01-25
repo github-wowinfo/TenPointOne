@@ -13,6 +13,7 @@ import { SiWebmoney } from 'react-icons/si'
 import { toast } from 'react-toastify'
 import { XCircle } from 'react-feather'
 import Avatar from '@components/avatar'
+import { FiXCircle } from 'react-icons/fi'
 
 const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, haveInfo }) => {
 
@@ -204,7 +205,7 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
         <Fragment>
             <div className='toastify-header'>
                 <div className='title-wrapper'>
-                    <Avatar size='md' color='danger' icon={<XCircle size={12} />} />
+                    <Avatar size='md' color='danger' icon={<FiXCircle size={12} />} />
                     <h3 className='toast-title'>Error !</h3>
                 </div>
             </div>

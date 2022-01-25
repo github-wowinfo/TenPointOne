@@ -225,12 +225,14 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
         },
         {
             name: 'Amount',
-            center: true,
+            maxWidth: '150px',
+            right: true,
+            // right: true,
             selector: row => (
                 <span className='align-middle font-weight-bold'>
                     {
 
-                        row.balance && (row.balance / (10 ** row.contract_decimals))
+                        (row.balance && (row.balance / (10 ** row.contract_decimals))).toLocaleString()
 
                     }
                 </span>
@@ -297,7 +299,7 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                                 <Row className='d-flex flex-row justify-content-between'>
                                     <Col>
                                         <CardHeader className='px-0'>
-                                            <CardTitle >Asset</CardTitle>
+                                            <CardTitle >Assets</CardTitle>
                                         </CardHeader>
                                         <CardBody className='px-0'>
                                             <CardText>View all your assets here</CardText>
@@ -305,12 +307,12 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                                     </Col>
 
                                     <Col className='d-flex flex-column align-items-end pb-0'>
-                                        <CardHeader className='pr-0'>
+                                        <CardBody className='px-0 pb-0 pt-2'>
+                                            <h3 className='mb-0 pt-1'>${sum.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</h3>
+                                        </CardBody>
+                                        <CardHeader className='pr-0 pt-0'>
                                             <CardTitle>TOTAL BALANCE</CardTitle>
                                         </CardHeader>
-                                        <CardBody className='px-0'>
-                                            <CardText>${sum.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</CardText>
-                                        </CardBody>
                                     </Col>
 
                                     {/* <Col className='mt-2 d-flex flex-column align-items-end'> */}
@@ -346,7 +348,7 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
 
                         <Card>
                             <CardHeader>
-                                <CardTitle>Check assest for an Address</CardTitle>
+                                <CardTitle>Check Assets of any other Address</CardTitle>
                             </CardHeader>
                             <CardBody className='d-flex flex-row justify-content-between'>
                                 <Input className='mx-1' type='text' placeholder="Add address of the account to see it's assests" onChange={handleChange} />

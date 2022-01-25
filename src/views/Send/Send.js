@@ -26,6 +26,7 @@ import { isAddress } from 'ethers/lib/utils'
 import LoginModal from '../LoginModal'
 import * as AppData from '../../redux/actions/cookies/appDataType'
 import QrReader from 'react-qr-reader'
+import { FiXCircle } from 'react-icons/fi'
 
 const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
 
@@ -213,7 +214,7 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
     <Fragment>
       <div className='toastify-header'>
         <div className='title-wrapper'>
-          <Avatar size='md' color='danger' icon={<XCircle size={12} />} />
+          <Avatar size='md' color='danger' icon={<FiXCircle size={12} />} />
           <h3 className='toast-title'>Error !</h3>
         </div>
       </div>
@@ -532,7 +533,7 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
   return (
     <>
       <Col style={cardStyle} md={{ offset: 3, size: 6 }} lg={{ offset: 3, size: 6 }} sm="12">
-        <Card style={{ minWidth: '40vw', minHeight: '55vh' }} className='my-1 card-payment'>
+        <Card style={{ minWidth: '30vw', minHeight: '55vh' }} className='my-1 card-payment'>
           <CardHeader style={{ paddingBottom: '.3em' }}>
             <CardTitle style={{ color: '#1919d2' }}>Send Funds</CardTitle>
           </CardHeader>
@@ -619,7 +620,7 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                             <Input
                               className='form-control'
                               id='recepient'
-                              placeholder="Address of the receiver goes here.."
+                              placeholder="Enter receiver's address"
                               // value={qr_result !== "" ? qr_result : null}
                               onChange={handleToAddressInput}
                             />
@@ -631,14 +632,14 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                       </FormGroup>
                     </Col>
                     <Col className='mb-1' md='12' >
-                      <Label style={{ fontSize: '1.2em' }} for='selectasset'>Select an Asset</Label>
+                      <Label style={{ fontSize: '1.2em' }} for='selectasset'>Asset</Label>
                       <Select
                         // theme={selectThemeColors}
                         maxMenuHeight={250}
                         className='react-select'
                         classNamePrefix='select'
                         defaultValue=''
-                        placeholder='Click here to check assets list'
+                        placeholder={<div style={{ color: '#c7c7cf' }}>Select asset to transfer</div>}
                         name='clear'
                         options={tokenList}
                         components={{
@@ -665,7 +666,7 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                           <h6 className='d-flex align-items-center' style={{ color: 'red', cursor: 'pointer' }} onClick={handleMax}> Send Max</h6>
                           {/* <Badge style={{ fontSize: ".9rem" }} color="primary" href='/home' pill>Send Max</Badge> */}
                         </Col>
-                        <Input placeholder='Amount' id='amount' value={balance_max} onChange={handleInputAmount} />
+                        <Input placeholder='Enter transfer amount' id='amount' value={balance_max} onChange={handleInputAmount} />
                       </FormGroup>
                     </Col>
                     <Col>

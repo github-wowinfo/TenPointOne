@@ -26,6 +26,9 @@ import ExistingAdrs from './ExistingAdrs'
 import ExistingDesc from './ExistingDesc'
 import { AlertCircle, Check, Eye, Info, XCircle } from 'react-feather'
 import { VscServerProcess } from 'react-icons/vsc'
+import { FaRegCheckCircle } from 'react-icons/fa'
+import { FiXCircle } from 'react-icons/fi'
+import { BiErrorCircle } from 'react-icons/bi'
 
 const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalVaultFlag }) => {
 
@@ -253,7 +256,6 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
 
     const addDefaultSrc = (ev) => {
         ev.target.src = require(`@src/assets/images/logo/question.jpg`).default
-
     }
 
     const columns = [
@@ -275,7 +277,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
         },
         {
             name: 'Transaction',
-            minWidth: '250px',
+            minWidth: '400px',
             compact: true,
             wrap: true,
             selector: row => (
@@ -294,7 +296,8 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
         },
         {
             name: 'To / From',
-            minWidth: '250px',
+            minWidth: '210px',
+            wrap: true,
             selector: row => (
                 <span>
                     <span>
@@ -325,71 +328,81 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
             )
         },
         {
-            name: 'Amount',
-            minWidth: '150px',
-            center: true,
-            selector: row => (
-                <span>
-                    {
-                        row.type === 'receive' ? (
-                            <span className='align-middle font-weight-bold'>
-                                {
-                                    row.received ? row.received[0].value / (10 ** row.received[0].decimals) : row.sent ? '' : '-'
-                                }
-                            </span>
-                        ) : (
-                            <span className='align-middle font-weight-bold'>
-                                {
-                                    row.sent ? row.sent[0].value / (10 ** row.sent[0].decimals) : row.received ? '' : '-'
-                                }
-                            </span>
-                        )
-                    }
-                </span>
-            )
-        },
-        {
             name: 'Asset',
-            center: true,
-            compact: true,
-            wrap: true,
-            selector: row => (
-                <span>
-                    {
-                        row.type === 'receive' ? (
-                            <div className='align-middle font-weight-bold'>
-                                <img src={row.received && row.received[0].logo_url} alt={row.received[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
-                            </div>
-                        ) : row.type === 'send' ? (
-                            <div className='align-middle font-weight-bold'>
-                                <img src={row.sent && row.sent[0].logo_url} alt={row.sent[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
-                            </div>
-                        ) : null
-                    }
-                </span>
-
-            )
-        },
-        {
-            name: 'Token',
             minWidth: '170px',
             center: 'true',
             selector: row => (
                 <span>
                     {
                         row.type === 'receive' ? (
-                            <span className='font-weight-bold'>
-                                {row.received && row.received[0].symbol}
+                            <div className='d-flex flex-row justify-content-between'>
+                                <div className='mr-1 align-middle font-weight-bold'>
+                                    <img src={row.received && row.received[0].logo_url} alt={row.received[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
+                                </div>
+                                <span style={{ paddingTop: '10px' }} className='font-weight-bold'>
+                                    {row.received && row.received[0].symbol}
+                                </span>
+                            </div>
+                        ) : row.type === 'send' ? (
+                            <div className='d-flex flex-row justify-content-between'>
+                                <div className='mr-1 align-middle font-weight-bold'>
+                                    <img src={row.sent && row.sent[0].logo_url} alt={row.sent[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
+                                </div>
+                                <span style={{ paddingTop: '10px' }} className='font-weight-bold'>
+                                    {row.sent && row.sent[0].symbol}
+                                </span>
+                            </div>
+                        ) : null
+                    }
+                </span>
+            )
+        },
+        {
+            name: 'Amount',
+            maxWidth: '150px',
+            right: true,
+            selector: row => (
+                <span>
+                    {
+                        row.type === 'receive' ? (
+                            <span className='align-middle font-weight-bold'>
+                                {
+                                    row.received ? (row.received[0].value / (10 ** row.received[0].decimals)).toLocaleString() : row.sent ? '' : '-'
+                                }
                             </span>
                         ) : (
-                            <span className='font-weight-bold'>
-                                {row.sent && row.sent[0].symbol}
+                            <span className='align-middle font-weight-bold'>
+                                {
+                                    row.sent ? (row.sent[0].value / (10 ** row.sent[0].decimals)).toLocaleString() : row.received ? '' : '-'
+                                }
                             </span>
                         )
                     }
                 </span>
             )
         },
+        // {
+        //     name: 'Asset',
+        //     center: true,
+        //     compact: true,
+        //     wrap: true,
+        //     selector: row => (
+        //         <span>
+        //             {
+        //                 row.type === 'receive' ? (
+        //                     <div className='align-middle font-weight-bold'>
+        //                         <img src={row.received && row.received[0].logo_url} alt={row.received[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
+        //                     </div>
+        //                 ) : row.type === 'send' ? (
+        //                     <div className='align-middle font-weight-bold'>
+        //                         <img src={row.sent && row.sent[0].logo_url} alt={row.sent[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
+        //                     </div>
+        //                 ) : null
+        //             }
+        //         </span>
+
+        //     )
+        // },
         // {
         //     name: '$ Value',
         //     minWidth: '150px',
@@ -421,15 +434,15 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                         {
                             row.status === 'completed' ? (
                                 <div className='mr-1'>
-                                    <Avatar style={{ cursor: 'default' }} size='md' color='success' icon={<Check size={22} />} />
+                                    <Avatar style={{ cursor: 'default' }} size='md' color='light-success' icon={<FaRegCheckCircle size={22} />} />
                                 </div>
                             ) : row.status === 'error' ? (
                                 <div className='mr-1'>
-                                    <Avatar style={{ cursor: 'default' }} size='md' color='danger' icon={<XCircle size={22} />} />
+                                    <Avatar style={{ cursor: 'default' }} size='md' color='light-danger' icon={<FiXCircle size={22} />} />
                                 </div>
                             ) : (
                                 <div className='mr-1'>
-                                    <Avatar style={{ cursor: 'default' }} size='md' color='warning' icon={<AlertCircle size={22} />} />
+                                    <Avatar style={{ cursor: 'default' }} size='md' color='light-warning' icon={<BiErrorCircle size={22} />} />
                                 </div>
 
                             )
@@ -555,7 +568,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                 ) : (<>
                     <Card className='my-1'>
                         <CardHeader className='d-flex flex-row '>
-                            <CardTitle>Transaction</CardTitle>
+                            <CardTitle>Transactions</CardTitle>
                             {/* <Button color='primary' >
                                 <CSVLink style={{ color: 'white' }} data={export_data} headers={headers} filename='Activity_Data.csv'>Export</CSVLink>
                                 <HiDownload style={{ marginLeft: 5 }} size={15} />
@@ -566,7 +579,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                             </Button.Ripple> */}
                         </CardHeader>
                         <CardBody>
-                            <CardText>Track your transaction status here</CardText>
+                            <CardText>Track your transaction here</CardText>
                         </CardBody>
                     </Card>
 
@@ -648,7 +661,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                         paginationComponent={CustomPagination}
                     />
                 </Card> */}
-                    <CustomModal open={modalVisible} handleModal={handleModal} trxnId={trxnId} description={desc} />
+                    <CustomModal open={modalVisible} handleModal={handleModal} trxnId={trxnId} description={desc} local={local_names} />
                 </>)}
             </>
             <LoginModal openloginmodal={loginModal} disconnect={disconnect} />

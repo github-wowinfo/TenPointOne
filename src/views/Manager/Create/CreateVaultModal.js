@@ -8,6 +8,8 @@ import { getAddress, hexStripZeros } from "ethers/lib/utils"
 import React, { useState, useEffect, Fragment } from "react"
 import { connect } from 'react-redux'
 import * as AppData from '../../../redux/actions/cookies/appDataType'
+import { FaRegCheckCircle } from 'react-icons/fa'
+import { FiXCircle } from 'react-icons/fi'
 
 const CreateVaultModal = ({ openvault, handleVaultModal, globalVaultFlag, dispatch }) => {
 
@@ -86,7 +88,7 @@ const CreateVaultModal = ({ openvault, handleVaultModal, globalVaultFlag, dispat
         <Fragment>
             <div className='toastify-header'>
                 <div className='title-wrapper'>
-                    <Avatar size='md' color='success' icon={<Check size={12} />} />
+                    <Avatar size='md' color='success' icon={<FaRegCheckCircle size={12} />} />
                     <h3 className='toast-title'>Vault Created!</h3>
                 </div>
             </div>
@@ -104,7 +106,7 @@ const CreateVaultModal = ({ openvault, handleVaultModal, globalVaultFlag, dispat
         <Fragment>
             <div className='toastify-header'>
                 <div className='title-wrapper'>
-                    <Avatar size='md' color='danger' icon={<XCircle size={12} />} />
+                    <Avatar size='md' color='danger' icon={<FiXCircle size={12} />} />
                     <h3 className='toast-title'>Error !</h3>
                 </div>
             </div>

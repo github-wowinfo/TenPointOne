@@ -26,14 +26,17 @@ import { IoMdCopy } from 'react-icons/io'
 import { BsBoxArrowUpRight } from 'react-icons/bs'
 import axios from 'axios'
 import moment from 'moment'
-import { FaRegCopy } from 'react-icons/fa'
+import { FaRegCheckCircle, FaRegCopy } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import Avatar from '@components/avatar'
 import { useEthers, shortenIfTransactionHash, getExplorerTransactionLink } from '@usedapp/core'
 import helperConfig from '../../helper-config.json'
 import { GoLinkExternal } from 'react-icons/go'
+import { FiXCircle } from 'react-icons/fi'
+import { BiErrorCircle } from 'react-icons/bi'
+import ExistingDesc from './ExistingDesc'
 
-const AddNewModal = ({ open, handleModal, trxnId, description }) => {
+const AddNewModal = ({ open, handleModal, trxnId, description, local }) => {
   // ** State
   const [Picker, setPicker] = useState(new Date())
   const [details, setDetails] = useState({})
@@ -136,74 +139,74 @@ const AddNewModal = ({ open, handleModal, trxnId, description }) => {
       contentClassName='pt-0'
     >
       <ModalHeader className='mb-1' toggle={handleModal} close={CloseBtn} tag='div'>
-        <label style={{ fontSize: 15, fontWeight: 'bold' }}>Transaction Details</label>
+        <label style={{ fontSize: '1.5em', fontWeight: 'bold', color: '#1919d2' }}>Transaction Details</label>
         <br />
         {/* <label style={{ fontSize: 15, fontWeight: 'normal' }}>{details?.description}</label> */}
-        <label style={{ fontSize: 15, fontWeight: 'normal' }}>{description}</label>
+        <label style={{ fontSize: 15, fontWeight: 'normal' }}><ExistingDesc id={trxnId} api_desc={description} /></label>
       </ModalHeader>
       <ModalBody className='flex-grow-1'>
         <FormGroup>
-          <label className='label'>Transaction Hash</label>
+          <label className='label' style={{ fontSize: '1.2em' }}>Transaction #</label>
           <br />
-          <div className='d-flex flex-row justify-content-start'>
+          <div className='d-flex flex-row justify-content-between'>
             <label className='text' style={{ lineBreak: 'anywhere' }}>{shortenIfTransactionHash(details?.id)}</label>
-            <Row>
-              <Col md='1' >
-                <FaRegCopy style={{ cursor: 'pointer' }} size={15} className='mx-1' onClick={copy} />
+            <Row className='d-flex flex-row justify-content-end'>
+              <Col >
+                <FaRegCopy style={{ cursor: 'pointer' }} size={20} onClick={copy} />
               </Col>
-              <Col md='1'>
-                <a href={getExplorerTransactionLink(details?.id, chainId)} className='mx-1' target='_blank'><GoLinkExternal size={15} color='grey' /></a>
+              <Col>
+                <a href={getExplorerTransactionLink(details?.id, chainId)} target='_blank'><GoLinkExternal size={20} color='grey' /></a>
               </Col>
             </Row>
           </div>
         </FormGroup>
         <FormGroup>
-          <label className='label'  >From</label>
+          <label className='label' style={{ fontSize: '1.2em' }}>From</label>
           <br />
           <Text text={details?.from} />
         </FormGroup>
         <FormGroup>
-          <label className='label'  >To</label>
+          <label className='label' style={{ fontSize: '1.2em' }}>To</label>
           <br />
           <Text text={details?.to} />
         </FormGroup>
         <FormGroup>
-          <label className='label'>Total Amount</label>
+          <label className='label' style={{ fontSize: '1.2em' }}>Total Amount</label>
           <br />
           <label className='text w-50'>{details?.sent ? details?.sent[0].value / (10 ** details?.sent[0].decimals) : details?.received ? '' : '-'}</label>
 
         </FormGroup>
         <FormGroup>
-          <label className='label'>Transaction Fee</label>
+          <label className='label' style={{ fontSize: '1.2em' }}>Transaction Fee</label>
           <br />
           <label className='text'>{details.fee / (10 ** 18)} MATIC</label>
         </FormGroup>
         <FormGroup>
-          <label className='label'>Created Date & Time</label>
+          <label className='label' style={{ fontSize: '1.2em' }}>Created Date & Time</label>
           <br />
           <label className='text'>{moment(details.date * 1000).format("MMM-DD-YYYY h:mm:ss")}</label>
         </FormGroup>
         <FormGroup>
-          <label className='label'>Status</label>
+          <label className='label' style={{ fontSize: '1.2em' }}>Status</label>
           <br />
           {details.status === 'completed' ? (
             <div className='row' style={{ marginLeft: 1, alignItems: 'center' }}>
               <div className='mr-1'>
-                <Avatar size='sm' color='success' icon={<Check size={12} />} />
+                <Avatar size='sm' color='success' icon={<FaRegCheckCircle size={12} />} />
               </div>
               <label className='text'>{(details.status).toUpperCase()} </label>
             </div>
           ) : details.status === 'error' ? (
             <div className='row' style={{ marginLeft: 1, alignItems: 'center' }}>
               <div className='mr-1'>
-                <Avatar size='sm' color='danger' icon={<XCircle size={12} />} />
+                <Avatar size='sm' color='danger' icon={<FiXCircle size={12} />} />
               </div>
               <label className='text'>{(details.status).toUpperCase()} </label>
             </div>
           ) : (
             <div className='row' style={{ marginLeft: 1, alignItems: 'center' }}>
               <div className='mr-1'>
-                <Avatar size='sm' color='warning' icon={<AlertCircle size={12} />} />
+                <Avatar size='sm' color='warning' icon={<BiErrorCircle size={12} />} />
               </div>
               <label className='text'>PENDING</label>
             </div>
@@ -211,7 +214,7 @@ const AddNewModal = ({ open, handleModal, trxnId, description }) => {
 
         </FormGroup>
         <FormGroup>
-          <label className='label'>Custom Description</label>
+          <label className='label' style={{ fontSize: '1.2em' }}>Custom Description</label>
           <br />
           <Input type='textarea' name='text' id='exampleText' rows='2' placeholder='Enter custom description over here' onChange={new_description} />
         </FormGroup>

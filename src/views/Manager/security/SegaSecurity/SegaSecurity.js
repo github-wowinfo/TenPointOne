@@ -11,6 +11,7 @@ import { useEthers, getExplorerAddressLink, getExplorerTransactionLink, shortenI
 import { toast } from 'react-toastify'
 import { Tool, XCircle } from 'react-feather'
 import Avatar from '@components/avatar'
+import { FiXCircle } from 'react-icons/fi'
 
 const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
 
@@ -158,7 +159,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
         <Fragment>
             <div className='toastify-header'>
                 <div className='title-wrapper'>
-                    <Avatar size='md' color='danger' icon={<XCircle size={12} />} />
+                    <Avatar size='md' color='danger' icon={<FiXCircle size={12} />} />
                     <h3 className='toast-title'>Error !</h3>
                 </div>
             </div>

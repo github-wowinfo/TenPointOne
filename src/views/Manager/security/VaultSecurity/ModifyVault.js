@@ -7,6 +7,7 @@ import { useVault } from '../../../../utility/hooks/useVaults'
 import { toast } from 'react-toastify'
 import Avatar from '@components/avatar'
 import { XCircle } from 'react-feather'
+import { FiXCircle } from 'react-icons/fi'
 
 const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault, vaultName }) => {
 
@@ -61,7 +62,7 @@ const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault, vaul
         <Fragment>
             <div className='toastify-header'>
                 <div className='title-wrapper'>
-                    <Avatar size='md' color='danger' icon={<XCircle size={12} />} />
+                    <Avatar size='md' color='danger' icon={<FiXCircle size={12} />} />
                     <h3 className='toast-title'>Error !</h3>
                 </div>
             </div>

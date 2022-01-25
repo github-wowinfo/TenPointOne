@@ -9,6 +9,8 @@ import React, { useState, useEffect, Fragment } from "react"
 import { useRCU } from '../../../utility/hooks/useRCU'
 import { useVault } from '../../../utility/hooks/useVaults'
 import { toast } from 'react-toastify'
+import { FaRegCheckCircle } from 'react-icons/fa'
+import { FiXCircle } from 'react-icons/fi'
 
 const CreateSegaModal = ({ opensega, handleSegaModal }) => {
 
@@ -123,7 +125,7 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
         <Fragment>
             <div className='toastify-header'>
                 <div className='title-wrapper'>
-                    <Avatar size='md' color='success' icon={<Check size={12} />} />
+                    <Avatar size='md' color='success' icon={<FaRegCheckCircle size={12} />} />
                     <h3 className='toast-title'>Sega Created!</h3>
                 </div>
             </div>
@@ -141,7 +143,7 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
         <Fragment>
             <div className='toastify-header'>
                 <div className='title-wrapper'>
-                    <Avatar size='md' color='danger' icon={<XCircle size={12} />} />
+                    <Avatar size='md' color='danger' icon={<FiXCircle size={12} />} />
                     <h3 className='toast-title'>Error !</h3>
                 </div>
             </div>

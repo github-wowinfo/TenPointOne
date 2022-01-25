@@ -13,6 +13,9 @@ import helperConfig from '../../helper-config.json'
 import axios from 'axios'
 import Avatar from '@components/avatar'
 import moment from 'moment'
+import { FaRegCheckCircle } from 'react-icons/fa'
+import { FiXCircle } from 'react-icons/fi'
+import { BiErrorCircle } from 'react-icons/bi'
 
 const RecentTrans = ({ globalAdrs, globalNickName }) => {
 
@@ -37,6 +40,10 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
   useEffect(() => {
     getTokenTransaction()
   }, [account, chainId, globalAdrs])
+
+  const addDefaultSrc = (ev) => {
+    ev.target.src = require(`@src/assets/images/logo/question.jpg`).default
+  }
 
   // const data = [
   //   {
@@ -90,62 +97,29 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
     },
     {
       name: 'Transaction',
-
+      minWidth: '250px',
       selector: row => row.description
     },
     {
-      name: 'Status',
-      minWidth: '90px',
-      center: 'true',
-      selector: row => (
-        <span className='mx-1'>
-          {
-            row.status === 'completed' ? (
-              <div className='mr-1'>
-                <Avatar style={{ cursor: 'default' }} size='md' color='success' icon={<Check size={22} />} />
-              </div>
-            ) : row.status === 'error' ? (
-              <div className='mr-1'>
-                <Avatar style={{ cursor: 'default' }} size='md' color='danger' icon={<XCircle size={22} />} />
-              </div>
-            ) : (
-              <div className='mr-1'>
-                <Avatar style={{ cursor: 'default' }} size='md' color='warning' icon={<AlertCircle size={22} />} />
-              </div>
-
-            )
-          }
-        </span>
-      )
-    },
-    {
-      name: 'Amount',
-      minWidth: '90px',
-      center: 'true',
+      name: 'Asset',
+      center: true,
       compact: true,
+      wrap: true,
       selector: row => (
         <span>
           {
             row.type === 'receive' ? (
-              <>
-                <span className='align-middle font-weight-bold'>
-                  {
-                    row.received ? row.received[0].value / (10 ** row.received[0].decimals) : row.sent ? '' : '-'
-                  }
-                </span>
-              </>
-            ) : (
-              <>
-                <span className='align-middle font-weight-bold'>
-                  {
-                    row.sent ? row.sent[0].value / (10 ** row.sent[0].decimals) : row.received ? '' : '-'
-                  }
-                </span>
-              </>
-            )
+              <div className='align-middle font-weight-bold'>
+                <img src={row.received && row.received[0].logo_url} alt={row.received[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
+              </div>
+            ) : row.type === 'send' ? (
+              <div className='align-middle font-weight-bold'>
+                <img src={row.sent && row.sent[0].logo_url} alt={row.sent[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
+              </div>
+            ) : null
           }
-          {/* <br /> */}
         </span>
+
       )
     },
     {
@@ -164,6 +138,61 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
               <span className='font-weight-bold'>
                 {row.sent && row.sent[0].symbol}
               </span>
+            )
+          }
+        </span>
+      )
+    },
+    {
+      name: 'Amount',
+      minWidth: '90px',
+      center: 'true',
+      compact: true,
+      selector: row => (
+        <span>
+          {
+            row.type === 'receive' ? (
+              <>
+                <span className='align-middle font-weight-bold'>
+                  {
+                    row.received ? (row.received[0].value / (10 ** row.received[0].decimals)).toLocaleString() : row.sent ? '' : '-'
+                  }
+                </span>
+              </>
+            ) : (
+              <>
+                <span className='align-middle font-weight-bold'>
+                  {
+                    row.sent ? (row.sent[0].value / (10 ** row.sent[0].decimals)).toLocaleString() : row.received ? '' : '-'
+                  }
+                </span>
+              </>
+            )
+          }
+          {/* <br /> */}
+        </span>
+      )
+    },
+    {
+      name: 'Status',
+      minWidth: '90px',
+      center: 'true',
+      selector: row => (
+        <span className='mx-1'>
+          {
+            row.status === 'completed' ? (
+              <div className='mr-1'>
+                <Avatar style={{ cursor: 'default' }} size='md' color='light-success' icon={<FaRegCheckCircle size={22} />} />
+              </div>
+            ) : row.status === 'error' ? (
+              <div className='mr-1'>
+                <Avatar style={{ cursor: 'default' }} size='md' color='light-danger' icon={<FiXCircle size={22} />} />
+              </div>
+            ) : (
+              <div className='mr-1'>
+                <Avatar style={{ cursor: 'default' }} size='md' color='light-warning' icon={<BiErrorCircle size={22} />} />
+              </div>
+
             )
           }
         </span>

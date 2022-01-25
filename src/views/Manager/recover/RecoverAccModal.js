@@ -6,6 +6,8 @@ import { isAddress } from "ethers/lib/utils"
 import { useEthers, getExplorerTransactionLink, shortenIfTransactionHash } from '@usedapp/core'
 import { toast } from 'react-toastify'
 import Avatar from '@components/avatar'
+import { FaRegCheckCircle } from 'react-icons/fa'
+import { FiXCircle } from 'react-icons/fi'
 
 const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
 
@@ -19,7 +21,7 @@ const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
         <Fragment>
             <div className='toastify-header'>
                 <div className='title-wrapper'>
-                    <Avatar size='md' color='success' icon={<Check size={12} />} />
+                    <Avatar size='md' color='success' icon={<FaRegCheckCircle size={12} />} />
                     <h3 className='toast-title'>Vault is Recovered and will be visible in your vault list!</h3>
                 </div>
             </div>
@@ -133,7 +135,7 @@ const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
         <Fragment>
             <div className='toastify-header'>
                 <div className='title-wrapper'>
-                    <Avatar size='md' color='danger' icon={<XCircle size={12} />} />
+                    <Avatar size='md' color='danger' icon={<FiXCircle size={12} />} />
                     <h3 className='toast-title'>Error !</h3>
                 </div>
             </div>

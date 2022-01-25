@@ -10,6 +10,7 @@ import logo from '../assets/images/logo/finallog.png'
 import { XCircle } from 'react-feather'
 import { toast } from 'react-toastify'
 import Avatar from '@components/avatar'
+import { FiXCircle } from 'react-icons/fi'
 
 const LoginModal = ({ openloginmodal, disconnect }) => {
 
@@ -72,14 +73,14 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
 
     const [curr_acc, setCurr_acc] = useState(account)
 
-    const init_flag = JSON.parse(localStorage.getItem('load_flag'))
+    // const init_flag = JSON.parse(localStorage.getItem('load_flag'))
 
     const notifyError = (emsg) => toast.error(<ErrorToast msg={emsg} />, { hideProgressBar: false })
     const ErrorToast = ({ msg }) => (
         <Fragment>
             <div className='toastify-header'>
                 <div className='title-wrapper'>
-                    <Avatar size='md' color='danger' icon={<XCircle size={12} />} />
+                    <Avatar size='md' color='danger' icon={<FiXCircle size={12} />} />
                     <h3 className='toast-title'>Error !</h3>
                 </div>
             </div>
@@ -103,10 +104,10 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
             window.location.reload()
         }
 
-        const get_load_flag = JSON.parse(localStorage.getItem('load_flag'))
-        if (get_load_flag === undefined || get_load_flag === null) {
-            localStorage.setItem('load_flag', JSON.stringify(true))
-        }
+        // const get_load_flag = JSON.parse(localStorage.getItem('load_flag'))
+        // if (get_load_flag === undefined || get_load_flag === null) {
+        //     localStorage.setItem('load_flag', JSON.stringify(true))
+        // }
 
     }, [])
     const networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"
@@ -138,10 +139,11 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
                                                 onClick={() => disconnect()} block>LOGIN</Button.Ripple>) : (
                                                 <Button.Ripple color='primary' style={{ fontSize: "1em", marginBottom: 5 }}
                                                     onClick={async () => {
-                                                        if (!isConnected && init_flag) {
-                                                            window.location.reload()
-                                                            // localStorage.setItem('load_flag', JSON.stringify(false))
-                                                        }
+                                                        window.location.reload()
+                                                        // if (!isConnected && init_flag) {
+                                                        //     window.location.reload()
+                                                        // localStorage.setItem('load_flag', JSON.stringify(false))
+                                                        // }
                                                         //  else {
                                                         //     const onError = (error) => {
                                                         //         // console.log(error.message)
