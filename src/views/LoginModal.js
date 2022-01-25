@@ -79,12 +79,12 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
         <Fragment>
             <div className='toastify-header'>
                 <div className='title-wrapper'>
-                    <Avatar size='sm' color='danger' icon={<XCircle size={12} />} />
-                    <h6 className='toast-title'>Error !</h6>
+                    <Avatar size='md' color='danger' icon={<XCircle size={12} />} />
+                    <h3 className='toast-title'>Error !</h3>
                 </div>
             </div>
             <div className='toastify-body'>
-                <span role='img' aria-label='toast-text'>
+                <span style={{ fontSize: '1.5em' }} role='img' aria-label='toast-text' >
                     {msg}
                 </span>
             </div>

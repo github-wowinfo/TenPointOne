@@ -193,8 +193,8 @@ const Receive = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
     <Fragment>
       <div className='toastify-header'>
         <div className='title-wrapper'>
-          <Avatar size='sm' color='success' icon={<Clipboard size={12} />} />
-          <h6 className='toast-title'>Copied to Clipboard!</h6>
+          <Avatar size='md' color='success' icon={<Clipboard size={12} />} />
+          <h3 className='toast-title'>Copied to Clipboard!</h3>
         </div>
       </div>
     </Fragment>
@@ -256,8 +256,8 @@ const Receive = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                   </Col>
                   <Col>
                     <span className='d-flex flex-row justify-content-center'>
-                      <FaRegCopy style={{ cursor: 'pointer' }} className='mx-1 mt-1' color='grey' size={25} onClick={copy} />
-                      <a href={getExplorerAddressLink(globalAdrs, chainId)} target='_blank'><GoLinkExternal className='mx-1 mt-1' color='grey' size={25} /></a>
+                      <FaRegCopy style={{ cursor: 'pointer' }} className='m-1' color='grey' size={25} onClick={copy} />
+                      <a href={getExplorerAddressLink(globalAdrs, chainId)} target='_blank'><GoLinkExternal className='m-1' color='grey' size={25} /></a>
                     </span>
                   </Col>
                   <Col className='text-center '>

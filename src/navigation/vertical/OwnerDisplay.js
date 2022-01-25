@@ -41,8 +41,8 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
     <Fragment>
       <div className='toastify-header'>
         <div className='title-wrapper'>
-          <Avatar size='sm' color='success' icon={<Clipboard size={12} />} />
-          <h6 className='toast-title'>Copied to Clipboard!</h6>
+          <Avatar size='md' color='success' icon={<Clipboard size={12} />} />
+          <h3 className='toast-title'>Copied to Clipboard!</h3>
         </div>
       </div>
     </Fragment>
