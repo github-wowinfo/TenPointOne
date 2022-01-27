@@ -17,30 +17,70 @@
         "net": "137",
         "icon": "matic",
         "name": "Polygon Network",
-        "netid": "0x89"
+        "netid": "0x89",
+        "curr_name": "MATIC",
+        "symbol": "MATIC",
+        "rpcUrl": [
+            "https://polygon-mainnet.infura.io/v3/0ebf4dd05d6740f482938b8a80860d13"
+        ],
+        "blockUrl": [
+            "https://explorer-mainnet.maticvigil.com"
+        ]
     },
     {
         "net": "1",
         "icon": "eth",
         "name": "Ethereum",
-        "netid": "0x1"
+        "netid": "0x1",
+        "curr_name": "ETHEREUM",
+        "symbol": "ETH",
+        "rpcUrl": [
+            "https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
+        ],
+        "blockUrl": [
+            "https://etherscan.io"
+        ]
     },
     {
         "net": "42",
         "icon": "eth",
         "name": "Kovan",
-        "netid": "0x2a"
+        "netid": "0x2a",
+        "curr_name": "ETHEREUM",
+        "symbol": "ETH",
+        "rpcUrl": [
+            "https://kovan.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
+        ],
+        "blockUrl": [
+            "https://kovan.etherscan.io"
+        ]
     },
     {
         "net": "56",
         "icon": "bnb",
         "name": "BSC Mainet",
-        "netid": "0x38"
+        "netid": "0x38",
+        "curr_name": "BINANCE COIN",
+        "symbol": "BNB",
+        "rpcUrl": [
+            "https://bsc-dataseed1.ninicoin.io"
+        ],
+        "blockUrl": [
+            "https://bscscan.com"
+        ]
     },
     {
         "net": "80001",
         "icon": "matic",
         "name": "Polygon Mumbai",
-        "netid": "0x13881"
+        "netid": "0x13881",
+        "curr_name": "MATIC",
+        "symbol": "MATIC",
+        "rpcUrl": [
+            "https://rpc-mumbai.maticvigil.com/"
+        ],
+        "blockUrl": [
+            "https://mumbai.polygonscan.com/"
+        ]
     }
 ]
