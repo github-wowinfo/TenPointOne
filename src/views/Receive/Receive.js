@@ -212,10 +212,15 @@ const Receive = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
   const [qrcode, setQrcode] = useState(false)
   const handleQrcode = () => setQrcode(!qrcode)
 
+  const style_no_vault = {
+    minWidth: '30vw',
+    minHeight: '55vh'
+  }
+
   return (
     <>
       <Col style={cardStyle} md={{ offset: 3, size: 6 }} lg={{ offset: 3, size: 6 }} sm="12">
-        <Card style={{ minWidth: '35vw', minHeight: '55vh' }} className='my-1 card-payment' >
+        <Card style={globalNickName === 'Create a Vault' ? null : style_no_vault} className='my-1 card-payment' >
           <CardHeader style={{ paddingBottom: '.1em' }}>
             <CardTitle style={{ color: '#1919d2' }}>Receive Assests</CardTitle>
           </CardHeader>
@@ -224,7 +229,7 @@ const Receive = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
               <hr />
               <Col style={{ fontSize: '2em' }} className='d-flex flex-row justify-content-center align-items-center'>
                 <NavLink href='/manager' >
-                  CREATE A VAULT FIRST <BsArrowRightCircle size={35} />
+                  CREATE A VAULT<BsArrowRightCircle size={35} />
                 </NavLink>
               </Col>
             </>

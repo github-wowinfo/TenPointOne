@@ -527,13 +527,18 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
     console.log("newAmt", newAmount)
   }
 
+  const style_no_vault = {
+    minWidth: '30vw',
+    minHeight: '55vh'
+  }
+
   const networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"
   const networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
   const backgroundChange = { backgroundColor: networkName === "BSC testnet" ? '#cc9b00' : networkName === "Polygon Network" ? '#8146e4' : networkName === "Ethereum" ? '#4559f4' : networkName === "Kovan" ? '#6435c9' : networkName === "BSC Mainet" ? '#cc9b00' : networkName === "Polygon Mumbai" ? '#140035' : null }
   return (
     <>
       <Col style={cardStyle} md={{ offset: 3, size: 6 }} lg={{ offset: 3, size: 6 }} sm="12">
-        <Card style={{ minWidth: '30vw', minHeight: '55vh' }} className='my-1 card-payment'>
+        <Card style={globalNickName === 'Create a Vault' ? null : style_no_vault} className='my-1 card-payment'>
           <CardHeader style={{ paddingBottom: '.3em' }}>
             <CardTitle style={{ color: '#1919d2' }}>Send Funds</CardTitle>
           </CardHeader>

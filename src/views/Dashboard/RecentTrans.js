@@ -100,53 +100,84 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
       minWidth: '250px',
       selector: row => row.description
     },
+    // {
+    //   name: 'Asset',
+    //   center: true,
+    //   compact: true,
+    //   wrap: true,
+    //   selector: row => (
+    //     <span>
+    //       {
+    //         row.type === 'receive' ? (
+    //           <div className='align-middle font-weight-bold'>
+    //             <img src={row.received && row.received[0].logo_url} alt={row.received[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
+    //           </div>
+    //         ) : row.type === 'send' ? (
+    //           <div className='align-middle font-weight-bold'>
+    //             <img src={row.sent && row.sent[0].logo_url} alt={row.sent[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
+    //           </div>
+    //         ) : null
+    //       }
+    //     </span>
+
+    //   )
+    // },
+    // {
+    //   name: 'Token',
+    //   minWidth: '100px',
+    //   center: 'true',
+    //   compact: true,
+    //   selector: row => (
+    //     <span>
+    //       {
+    //         row.type === 'receive' ? (
+    //           <span className='font-weight-bold'>
+    //             {row.received && row.received[0].symbol}
+    //           </span>
+    //         ) : (
+    //           <span className='font-weight-bold'>
+    //             {row.sent && row.sent[0].symbol}
+    //           </span>
+    //         )
+    //       }
+    //     </span>
+    //   )
+    // },
     {
       name: 'Asset',
-      center: true,
-      compact: true,
-      wrap: true,
-      selector: row => (
-        <span>
-          {
-            row.type === 'receive' ? (
-              <div className='align-middle font-weight-bold'>
-                <img src={row.received && row.received[0].logo_url} alt={row.received[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
-              </div>
-            ) : row.type === 'send' ? (
-              <div className='align-middle font-weight-bold'>
-                <img src={row.sent && row.sent[0].logo_url} alt={row.sent[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
-              </div>
-            ) : null
-          }
-        </span>
-
-      )
-    },
-    {
-      name: 'Token',
-      minWidth: '100px',
+      minWidth: '170px',
       center: 'true',
       compact: true,
       selector: row => (
         <span>
           {
             row.type === 'receive' ? (
-              <span className='font-weight-bold'>
-                {row.received && row.received[0].symbol}
-              </span>
-            ) : (
-              <span className='font-weight-bold'>
-                {row.sent && row.sent[0].symbol}
-              </span>
-            )
+              <div className='d-flex flex-row justify-content-between'>
+                <div className='mr-1 align-middle font-weight-bold'>
+                  <img src={row.received && row.received[0].logo_url} alt={row.received[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
+                </div>
+                <span style={{ paddingTop: '10px' }} className='font-weight-bold'>
+                  {row.received && row.received[0].symbol}
+                </span>
+              </div>
+            ) : row.type === 'send' ? (
+              <div className='d-flex flex-row justify-content-between'>
+                <div className='mr-1 align-middle font-weight-bold'>
+                  <img src={row.sent && row.sent[0].logo_url} alt={row.sent[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
+                </div>
+                <span style={{ paddingTop: '10px' }} className='font-weight-bold'>
+                  {row.sent && row.sent[0].symbol}
+                </span>
+              </div>
+            ) : null
           }
         </span>
       )
     },
     {
       name: 'Amount',
-      minWidth: '90px',
-      center: 'true',
+      maxWidth: '90px',
+      right: 'true',
       compact: true,
       selector: row => (
         <span>
@@ -176,7 +207,7 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
     {
       name: 'Status',
       minWidth: '90px',
-      center: 'true',
+      right: 'true',
       selector: row => (
         <span className='mx-1'>
           {
