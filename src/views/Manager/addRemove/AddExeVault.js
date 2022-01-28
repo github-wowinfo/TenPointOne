@@ -12,7 +12,7 @@ import { useVault } from '../../../utility/hooks/useVaults'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
-const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNickName, dispatch, globalVaultFlag }) => {
+const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNickName, dispatch, globalVaultFlag, globalFavFlag }) => {
 
     const { account, chainId } = useEthers()
 
@@ -321,6 +321,31 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
             }
         }
         localStorage.setItem('vaultdata', JSON.stringify(getdata))
+        const getAdrsData = JSON.parse(localStorage.getItem('adrsbook'))
+        for (const i in getAdrsData) {
+            if (getAdrsData[i].adrs === vadrs) {
+                if (getAdrsData[i].isFav === true) {
+                    getAdrsData[i].isFav = false
+                }
+                break
+            }
+        }
+        localStorage.setItem('adrsbook', JSON.stringify(getAdrsData))
+        if (globalFavFlag === 0) {
+            dispatch(AppData.globalFavFlag(1))
+        } else {
+            dispatch(AppData.globalFavFlag(0))
+        }
+        const getFavData = JSON.parse(localStorage.getItem('fav'))
+        if (getFavData !== undefined || getFavData !== []) {
+            for (const i in getFavData) {
+                if (getFavData[i].fav_adrs === vadrs) {
+                    getFavData.splice(i, 1)
+                    break
+                }
+            }
+        }
+        localStorage.setItem('fav', JSON.stringify(getFavData))
         if (globalAdrs === vadrs) {
             // const globaldata = JSON.parse(localStorage.getItem('g_acc'))
             localStorage.removeItem('g_acc')
@@ -512,7 +537,8 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
 const mapStateToProps = (state) => ({
     globalAdrs: state.appData.globalAdrs,
     globalNickName: state.appData.globalNickName,
-    globalVaultFlag: state.appData.globalVaultFlag
+    globalVaultFlag: state.appData.globalVaultFlag,
+    globalFavFlag: state.appData.globalFavFlag
 })
 const mapDispatchToProp = dispatch => ({ dispatch })
 

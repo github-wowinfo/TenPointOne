@@ -44,9 +44,8 @@ export default [
     id: "defi",
     title: "DeFi - Coming Soon",
     icon: <IoGitMergeOutline size={20} />,
-    // navLink: "/defi",
-    navLink: "#",
-    diabled: true
+    navLink: "/defi",
+    // disabled: true
   },
   {
     header: ''

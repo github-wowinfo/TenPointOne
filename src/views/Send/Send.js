@@ -377,7 +377,7 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
 
   const decimals = usingNative ? nativeToken.decimals : ercToken.decimals
   // const decimals = usingNative ? nativeToken.decimals : decimal
-  const bigNumAmount = haveToken ? utils.parseUnits(amount, decimals) : BigNumber.from(0)
+  const bigNumAmount = haveToken ? utils.parseUnits(amount.toString(), decimals) : BigNumber.from(0)
 
   const {
     vaultTransferNative,
@@ -440,20 +440,6 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
     // console.log("Vault", pVault)
     console.log("To Address", toAddress)
   }
-
-  useEffect(() => {
-    // console.log('TransferState', TransferState)
-    if (TransferState.status === "Exception" || TransferState.status === "Fail") {
-      notifyError(TransferState.errorMessage)
-    }
-    if (TransferState.status === "Mining") {
-      const tx_id = String(TransferState.transaction?.hash)
-      setTxnID(tx_id.toString())
-      console.log("***Handle TX_ID: ", TransferState.status, tx_id)
-      setShowTxnMiningSnack(true)
-    }
-    if (TransferState.status === "Success") { setTxnSuccessSnack(true) }
-  }, [TransferState])
 
   const logos = [
     {
@@ -526,6 +512,24 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
     }
     console.log("newAmt", newAmount)
   }
+
+  useEffect(() => {
+    // console.log('TransferState', TransferState)
+    if (TransferState.status === "Exception" || TransferState.status === "Fail") {
+      notifyError(TransferState.errorMessage)
+    }
+    if (TransferState.status === "Mining") {
+      const tx_id = String(TransferState.transaction?.hash)
+      setTxnID(tx_id.toString())
+      console.log("***Handle TX_ID: ", TransferState.status, tx_id)
+      setShowTxnMiningSnack(true)
+    }
+    if (TransferState.status === "Success") {
+      setTxnSuccessSnack(true)
+      setBalance_max('')
+      setAmount(0)
+    }
+  }, [TransferState])
 
   const style_no_vault = {
     minWidth: '30vw',

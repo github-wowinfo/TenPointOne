@@ -31,12 +31,15 @@
 }
 
 //Table
+
 // .dark-layout .react-dataTable .rdt_Table {
 //     background: transparent !important;
 // }
 
 .dark-layout .react-dataTable .rdt_TableBody .rdt_TableRow {
-    border-color: #ffff !important;
+    // border-color: #ffff !important;
+    border:rgb(48, 57, 66) !important;
+    background: rgb(16, 25, 33);
 }
 
 //Sidebar
@@ -56,6 +59,10 @@
     // background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0)); 
     background: rgba(0,0,0,0.8);
     backdrop-filter: saturate(180%) blur(10px);
+    // background-color: transparent;
+    // background-repeat: no-repeat;
+    // background-image: url(../../images/backg/bg.png);
+    // background-size: auto 200%;
 }
 
 //login Page
@@ -79,4 +86,13 @@
 [dir] .dark-layout .nav-pills .nav-item .nav-link.active, 
 [dir] .dark-layout .nav-tabs.nav-justified .nav-item .nav-link.active{
     background-color: transparent !important;
+}
+
+//Sweet Alert
+.dark-layout .swal2-container .swal2-modal{
+    background-color: #006277 !important;
+}
+
+.dark-layout .swal2-container .swal2-modal .swal2-content, .dark-layout .swal2-container .swal2-modal .swal2-html-container {
+    color: #b4b7bd;
 }

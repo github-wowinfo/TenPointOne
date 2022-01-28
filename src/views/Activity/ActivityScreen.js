@@ -636,7 +636,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                         </TabContent>
                     </Card>
 
-                    <Card>
+                    {/* <Card>
                         <CardHeader>
                             <CardTitle>Check Activity for an Address</CardTitle>
                         </CardHeader>
@@ -646,7 +646,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                                 Search
                             </Button>
                         </CardBody>
-                    </Card>
+                    </Card> */}
 
                     {/* <Card>
                     <DataTable
