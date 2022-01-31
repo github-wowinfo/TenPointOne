@@ -1,7 +1,10 @@
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import { Col, FormGroup, Input, Modal, ModalBody, ModalFooter, ModalHeader, Row, Button } from 'reactstrap'
 import { shortenIfAddress, useEthers } from "@usedapp/core"
 import AddNicknameForSega from './AddNicknameForSega'
+import { toast } from 'react-toastify'
+import Avatar from '@components/avatar'
+import { FaRegCheckCircle } from 'react-icons/fa'
 
 const SegaLocal = ({ opensegaLocalModal, handleSegaLocalModal, segas, vault }) => {
 
@@ -16,6 +19,24 @@ const SegaLocal = ({ opensegaLocalModal, handleSegaLocalModal, segas, vault }) =
     const data = segas.map((item, index) => (
         <AddNicknameForSega item={item} index={index} segas={segas} getSega={getSega} setSega={setSega} />
     ))
+
+    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
+    const SuccessToast = () => (
+        <Fragment>
+            <div className='toastify-header'>
+                <div className='title-wrapper'>
+                    <Avatar size='md' color='success' icon={<FaRegCheckCircle size={12} />} />
+                    <h3 className='toast-title'>Sega Added!</h3>
+                </div>
+            </div>
+            <div className='toastify-body'>
+                <span role='img' aria-label='toast-text'>
+                    {/* Vault with Address "{shortenIfAddress(newVaultAddress)}" has been created and can be found in your navigation pane. */}
+                    Sega has been added and also included in the Address Book.
+                </span>
+            </div>
+        </Fragment>
+    )
 
     const handleAddLocal = () => {
 
@@ -52,6 +73,7 @@ const SegaLocal = ({ opensegaLocalModal, handleSegaLocalModal, segas, vault }) =
             localStorage.setItem('adrsbook', JSON.stringify(adrsbook))
         }
         handleSegaLocalModal()
+        notifySuccess()
     }
     return (
         <>

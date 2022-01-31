@@ -447,12 +447,12 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
                         {adrs_flag && name_flag ? (
                             <Button.Ripple color='primary' onClick={handleGetSegaInfo} >
                                 <Eye className='mr-1' size={17} />
-                                SHOW
+                                TRACK
                             </Button.Ripple>
                         ) : (
                             <Button.Ripple color='primary' disabled >
                                 <Eye className='mr-1' size={17} />
-                                SHOW
+                                TRACK
                             </Button.Ripple>
                         )}
                     </>

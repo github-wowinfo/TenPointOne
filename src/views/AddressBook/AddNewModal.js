@@ -52,11 +52,10 @@ const AddNewModal = ({ open, handleModal, dispatch, globalVaultFlag }) => {
 
   const handleAdrss = (e) => {
     const input_adrs = e.target.value
-    if (isAddress(input_adrs)) {
+    if (input_adrs !== '') {
       setAdrss(input_adrs)
       setAdrs_flag(true)
     } else {
-      alert("Enter a valid address")
       setAdrs_flag(false)
     }
   }
@@ -89,14 +88,14 @@ const AddNewModal = ({ open, handleModal, dispatch, globalVaultFlag }) => {
     <Fragment>
       <Alert className='animate__animated animate__slideInDown' color='danger' isOpen={visible} toggle={() => setVisible(false)}>
         <div className='my-1 alert-heading'>
-          <AlertTriangle size={20} /><span className='ml-1'>Please fill all the values!</span>
+          <AlertTriangle size={20} /><span className='ml-1'>Please enter correct address!</span>
         </div>
       </Alert>
     </Fragment>
   )
 
   const handleSubmit = () => {
-    if (name && adrss) {
+    if (name && isAddress(adrss)) {
       const getdata = JSON.parse(localStorage.getItem('adrsbook'))
       const postdata =
       {
@@ -121,19 +120,27 @@ const AddNewModal = ({ open, handleModal, dispatch, globalVaultFlag }) => {
       }
       setName_flag(false)
       setAdrs_flag(false)
+      setName('')
+      setAdrss('')
       // setChain_flag(false)
       handleModal()
     } else {
       handleAlert()
     }
-    setName_flag(false)
-    setAdrs_flag(false)
+    // setName_flag(false)
+    // setAdrs_flag(false)
     // setChain_flag(false)
   }
 
 
   // ** Custom close btn
-  const CloseBtn = <X className='cursor-pointer' size={15} onClick={handleModal} />
+  const CloseBtn = <X className='cursor-pointer' size={15} onClick={() => {
+    setName_flag(false)
+    setAdrs_flag(false)
+    setName('')
+    setAdrss('')
+    handleModal()
+  }} />
 
   const stylecontainer = {
     textAlign: 'center',
@@ -236,7 +243,13 @@ const AddNewModal = ({ open, handleModal, dispatch, globalVaultFlag }) => {
           <Button className='mr-1' color='primary' disabled> Submit </Button>
         )}
 
-        <Button color='secondary' onClick={handleModal} outline>
+        <Button color='secondary' onClick={() => {
+          setName_flag(false)
+          setAdrs_flag(false)
+          setName('')
+          setAdrss('')
+          handleModal()
+        }} outline>
           Cancel
         </Button>
       </ModalBody>

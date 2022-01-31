@@ -26,7 +26,7 @@ const ManageSecurity = () => {
                     <Row style={{ display: 'flex', flexDirection: 'row' }}>
                         <Col md='7'>
                             <CardHeader className='py-0'>
-                                <CardTitle style={{ fontSize: '1.7em' }}>Manage Security Settings</CardTitle>
+                                <CardTitle style={{ fontSize: '1.7em' }}>Manage Security</CardTitle>
                             </CardHeader>
                             <CardBody>
                                 <CardText style={{ fontSize: '1rem' }}>Modify security and recovery parameters of your accounts.</CardText>

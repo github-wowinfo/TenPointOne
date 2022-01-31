@@ -19,6 +19,8 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultN
 
     const data = actualSegas
 
+    console.log('tabledata', data)
+
     const columns = [
         {
             name: 'Sega Address',
@@ -83,9 +85,16 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultN
                     </Row>
                 </ModalBody>
                 <ModalFooter className='justify-content-center'>
-                    <Button.Ripple className='mx-1' style={{ minWidth: '10vw' }} color='primary' onClick={handleSegaLocalModal}>
-                        Add Selected Sega
-                    </Button.Ripple>
+                    {data.length === 0 ? (
+                        <Button.Ripple className='mx-1' style={{ minWidth: '10vw' }} color='primary' disabled>
+                            Add Selected Sega
+                        </Button.Ripple>
+                    ) : (
+                        <Button.Ripple className='mx-1' style={{ minWidth: '10vw' }} color='primary' onClick={handleSegaLocalModal}>
+                            Add Selected Sega
+                        </Button.Ripple>
+                    )}
+
                 </ModalFooter>
             </Modal>
             <SegaLocal opensegaLocalModal={segaLocalModal} handleSegaLocalModal={handleSegaLocalModal} vault={vault} segas={selectedRows} />

@@ -273,7 +273,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                                 </Col>
                                 <Col>
                                     <FormGroup>
-                                        <Label for='inactivedays' style={{ fontSize: "1.3em" }}>Designated Sega Operator - {trader}</Label>
+                                        <Label for='inactivedays' style={{ fontSize: "1.3em" }}>Sega Operator - {trader}</Label>
                                         <InputGroup>
                                             <Input type='text' id='backupacc' placeholder='Put new operator address over here.' onChange={handleNewSegaTraderInput} />
                                             <InputGroupAddon addonType='append'>

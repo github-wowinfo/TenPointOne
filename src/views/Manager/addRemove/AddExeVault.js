@@ -502,12 +502,12 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
                         {(name_flag && adrs_flag) && present_flag === false ? (
                             <Button.Ripple color='primary' onClick={handleAdd}>
                                 <Eye className='mr-1' size={17} />
-                                SHOW
+                                TRACK
                             </Button.Ripple>
                         ) : (
                             <Button.Ripple color='primary' disabled>
                                 <Eye className='mr-1' size={17} />
-                                SHOW
+                                TRACK
                             </Button.Ripple>
                         )}
                     </>

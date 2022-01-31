@@ -40,6 +40,8 @@ import * as AppData from '../../redux/actions/cookies/appDataType'
 import DeleteContact from './DeleteContact'
 import LoginModal from '../LoginModal'
 import { BsArrowRightCircle } from 'react-icons/bs'
+import exportFromJSON from 'export-from-json'
+import ImportAdrsBook from './ImportAdrsBook'
 
 const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName }) => {
 
@@ -325,6 +327,9 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
     //   }
     console.log('adrs_data', adrs_data)
 
+    const [impAdrsBook, setImpAdrsBook] = useState(false)
+    const handleImpAdrsBook = () => setImpAdrsBook(!impAdrsBook)
+
     return (
         <>
             {globalNickName === 'Create a Vault' ? (
@@ -394,27 +399,34 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
                                     </DropdownItem>
                                 </DropdownMenu>
                             </UncontrolledButtonDropdown> */}
-                            <Button className='ml-2' color='success' caret outline>
-                                <CgImport size={15} />
-                                <span className='align-middle ml-50'>Import</span>
-                            </Button>
                             <Button className='ml-2' color='success' caret outline onClick={handleModal}>
                                 <Plus size={15} />
-                                <span className='align-middle ml-50'>Create Entry</span>
+                                <span className='align-middle ml-50'>Add Address</span>
                             </Button>
                             <Button className='ml-2' color='danger' caret outline onClick={handleConfirmDelete}>
                                 <X size={15} />
                                 <span className='align-middle ml-50'>Delete Address Book</span>
                             </Button>
-                            <Button className='ml-2' color='success' caret outline>
+                            {/* <Button className='ml-2' color='success' caret outline>
                                 <CgExport className='mx-1' size={15} />
                                 <CSVLink style={{ color: '#31c975' }} data={adrs_data} headers={headers} filename='Addres_Book_Data.csv'>Export</CSVLink>
+                            </Button> */}
+                            <div>
+                                <Button className='ml-2' color='success' onClick={handleImpAdrsBook} caret outline>
+                                    <CgImport size={15} />
+                                    <span className='align-middle ml-50'>Import</span>
+                                </Button>
+                            </div>
+                            <Button className='ml-2' color='success'
+                                onClick={() => exportFromJSON({ data: adrs_data, fileName: 'Address_Book', exportType: exportFromJSON.types.json })} caret outline>
+                                <CgExport className='mx-1' size={15} />Export
                             </Button>
                         </div>
                     </CardHeader>
                 </Card>
                 <AddNewModal open={modal} handleModal={handleModal} />
             </div>)}
+            <ImportAdrsBook openimport={impAdrsBook} handleImpAdrsBook={handleImpAdrsBook} />
             <LoginModal openloginmodal={loginModal} disconnect={disconnect} />
         </>
 

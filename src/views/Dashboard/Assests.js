@@ -2,13 +2,18 @@ import classnames from 'classnames'
 import Avatar from '@components/avatar'
 import { Link } from 'react-router-dom'
 import { TrendingUp, User, Box, DollarSign } from 'react-feather'
-import { Card, CardHeader, CardTitle, CardBody, CardText, Row, Col, Media, Badge } from 'reactstrap'
+import { Card, CardHeader, CardTitle, CardBody, CardText, Row, Col, Media, Badge, CardFooter } from 'reactstrap'
 import Icon from 'react-crypto-icons'
 import { useEthers } from '@usedapp/core'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import helperConfig from '../../helper-config.json'
 import { connect } from 'react-redux'
+import { BsCurrencyBitcoin, BsCurrencyDollar, BsToggle2Off, BsToggle2On } from 'react-icons/bs'
+import { AiOutlineDollar } from 'react-icons/ai'
+import { BiToggleLeft, BiToggleRight } from 'react-icons/bi'
+import "react-toggle/style.css"
+import Toggle from 'react-toggle'
 
 const Assests = ({ cols = 0, globalAdrs }) => {
 
@@ -67,6 +72,8 @@ const Assests = ({ cols = 0, globalAdrs }) => {
   //   }
   // ]
 
+  const [showDollar, setShowDollar] = useState(true)
+
   const renderData = () => {
     return data.map((item, index) => {
       const margin = Object.keys(cols)
@@ -83,7 +90,11 @@ const Assests = ({ cols = 0, globalAdrs }) => {
             {/* <img src={item.logo_url && item.logo_url} alt={item.contract_ticker_symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} /> */}
             <Media className='my-auto' body>
               <h5 className='font-weight-bolder mb-0'>{item.contract_ticker_symbol}</h5>
-              <CardText className='font-small-3 mb-0'>$ {(item.balance / (10 ** item.contract_decimals) * item.quote_rate).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</CardText>
+              {showDollar ? (
+                <CardText className='font-small-3 mb-0'>$ {(item.balance / (10 ** item.contract_decimals) * item.quote_rate).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</CardText>
+              ) : (
+                <CardText className='font-small-3 mb-0'>{((item.balance / (10 ** item.contract_decimals))).toLocaleString()} </CardText>
+              )}
             </Media>
           </Media>
         </Col>
@@ -104,6 +115,43 @@ const Assests = ({ cols = 0, globalAdrs }) => {
       <CardBody className='statistics-body'>
         <Row>{renderData()}</Row>
       </CardBody>
+      <Col className='text-right'>
+        <label>
+          <Toggle
+            defaultChecked={showDollar}
+            icons={{
+              checked: <BsCurrencyDollar style={{ color: 'white' }} />,
+              unchecked: <BsCurrencyBitcoin style={{ color: 'white' }} />,
+            }}
+            onChange={() => setShowDollar(!showDollar)} />
+        </label>
+        {/* {showDollar ? (
+          <Col>
+            <BiToggleRight size={25} style={{ cursor: 'pointer' }} onClick={() => setShowDollar(false)} />
+            <BsCurrencyDollar size={30} />
+          </Col>
+        ) : (
+          <Col>
+            <BsCurrencyBitcoin size={30} />
+            <BiToggleLeft size={25} style={{ cursor: 'pointer' }} onClick={() => setShowDollar(true)} />
+          </Col>
+        )} */}
+      </Col>
+      {/* <CardFooter>
+        <Col className='text-right'>
+          {showDollar ? (
+            <Col>
+              <BiToggleRight size={25} style={{ cursor: 'pointer' }} onClick={() => setShowDollar(false)} />
+              <AiOutlineDollar size={30} />
+            </Col>
+          ) : (
+            <Col>
+              <BsCurrencyBitcoin size={30} />
+              <BiToggleLeft size={25} style={{ cursor: 'pointer' }} onClick={() => setShowDollar(true)} />
+            </Col>
+          )}
+        </Col>
+      </CardFooter> */}
     </Card>
   )
 }

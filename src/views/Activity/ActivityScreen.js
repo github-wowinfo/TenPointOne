@@ -241,8 +241,9 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
     const [local_names, setLocal_names] = useState([])
     const getNameFromAddressBook = () => {
         const getdata = JSON.parse(localStorage.getItem('adrsbook'))
+        console.log('getdata', getdata)
         if (getdata !== null || getdata !== []) {
-            const valuedata = getdata && getdata.filter(a => a.owner === account)
+            const valuedata = getdata && getdata.filter(a => a.owner === account && a.network === chainId)
             const names = valuedata && valuedata.map(i => ({ ladrs: i.adrs, lname: i.nickname }))
             setLocal_names(names)
         }
