@@ -151,7 +151,8 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
     }, [chainId, account])
 
     const [modalVisible, setModalVisible] = useState(false)
-    const [getTransaction, setTransaction] = useState([])
+    const [getTransaction_trans, setTransaction_trans] = useState([])
+    const [getTransaction_exe, setTransaction_exe] = useState([])
     const [trxnId, setTrxnId] = useState('')
     const [desc, setDesc] = useState('')
     const [dataList, setDataList] = useState([])
@@ -222,12 +223,14 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                 setEdataList(exedata)
             } else {
                 const response = await axios.get(`https://stg-api.unmarshal.io/v1/${helperConfig.unmarshal[chainId]}/address/${globalAdrs}/transactions?page=${currentPage}&pageSize=20&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
-                setTransaction(response.data)
+                // setTransaction(response.data)
 
                 const data = response.data.transactions.filter((a) => a.type.includes('receive') || a.type.includes('send') || a.type.includes('approve'))
                 const exedata = response.data.transactions.filter((a) => !a.type.includes('receive') && !a.type.includes('send') && !a.type.includes('approve'))
                 setDataList(data)
+                setTransaction_trans(data)
                 setEdataList(exedata)
+                setTransaction_exe(exedata)
             }
 
         } catch (error) {
@@ -504,13 +507,36 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
 
     const handlePagination = page => { setCurrentPage(page.selected) }
 
-    const CustomPagination = () => (
+    const CustomPagination_trans = () => (
         <ReactPaginate
             previousLabel={''}
             nextLabel={''}
             forcePage={currentPage}
             onPageChange={page => handlePagination(page)}
-            pageCount={getTransaction.total_pages || 1}
+            pageCount={Math.ceil((getTransaction_trans.length / 10)) || 1}
+            breakLabel={'...'}
+            pageRangeDisplayed={2}
+            marginPagesDisplayed={2}
+            activeClassName={'active'}
+            pageClassName={'page-item'}
+            nextLinkClassName={'page-link'}
+            nextClassName={'page-item next'}
+            previousClassName={'page-item prev'}
+            previousLinkClassName={'page-link'}
+            pageLinkClassName={'page-link'}
+            breakClassName='page-item'
+            breakLinkClassName='page-link'
+            containerClassName={'pagination react-paginate separated-pagination pagination-sm justify-content-end pr-1 mt-1'}
+        />
+    )
+
+    const CustomPagination_exe = () => (
+        <ReactPaginate
+            previousLabel={''}
+            nextLabel={''}
+            forcePage={currentPage}
+            onPageChange={page => handlePagination(page)}
+            pageCount={Math.ceil((getTransaction_exe.length / 10)) || 1}
             breakLabel={'...'}
             pageRangeDisplayed={2}
             marginPagesDisplayed={2}
@@ -616,9 +642,9 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                                     data={dataList}
                                     columns={columns}
                                     pagination
-                                    paginationPerPage={20}
+                                    paginationPerPage={10}
                                     paginationDefaultPage={currentPage + 1}
-                                    paginationComponent={CustomPagination}
+                                    paginationComponent={CustomPagination_trans}
                                 />
                             </TabPane>
                             <TabPane tabId='2'>
@@ -629,9 +655,9 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                                     data={edataList}
                                     columns={columns}
                                     pagination
-                                    paginationPerPage={20}
+                                    paginationPerPage={10}
                                     paginationDefaultPage={currentPage + 1}
-                                    paginationComponent={CustomPagination}
+                                    paginationComponent={CustomPagination_exe}
                                 />
                             </TabPane>
                         </TabContent>

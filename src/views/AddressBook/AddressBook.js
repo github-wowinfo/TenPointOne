@@ -127,17 +127,13 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
     const handleAdrsBookDeleteLocal = () => {
         const getAdrsBookList = JSON.parse(localStorage.getItem('adrsbook'))
         for (const i in getAdrsBookList) {
-            if (getAdrsBookList[i].owner === account) {
-                // console.log('getAdrsBookList[i].owner', getAdrsBookList[i].owner)
+            if (getAdrsBookList[i].owner === account && getAdrsBookList[i].network === chainId) {
                 getAdrsBookList.splice(i, 1)
             } else {
                 console.log('No matching data')
             }
         }
         localStorage.setItem('adrsbook', JSON.stringify(getAdrsBookList))
-        // if (getdata) {
-        //     localStorage.removeItem('adrsbook')
-        // }
         if (globalVaultFlag === 0) {
             dispatch(AppData.globalVaultFlag(1))
         } else {
@@ -317,6 +313,11 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
     useEffect(() => {
         const adrsBookdata = JSON.parse(localStorage.getItem('adrsbook'))
         const filterAdrsBook = adrsBookdata && adrsBookdata.filter(i => i.owner === account && i.network === chainId)
+        if (filterAdrsBook.length > 0) {
+            for (const i in filterAdrsBook) {
+                delete filterAdrsBook[i].owner
+            }
+        }
         setAdrs_data(filterAdrsBook)
     }, [account, chainId, globalVaultFlag, globalFavFlag])
 
@@ -332,21 +333,8 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
 
     return (
         <>
-            {globalNickName === 'Create a Vault' ? (
-                <Col className='d-flex justify-content-center align-items-center' md={{ offset: 3, size: 6 }} sm="12">
-                    <Card className='my-1 card-payment'>
-                        <CardHeader style={{ paddingBottom: '.3em' }}>
-                            <CardTitle>Address Book</CardTitle>
-                        </CardHeader>
-                        <hr />
-                        <Col style={{ fontSize: '2em' }} className='d-flex flex-row justify-content-center align-items-center'>
-                            <NavLink href='/manager' >
-                                CREATE A VAULT <BsArrowRightCircle size={35} />
-                            </NavLink>
-                        </Col>
-                    </Card>
-                </Col>
-            ) : (<div>
+
+            <div>
                 <Card className='my-1'>
                     <CardHeader>
                         <CardTitle>Address Book</CardTitle>
@@ -417,15 +405,21 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
                                     <span className='align-middle ml-50'>Import</span>
                                 </Button>
                             </div>
-                            <Button className='ml-2' color='success'
-                                onClick={() => exportFromJSON({ data: adrs_data, fileName: 'Address_Book', exportType: exportFromJSON.types.json })} caret outline>
-                                <CgExport className='mx-1' size={15} />Export
-                            </Button>
+                            {adrs_data.length > 0 ? (
+                                <Button className='ml-2' color='success'
+                                    onClick={() => exportFromJSON({ data: adrs_data, fileName: 'Address_Book', exportType: exportFromJSON.types.json })} caret outline>
+                                    <CgExport className='mx-1' size={15} />Export
+                                </Button>
+                            ) : (
+                                <Button className='ml-2' color='success' caret outline disabled>
+                                    <CgExport className='mx-1' size={15} />Export
+                                </Button>
+                            )}
                         </div>
                     </CardHeader>
                 </Card>
                 <AddNewModal open={modal} handleModal={handleModal} />
-            </div>)}
+            </div>
             <ImportAdrsBook openimport={impAdrsBook} handleImpAdrsBook={handleImpAdrsBook} />
             <LoginModal openloginmodal={loginModal} disconnect={disconnect} />
         </>

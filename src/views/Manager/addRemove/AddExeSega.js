@@ -99,7 +99,8 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
                 }
             }
         } else {
-            alert("Enter a valid address!")
+            // alert("Enter a valid address!")
+            setSega_present_flag(false)
             setAdrs_flag(false)
         }
     }
@@ -110,6 +111,8 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
         txnState
     } = useManager(Vault, sadrs)
     const { _parentVault, _trader, _active } = getSegaInfo()
+
+    const [is_sega_adrs, setIs_sega_adrs] = useState()
 
     const addSega = () => {
         const getSegaData = JSON.parse(localStorage.getItem('segadata'))
@@ -153,6 +156,9 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
         }
         setAdrs_flag(false)
         setName_flag(false)
+        setSega_present_flag(false)
+        setSadrs('')
+        setIs_sega_adrs()
         handleExeSegaModal()
     }
 
@@ -224,12 +230,17 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
                     // vault_added = true
 
                     MySwal.fire({
-                        title: `You Vault has been Added`,
+                        title: `You Vault & Sega have been Added`,
                         customClass: {
                             confirmButton: 'btn btn-primary'
                         }
                     }).then(function (answer) {
                         if (answer.isConfirmed) {
+                            setVault_flag(false)
+                            setSega_flag(false)
+                            setSega_present_flag(false)
+                            setSadrs('')
+                            setIs_sega_adrs()
                             handleExeSegaModal()
                         }
                     })
@@ -240,22 +251,29 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
 
     const handleGetSegaInfo = () => {
         const getVaultData = JSON.parse(localStorage.getItem('vaultdata'))
-        console.log('getVaultData', getVaultData)
-        if (getVaultData === null || getVaultData === []) {
+        const vdata = getVaultData && getVaultData.filter(a => a.owner === account && a.network === chainId)
+        console.log('vdata', vdata)
+        if (vdata.length === 0) {
             console.log('no vault data')
             handleAddVaultToLocal()
         } else {
             for (const i in getVaultData) {
                 // console.log(i)
-                if (getVaultData[i].address === _parentVault) {
-                    // console.log('getVaultData[i].address', getVaultData[i].address)
-                    // console.log('_parentVault', _parentVault)
-                    // console.log('parsed')
-                    addSega()
+                if (isAddress(_parentVault)) {
+                    setIs_sega_adrs(true)
+                    if (getVaultData[i].address === _parentVault) {
+                        // console.log('getVaultData[i].address', getVaultData[i].address)
+                        // console.log('_parentVault', _parentVault)
+                        // console.log('parsed')
+                        addSega()
+                        return
+                    }
+                } else {
+                    // alert("This sega does not exist on this network")
+                    setIs_sega_adrs(false)
                     return
                 }
             }
-            handleAddVaultToLocal()
         }
     }
 
@@ -286,7 +304,6 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
     }
 
     const handleOnRemove = () => {
-
         const getdata = JSON.parse(localStorage.getItem('segadata'))
         // console.log('beforegetdata', getdata)
         for (const i in getdata) {
@@ -331,12 +348,16 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
             setVault_flag(false)
             setSega_flag(false)
             setSega_present_flag(false)
+            setSadrs('')
+            setIs_sega_adrs()
             handleExeSegaModal()
         }}>
             <ModalHeader tag='h2' toggle={() => {
                 setVault_flag(false)
                 setSega_flag(false)
                 setSega_present_flag(false)
+                setSadrs('')
+                setIs_sega_adrs()
                 handleExeSegaModal()
             }}>
                 <span style={{ color: '#1919d2' }}>Track or Hide Existing Sega</span>
@@ -408,6 +429,13 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
                                 <Col>
                                     <UncontrolledAlert color='warning'>
                                         <h4 className='alert-heading'>The Sega is already added!</h4>
+                                    </UncontrolledAlert>
+                                </Col>
+                            ) : null}
+                            {is_sega_adrs === false ? (
+                                <Col>
+                                    <UncontrolledAlert color='warning'>
+                                        <h4 className='alert-heading'>This sega does not exist on this network</h4>
                                     </UncontrolledAlert>
                                 </Col>
                             ) : null}

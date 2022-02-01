@@ -22,6 +22,7 @@ import { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import * as AppData from '../../../redux/actions/cookies/appDataType'
 import { SiWebmoney } from 'react-icons/si'
+import Import_Modal from './Import_Modal'
 
 const ImportExport = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
     const { account, chainId } = useEthers()
@@ -74,6 +75,9 @@ const ImportExport = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
         // { label: "User", key: "owner" }
     ]
 
+    const [import_modal, setImport_modal] = useState(false)
+    const handleimport_modal = () => setImport_modal(!import_modal)
+
     return (
         <div>
             <Card>
@@ -117,7 +121,7 @@ const ImportExport = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
                                     </DropdownMenu>
                                 ) : null}
                             </UncontrolledButtonDropdown>
-                            <Button className='mr-1 mb-1' color='primary' style={{ fontSize: '1.5em' }} color='primary' caret >
+                            <Button className='mr-1 mb-1' color='primary' style={{ fontSize: '1.5em' }} color='primary' caret onClick={handleimport_modal}>
                                 <CgImport size={15} />
                                 <span className='align-middle ml-50'>Import</span>
                             </Button>
@@ -125,6 +129,7 @@ const ImportExport = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
                     </Row>
                 </CardBody>
             </Card>
+            <Import_Modal openimport_modal={import_modal} handleimport_modal={handleimport_modal} />
         </div>
     )
 }

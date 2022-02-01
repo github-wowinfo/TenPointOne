@@ -1,10 +1,10 @@
 import { useState } from "react"
-import { Button, CardTitle, Col, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap"
-import { useEthers } from "@usedapp/core"
-import * as AppData from '../../redux/actions/cookies/appDataType'
 import { connect } from "react-redux"
+import { Button, CardTitle, Col, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap"
+import * as AppData from '../../../redux/actions/cookies/appDataType'
+import { useEthers } from "@usedapp/core"
 
-const ImportAdrsBook = ({ openimport, handleImpAdrsBook, globalVaultFlag, dispatch }) => {
+const Import_Modal = ({ openimport_modal, handleimport_modal, globalVaultFlag, dispatch }) => {
 
     const { account } = useEthers()
 
@@ -28,43 +28,14 @@ const ImportAdrsBook = ({ openimport, handleImpAdrsBook, globalVaultFlag, dispat
         }
     }
 
-    const handleUpload = (adrsFile) => {
-        if (adrsFile.length > 0) {
-            for (const i in adrsFile) {
-                adrsFile[i]['owner'] = account
-            }
-        }
-        const getLocalAdrs = JSON.parse(localStorage.getItem('adrsbook'))
-        console.log('getLocalAdrs', getLocalAdrs)
-        let newAdrsBookData
-        if (getLocalAdrs.length > 0) {
-            newAdrsBookData = getLocalAdrs.concat(adrsFile)
-            console.log('newAdrsBookData', newAdrsBookData)
-        }
-        localStorage.setItem('adrsbook', JSON.stringify(newAdrsBookData))
-        if (globalVaultFlag === 0) {
-            dispatch(AppData.globalVaultFlag(1))
-        } else {
-            dispatch(AppData.globalVaultFlag(0))
-        }
-        handleImpAdrsBook()
-        setSelectedFile()
-        setIsjson(false)
-        setAdrsFile()
-    }
-
     return (
-        <Modal isOpen={openimport} toggle={() => {
-            setSelectedFile()
-            setIsjson(false)
-            setAdrsFile()
-            handleImpAdrsBook()
+        <Modal isOpen={openimport_modal} toggle={() => {
+
+            handleimport_modal()
         }}>
             <ModalHeader toggle={() => {
-                setSelectedFile()
-                setIsjson(false)
-                setAdrsFile()
-                handleImpAdrsBook()
+
+                handleimport_modal()
             }}>
                 <CardTitle>Upload/Select Address Book data (.JSON)</CardTitle>
             </ModalHeader>
@@ -97,4 +68,4 @@ const mapStateToProps = (state) => ({
     globalFavFlag: state.appData.globalFavFlag
 })
 const mapDispatchToProp = dispatch => ({ dispatch })
-export default connect(mapStateToProps, mapDispatchToProp)(ImportAdrsBook)
+export default connect(mapStateToProps, mapDispatchToProp)(Import_Modal)
