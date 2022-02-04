@@ -506,7 +506,6 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
     }
     if (newAmount) {
       setAmount(newAmount.toString())
-      setAmt_flag(true)
     } else {
       setAmount(0)
     }
@@ -690,7 +689,7 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
             <Row >
               {is_sega ? (
                 <>
-                  {adrs_flag && amt_flag ? (
+                  {adrs_flag && balance_max !== '' ? (
                     <>
                       <Col>
                         <Button.Ripple color='primary' onClick={handleSegaTransfer} block >
@@ -726,7 +725,7 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
 
                 </>
               ) : (<>
-                {adrs_flag && amt_flag ? (
+                {adrs_flag && balance_max !== '' ? (
                   <Col className='text-center'>
                     <Button.Ripple color='primary' onClick={handleVaultSend}>
                       Send

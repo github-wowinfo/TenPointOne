@@ -1,12 +1,32 @@
-import { useState } from "react"
+import { Fragment, useState } from "react"
 import { Button, CardTitle, Col, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap"
 import { useEthers } from "@usedapp/core"
 import * as AppData from '../../redux/actions/cookies/appDataType'
 import { connect } from "react-redux"
+import { FaRegCheckCircle } from "react-icons/fa"
+import { toast } from "react-toastify"
+import Avatar from '@components/avatar'
 
 const ImportAdrsBook = ({ openimport, handleImpAdrsBook, globalVaultFlag, dispatch }) => {
 
     const { account } = useEthers()
+
+    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
+    const SuccessToast = () => (
+        <Fragment>
+            <div className='toastify-header'>
+                <div className='title-wrapper'>
+                    <Avatar size='md' color='success' icon={<FaRegCheckCircle size={12} />} />
+                    <h3 className='toast-title'>Addres Book Imported!</h3>
+                </div>
+            </div>
+            <div className='toastify-body'>
+                <span role='img' aria-label='toast-text'>
+                    The Addresbook data was succesfully imported.
+                </span>
+            </div>
+        </Fragment>
+    )
 
     const [adrsFile, setAdrsFile] = useState()
     const [selectedFile, setSelectedFile] = useState()
@@ -28,7 +48,7 @@ const ImportAdrsBook = ({ openimport, handleImpAdrsBook, globalVaultFlag, dispat
         }
     }
 
-    const handleUpload = (adrsFile) => {
+    const handleImport = (adrsFile) => {
         if (adrsFile.length > 0) {
             for (const i in adrsFile) {
                 adrsFile[i]['owner'] = account
@@ -47,10 +67,11 @@ const ImportAdrsBook = ({ openimport, handleImpAdrsBook, globalVaultFlag, dispat
         } else {
             dispatch(AppData.globalVaultFlag(0))
         }
-        handleImpAdrsBook()
         setSelectedFile()
         setIsjson(false)
         setAdrsFile()
+        notifySuccess()
+        handleImpAdrsBook()
     }
 
     return (
@@ -79,7 +100,7 @@ const ImportAdrsBook = ({ openimport, handleImpAdrsBook, globalVaultFlag, dispat
             <ModalFooter>
                 <Col className='text-center'>
                     {isjson ? (
-                        <Button.Ripple color="success" onClick={() => handleUpload(adrsFile)}>Upload</Button.Ripple>
+                        <Button.Ripple color="success" onClick={() => handleImport(adrsFile)}>Import</Button.Ripple>
                     ) : (
                         <Button.Ripple color="success" disabled>Upload</Button.Ripple>
                     )}

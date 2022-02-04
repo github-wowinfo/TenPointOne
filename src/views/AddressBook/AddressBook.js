@@ -28,7 +28,7 @@ import CardText from 'reactstrap/lib/CardText'
 import helperConfig from '../../helper-config.json'
 import { useEthers, shortenIfAddress, getExplorerAddressLink } from '@usedapp/core'
 import Heart from './Heart'
-import { FaRegCopy } from 'react-icons/fa'
+import { FaRegCheckCircle, FaRegCopy } from 'react-icons/fa'
 import { GoLinkExternal } from 'react-icons/go'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -42,10 +42,29 @@ import LoginModal from '../LoginModal'
 import { BsArrowRightCircle } from 'react-icons/bs'
 import exportFromJSON from 'export-from-json'
 import ImportAdrsBook from './ImportAdrsBook'
+import { toast } from "react-toastify"
+import Avatar from '@components/avatar'
 
 const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName }) => {
 
     const { account, chainId } = useEthers()
+
+    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
+    const SuccessToast = () => (
+        <Fragment>
+            <div className='toastify-header'>
+                <div className='title-wrapper'>
+                    <Avatar size='md' color='success' icon={<FaRegCheckCircle size={12} />} />
+                    <h3 className='toast-title'>Data Exported!</h3>
+                </div>
+            </div>
+            <div className='toastify-body'>
+                <span role='img' aria-label='toast-text'>
+                    The Addresbook data was succesfully exported, Check for "Address_Book.json" in your browser's download pane.
+                </span>
+            </div>
+        </Fragment>
+    )
 
     const isConnected = account !== undefined
 
@@ -407,7 +426,16 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
                             </div>
                             {adrs_data.length > 0 ? (
                                 <Button className='ml-2' color='success'
-                                    onClick={() => exportFromJSON({ data: adrs_data, fileName: 'Address_Book', exportType: exportFromJSON.types.json })} caret outline>
+                                    onClick={() => {
+                                        exportFromJSON(
+                                            {
+                                                data: adrs_data,
+                                                fileName: 'Address_Book',
+                                                exportType: exportFromJSON.types.json
+                                            }
+                                        )
+                                        notifySuccess()
+                                    }} caret outline>
                                     <CgExport className='mx-1' size={15} />Export
                                 </Button>
                             ) : (

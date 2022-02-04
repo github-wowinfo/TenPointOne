@@ -19,7 +19,7 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultN
 
     const data = actualSegas
 
-    console.log('tabledata', data)
+    // console.log('tabledata', data)
 
     const columns = [
         {

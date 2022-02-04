@@ -19,14 +19,14 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
 
     const getVaultListFromLocal = () => {
         const getdata = JSON.parse(localStorage.getItem('vaultdata'))
-        const valueData = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account)
+        const valueData = getdata && getdata.filter(a => a.network === chainId && a.owner === account)
         const vaultlist = valueData && valueData.map((vault, index) => ({ value: index, adrs: vault.address, name: vault.name }))
         setVaultList(vaultlist)
     }
 
     const getSegaListFromLocal = () => {
         const getdata = JSON.parse(localStorage.getItem('segadata'))
-        const valueData = getdata && getdata.filter(a => a.show === true && a.network === chainId && a.owner === account)
+        const valueData = getdata && getdata.filter(a => a.network === chainId && a.owner === account)
         const segalist = valueData && valueData.map((sega, index) => ({ value: index, adrs: sega.address, name: sega.name, ofvault: sega.vault }))
         setSegaList(segalist)
     }

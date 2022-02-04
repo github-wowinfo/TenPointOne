@@ -1,12 +1,32 @@
-import { useState } from "react"
+import { Fragment, useState } from "react"
 import { connect } from "react-redux"
 import { Button, CardTitle, Col, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap"
 import * as AppData from '../../../redux/actions/cookies/appDataType'
 import { useEthers } from "@usedapp/core"
+import { toast } from "react-toastify"
+import Avatar from '@components/avatar'
+import { FaRegCheckCircle } from "react-icons/fa"
 
 const Import_Modal = ({ openimport_modal, handleimport_modal, globalVaultFlag, dispatch }) => {
 
     const { account } = useEthers()
+
+    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
+    const SuccessToast = () => (
+        <Fragment>
+            <div className='toastify-header'>
+                <div className='title-wrapper'>
+                    <Avatar size='md' color='success' icon={<FaRegCheckCircle size={12} />} />
+                    <h3 className='toast-title'>Data Imported!</h3>
+                </div>
+            </div>
+            <div className='toastify-body'>
+                <span role='img' aria-label='toast-text'>
+                    The Vault/Sega's data was succesfully imported and can be found in your navigation pane.
+                </span>
+            </div>
+        </Fragment>
+    )
 
     const [adrsFile, setAdrsFile] = useState()
     const [selectedFile, setSelectedFile] = useState()
@@ -28,13 +48,63 @@ const Import_Modal = ({ openimport_modal, handleimport_modal, globalVaultFlag, d
         }
     }
 
+    const handleImport = (adrsFile) => {
+        if (adrsFile.length > 0) {
+            for (const i in adrsFile) {
+                adrsFile[i]['owner'] = account
+            }
+        }
+        let v_list = []
+        let s_list = []
+        adrsFile.forEach(i => {
+            if (i.vault) {
+                s_list.push(i)
+            } else {
+                v_list.push(i)
+            }
+        })
+
+        /*Pushing data to local Vault data*/
+        const getvdata = JSON.parse(localStorage.getItem('vaultdata'))
+        let vaultdata = []
+        if (getvdata) {
+            vaultdata = getvdata.concat(v_list)
+        } else {
+            vaultdata = v_list
+        }
+        localStorage.setItem('vaultdata', JSON.stringify(vaultdata))
+
+        /*Pushing data to local Sega data*/
+        const getsdata = JSON.parse(localStorage.getItem('segadata'))
+        let segadata = []
+        if (getsdata) {
+            segadata = getsdata.concat(s_list)
+        } else {
+            segadata = s_list
+        }
+        localStorage.setItem('segadata', JSON.stringify(segadata))
+
+        v_list = []
+        s_list = []
+        setSelectedFile()
+        setAdrsFile()
+        notifySuccess()
+        handleimport_modal()
+
+        // console.log('v_list', v_list)
+        // console.log('s_list', s_list)
+        // console.log('adrsFile', adrsFile)
+    }
+
     return (
         <Modal isOpen={openimport_modal} toggle={() => {
-
+            setSelectedFile()
+            setAdrsFile()
             handleimport_modal()
         }}>
             <ModalHeader toggle={() => {
-
+                setSelectedFile()
+                setAdrsFile()
                 handleimport_modal()
             }}>
                 <CardTitle>Upload/Select Address Book data (.JSON)</CardTitle>
@@ -50,9 +120,9 @@ const Import_Modal = ({ openimport_modal, handleimport_modal, globalVaultFlag, d
             <ModalFooter>
                 <Col className='text-center'>
                     {isjson ? (
-                        <Button.Ripple color="success" onClick={() => handleUpload(adrsFile)}>Upload</Button.Ripple>
+                        <Button.Ripple color="success" onClick={() => handleImport(adrsFile)}>Import</Button.Ripple>
                     ) : (
-                        <Button.Ripple color="success" disabled>Upload</Button.Ripple>
+                        <Button.Ripple color="success" disabled>Import</Button.Ripple>
                     )}
                 </Col>
             </ModalFooter>

@@ -23,6 +23,7 @@ import { connect } from 'react-redux'
 import * as AppData from '../../../redux/actions/cookies/appDataType'
 import { SiWebmoney } from 'react-icons/si'
 import Import_Modal from './Import_Modal'
+import Export_Modal from './Export_Modal'
 
 const ImportExport = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
     const { account, chainId } = useEthers()
@@ -78,6 +79,9 @@ const ImportExport = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
     const [import_modal, setImport_modal] = useState(false)
     const handleimport_modal = () => setImport_modal(!import_modal)
 
+    const [export_modal, setExport_modal] = useState(false)
+    const handleexport_modal = () => setExport_modal(!export_modal)
+
     return (
         <div>
             <Card>
@@ -93,13 +97,11 @@ const ImportExport = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
                         </Col>
                         <Col md='6' style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
                             {/* <Button.Ripple className='mr-1 mb-1' size='lg' color='primary' style={{ fontSize: '1.7em' }}><Unlock className='mr-1' size={20} />Vault</Button.Ripple> */}
-                            <UncontrolledButtonDropdown direction='up'>
+                            {/* <UncontrolledButtonDropdown direction='up'>
                                 <DropdownToggle className='mr-1 mb-1' color='primary' style={{ fontSize: '1.5em' }} caret >
                                     <CgExport size={15} />
                                     <span className='align-middle ml-50'>Export</span>
                                 </DropdownToggle>
-                                {console.log('noData', noData)}
-                                {console.log('Vaultdata', Vaultdata)}
                                 {noData ? (
                                     <DropdownMenu right>
                                         <DropdownItem className='w-100'>
@@ -120,7 +122,11 @@ const ImportExport = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
                                         </DropdownItem>
                                     </DropdownMenu>
                                 ) : null}
-                            </UncontrolledButtonDropdown>
+                            </UncontrolledButtonDropdown> */}
+                            <Button className='mr-1 mb-1' color='primary' style={{ fontSize: '1.5em' }} color='primary' caret onClick={handleexport_modal}>
+                                <CgExport size={15} />
+                                <span className='align-middle ml-50'>Export</span>
+                            </Button>
                             <Button className='mr-1 mb-1' color='primary' style={{ fontSize: '1.5em' }} color='primary' caret onClick={handleimport_modal}>
                                 <CgImport size={15} />
                                 <span className='align-middle ml-50'>Import</span>
@@ -130,6 +136,7 @@ const ImportExport = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
                 </CardBody>
             </Card>
             <Import_Modal openimport_modal={import_modal} handleimport_modal={handleimport_modal} />
+            <Export_Modal openexport_modal={export_modal} handleexport_modal={handleexport_modal} />
         </div>
     )
 }
