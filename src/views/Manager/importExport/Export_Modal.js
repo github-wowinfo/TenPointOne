@@ -7,6 +7,8 @@ import exportFromJSON from 'export-from-json'
 import { toast } from "react-toastify"
 import Avatar from '@components/avatar'
 import { FaRegCheckCircle } from "react-icons/fa"
+// import CheckboxTree from 'react-checkbox-tree'
+// import 'react-checkbox-tree/lib/react-checkbox-tree.css'
 
 const Export_Modal = ({ openexport_modal, handleexport_modal }) => {
 
@@ -31,22 +33,45 @@ const Export_Modal = ({ openexport_modal, handleexport_modal }) => {
 
     const [vaultList, setVaultList] = useState([])
     const [segaList, setSegaList] = useState([])
+    const [dlist, setDlist] = useState([])
 
     const getVaultListFromLocal = () => {
         const getdata = JSON.parse(localStorage.getItem('vaultdata'))
         const valueData = getdata && getdata.filter(a => a.network === chainId && a.owner === account)
         setVaultList(valueData)
+        // const reqData = valueData && valueData.map((vadrs) => ({ value: vadrs.address, label: vadrs.name }))
+        // setVaultList(reqData)
     }
 
     const getSegaListFromLocal = () => {
         const getdata = JSON.parse(localStorage.getItem('segadata'))
         const valueData = getdata && getdata.filter(a => a.network === chainId && a.owner === account)
         setSegaList(valueData)
+        // const reqData = valueData && valueData.map((sadrs) => ({ value: sadrs.address, label: sadrs.name, ofvault: sadrs.vault }))
+        // setSegaList(reqData)
+    }
+
+    // console.log('vaultList', vaultList)
+    // console.log('segaList', segaList)
+
+    const [display_list, setDisplay_list] = useState([])
+    const display = () => {
+        vaultList.forEach(vault => { vault["children"] = [] })
+        // console.log('vaultList', vaultList)
+        vaultList.forEach(vadrs => {
+            segaList.forEach(sadrs => {
+                if (sadrs.vault === vadrs.address) {
+                    vadrs.children.push(sadrs)
+                }
+            })
+        })
+        setDisplay_list(vaultList)
     }
 
     useEffect(() => {
         getVaultListFromLocal()
         getSegaListFromLocal()
+        display()
     }, [account, chainId, openexport_modal])
 
     // console.log('vaultList', vaultList)
@@ -61,23 +86,27 @@ const Export_Modal = ({ openexport_modal, handleexport_modal }) => {
     // console.log('v_list', v_list)
     // console.log('s_list', s_list)
 
-    const [newlist, setNewlist] = useState([])
+    const [final_list, setFinal_list] = useState([])
     const handleExport = () => {
         console.log('v_list', v_list)
         console.log('s_list', s_list)
         if (v_list.length > 0) {
-            const final_list = v_list.concat(s_list)
-            for (const i in final_list) {
-                delete final_list[i].owner
+            const newlist = v_list.concat(s_list)
+            for (const i in newlist) {
+                delete newlist[i].owner
             }
-            setNewlist(final_list)
+            setFinal_list(newlist)
         }
     }
-    console.log('newlist', newlist)
+    console.log('final_list', final_list)
 
     useEffect(() => {
         handleExport()
     }, [check_flag])
+
+    // const [expanded, setExpanded] = useState([])
+    // const [checked, setChecked] = useState([])
+    // console.log('checked', checked)
 
     return (
         <Modal isOpen={openexport_modal} toggle={() => {
@@ -85,7 +114,7 @@ const Export_Modal = ({ openexport_modal, handleexport_modal }) => {
             setS_check(false)
             setV_list([])
             setS_list([])
-            setNewlist([])
+            setFinal_list([])
             handleexport_modal()
         }}>
             <ModalHeader toggle={() => {
@@ -93,7 +122,7 @@ const Export_Modal = ({ openexport_modal, handleexport_modal }) => {
                 setS_check(false)
                 setV_list([])
                 setS_list([])
-                setNewlist([])
+                setFinal_list([])
                 handleexport_modal()
             }}>
                 <CardTitle>Select Address that you want to export.</CardTitle>
@@ -102,7 +131,70 @@ const Export_Modal = ({ openexport_modal, handleexport_modal }) => {
                 <Card className='p-1 mb-0'>
                     <Form>
                         <FormGroup check>
-                            {vaultList && vaultList.map((i, indexv) => {
+                            {/* <CheckboxTree
+                                nodes={display_list}
+                                checked={checked}
+                                expanded={expanded}
+                                onCheck={checked => setChecked(checked)}
+                                onExpand={expanded => setExpanded(expanded)}
+                                showExpandAll='true'
+                                noCascade='true'
+                            /> */}
+                            {display_list && display_list.map((i, indexv) => {
+                                return (
+                                    <>
+                                        <Row>
+                                            <Col>
+                                                <Input className='my-1' key={indexv} type='checkbox' value={i}
+                                                    checked={v_check[indexv]} onChange={e => {
+                                                        setV_check(!v_check[indexv])
+                                                        const { children, ...resti } = i
+                                                        console.log('resti', resti)
+                                                        v_list.push(resti)
+                                                        if (!e.target.checked) {
+                                                            setV_list(v_list.filter(vadrs => vadrs !== i))
+                                                        }
+                                                        if (check_flag) {
+                                                            setCheck_flag(false)
+                                                        } else {
+                                                            setCheck_flag(true)
+                                                        }
+                                                    }} />
+                                                <h4 style={{ color: '#1919d2' }} className='mb-0 '>{i.name}</h4>
+                                                <h6 className='font-weight-light '>{shortenIfAddress(i.address)}</h6>
+                                            </Col>
+                                        </Row>
+                                        {i.children && i.children.map((j, indexs) => {
+                                            return (
+                                                <>
+                                                    <Row>
+                                                        <Col>
+                                                            <Input className='my-1' key={indexs} type='checkbox' value={j}
+                                                                checked={s_check[indexs]} onChange={(e) => {
+                                                                    setS_check(!s_check[indexs])
+                                                                    s_list.push(j)
+                                                                    if (!e.target.checked) {
+                                                                        setS_list(s_list.filter(sadrs => sadrs !== j))
+                                                                    }
+                                                                    if (check_flag) {
+                                                                        setCheck_flag(false)
+                                                                    } else {
+                                                                        setCheck_flag(true)
+                                                                    }
+                                                                }} />
+                                                            <Col className='mx-1'>
+                                                                <h4 style={{ color: '#1919d2' }} className='mb-0 '>{j.name}</h4>
+                                                                <h6 className='font-weight-light '>{shortenIfAddress(j.address)}</h6>
+                                                            </Col>
+                                                        </Col>
+                                                    </Row>
+                                                </>
+                                            )
+                                        })}
+                                    </>
+                                )
+                            })}
+                            {/* {vaultList && vaultList.map((i, indexv) => {
                                 return (
                                     <>
                                         <Row>
@@ -157,7 +249,7 @@ const Export_Modal = ({ openexport_modal, handleexport_modal }) => {
                                         })}
                                     </>
                                 )
-                            })}
+                            })} */}
                         </FormGroup>
                     </Form>
                 </Card>
@@ -167,7 +259,7 @@ const Export_Modal = ({ openexport_modal, handleexport_modal }) => {
                     <Button.Ripple color="success" onClick={() => {
                         exportFromJSON(
                             {
-                                data: newlist,
+                                data: final_list,
                                 fileName: 'Vault_Sega_Data',
                                 exportType: exportFromJSON.types.json
                             }
