@@ -17,10 +17,13 @@ import Icon from 'react-crypto-icons'
 import helperConfig from '../../helper-config.json'
 import Text from '../../views/CustomComponent/Text'
 import DropList from "./DropList"
+// import { useSkin } from '@hooks/useSkin'
 
-const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNickName, globalVaultFlag }) => {
+
+const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNickName, globalVaultFlag, skin }) => {
 
   const { account, chainId } = useEthers()
+  // const [skin, setSkin] = useSkin()
 
   const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false, position: toast.POSITION.TOP_CENTER })
 
@@ -103,9 +106,18 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
     }
   ]
 
+  const dstyle = skin === 'dark' ? {
+    border: '1px solid  white',
+    borderRadius: '10px'
+  } : {
+    background: "#fcfaff",
+    boxShadow: '-20px 20px 60px #d6d5d9, 20px -20px 60px #ffffff',
+    borderRadius: '10px'
+  }
+
   const renderItem = () => {
     return (
-      <div className="mb-2 pb-1" style={{ background: '#fcfaff', boxShadow: '-20px 20px 60px #d6d5d9, 20px -20px 60px #ffffff', borderRadius: '10px' }} >
+      <div className="mb-2 pb-1" style={dstyle} >
         <Col style={{ padding: '0px 0px' }}>
           <Col style={{ ...networkstyle, ...backgroundChange, fontSize: '1em', marginBottom: '0px' }} className='my-1 d-flex flex-row flex-nowrap align-self-center '>
             {/* <Icon className='mr-1' name={networkC.icon} size={20} />{networkC.name} */}

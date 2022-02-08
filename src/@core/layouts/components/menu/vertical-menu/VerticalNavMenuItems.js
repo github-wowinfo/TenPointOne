@@ -27,7 +27,7 @@ const VerticalMenuNavItems = props => {
 
   return (
     <>
-      <OwnerDisplay menuCollapsed={props.menuCollapsed} menuHover={props.menuHover} />
+      <OwnerDisplay skin={props.skin} menuCollapsed={props.menuCollapsed} menuHover={props.menuHover} />
       {RenderNavItems}
       <DisConnect menuCollapsed={props.menuCollapsed} menuHover={props.menuHover} />
       <hr className='mx-1' />

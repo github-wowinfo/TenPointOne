@@ -11,6 +11,11 @@ const Import_Modal = ({ openimport_modal, handleimport_modal, globalVaultFlag, d
 
     const { account } = useEthers()
 
+    const disconnect = () => {
+        window.location.href = '/home'
+        // setLoginModal(!loginModal)
+    }
+
     const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false, position: toast.POSITION.TOP_CENTER })
     const SuccessToast = () => (
         <Fragment>
@@ -91,6 +96,7 @@ const Import_Modal = ({ openimport_modal, handleimport_modal, globalVaultFlag, d
         setIsjson(false)
         notifySuccess()
         handleimport_modal()
+        disconnect()
 
         // console.log('v_list', v_list)
         // console.log('s_list', s_list)

@@ -74,6 +74,7 @@ const Sidebar = props => {
             >
               <ul className='navigation navigation-main pt-1'>
                 <VerticalNavMenuItems
+                  skin={skin}
                   items={navigation}
                   groupActive={groupActive}
                   setGroupActive={setGroupActive}
