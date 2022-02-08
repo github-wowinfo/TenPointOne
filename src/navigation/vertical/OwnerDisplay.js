@@ -155,11 +155,11 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
           <Row className='mb-1 d-flex flex-column'>
             <h3>{shortenIfAddress(globalAdrs)}</h3>
             <Col className='text-center'>
-              <Link to='/receive'><IoQrCodeOutline className="mx-1" color='grey' size={25} /></Link>
+              <Link to='/receive'><IoQrCodeOutline className="mx-1" color={skin === 'dark' ? 'white' : 'grey'} size={25} /></Link>
 
-              <FaRegCopy style={{ cursor: 'pointer' }} className="mx-1" color='grey' size={25} onClick={copy} />
+              <FaRegCopy style={{ cursor: 'pointer' }} className="mx-1" color={skin === 'dark' ? 'white' : 'grey'} size={25} onClick={copy} />
 
-              <a href={getExplorerAddressLink(globalAdrs, chainId ? chainId : 1)} target='_blank'><GoLinkExternal className="mx-1" color='grey' size={25} /></a>
+              <a href={getExplorerAddressLink(globalAdrs, chainId ? chainId : 1)} target='_blank'><GoLinkExternal className="mx-1" color={skin === 'dark' ? 'white' : 'grey'} size={25} /></a>
             </Col>
           </Row>
           {/* < <Col></Col>Button.Ripple className='my-1' color='flat-primary' onClick={handleDropList}>
