@@ -57,7 +57,7 @@ const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault, vaul
         }
     }
 
-    const notifyError = (emsg) => toast.error(<ErrorToast msg={emsg} />, { hideProgressBar: false })
+    const notifyError = (emsg) => toast.error(<ErrorToast msg={emsg} />, { hideProgressBar: false, position: toast.POSITION.TOP_CENTER })
     const ErrorToast = ({ msg }) => (
         <Fragment>
             <div className='toastify-header'>

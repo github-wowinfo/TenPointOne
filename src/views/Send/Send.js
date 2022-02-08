@@ -177,7 +177,7 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
   }
 
   // const [text, setText] = useState(globalAdrs)
-  const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false })
+  const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false, position: toast.POSITION.TOP_CENTER })
   const copy = async () => {
     // let text
     // if (navigator.clipboard) {
@@ -209,7 +209,7 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
     </Fragment>
   )
 
-  const notifyError = (emsg) => toast.error(<ErrorToast msg={emsg} />, { hideProgressBar: false })
+  const notifyError = (emsg) => toast.error(<ErrorToast msg={emsg} />, { hideProgressBar: false, position: toast.POSITION.TOP_CENTER })
   const ErrorToast = ({ msg }) => (
     <Fragment>
       <div className='toastify-header'>

@@ -212,9 +212,9 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
     const getTokenTransaction = async () => {
         try {
 
-            // const response = await axios.get(`https://stg-api.unmarshal.io/v1/matic/address/0x989923d33bE0612680064Dc7223a9f292C89A538/transactions?page=${currentPage}&pageSize=20&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+            // const response = await axios.get(`https://api.unmarshal.com/v2/matic/address/0x989923d33bE0612680064Dc7223a9f292C89A538/transactions?page=${currentPage}&pageSize=20&contract=string&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
             if (have_custom_adrs) {
-                const response = await axios.get(`https://stg-api.unmarshal.io/v1/${helperConfig.unmarshal[chainId]}/address/${custom_adrs}/transactions?page=${currentPage}&pageSize=20&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+                const response = await axios.get(`https://api.unmarshal.com/v2/${helperConfig.unmarshal[chainId]}/address/${custom_adrs}/transactions?page=${currentPage}&pageSize=20&contract=string&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
                 setTransaction(response.data)
 
                 const data = response.data.transactions.filter((a) => a.type.includes('receive') || a.type.includes('send') || a.type.includes('approve'))
@@ -222,7 +222,8 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                 setDataList(data)
                 setEdataList(exedata)
             } else {
-                const response = await axios.get(`https://stg-api.unmarshal.io/v1/${helperConfig.unmarshal[chainId]}/address/${globalAdrs}/transactions?page=${currentPage}&pageSize=20&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+                // const response = await axios.get(`https://api.unmarshal.com/v2/matic/address/0x989923d33bE0612680064Dc7223a9f292C89A538/transactions?page=${currentPage}&pageSize=20&contract=string&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+                const response = await axios.get(`https://api.unmarshal.com/v2/${helperConfig.unmarshal[chainId]}/address/${globalAdrs}/transactions?page=${currentPage}&pageSize=20&contract=string&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
                 // setTransaction(response.data)
 
                 const data = response.data.transactions.filter((a) => a.type.includes('receive') || a.type.includes('send') || a.type.includes('approve'))
@@ -344,7 +345,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                                     <img src={row.received && row.received[0].logo_url} alt={row.received[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
                                 </div>
                                 <span style={{ paddingTop: '10px' }} className='font-weight-bold'>
-                                    {row.received && row.received[0].symbol}
+                                    {row.received && row.received[0].symbol.length > 5 ? row.received[0].symbol.substring(0, 5).concat('..') : row.received[0].symbol}
                                 </span>
                             </div>
                         ) : row.type === 'send' ? (
@@ -353,7 +354,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                                     <img src={row.sent && row.sent[0].logo_url} alt={row.sent[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
                                 </div>
                                 <span style={{ paddingTop: '10px' }} className='font-weight-bold'>
-                                    {row.sent && row.sent[0].symbol}
+                                    {row.sent && row.sent[0].symbol.length > 5 ? row.sent[0].symbol.substring(0, 5).concat('..') : row.sent[0].symbol}
                                 </span>
                             </div>
                         ) : null
@@ -385,49 +386,6 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                 </span>
             )
         },
-        // {
-        //     name: 'Asset',
-        //     center: true,
-        //     compact: true,
-        //     wrap: true,
-        //     selector: row => (
-        //         <span>
-        //             {
-        //                 row.type === 'receive' ? (
-        //                     <div className='align-middle font-weight-bold'>
-        //                         <img src={row.received && row.received[0].logo_url} alt={row.received[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
-        //                     </div>
-        //                 ) : row.type === 'send' ? (
-        //                     <div className='align-middle font-weight-bold'>
-        //                         <img src={row.sent && row.sent[0].logo_url} alt={row.sent[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
-        //                     </div>
-        //                 ) : null
-        //             }
-        //         </span>
-
-        //     )
-        // },
-        // {
-        //     name: '$ Value',
-        //     minWidth: '150px',
-        //     center: 'true',
-        //     selector: row => (
-        //         <span>
-        //             <span className='align-middle font-weight-bold'>
-
-        //                 {
-        //                     row.sent && `$${(row.sent[0].value / (10 ** row.sent[0].decimals)).toLocaleString()}`
-        //                 }
-        //             </span>
-        //             {/* <br /> */}
-        //             <span className='align-middle font-weight-bold'>
-        //                 {
-        //                     row.received && `$${(row.received[0].value / (10 ** row.received[0].decimals)).toLocaleString()}`
-        //                 }
-        //             </span>
-        //         </span>
-        //     )
-        // },
         {
             name: 'Status',
             minWidth: '250px',
@@ -642,7 +600,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                                     data={dataList}
                                     columns={columns}
                                     pagination
-                                    paginationPerPage={10}
+                                    paginationPerPage={15}
                                     paginationDefaultPage={currentPage + 1}
                                     paginationComponent={CustomPagination_trans}
                                 />
@@ -655,7 +613,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                                     data={edataList}
                                     columns={columns}
                                     pagination
-                                    paginationPerPage={10}
+                                    paginationPerPage={15}
                                     paginationDefaultPage={currentPage + 1}
                                     paginationComponent={CustomPagination_exe}
                                 />

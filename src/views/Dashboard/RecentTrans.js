@@ -25,7 +25,7 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
   const [dataList, setDataList] = useState([])
   const getTokenTransaction = async () => {
     try {
-      const response = await axios.get(`https://stg-api.unmarshal.io/v1/${helperConfig.unmarshal[chainId]}/address/${globalAdrs}/transactions?page=1&pageSize=12&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+      const response = await axios.get(`https://api.unmarshal.com/v2/${helperConfig.unmarshal[chainId]}/address/${globalAdrs}/transactions?page=1&pageSize=20&contract=string&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
       // const response = await axios.get(`https://stg-api.unmarshal.io/v1/${helperConfig.unmarshal[chainId]}/address/${account}/transactions?page=1&pageSize=20&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
       setTransaction(response.data)
       const data = response.data.transactions.filter((a) => a.type.includes('receive') || a.type.includes('send') || a.type.includes('approve'))
@@ -157,7 +157,7 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
                   <img src={row.received && row.received[0].logo_url} alt={row.received[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
                 </div>
                 <span style={{ paddingTop: '10px' }} className='font-weight-bold'>
-                  {row.received && row.received[0].symbol}
+                  {row.received && row.received[0].symbol.length > 5 ? row.received[0].symbol.substring(0, 5).concat('..') : row.received[0].symbol}
                 </span>
               </div>
             ) : row.type === 'send' ? (
@@ -166,7 +166,7 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
                   <img src={row.sent && row.sent[0].logo_url} alt={row.sent[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
                 </div>
                 <span style={{ paddingTop: '10px' }} className='font-weight-bold'>
-                  {row.sent && row.sent[0].symbol}
+                  {row.sent && row.sent[0].symbol.length > 5 ? row.sent[0].symbol.substring(0, 5).concat('..') : row.sent[0].symbol}
                 </span>
               </div>
             ) : null

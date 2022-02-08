@@ -200,7 +200,7 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
         }, 30000)
     }
 
-    const notifyError = (emsg) => toast.error(<ErrorToast msg={emsg} />, { hideProgressBar: false })
+    const notifyError = (emsg) => toast.error(<ErrorToast msg={emsg} />, { hideProgressBar: false, position: toast.POSITION.TOP_CENTER })
     const ErrorToast = ({ msg }) => (
         <Fragment>
             <div className='toastify-header'>

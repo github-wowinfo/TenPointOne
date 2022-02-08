@@ -22,7 +22,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
 
   const { account, chainId } = useEthers()
 
-  const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
+  const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false, position: toast.POSITION.TOP_CENTER })
 
   const copy = async () => {
     // await navigator.clipboard.writeText(globalAdrs)

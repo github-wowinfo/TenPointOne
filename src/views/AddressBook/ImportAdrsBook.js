@@ -11,7 +11,7 @@ const ImportAdrsBook = ({ openimport, handleImpAdrsBook, globalVaultFlag, dispat
 
     const { account } = useEthers()
 
-    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
+    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false, position: toast.POSITION.TOP_CENTER })
     const SuccessToast = () => (
         <Fragment>
             <div className='toastify-header'>

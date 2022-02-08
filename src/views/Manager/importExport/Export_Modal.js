@@ -14,7 +14,7 @@ const Export_Modal = ({ openexport_modal, handleexport_modal }) => {
 
     const { account, chainId } = useEthers()
 
-    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
+    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false, position: toast.POSITION.TOP_CENTER })
     const SuccessToast = () => (
         <Fragment>
             <div className='toastify-header'>
@@ -56,7 +56,9 @@ const Export_Modal = ({ openexport_modal, handleexport_modal }) => {
 
     const [display_list, setDisplay_list] = useState([])
     const display = () => {
+        vaultList.forEach(vault => { vault["checked"] = "no" })
         vaultList.forEach(vault => { vault["children"] = [] })
+        segaList.forEach(sega => { sega["checked"] = "no" })
         // console.log('vaultList', vaultList)
         vaultList.forEach(vadrs => {
             segaList.forEach(sadrs => {
@@ -84,7 +86,7 @@ const Export_Modal = ({ openexport_modal, handleexport_modal }) => {
     const [check_flag, setCheck_flag] = useState(false)
 
     // console.log('v_list', v_list)
-    // console.log('s_list', s_list)
+    // console.log('s_list', s_list)    
 
     const [final_list, setFinal_list] = useState([])
     const handleExport = () => {
@@ -96,6 +98,8 @@ const Export_Modal = ({ openexport_modal, handleexport_modal }) => {
                 delete newlist[i].owner
             }
             setFinal_list(newlist)
+        } else {
+            setFinal_list([])
         }
     }
     console.log('final_list', final_list)
@@ -148,11 +152,18 @@ const Export_Modal = ({ openexport_modal, handleexport_modal }) => {
                                                 <Input className='my-1' key={indexv} type='checkbox' value={i}
                                                     checked={v_check[indexv]} onChange={e => {
                                                         setV_check(!v_check[indexv])
-                                                        const { children, ...resti } = i
-                                                        console.log('resti', resti)
-                                                        v_list.push(resti)
+                                                        i.checked = "yes"
+                                                        v_list.push(i)
+                                                        // const { children, ...resti } = i
+                                                        // v_list.push(resti)
                                                         if (!e.target.checked) {
                                                             setV_list(v_list.filter(vadrs => vadrs !== i))
+                                                            i.checked = "no"
+                                                            for (const i in s_list) {
+                                                                if (s_list[i].checked === 'yes') {
+                                                                    s_list.splice(i)
+                                                                }
+                                                            }
                                                         }
                                                         if (check_flag) {
                                                             setCheck_flag(false)
@@ -169,19 +180,26 @@ const Export_Modal = ({ openexport_modal, handleexport_modal }) => {
                                                 <>
                                                     <Row>
                                                         <Col>
-                                                            <Input className='my-1' key={indexs} type='checkbox' value={j}
-                                                                checked={s_check[indexs]} onChange={(e) => {
-                                                                    setS_check(!s_check[indexs])
-                                                                    s_list.push(j)
-                                                                    if (!e.target.checked) {
-                                                                        setS_list(s_list.filter(sadrs => sadrs !== j))
-                                                                    }
-                                                                    if (check_flag) {
-                                                                        setCheck_flag(false)
-                                                                    } else {
-                                                                        setCheck_flag(true)
-                                                                    }
-                                                                }} />
+                                                            {i.checked === "yes" ? (
+                                                                <Input className='my-1' key={indexs} type='checkbox' value={j}
+                                                                    checked={s_check[indexs]} onChange={(e) => {
+                                                                        setS_check(!s_check[indexs])
+                                                                        j.checked = "yes"
+                                                                        s_list.push(j)
+                                                                        if (!e.target.checked) {
+                                                                            setS_list(s_list.filter(sadrs => sadrs !== j))
+                                                                            j.checked = "no"
+                                                                        }
+                                                                        if (check_flag) {
+                                                                            setCheck_flag(false)
+                                                                        } else {
+                                                                            setCheck_flag(true)
+                                                                        }
+                                                                    }} />
+                                                            ) : (
+                                                                <Input className='my-1' key={indexs} type='checkbox'
+                                                                    checked={false} disabled />
+                                                            )}
                                                             <Col className='mx-1'>
                                                                 <h4 style={{ color: '#1919d2' }} className='mb-0 '>{j.name}</h4>
                                                                 <h6 className='font-weight-light '>{shortenIfAddress(j.address)}</h6>
@@ -194,84 +212,41 @@ const Export_Modal = ({ openexport_modal, handleexport_modal }) => {
                                     </>
                                 )
                             })}
-                            {/* {vaultList && vaultList.map((i, indexv) => {
-                                return (
-                                    <>
-                                        <Row>
-                                            <Col>
-                                                <Input className='my-1' key={indexv} type='checkbox' value={i}
-                                                    checked={v_check[indexv]} onChange={e => {
-                                                        // console.log('i', e.target.value)
-                                                        // console.log('ii', i)
-                                                        setV_check(!v_check[indexv])
-                                                        v_list.push(i)
-                                                        if (!e.target.checked) {
-                                                            setV_list(v_list.filter(vadrs => vadrs !== i))
-                                                        }
-                                                        if (check_flag) {
-                                                            setCheck_flag(false)
-                                                        } else {
-                                                            setCheck_flag(true)
-                                                        }
-                                                    }} />
-                                                <h4 style={{ color: '#1919d2' }} className='mb-0 '>{i.name}</h4>
-                                                <h6 className='font-weight-light '>{shortenIfAddress(i.address)}</h6>
-                                            </Col>
-                                        </Row>
-                                        {segaList && segaList.map((j, indexs) => {
-                                            return (
-                                                <>
-                                                    {i.address === j.vault ? <>
-                                                        <Row>
-                                                            <Col>
-                                                                <Input className='my-1' key={indexs} type='checkbox' value={j}
-                                                                    checked={s_check[indexs]} onChange={(e) => {
-                                                                        setS_check(!s_check[indexs])
-                                                                        s_list.push(j)
-                                                                        if (!e.target.checked) {
-                                                                            setS_list(s_list.filter(sadrs => sadrs !== j))
-                                                                        }
-                                                                        if (check_flag) {
-                                                                            setCheck_flag(false)
-                                                                        } else {
-                                                                            setCheck_flag(true)
-                                                                        }
-                                                                    }} />
-                                                                <Col className='mx-1'>
-                                                                    <h4 style={{ color: '#1919d2' }} className='mb-0 '>{j.name}</h4>
-                                                                    <h6 className='font-weight-light '>{shortenIfAddress(j.address)}</h6>
-                                                                </Col>
-                                                            </Col>
-                                                        </Row>
-                                                    </> : null}
-                                                </>
-                                            )
-                                        })}
-                                    </>
-                                )
-                            })} */}
                         </FormGroup>
                     </Form>
                 </Card>
             </ModalBody>
             <ModalFooter>
                 <Col className='text-center'>
-                    <Button.Ripple color="success" onClick={() => {
-                        exportFromJSON(
-                            {
-                                data: final_list,
-                                fileName: 'Vault_Sega_Data',
-                                exportType: exportFromJSON.types.json
+                    {final_list.length > 0 ? (
+                        <Button.Ripple color="success" onClick={() => {
+                            for (const i in final_list) {
+                                delete final_list[i].children
+                                delete final_list[i].checked
                             }
-                        )
-                        setV_check(false)
-                        setS_check(false)
-                        setV_list([])
-                        setS_list([])
-                        setNewlist([])
-                        notifySuccess()
-                        handleexport_modal()
-                    }}>Export</Button.Ripple>
+                            const export_list = final_list
+                            console.log('export_list', export_list)
+
+                            exportFromJSON(
+                                {
+                                    data: export_list,
+                                    fileName: 'Vault_Sega_Data',
+                                    exportType: exportFromJSON.types.json
+                                }
+                            )
+
+                            setV_check(false)
+                            setS_check(false)
+                            setV_list([])
+                            setS_list([])
+                            setFinal_list([])
+                            notifySuccess()
+                            handleexport_modal()
+                        }}>Export</Button.Ripple>
+                    ) : (
+                        <Button.Ripple color="success" disabled>Export</Button.Ripple>
+                    )}
+
                 </Col>
             </ModalFooter>
         </Modal>

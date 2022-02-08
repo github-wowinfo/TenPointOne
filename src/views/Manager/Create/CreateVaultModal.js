@@ -83,7 +83,7 @@ const CreateVaultModal = ({ openvault, handleVaultModal, globalVaultFlag, dispat
         }
     }
 
-    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
+    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false, position: toast.POSITION.TOP_CENTER })
     const SuccessToast = () => (
         <Fragment>
             <div className='toastify-header'>
@@ -101,7 +101,7 @@ const CreateVaultModal = ({ openvault, handleVaultModal, globalVaultFlag, dispat
         </Fragment>
     )
 
-    const notifyError = (emsg) => toast.error(<ErrorToast msg={emsg} />, { hideProgressBar: false })
+    const notifyError = (emsg) => toast.error(<ErrorToast msg={emsg} />, { hideProgressBar: false, position: toast.POSITION.TOP_CENTER })
     const ErrorToast = ({ msg }) => (
         <Fragment>
             <div className='toastify-header'>

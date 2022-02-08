@@ -11,7 +11,7 @@ const Import_Modal = ({ openimport_modal, handleimport_modal, globalVaultFlag, d
 
     const { account } = useEthers()
 
-    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: true })
+    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false, position: toast.POSITION.TOP_CENTER })
     const SuccessToast = () => (
         <Fragment>
             <div className='toastify-header'>
@@ -88,6 +88,7 @@ const Import_Modal = ({ openimport_modal, handleimport_modal, globalVaultFlag, d
         s_list = []
         setSelectedFile()
         setAdrsFile()
+        setIsjson(false)
         notifySuccess()
         handleimport_modal()
 
@@ -100,11 +101,13 @@ const Import_Modal = ({ openimport_modal, handleimport_modal, globalVaultFlag, d
         <Modal isOpen={openimport_modal} toggle={() => {
             setSelectedFile()
             setAdrsFile()
+            setIsjson(false)
             handleimport_modal()
         }}>
             <ModalHeader toggle={() => {
                 setSelectedFile()
                 setAdrsFile()
+                setIsjson(false)
                 handleimport_modal()
             }}>
                 <CardTitle>Upload/Select Address Book data (.JSON)</CardTitle>

@@ -89,7 +89,8 @@ const Assests = ({ cols = 0, globalAdrs }) => {
             <Avatar size='lg' img={item.logo_url} onError={addDefaultSrc} className='mx-2' />
             {/* <img src={item.logo_url && item.logo_url} alt={item.contract_ticker_symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} /> */}
             <Media className='my-auto' body>
-              <h5 className='font-weight-bolder mb-0'>{item.contract_ticker_symbol}</h5>
+              <h5 className='font-weight-bolder mb-0'>{
+                item.contract_ticker_symbol.length > 5 ? item.contract_ticker_symbol.substring(0, 5).concat('..') : item.contract_ticker_symbol}</h5>
               {showDollar ? (
                 <CardText className='font-small-3 mb-0'>$ {(item.balance / (10 ** item.contract_decimals) * item.quote_rate).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</CardText>
               ) : (
@@ -105,7 +106,7 @@ const Assests = ({ cols = 0, globalAdrs }) => {
   return (
     <Card className='card-statistics' style={{ height: "100%" }}>
       <CardHeader>
-        <CardTitle >Assests</CardTitle>
+        <CardTitle >Top Assests</CardTitle>
         <CardText className='card-text font-small-2 mr-25 mb-0'>
           <Link to='/asset'>
             <Badge style={{ fontSize: "1.3em" }} color="primary" >View All</Badge>

@@ -46,14 +46,14 @@ const AddNewModal = ({ open, handleModal, trxnId, description, local }) => {
 
   const getTransactionDetails = async () => {
     try {
-      const response = await axios.get(`https://stg-api.unmarshal.io/v1/${helperConfig.unmarshal[chainId]}/transactions/${trxnId}?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+      const response = await axios.get(`https://api.unmarshal.com/v1/${helperConfig.unmarshal[chainId]}/transactions/${trxnId}?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
       setDetails(response.data)
     } catch (error) {
       console.log(`AddNewModal [getTransactionDetails]`, error)
     }
   }
 
-  const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false })
+  const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false, position: toast.POSITION.TOP_CENTER })
   const copy = async () => {
     // await navigator.clipboard.writeText(details?.id)
     const textField = document.createElement('textarea')
