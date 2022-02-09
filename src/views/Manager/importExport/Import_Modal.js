@@ -53,6 +53,23 @@ const Import_Modal = ({ openimport_modal, handleimport_modal, globalVaultFlag, d
         }
     }
 
+    const addToAdrsBook = (list) => {
+        for (const i in list) {
+            delete list[i].show
+            delete list[i].vault
+            list[i]['isFav'] = false
+        }
+        const adrs_list = list.map(j => ({ adrs: j.address, nickname: j.name, isFav: j.isFav, network: j.network, owner: j.owner }))
+        const getAdrsdata = JSON.parse(localStorage.getItem('adrsbook'))
+        let adrsbook = []
+        if (getAdrsdata) {
+            adrsbook = [...getAdrsdata].concat(adrs_list)
+        } else {
+            adrsbook = adrs_list
+        }
+        localStorage.setItem('adrsbook', JSON.stringify(adrsbook))
+    }
+
     const handleImport = (adrsFile) => {
         if (adrsFile.length > 0) {
             for (const i in adrsFile) {
@@ -88,6 +105,13 @@ const Import_Modal = ({ openimport_modal, handleimport_modal, globalVaultFlag, d
             segadata = s_list
         }
         localStorage.setItem('segadata', JSON.stringify(segadata))
+        addToAdrsBook(adrsFile)
+
+        if (globalVaultFlag === 0) {
+            dispatch(AppData.globalVaultFlag(1))
+        } else {
+            dispatch(AppData.globalVaultFlag(0))
+        }
 
         v_list = []
         s_list = []
@@ -96,7 +120,7 @@ const Import_Modal = ({ openimport_modal, handleimport_modal, globalVaultFlag, d
         setIsjson(false)
         notifySuccess()
         handleimport_modal()
-        disconnect()
+        // disconnect()
 
         // console.log('v_list', v_list)
         // console.log('s_list', s_list)

@@ -10,7 +10,7 @@ import { FaRegCheckCircle } from "react-icons/fa"
 // import CheckboxTree from 'react-checkbox-tree'
 // import 'react-checkbox-tree/lib/react-checkbox-tree.css'
 
-const Export_Modal = ({ openexport_modal, handleexport_modal }) => {
+const Export_Modal = ({ openexport_modal, handleexport_modal, globalFavFlag, globalVaultFlag }) => {
 
     const { account, chainId } = useEthers()
 
@@ -74,7 +74,7 @@ const Export_Modal = ({ openexport_modal, handleexport_modal }) => {
         getVaultListFromLocal()
         getSegaListFromLocal()
         display()
-    }, [account, chainId, openexport_modal])
+    }, [account, chainId, openexport_modal, globalVaultFlag, globalFavFlag])
 
     // console.log('vaultList', vaultList)
     // console.log('segaList', segaList)
@@ -118,6 +118,7 @@ const Export_Modal = ({ openexport_modal, handleexport_modal }) => {
             setS_check(false)
             setV_list([])
             setS_list([])
+            setDisplay_list([])
             setFinal_list([])
             handleexport_modal()
         }}>
@@ -126,6 +127,7 @@ const Export_Modal = ({ openexport_modal, handleexport_modal }) => {
                 setS_check(false)
                 setV_list([])
                 setS_list([])
+                setDisplay_list([])
                 setFinal_list([])
                 handleexport_modal()
             }}>
@@ -144,74 +146,77 @@ const Export_Modal = ({ openexport_modal, handleexport_modal }) => {
                                 showExpandAll='true'
                                 noCascade='true'
                             /> */}
-                            {display_list && display_list.map((i, indexv) => {
-                                return (
-                                    <>
-                                        <Row>
-                                            <Col>
-                                                <Input className='my-1' key={indexv} type='checkbox' value={i}
-                                                    checked={v_check[indexv]} onChange={e => {
-                                                        setV_check(!v_check[indexv])
-                                                        i.checked = "yes"
-                                                        v_list.push(i)
-                                                        // const { children, ...resti } = i
-                                                        // v_list.push(resti)
-                                                        if (!e.target.checked) {
-                                                            setV_list(v_list.filter(vadrs => vadrs !== i))
-                                                            i.checked = "no"
-                                                            for (const i in s_list) {
-                                                                if (s_list[i].checked === 'yes') {
-                                                                    s_list.splice(i)
+                            {display_list.length > 0 ? (
+                                display_list && display_list.map((i, indexv) => {
+                                    return (
+                                        <>
+                                            <Row>
+                                                <Col>
+                                                    <Input className='my-1' key={indexv} type='checkbox' value={i}
+                                                        checked={v_check[indexv]} onChange={e => {
+                                                            setV_check(!v_check[indexv])
+                                                            i.checked = "yes"
+                                                            v_list.push(i)
+                                                            // const { children, ...resti } = i
+                                                            // v_list.push(resti)
+                                                            if (!e.target.checked) {
+                                                                setV_list(v_list.filter(vadrs => vadrs !== i))
+                                                                i.checked = "no"
+                                                                for (const i in s_list) {
+                                                                    if (s_list[i].checked === 'yes') {
+                                                                        s_list.splice(i)
+                                                                    }
                                                                 }
                                                             }
-                                                        }
-                                                        if (check_flag) {
-                                                            setCheck_flag(false)
-                                                        } else {
-                                                            setCheck_flag(true)
-                                                        }
-                                                    }} />
-                                                <h4 style={{ color: '#1919d2' }} className='mb-0 '>{i.name}</h4>
-                                                <h6 className='font-weight-light '>{shortenIfAddress(i.address)}</h6>
-                                            </Col>
-                                        </Row>
-                                        {i.children && i.children.map((j, indexs) => {
-                                            return (
-                                                <>
-                                                    <Row>
-                                                        <Col>
-                                                            {i.checked === "yes" ? (
-                                                                <Input className='my-1' key={indexs} type='checkbox' value={j}
-                                                                    checked={s_check[indexs]} onChange={(e) => {
-                                                                        setS_check(!s_check[indexs])
-                                                                        j.checked = "yes"
-                                                                        s_list.push(j)
-                                                                        if (!e.target.checked) {
-                                                                            setS_list(s_list.filter(sadrs => sadrs !== j))
-                                                                            j.checked = "no"
-                                                                        }
-                                                                        if (check_flag) {
-                                                                            setCheck_flag(false)
-                                                                        } else {
-                                                                            setCheck_flag(true)
-                                                                        }
-                                                                    }} />
-                                                            ) : (
-                                                                <Input className='my-1' key={indexs} type='checkbox'
-                                                                    checked={false} disabled />
-                                                            )}
-                                                            <Col className='mx-1'>
-                                                                <h4 style={{ color: '#1919d2' }} className='mb-0 '>{j.name}</h4>
-                                                                <h6 className='font-weight-light '>{shortenIfAddress(j.address)}</h6>
+                                                            if (check_flag) {
+                                                                setCheck_flag(false)
+                                                            } else {
+                                                                setCheck_flag(true)
+                                                            }
+                                                        }} />
+                                                    <h4 style={{ color: '#1919d2' }} className='mb-0 '>{i.name}</h4>
+                                                    <h6 className='font-weight-light '>{shortenIfAddress(i.address)}</h6>
+                                                </Col>
+                                            </Row>
+                                            {i.children && i.children.map((j, indexs) => {
+                                                return (
+                                                    <>
+                                                        <Row>
+                                                            <Col>
+                                                                {i.checked === "yes" ? (
+                                                                    <Input className='my-1' key={indexs} type='checkbox' value={j}
+                                                                        checked={s_check[indexs]} onChange={(e) => {
+                                                                            setS_check(!s_check[indexs])
+                                                                            j.checked = "yes"
+                                                                            s_list.push(j)
+                                                                            if (!e.target.checked) {
+                                                                                setS_list(s_list.filter(sadrs => sadrs !== j))
+                                                                                j.checked = "no"
+                                                                            }
+                                                                            if (check_flag) {
+                                                                                setCheck_flag(false)
+                                                                            } else {
+                                                                                setCheck_flag(true)
+                                                                            }
+                                                                        }} />
+                                                                ) : (
+                                                                    <Input className='my-1' key={indexs} type='checkbox'
+                                                                        checked={false} disabled />
+                                                                )}
+                                                                <Col className='mx-1'>
+                                                                    <h4 style={{ color: '#1919d2' }} className='mb-0 '>{j.name}</h4>
+                                                                    <h6 className='font-weight-light '>{shortenIfAddress(j.address)}</h6>
+                                                                </Col>
                                                             </Col>
-                                                        </Col>
-                                                    </Row>
-                                                </>
-                                            )
-                                        })}
-                                    </>
-                                )
-                            })}
+                                                        </Row>
+                                                    </>
+                                                )
+                                            })}
+                                        </>
+                                    )
+                                })
+                            ) : (<h1 className="text-center">"No data to Export!!"</h1>)}
+
                         </FormGroup>
                     </Form>
                 </Card>
@@ -239,6 +244,7 @@ const Export_Modal = ({ openexport_modal, handleexport_modal }) => {
                             setS_check(false)
                             setV_list([])
                             setS_list([])
+                            setDisplay_list([])
                             setFinal_list([])
                             notifySuccess()
                             handleexport_modal()

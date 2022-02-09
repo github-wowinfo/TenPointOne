@@ -40,31 +40,12 @@ import * as AppData from '../../redux/actions/cookies/appDataType'
 import DeleteContact from './DeleteContact'
 import LoginModal from '../LoginModal'
 import { BsArrowRightCircle } from 'react-icons/bs'
-import exportFromJSON from 'export-from-json'
 import ImportAdrsBook from './ImportAdrsBook'
-import { toast } from "react-toastify"
-import Avatar from '@components/avatar'
+import ExportAdrsBook from './ExportAdrsBook'
 
 const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName }) => {
 
     const { account, chainId } = useEthers()
-
-    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false, position: toast.POSITION.TOP_CENTER })
-    const SuccessToast = () => (
-        <Fragment>
-            <div className='toastify-header'>
-                <div className='title-wrapper'>
-                    <Avatar size='md' color='success' icon={<FaRegCheckCircle size={12} />} />
-                    <h3 className='toast-title'>Data Exported!</h3>
-                </div>
-            </div>
-            <div className='toastify-body'>
-                <span role='img' aria-label='toast-text'>
-                    The Addresbook data was succesfully exported, Check for "Address_Book.json" in your browser's download pane.
-                </span>
-            </div>
-        </Fragment>
-    )
 
     const isConnected = account !== undefined
 
@@ -350,6 +331,9 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
     const [impAdrsBook, setImpAdrsBook] = useState(false)
     const handleImpAdrsBook = () => setImpAdrsBook(!impAdrsBook)
 
+    const [expAdrsBook, setExpAdrsBook] = useState(false)
+    const handleExpAdrsBook = () => setExpAdrsBook(!expAdrsBook)
+
     return (
         <>
 
@@ -425,17 +409,7 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
                                 </Button>
                             </div>
                             {adrs_data.length > 0 ? (
-                                <Button className='ml-2' color='success'
-                                    onClick={() => {
-                                        exportFromJSON(
-                                            {
-                                                data: adrs_data,
-                                                fileName: 'Address_Book',
-                                                exportType: exportFromJSON.types.json
-                                            }
-                                        )
-                                        notifySuccess()
-                                    }} caret outline>
+                                <Button className='ml-2' color='success' onClick={() => { handleExpAdrsBook() }} caret outline>
                                     <CgExport className='mx-1' size={15} />Export
                                 </Button>
                             ) : (
@@ -449,6 +423,7 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
                 <AddNewModal open={modal} handleModal={handleModal} />
             </div>
             <ImportAdrsBook openimport={impAdrsBook} handleImpAdrsBook={handleImpAdrsBook} />
+            <ExportAdrsBook openexport={expAdrsBook} handleExpAdrsBook={handleExpAdrsBook} data={adrs_data} />
             <LoginModal openloginmodal={loginModal} disconnect={disconnect} />
         </>
 

@@ -11,7 +11,7 @@ import { useManager } from '../../../utility/hooks/useManager'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
-const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickName, dispatch, globalVaultFlag }) => {
+const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickName, dispatch, globalVaultFlag, globalFavFlag }) => {
 
     const { chainId, account } = useEthers()
 
@@ -332,6 +332,11 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
         } else {
             setRm_flag(0)
         }
+        if (globalFavFlag === 0) {
+            dispatch(AppData.globalFavFlag(1))
+        } else {
+            dispatch(AppData.globalFavFlag(0))
+        }
         handleExeSegaModal()
     }
 
@@ -508,7 +513,8 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
 const mapStateToProps = (state) => ({
     globalAdrs: state.appData.globalAdrs,
     globalNickName: state.appData.globalNickName,
-    globalVaultFlag: state.appData.globalVaultFlag
+    globalVaultFlag: state.appData.globalVaultFlag,
+    globalFavFlag: state.appData.globalFavFlag
 })
 const mapDispatchToProp = dispatch => ({ dispatch })
 
