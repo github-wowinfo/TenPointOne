@@ -2,7 +2,7 @@ import classnames from 'classnames'
 import Avatar from '@components/avatar'
 import { Link } from 'react-router-dom'
 import { TrendingUp, User, Box, DollarSign } from 'react-feather'
-import { Card, CardHeader, CardTitle, CardBody, CardText, Row, Col, Media, Badge, CardFooter } from 'reactstrap'
+import { Card, CardHeader, CardTitle, CardBody, CardText, Row, Col, Media, Badge, CardFooter, Spinner } from 'reactstrap'
 import Icon from 'react-crypto-icons'
 import { useEthers } from '@usedapp/core'
 import { useEffect, useState } from 'react'
@@ -20,9 +20,23 @@ const Assests = ({ cols = 0, globalAdrs }) => {
   const { account, chainId } = useEthers()
 
   const [assetList, setAssetList] = useState([])
+  const [loading, setLoading] = useState(true)
   const getTokenBalance = async () => {
     try {
-      const response = await axios.get(`https://api.unmarshal.com/v1/${helperConfig.unmarshal[chainId]}/address/${globalAdrs}/assets?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+      const response = await axios.get(`https://api.unmarshal.com/v1/${helperConfig.unmarshal[chainId]}/address/${globalAdrs}/assets?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`).catch(error => {
+        if (error.response) {
+          console.log(error.response.data)
+          console.log(error.response.status)
+          console.log(error.response.headers)
+          setLoading(false)
+        } else if (error.request) {
+          console.log(error.request)
+          setLoading(false)
+        } else {
+          console.log('Error', error.message)
+          setLoading(false)
+        }
+      })
       // const response = await axios.get(`https://api.unmarshal.com/v1/${helperConfig.unmarshal[chainId]}/address/${account}/assets?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
       console.log('response', response)
       setAssetList(response.data)
@@ -114,7 +128,13 @@ const Assests = ({ cols = 0, globalAdrs }) => {
         </CardText>
       </CardHeader>
       <CardBody className='statistics-body'>
-        <Row>{renderData()}</Row>
+        <Row>
+          {loading && data.length === 0 ? (
+            <Col className='my-1 text-center'>
+              <Spinner color='primary' />
+            </Col>
+          ) : renderData()}
+        </Row>
       </CardBody>
       <Col className='text-right'>
         <label>

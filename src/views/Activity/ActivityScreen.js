@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Card, CardBody, CardText, Col, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row, Table, Badge, TabContent, TabPane, CardTitle, CardHeader, Nav, NavItem, NavLink, CardFooter, Tooltip, UncontrolledTooltip } from 'reactstrap'
+import { Button, Card, CardBody, CardText, Col, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row, Table, Badge, TabContent, TabPane, CardTitle, CardHeader, Nav, NavItem, NavLink, CardFooter, Tooltip, UncontrolledTooltip, Spinner } from 'reactstrap'
 import { HiDownload } from 'react-icons/hi'
 import { BsArrowUpCircle, BsArrowDownCircle, BsInfoCircle, BsArrowRightCircle } from 'react-icons/bs'
 import { GrClose, GrCloudComputer } from 'react-icons/gr'
@@ -28,9 +28,10 @@ import { AlertCircle, Check, Eye, Info, XCircle } from 'react-feather'
 import { VscServerProcess } from 'react-icons/vsc'
 import { FaRegCheckCircle } from 'react-icons/fa'
 import { FiXCircle } from 'react-icons/fi'
-import { BiErrorCircle } from 'react-icons/bi'
+import { BiErrorCircle, BiLeftTopArrowCircle } from 'react-icons/bi'
 
 const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalVaultFlag }) => {
+    let data
 
     const { account, chainId } = useEthers()
 
@@ -159,6 +160,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
     const [edataList, setEdataList] = useState([])
     const [active, setActive] = useState('1')
     const [currentPage, setCurrentPage] = useState(0)
+    const [loading, setLoading] = useState(true)
 
     const handleModal = () => {
         setModalVisible(!modalVisible)
@@ -214,7 +216,20 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
 
             // const response = await axios.get(`https://api.unmarshal.com/v2/matic/address/0x989923d33bE0612680064Dc7223a9f292C89A538/transactions?page=${currentPage}&pageSize=20&contract=string&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
             if (have_custom_adrs) {
-                const response = await axios.get(`https://api.unmarshal.com/v2/${helperConfig.unmarshal[chainId]}/address/${custom_adrs}/transactions?page=${currentPage}&pageSize=20&contract=string&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+                const response = await axios.get(`https://api.unmarshal.com/v2/${helperConfig.unmarshal[chainId]}/address/${custom_adrs}/transactions?page=${currentPage}&pageSize=25&contract=string&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`).catch(error => {
+                    if (error.response) {
+                        console.log(error.response.data)
+                        console.log(error.response.status)
+                        console.log(error.response.headers)
+                        setLoading(false)
+                    } else if (error.request) {
+                        console.log(error.request)
+                        setLoading(false)
+                    } else {
+                        console.log('Error', error.message)
+                        setLoading(false)
+                    }
+                })
                 setTransaction(response.data)
 
                 const data = response.data.transactions.filter((a) => a.type.includes('receive') || a.type.includes('send') || a.type.includes('approve'))
@@ -223,7 +238,20 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                 setEdataList(exedata)
             } else {
                 // const response = await axios.get(`https://api.unmarshal.com/v2/matic/address/0x989923d33bE0612680064Dc7223a9f292C89A538/transactions?page=${currentPage}&pageSize=20&contract=string&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
-                const response = await axios.get(`https://api.unmarshal.com/v2/${helperConfig.unmarshal[chainId]}/address/${globalAdrs}/transactions?page=${currentPage}&pageSize=20&contract=string&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+                const response = await axios.get(`https://api.unmarshal.com/v2/${helperConfig.unmarshal[chainId]}/address/${globalAdrs}/transactions?page=${currentPage}&pageSize=25&contract=string&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`).catch(error => {
+                    if (error.response) {
+                        console.log(error.response.data)
+                        console.log(error.response.status)
+                        console.log(error.response.headers)
+                        setLoading(false)
+                    } else if (error.request) {
+                        console.log(error.request)
+                        setLoading(false)
+                    } else {
+                        console.log('Error', error.message)
+                        setLoading(false)
+                    }
+                })
                 // setTransaction(response.data)
 
                 const data = response.data.transactions.filter((a) => a.type.includes('receive') || a.type.includes('send') || a.type.includes('approve'))
@@ -371,6 +399,18 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                     {
                         row.type === 'receive' ? (
                             <span className='align-middle font-weight-bold'>
+                                { /* {
+                                    row.received ? (
+                                        row.received.map(i => {
+                                            if (i.to === globalAdrs) {
+                                                data = (row.received[i].value / (10 ** row.received[i].decimals)).toLocaleString()
+                                                return data
+                                            } else {
+                                                data = 0
+                                                return data
+                                            }
+                                        })) : row.sent ? '' : '-'
+                                } */ }
                                 {
                                     row.received ? (row.received[0].value / (10 ** row.received[0].decimals)).toLocaleString() : row.sent ? '' : '-'
                                 }
@@ -533,6 +573,10 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
     //     ]
     // ]
 
+    // setTimeout(() => {
+    //     setLoading(false)
+    // }, 5000)
+
     return (
         <>
             <>
@@ -593,30 +637,42 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                         </Nav>
                         <TabContent activeTab={active}>
                             <TabPane tabId='1'>
-                                <DataTable
-                                    className='react-dataTable'
-                                    customStyles={tablestyle}
-                                    noHeader
-                                    data={dataList}
-                                    columns={columns}
-                                    pagination
-                                    paginationPerPage={15}
-                                    paginationDefaultPage={currentPage + 1}
-                                    paginationComponent={CustomPagination_trans}
-                                />
+                                {loading && dataList.length === 0 ? (
+                                    <Col className='my-1 text-center'>
+                                        <Spinner color='primary' />
+                                    </Col>
+                                ) : (
+                                    <DataTable
+                                        className='react-dataTable'
+                                        customStyles={tablestyle}
+                                        noHeader
+                                        data={dataList}
+                                        columns={columns}
+                                        pagination
+                                        paginationPerPage={10}
+                                        paginationDefaultPage={currentPage + 1}
+                                        paginationComponent={CustomPagination_trans}
+                                    />
+                                )}
                             </TabPane>
                             <TabPane tabId='2'>
-                                <DataTable
-                                    className='react-dataTable'
-                                    customStyles={tablestyle}
-                                    noHeader
-                                    data={edataList}
-                                    columns={columns}
-                                    pagination
-                                    paginationPerPage={15}
-                                    paginationDefaultPage={currentPage + 1}
-                                    paginationComponent={CustomPagination_exe}
-                                />
+                                {loading && edataList.length === 0 ? (
+                                    <Col className='my-1 text-center'>
+                                        <Spinner color='primary' />
+                                    </Col>
+                                ) : (
+                                    <DataTable
+                                        className='react-dataTable'
+                                        customStyles={tablestyle}
+                                        noHeader
+                                        data={edataList}
+                                        columns={columns}
+                                        pagination
+                                        paginationPerPage={10}
+                                        paginationDefaultPage={currentPage + 1}
+                                        paginationComponent={CustomPagination_exe}
+                                    />
+                                )}
                             </TabPane>
                         </TabContent>
                     </Card>

@@ -1,5 +1,5 @@
 import { ArrowUp, ArrowDown, Check, XCircle, AlertCircle } from 'react-feather'
-import { Table, Badge, Card } from 'reactstrap'
+import { Table, Badge, Card, Spinner, Col } from 'reactstrap'
 import CardHeader from 'reactstrap/lib/CardHeader'
 import CardTitle from 'reactstrap/lib/CardTitle'
 import { Link } from 'react-router-dom'
@@ -23,9 +23,23 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
 
   const [getTransaction, setTransaction] = useState([])
   const [dataList, setDataList] = useState([])
+  const [loading, setLoading] = useState(true)
   const getTokenTransaction = async () => {
     try {
-      const response = await axios.get(`https://api.unmarshal.com/v2/${helperConfig.unmarshal[chainId]}/address/${globalAdrs}/transactions?page=1&pageSize=20&contract=string&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
+      const response = await axios.get(`https://api.unmarshal.com/v2/${helperConfig.unmarshal[chainId]}/address/${globalAdrs}/transactions?page=1&pageSize=20&contract=string&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`).catch(error => {
+        if (error.response) {
+          console.log(error.response.data)
+          console.log(error.response.status)
+          console.log(error.response.headers)
+          setLoading(false)
+        } else if (error.request) {
+          console.log(error.request)
+          setLoading(false)
+        } else {
+          console.log('Error', error.message)
+          setLoading(false)
+        }
+      })
       // const response = await axios.get(`https://stg-api.unmarshal.io/v1/${helperConfig.unmarshal[chainId]}/address/${account}/transactions?page=1&pageSize=20&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
       setTransaction(response.data)
       const data = response.data.transactions.filter((a) => a.type.includes('receive') || a.type.includes('send') || a.type.includes('approve'))
@@ -239,12 +253,18 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
           <Badge style={{ fontSize: "1.05em" }} color="primary">View All</Badge>
         </Link>
       </CardHeader>
-      <DataTable
-        className='react-dataTable'
-        noHeader
-        columns={columns}
-        data={data}
-      />
+      {loading && data.length === 0 ? (
+        <Col className='my-1 text-center'>
+          <Spinner color='primary' />
+        </Col>
+      ) : (
+        <DataTable
+          className='react-dataTable'
+          noHeader
+          columns={columns}
+          data={data}
+        />
+      )}
     </Card>
   )
 }
