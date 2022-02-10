@@ -2,6 +2,7 @@
 //  ? TIP:  It is recommended to use this file for overriding component variables.
 //  ================================================================================================
 
+
 .main-menu.menu-light .navigation > li.active > a {
     background: linear-gradient(118deg, rgba(#1028e4, 1), rgba(#1028e4, 0.7));
     box-shadow: 0 0 10px 1px rgba(#1028e4, 0.7);
@@ -17,6 +18,10 @@
     // background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0), transparent) ;
     background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0)); 
 }
+
+// .card-title{
+//     color: $primary;
+// }
 
 //Navbar
 .dark-layout .navbar-container {

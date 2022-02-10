@@ -29,6 +29,7 @@ import { VscServerProcess } from 'react-icons/vsc'
 import { FaRegCheckCircle } from 'react-icons/fa'
 import { FiXCircle } from 'react-icons/fi'
 import { BiErrorCircle, BiLeftTopArrowCircle } from 'react-icons/bi'
+import ReceivedValue from './ReceivedValue'
 
 const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalVaultFlag }) => {
     let data
@@ -362,8 +363,8 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
         },
         {
             name: 'Asset',
-            minWidth: '170px',
-            center: 'true',
+            minWidth: '200px',
+            center: 'false',
             selector: row => (
                 <span>
                     {
@@ -399,27 +400,18 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                     {
                         row.type === 'receive' ? (
                             <span className='align-middle font-weight-bold'>
-                                { /* {
-                                    row.received ? (
-                                        row.received.map(i => {
-                                            if (i.to === globalAdrs) {
-                                                data = (row.received[i].value / (10 ** row.received[i].decimals)).toLocaleString()
-                                                return data
-                                            } else {
-                                                data = 0
-                                                return data
-                                            }
-                                        })) : row.sent ? '' : '-'
-                                } */ }
                                 {
-                                    row.received ? (row.received[0].value / (10 ** row.received[0].decimals)).toLocaleString() : row.sent ? '' : '-'
+                                    row.received ? (<ReceivedValue data={row.received} gadrs={globalAdrs} />) : row.sent ? '' : '-'
                                 }
                             </span>
                         ) : (
                             <span className='align-middle font-weight-bold'>
                                 {
-                                    row.sent ? (row.sent[0].value / (10 ** row.sent[0].decimals)).toLocaleString() : row.received ? '' : '-'
+                                    row.sent ? (<ReceivedValue data={row.sent} gadrs={globalAdrs} />) : row.received ? '' : '-'
                                 }
+                                {/* {
+                                    row.sent ? (row.sent[0].value / (10 ** row.sent[0].decimals)).toLocaleString() : row.received ? '' : '-'
+                                } */}
                             </span>
                         )
                     }
