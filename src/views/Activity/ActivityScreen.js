@@ -370,7 +370,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                     {
                         row.type === 'receive' ? (
                             <div className='d-flex flex-row justify-content-start'>
-                                <div className='align-middle font-weight-bold'>
+                                <div className='mr-1 align-middle font-weight-bold'>
                                     <img src={row.received && row.received[0].logo_url} alt={row.received[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
                                 </div>
                                 <span style={{ paddingTop: '10px' }} className='font-weight-bold'>
