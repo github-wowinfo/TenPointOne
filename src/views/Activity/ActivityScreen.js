@@ -364,13 +364,13 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
         {
             name: 'Asset',
             minWidth: '200px',
-            center: 'false',
+            // center: 'true',
             selector: row => (
                 <span>
                     {
                         row.type === 'receive' ? (
-                            <div className='d-flex flex-row justify-content-between'>
-                                <div className='mr-1 align-middle font-weight-bold'>
+                            <div className='d-flex flex-row justify-content-start'>
+                                <div className='align-middle font-weight-bold'>
                                     <img src={row.received && row.received[0].logo_url} alt={row.received[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
                                 </div>
                                 <span style={{ paddingTop: '10px' }} className='font-weight-bold'>
@@ -378,8 +378,8 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                                 </span>
                             </div>
                         ) : row.type === 'send' ? (
-                            <div className='d-flex flex-row justify-content-between'>
-                                <div className='mr-1 align-middle font-weight-bold'>
+                            <div className='d-flex flex-row justify-content-start'>
+                                <div className='align-middle font-weight-bold'>
                                     <img src={row.sent && row.sent[0].logo_url} alt={row.sent[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
                                 </div>
                                 <span style={{ paddingTop: '10px' }} className='font-weight-bold'>
