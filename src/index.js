@@ -47,18 +47,23 @@ ReactDOM.render(
           const InfuraKey="08a4622376bd4dbe82b7c0e0b3c42d46"
           config={{
             supportedChains:
-              [ChainId.Polygon, ChainId.Kovan, ChainId.BSCTestnet, ChainId.Mumbai, 1337],
+              [ChainId.Polygon],
+            // [ChainId.Polygon, ChainId.Kovan, ChainId.BSCTestnet, ChainId.Mumbai, 1337],
 
             multicallAddresses: {
               1337: "0xC158a563CFeeBab087120F3cC51Da26E844ca3F3"
             },
 
             readOnlyUrls: {
-              [ChainId.Mainnet]: `https://mainnet.infura.io/v3/08a4622376bd4dbe82b7c0e0b3c42d46`,
-              [ChainId.Kovan]: `https://kovan.infura.io/v3/08a4622376bd4dbe82b7c0e0b3c42d46`,
-              [ChainId.Polygon]: `https://polygon-mainnet.infura.io/v3/08a4622376bd4dbe82b7c0e0b3c42d46`,
-              [ChainId.Mumbai]: `https://polygon-mumbai.infura.io/v3/08a4622376bd4dbe82b7c0e0b3c42d46`,
+              [ChainId.Polygon]: `https://polygon-mainnet.infura.io/v3/08a4622376bd4dbe82b7c0e0b3c42d46`
             },
+
+            // readOnlyUrls: {
+            //   [ChainId.Mainnet]: `https://mainnet.infura.io/v3/08a4622376bd4dbe82b7c0e0b3c42d46`,
+            //   [ChainId.Kovan]: `https://kovan.infura.io/v3/08a4622376bd4dbe82b7c0e0b3c42d46`,
+            //   [ChainId.Mumbai]: `https://polygon-mumbai.infura.io/v3/08a4622376bd4dbe82b7c0e0b3c42d46`,
+            //   [ChainId.Polygon]: `https://polygon-mainnet.infura.io/v3/08a4622376bd4dbe82b7c0e0b3c42d46`,
+            // },
 
             notifications: {
               expirationPeriod: 1000,
