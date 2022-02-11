@@ -21,7 +21,6 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
     const { activateBrowserWallet, account, deactivate, chainId, activate } = useEthers()
 
     const isConnected = account !== undefined
-
     // const handleRoute = () => {
     //     window.location.href = '/home'
     // }
@@ -136,7 +135,11 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
                                         </CardTitle>
                                         {is_metamask ? (<>
                                             {isConnected ? (<Button.Ripple color='primary' style={{ fontSize: "1em", marginBottom: 5 }}
-                                                onClick={() => disconnect()} block>LOGIN</Button.Ripple>) : (
+                                                onClick={() => {
+                                                    if (chainId === '137') {
+                                                        disconnect()
+                                                    }
+                                                }} block>LOGIN</Button.Ripple>) : (
                                                 <Button.Ripple color='primary' style={{ fontSize: "1em", marginBottom: 5 }}
                                                     onClick={async () => {
                                                         window.location.reload()
