@@ -19,7 +19,8 @@ import {
   Input,
   Label,
   Alert,
-  Col
+  Col,
+  CardTitle
 } from 'reactstrap'
 import 'animate.css'
 import { useEthers } from '@usedapp/core'
@@ -165,13 +166,25 @@ const AddNewModal = ({ open, handleModal, dispatch, globalVaultFlag }) => {
   return (
     <Modal
       isOpen={open}
-      toggle={handleModal}
+      toggle={() => {
+        setName_flag(false)
+        setAdrs_flag(false)
+        setName('')
+        setAdrss('')
+        handleModal()
+      }}
       className='sidebar-sm'
       modalClassName='modal-slide-in'
       contentClassName='pt-0'
     >
-      <ModalHeader className='mb-1' toggle={handleModal} close={CloseBtn} tag='div'>
-        <h5 className='modal-title'>New Address</h5>
+      <ModalHeader className='mb-1' toggle={() => {
+        setName_flag(false)
+        setAdrs_flag(false)
+        setName('')
+        setAdrss('')
+        handleModal()
+      }} close={CloseBtn} >
+        <CardTitle className='modal-title'>New Address</CardTitle>
       </ModalHeader>
       <ModalBody className='flex-grow-1'>
         {/* {visible ? (
@@ -233,17 +246,19 @@ const AddNewModal = ({ open, handleModal, dispatch, globalVaultFlag }) => {
             <Label check>Mumbai</Label>
           </FormGroup>
         </FormGroup> */}
-        {name_flag && adrs_flag ? (
-          <Button className='mr-1' color='primary' onClick={() => {
-            handleSubmit()
-          }}>
-            Submit
-          </Button>
-        ) : (
-          <Button className='mr-1' color='primary' disabled> Submit </Button>
-        )}
+        <Col className='text-center'>
+          {name_flag && adrs_flag ? (
+            <Button className='mr-1' color='primary' onClick={() => {
+              handleSubmit()
+            }}>
+              Submit
+            </Button>
+          ) : (
+            <Button className='mr-1' color='primary' disabled> Submit </Button>
+          )}
+        </Col>
 
-        <Button color='secondary' onClick={() => {
+        {/* <Button color='danger' onClick={() => {
           setName_flag(false)
           setAdrs_flag(false)
           setName('')
@@ -251,7 +266,7 @@ const AddNewModal = ({ open, handleModal, dispatch, globalVaultFlag }) => {
           handleModal()
         }} outline>
           Cancel
-        </Button>
+        </Button> */}
       </ModalBody>
     </Modal>
   )

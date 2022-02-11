@@ -612,7 +612,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                                     <NavLink color='primary' active={active === '1'} onClick={() => {
                                         toggle('1')
                                     }}>
-                                        <h3>Transactions</h3>
+                                        <CardTitle className='mb-0'>Transactions</CardTitle>
                                     </NavLink>
                                 </NavItem>
                             </Col>
@@ -622,7 +622,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                                     <NavLink color='primary' active={active === '2'} onClick={() => {
                                         toggle('2')
                                     }}>
-                                        <h3>Contract Interaction</h3>
+                                        <CardTitle className='mb-0'>Contract Interaction</CardTitle>
                                     </NavLink>
                                 </NavItem>
                             </Col>

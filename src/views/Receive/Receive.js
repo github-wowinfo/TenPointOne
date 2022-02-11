@@ -221,7 +221,7 @@ const Receive = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
     <>
       <Col style={cardStyle} md={{ offset: 3, size: 6 }} lg={{ offset: 3, size: 6 }} sm="12">
         <Card style={globalNickName === 'Create a Vault' ? null : style_no_vault} className='my-1 card-payment' >
-          <CardHeader style={{ paddingBottom: '.1em' }}>
+          <CardHeader className='py-1'>
             <CardTitle style={{ color: '#1919d2' }}>Receive Assests</CardTitle>
           </CardHeader>
           {globalNickName === 'Create a Vault' ? (
@@ -235,7 +235,7 @@ const Receive = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
             </>
           ) : (
             <>
-              <CardBody className='p-1' >
+              <CardBody className='pt-0 px-1 pb-1' >
                 <Row>
                   <Col className='py-1' style={{ ...backgroundChange, textAlign: 'center', height: '100%' }}>
                     <CardText style={{ color: 'white' }}><Icon className='mr-1' name={networkIcon} size={20} />Only send {networkName} assets to this Safe</CardText>

@@ -224,7 +224,7 @@ const Export_Modal = ({ openexport_modal, handleexport_modal, globalFavFlag, glo
             <ModalFooter>
                 <Col className='text-center'>
                     {final_list.length > 0 ? (
-                        <Button.Ripple color="success" onClick={() => {
+                        <Button.Ripple color="primary" onClick={() => {
                             for (const i in final_list) {
                                 delete final_list[i].children
                                 delete final_list[i].checked
@@ -250,7 +250,7 @@ const Export_Modal = ({ openexport_modal, handleexport_modal, globalFavFlag, glo
                             handleexport_modal()
                         }}>Export</Button.Ripple>
                     ) : (
-                        <Button.Ripple color="success" disabled>Export</Button.Ripple>
+                        <Button.Ripple color="primary" disabled>Export</Button.Ripple>
                     )}
 
                 </Col>

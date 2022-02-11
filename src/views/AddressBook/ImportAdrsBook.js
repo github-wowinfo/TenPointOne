@@ -74,6 +74,13 @@ const ImportAdrsBook = ({ openimport, handleImpAdrsBook, globalVaultFlag, dispat
         handleImpAdrsBook()
     }
 
+    const custom_file_upload = {
+        border: '1px solid #ccc',
+        display: 'inline - block',
+        padding: '6px 12px',
+        cursor: 'pointer'
+    }
+
     return (
         <Modal isOpen={openimport} toggle={() => {
             setSelectedFile()
@@ -91,7 +98,9 @@ const ImportAdrsBook = ({ openimport, handleImpAdrsBook, globalVaultFlag, dispat
             </ModalHeader>
             <ModalBody>
                 <Col className='text-center'>
-                    <input type="file" name="file" accept=".json" onChange={changeHandler} />
+                    <label className={custom_file_upload}>
+                        <input type="file" name="file" accept=".json" onChange={changeHandler} />
+                    </label>
                 </Col>
                 <Col className='m-1' style={{ overflow: 'auto' }}>
                     {selectedFile}
@@ -100,9 +109,9 @@ const ImportAdrsBook = ({ openimport, handleImpAdrsBook, globalVaultFlag, dispat
             <ModalFooter>
                 <Col className='text-center'>
                     {isjson ? (
-                        <Button.Ripple color="success" onClick={() => handleImport(adrsFile)}>Import</Button.Ripple>
+                        <Button.Ripple color="primary" onClick={() => handleImport(adrsFile)}>Import</Button.Ripple>
                     ) : (
-                        <Button.Ripple color="success" disabled>Upload</Button.Ripple>
+                        <Button.Ripple color="primary" disabled>Upload</Button.Ripple>
                     )}
                 </Col>
             </ModalFooter>

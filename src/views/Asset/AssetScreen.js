@@ -295,11 +295,11 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                 ) : (
                     <>
                         <Card className='my-1'>
-                            <CardBody>
+                            <CardBody className='px-1'>
                                 <Row className='d-flex flex-row justify-content-between'>
                                     <Col>
                                         <CardHeader className='px-0'>
-                                            <CardTitle >Assets</CardTitle>
+                                            <CardTitle>Assets</CardTitle>
                                         </CardHeader>
                                         <CardBody className='px-0'>
                                             <CardText>View all your assets here</CardText>
@@ -311,7 +311,7 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                                             <h3 className='mb-0 pb-1'>${sum.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</h3>
                                         </CardBody>
                                         <CardHeader className='pr-0 pt-0'>
-                                            <CardTitle>TOTAL BALANCE</CardTitle>
+                                            <CardTitle>Total Balance</CardTitle>
                                         </CardHeader>
                                     </Col>
 

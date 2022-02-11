@@ -360,8 +360,8 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
                     />
                 </Card>
                 <Card>
-                    <CardHeader className='flex-md-row flex-column align-md-items-center align-items-start border-bottom'>
-                        <div className='d-flex mt-md-0 mt-1'>
+                    <CardBody className='flex-md-row flex-column align-md-items-center align-items-start border-bottom'>
+                        <Col className='d-flex mt-md-0 mt-1 flex-md-row justify-content-between'>
                             {/* <UncontrolledButtonDropdown direction='up'>
                                 <DropdownToggle color='success' caret outline>
                                     <CgExport size={15} />
@@ -390,35 +390,35 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
                                     </DropdownItem>
                                 </DropdownMenu>
                             </UncontrolledButtonDropdown> */}
-                            <Button className='ml-2' color='success' caret outline onClick={handleModal}>
+                            {/* <Button className='ml-2' color='primary' caret outline>
+                                <CgExport className='mx-1' size={15} />
+                                <CSVLink style={{ color: '#31c975' }} data={adrs_data} headers={headers} filename='Addres_Book_Data.csv'>Export</CSVLink>
+                            </Button> */}
+                            <Button className='ml-2' color='primary' caret outline onClick={handleModal}>
                                 <Plus size={15} />
                                 <span className='align-middle ml-50'>Add Address</span>
                             </Button>
+                            <div className='d-flex flex-row justify-content-between md-align-items-center'>
+                                <Button className='ml-2' color='primary' onClick={handleImpAdrsBook} caret outline>
+                                    <CgImport size={15} />
+                                    <span className='align-middle ml-50'>Import</span>
+                                </Button>
+                                {adrs_data.length > 0 ? (
+                                    <Button className='ml-2' color='primary' onClick={() => { handleExpAdrsBook() }} caret outline>
+                                        <CgExport className='mx-1' size={15} />Export
+                                    </Button>
+                                ) : (
+                                    <Button className='ml-2' color='primary' caret outline disabled>
+                                        <CgExport className='mx-1' size={15} />Export
+                                    </Button>
+                                )}
+                            </div>
                             <Button className='ml-2' color='danger' caret outline onClick={handleConfirmDelete}>
                                 <X size={15} />
                                 <span className='align-middle ml-50'>Delete Address Book</span>
                             </Button>
-                            {/* <Button className='ml-2' color='success' caret outline>
-                                <CgExport className='mx-1' size={15} />
-                                <CSVLink style={{ color: '#31c975' }} data={adrs_data} headers={headers} filename='Addres_Book_Data.csv'>Export</CSVLink>
-                            </Button> */}
-                            <div>
-                                <Button className='ml-2' color='success' onClick={handleImpAdrsBook} caret outline>
-                                    <CgImport size={15} />
-                                    <span className='align-middle ml-50'>Import</span>
-                                </Button>
-                            </div>
-                            {adrs_data.length > 0 ? (
-                                <Button className='ml-2' color='success' onClick={() => { handleExpAdrsBook() }} caret outline>
-                                    <CgExport className='mx-1' size={15} />Export
-                                </Button>
-                            ) : (
-                                <Button className='ml-2' color='success' caret outline disabled>
-                                    <CgExport className='mx-1' size={15} />Export
-                                </Button>
-                            )}
-                        </div>
-                    </CardHeader>
+                        </Col>
+                    </CardBody>
                 </Card>
                 <AddNewModal open={modal} handleModal={handleModal} />
             </div>

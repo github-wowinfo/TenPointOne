@@ -120,7 +120,7 @@ const Assests = ({ cols = 0, globalAdrs }) => {
   return (
     <Card className='card-statistics' style={{ height: "100%" }}>
       <CardHeader>
-        <CardTitle >Top Assests</CardTitle>
+        <CardTitle>Top Assests</CardTitle>
         <CardText className='card-text font-small-2 mr-25 mb-0'>
           <Link to='/asset'>
             <Badge style={{ fontSize: "1.3em" }} color="primary" >View All</Badge>

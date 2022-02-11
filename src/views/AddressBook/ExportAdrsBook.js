@@ -80,7 +80,7 @@ const ExportAdrsBook = ({ openexport, handleExpAdrsBook, data }) => {
             <ModalFooter>
                 <Col className='text-center'>
                     {exp_list.length > 0 ? (
-                        <Button.Ripple color="success" onClick={() => {
+                        <Button.Ripple color="primary" onClick={() => {
                             exportFromJSON(
                                 {
                                     data: exp_list,
@@ -93,7 +93,7 @@ const ExportAdrsBook = ({ openexport, handleExpAdrsBook, data }) => {
                             handleExpAdrsBook()
                         }}>Export</Button.Ripple>
                     ) : (
-                        <Button.Ripple color="success" disabled>Export</Button.Ripple>
+                        <Button.Ripple color="primary" disabled>Export</Button.Ripple>
                     )}
                 </Col>
             </ModalFooter>
