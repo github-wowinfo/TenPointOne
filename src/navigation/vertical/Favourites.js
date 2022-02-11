@@ -49,7 +49,7 @@ const Favourites = ({ globalAdrs, dispatch, globalNickName, globalFavFlag, menuC
                         <Star className='mr-1' size={20} />
                         Favourites
                     </NavLink>
-                    {fav_list.length === 0 ? null : (
+                    {fav_list === undefined || fav_list === null ? null : (
                         fav_list.length > 0 && show ? (
                             <BiShowAlt style={{ cursor: 'pointer' }} size={25} onClick={() => setShow(false)} />
                         ) : (
@@ -57,7 +57,7 @@ const Favourites = ({ globalAdrs, dispatch, globalNickName, globalFavFlag, menuC
                         )
                     )}
                 </Col>
-                {fav_list.length > 0 ? (
+                {fav_list !== undefined || fav_list !== null ? (
                     show ? (
                         fav_list && fav_list.map(i => {
                             return (
