@@ -567,7 +567,7 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                   </Col>
                 </Row>
                 <Row className='d-flex flex-column'>
-                  <Col className='d-flex flex-row pt-1 justify-content-evenly align-items-center'>
+                  <Col className='d-flex flex-column flex-sm-row pt-1 justify-content-evenly align-items-center'>
                     {is_sega ? (
                       <Avatar className='m-1' size='lg' color={logos[1].color} icon={logos[1].icon} />
                     ) : (
@@ -575,10 +575,7 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                     )}
                     <Col className='px-0 d-flex flex-column justify-content-start'>
                       <h3 style={{ color: '#1919d2' }} className='mt-1 mb-0'>{globalNickName}</h3>
-                      <Col className='px-0 d-flex flex-row '>
-                        <h6 className='font-weight-bold '>{shortenIfAddress(globalAdrs)}</h6>
-
-                      </Col>
+                      <h6 className='font-weight-bold'>{shortenIfAddress(globalAdrs)}</h6>
                     </Col>
                     <Col className='d-flex flex-row justify-content-end'>
                       <FaRegCopy style={{ cursor: 'pointer' }} className='mx-1' color='grey' size={20} onClick={copy} />
