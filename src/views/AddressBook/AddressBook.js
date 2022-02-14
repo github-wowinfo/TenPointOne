@@ -361,19 +361,19 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
                 </Card>
                 <Card>
                     <Row className='p-1'>
-                        <Col md='3' className='py-1'>
+                        <Col md='3' >
                             <Button color='primary' block outline onClick={handleModal} block>
                                 <Plus size={15} />
                                 <span className='align-middle ml-50'>Add Address</span>
                             </Button>
                         </Col>
-                        <Col md='3' className='py-1'>
+                        <Col md='3' >
                             <Button color='primary' onClick={handleImpAdrsBook} block outline>
                                 <CgImport size={15} />
                                 <span className='align-middle ml-50'>Import</span>
                             </Button>
                         </Col>
-                        <Col md='3' className='py-1'>
+                        <Col md='3' >
                             {adrs_data.length > 0 ? (
                                 <Button color='primary' onClick={() => { handleExpAdrsBook() }} block outline>
                                     <CgExport className='mx-1' size={15} />Export
@@ -384,7 +384,7 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
                                 </Button>
                             )}
                         </Col>
-                        <Col md='3' className='text-right py-1'>
+                        <Col md='3' className='text-right '>
                             <Button className='px-0' color='danger' block outline onClick={handleConfirmDelete}>
                                 <X size={15} />
                                 <span className='align-middle ml-50'>Delete Adddress Book</span>
