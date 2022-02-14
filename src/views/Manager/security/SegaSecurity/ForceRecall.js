@@ -1,10 +1,10 @@
 import { Fragment, useEffect, useState } from 'react'
 import { BsSafe2, BsArrowDown } from 'react-icons/bs'
 import Select, { components } from 'react-select'
-import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, CustomInput, Alert } from 'reactstrap'
+import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, CustomInput, Alert, CardTitle, CardSubtitle } from 'reactstrap'
 import Badge from 'reactstrap/lib/Badge'
 import axios from 'axios'
-import { CurrencyValue, Token, useEthers, useEtherBalance, useTokenBalance, getExplorerTransactionLink, shortenIfTransactionHash, getExplorerAddressLink } from "@usedapp/core"
+import { CurrencyValue, Token, useEthers, useEtherBalance, useTokenBalance, getExplorerTransactionLink, shortenIfTransactionHash, getExplorerAddressLink, shortenIfAddress } from "@usedapp/core"
 import helperConfig from "../../../../helper-config.json"
 import { constants, utils, BigNumber } from "ethers"
 import { useTokens } from '../../../../utility/hooks/useTokens'
@@ -210,7 +210,7 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
                 </div>
             </div>
             <div className='toastify-body'>
-                <span style={{ fontSize: '1.5em' }} role='img' aria-label='toast-text' >
+                <span style={{ fontSize: '1.5em', wordBreak: 'break-word' }} role='img' aria-label='toast-text' >
                     {msg}
                 </span>
             </div>
@@ -267,11 +267,18 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
     const [balance_max, setBalance_max] = useState("")
     const handleMax = () => {
         if (usingNative) {
-            setBalance_max(native_bal.split(" ")[0])
+            const n_bal = native_bal.split(" ")[0]
+            const new_n_bal = (n_bal.replace(/,/g, '')) * 1
+            setBalance_max(new_n_bal)
+            // console.log('n_bal', n_bal)
+            // setBalance_max(native_bal.split(" ")[0])
         } else {
-            setBalance_max(erc20_bal.split(" ")[0])
+            const e_bal = erc20_bal.split(" ")[0]
+            const new_e_bal = (e_bal.replace(/,/g, '')) * 1
+            setBalance_max(new_e_bal)
+            // console.log('e_bal', e_bal)
+            // setBalance_max(erc20_bal.split(" ")[0])
         }
-        console.log('balance_max', balance_max)
     }
 
     const handleInputAmount = (event) => {
@@ -301,24 +308,27 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
             {/* {console.log('assest', asset)} */}
             {/* {console.log('assestlist', assetList)} */}
             {/* {console.log('networkname', helperConfig[chainId])} */}
-            <ModalHeader tag='h1' toggle={() => {
+            <ModalHeader tag='h2' toggle={() => {
                 setBalance_max('')
                 handleForceReacallAlert()
                 handlRecoverModal()
             }}>
-                Force Recall
+                <CardTitle className='mb-0'>Force Recall</CardTitle>
             </ModalHeader>
-            <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+            <ModalBody className='p-1'>
+
                 <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                     <Col>
                         <h3>For Risk Officers and Vault operators to pull Sega assests back into its Parent Vault bypassing the Sega operator.</h3>
                     </Col>
                     <Col className='my-1'>
-                        <Row className='d-flex flex-row'>
-                            <Col md='1'><SiWebmoney size={40} /></Col>
+                        <Row className='d-flex flex-row align-items-center'>
+                            <Col md='1' >
+                                <Avatar className='mr-1' size='md' color='light-primary' icon={<SiWebmoney size={40} />} />
+                            </Col>
                             <Col className='d-flex flex-column justify-content-start'>
-                                <h3>Selected Sega</h3>
-                                <h5>{selectSega}</h5>
+                                <CardTitle className='mb-0 pb-1' tag='h3'>Selected Sega</CardTitle>
+                                <CardSubtitle tag='h5'>{shortenIfAddress(selectSega)}</CardSubtitle>
                             </Col>
                         </Row>
                     </Col>
@@ -330,16 +340,18 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
                     </Col>
                     <Col>
                         <FormGroup>
-                            <Label for='parentvault' style={{ fontSize: "1.3em" }}>Parent Vault - {pVault} </Label>
+                            <Label for='parentvault' style={{ fontSize: "1.3em" }}>
+                                Parent Vault - {shortenIfAddress(pVault)}
+                            </Label>
                         </FormGroup>
                     </Col>
                     {/* {
-                        OrderTicket(
-                            haveInfo ? "2" : "0",
-                            haveInfo ? pVault : undefined,
-                            haveInfo ? selectSega : undefined
-                        )
-                    } */}
+                            OrderTicket(
+                                haveInfo ? "2" : "0",
+                                haveInfo ? pVault : undefined,
+                                haveInfo ? selectSega : undefined
+                            )
+                        } */}
                     <Col className='mb-1'>
                         <Label style={{ fontSize: "1.3em" }}>Select Assest</Label>
                         <Select
@@ -358,20 +370,20 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
                         />
                     </Col>
                     {/* <Col>
-                        {assetFlag === 1 ? (
-                            <div className='d-flex flex-column justify-content-center'>
-                                <p>Asset Name: {selasset}</p>
-                                <p>Symbol: {symbol}</p>
-                                <p>Decimals: {decimal}</p>
-                                <p>Balance: {(balance / (10 ** decimal)).toFixed(6)}</p>
-                                <p>Address: {assetAdrs}</p>
-                            </div>
-                        ) : null}
-                    </Col> */}
+                            {assetFlag === 1 ? (
+                                <div className='d-flex flex-column justify-content-center'>
+                                    <p>Asset Name: {selasset}</p>
+                                    <p>Symbol: {symbol}</p>
+                                    <p>Decimals: {decimal}</p>
+                                    <p>Balance: {(balance / (10 ** decimal)).toFixed(6)}</p>
+                                    <p>Address: {assetAdrs}</p>
+                                </div>
+                            ) : null}
+                        </Col> */}
                     <Col>
                         <FormGroup>
                             <Col className='d-flex flex-row justify-content-between'>
-                                <Label for='amount' style={{ fontSize: "1.3em" }}>Amount</Label>
+                                <Label for='amount' style={{ fontSize: "1.3em", paddingRight: '10px' }}>Amount</Label>
                                 {/* <span>Balance: {(balance / (10 ** decimal)).toFixed(6)}</span> */}
                                 {usingNative ? (
                                     native_bal === '0 ERROR' ? null : (

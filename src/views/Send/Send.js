@@ -487,9 +487,15 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
   const [balance_max, setBalance_max] = useState("")
   const handleMax = () => {
     if (usingNative) {
-      setBalance_max(native_bal.split(" ")[0])
+      const n_bal = native_bal.split(" ")[0]
+      const new_n_bal = (n_bal.replace(/,/g, '')) * 1
+      setBalance_max(new_n_bal)
+      // setBalance_max(native_bal.split(" ")[0])
     } else {
-      setBalance_max(erc20_bal.split(" ")[0])
+      const e_bal = erc20_bal.split(" ")[0]
+      const new_e_bal = (e_bal.replace(/,/g, '')) * 1
+      setBalance_max(new_e_bal)
+      // setBalance_max(erc20_bal.split(" ")[0])
     }
     console.log('balance_max', balance_max)
   }
