@@ -85,7 +85,7 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultN
                     </Row>
                 </ModalBody>
                 <ModalFooter className='justify-content-center'>
-                    {data.length === 0 ? (
+                    {data.length === 0 || selectedRows.length === 0 ? (
                         <Button.Ripple className='mx-1' style={{ minWidth: '10vw' }} color='primary' disabled>
                             Add Selected Sega
                         </Button.Ripple>
