@@ -392,7 +392,7 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
                 <Button.Ripple color='primary' onClick={handleForceRecall}>
                     Force Recall
                 </Button.Ripple>
-                <Button.Ripple onClick={handleLog}>TestLog</Button.Ripple>
+                {/* <Button.Ripple onClick={handleLog}>TestLog</Button.Ripple> */}
             </ModalFooter>
             <Col className='d-flex flex-column justify-content-center'>
                 <Alert isOpen={showTxnMiningSnack} toggle={() => handleTxnSnackClose()} color="info">

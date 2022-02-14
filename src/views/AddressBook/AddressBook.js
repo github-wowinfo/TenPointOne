@@ -360,9 +360,44 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
                     />
                 </Card>
                 <Card>
+                    <Row className='p-1'>
+                        <Col md='4' className='py-1'>
+                            <Button color='primary' block outline onClick={handleModal} block>
+                                <Plus size={15} />
+                                <span className='align-middle ml-50'>Add Address</span>
+                            </Button>
+                        </Col>
+                        <Col md='4' className='d-flex flex-row justify-content-around py-1'>
+                            <div className='px-1'>
+                                <Button color='primary' onClick={handleImpAdrsBook} block outline>
+                                    <CgImport size={15} />
+                                    <span className='align-middle ml-50'>Import</span>
+                                </Button>
+                            </div>
+                            <div className='px-1'>
+                                {adrs_data.length > 0 ? (
+                                    <Button color='primary' onClick={() => { handleExpAdrsBook() }} block outline>
+                                        <CgExport className='mx-1' size={15} />Export
+                                    </Button>
+                                ) : (
+                                    <Button color='primary' block outline disabled>
+                                        <CgExport className='mx-1' size={15} />Export
+                                    </Button>
+                                )}
+                            </div>
+                        </Col>
+                        <Col md='4' className='text-right py-1'>
+                            <Button color='danger' block outline onClick={handleConfirmDelete}>
+                                <X size={15} />
+                                <span className='align-middle ml-50'>Delete Address Book</span>
+                            </Button>
+                        </Col>
+                    </Row>
+                </Card>
+                {/* <Card>
                     <CardBody className='flex-md-row flex-column align-md-items-center align-items-start border-bottom'>
-                        <Col className='d-flex mt-md-0 mt-1 flex-md-row justify-content-between'>
-                            {/* <UncontrolledButtonDropdown direction='up'>
+                        <Col className='d-flex mt-md-0 mt-1 flex-md-row justify-content-between'> */}
+                {/* <UncontrolledButtonDropdown direction='up'>
                                 <DropdownToggle color='success' caret outline>
                                     <CgExport size={15} />
                                     <span className='align-middle ml-50'>Export</span>
@@ -390,11 +425,11 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
                                     </DropdownItem>
                                 </DropdownMenu>
                             </UncontrolledButtonDropdown> */}
-                            {/* <Button className='ml-2' color='primary' caret outline>
+                {/* <Button className='ml-2' color='primary' caret outline>
                                 <CgExport className='mx-1' size={15} />
                                 <CSVLink style={{ color: '#31c975' }} data={adrs_data} headers={headers} filename='Addres_Book_Data.csv'>Export</CSVLink>
                             </Button> */}
-                            <Button className='ml-2' color='primary' caret outline onClick={handleModal}>
+                {/* <Button className='ml-2' color='primary' caret outline onClick={handleModal}>
                                 <Plus size={15} />
                                 <span className='align-middle ml-50'>Add Address</span>
                             </Button>
@@ -419,7 +454,7 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
                             </Button>
                         </Col>
                     </CardBody>
-                </Card>
+                </Card> */}
                 <AddNewModal open={modal} handleModal={handleModal} />
             </div>
             <ImportAdrsBook openimport={impAdrsBook} handleImpAdrsBook={handleImpAdrsBook} />

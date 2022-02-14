@@ -48,11 +48,17 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultN
     // const CloseBtn = <X className='cursor-pointer' size={25} onClick={handleModal} />
     return (
         <>
-            <Modal className='modal-dialog-centered modal-lg' isOpen={openchildsegamodal} toggle={handleChildSegatModal} >
+            <Modal className='modal-dialog-centered modal-lg' isOpen={openchildsegamodal} toggle={() => {
+                handleChildSegatModal()
+                setSelectedRows([])
+            }} >
                 {/* {console.log('segas', segas)}
                 {console.log('data', data)}
                 {console.log('actual segas', actualSegas)} */}
-                <ModalHeader tag='h1' toggle={handleChildSegatModal}>
+                <ModalHeader tag='h1' toggle={() => {
+                    handleChildSegatModal()
+                    setSelectedRows([])
+                }}>
                     Children Sega
                 </ModalHeader>
                 <ModalBody >
@@ -85,7 +91,7 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultN
                     </Row>
                 </ModalBody>
                 <ModalFooter className='justify-content-center'>
-                    {data.length === 0 ? (
+                    {data.length === 0 || selectedRows.length === 0 ? (
                         <Button.Ripple className='mx-1' style={{ minWidth: '10vw' }} color='primary' disabled>
                             Add Selected Sega
                         </Button.Ripple>
