@@ -87,7 +87,7 @@ const ImportExport = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
             <Card>
                 <CardBody>
                     <Row style={{ display: 'flex', flexDirection: 'row' }}>
-                        <Col md='6'>
+                        <Col md='7'>
                             <CardHeader className='py-0'>
                                 <CardTitle style={{ fontSize: '1.7em' }}>Import & Export</CardTitle>
                             </CardHeader>
@@ -95,35 +95,12 @@ const ImportExport = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
                                 <CardText style={{ fontSize: '1rem' }}>Import/Export your account data.</CardText>
                             </CardBody>
                         </Col>
-                        <Col md='6' style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-                            {/* <Button.Ripple className='mr-1 mb-1' size='lg' color='primary' style={{ fontSize: '1.7em' }}><Unlock className='mr-1' size={20} />Vault</Button.Ripple> */}
-                            {/* <UncontrolledButtonDropdown direction='up'>
-                                <DropdownToggle className='mr-1 mb-1' color='primary' style={{ fontSize: '1.5em' }} caret >
-                                    <CgExport size={15} />
-                                    <span className='align-middle ml-50'>Export</span>
-                                </DropdownToggle>
-                                {noData ? (
-                                    <DropdownMenu right>
-                                        <DropdownItem className='w-100'>
-                                            {Vaultdata && Vaultdata.length > 0 ? (
-                                                <>
-                                                    <BsSafe2 className='mx-1' size={15} />
-                                                    <CSVLink style={{ color: '#31c975' }} data={Vaultdata} headers={Vheaders} filename='Addres_Book_Data.csv'>VAULT DATA</CSVLink>
-                                                </>
-                                            ) : null}
-                                        </DropdownItem>
-                                        <DropdownItem className='w-100' >
-                                            {SegaData && SegaData.length > 0 ? (
-                                                <>
-                                                    <SiWebmoney className='mx-1' size={15} />
-                                                    <CSVLink style={{ color: '#31c975' }} data={SegaData} headers={Sheaders} filename='Addres_Book_Data.csv'>SEGA DATA</CSVLink>
-                                                </>
-                                            ) : null}
-                                        </DropdownItem>
-                                    </DropdownMenu>
-                                ) : null}
-                            </UncontrolledButtonDropdown> */}
-                            <Button className='mr-1 mb-1' color='primary' style={{ fontSize: '1.5em' }} color='primary' caret onClick={handleexport_modal}>
+                        <Col md='5' style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+                            <Button.Ripple className='mr-1 mb-1' color='primary' style={{ fontSize: '1.2em' }} onClick={handleexport_modal}><CgExport className='mr-1' size={25} />Export</Button.Ripple>
+                            <Button.Ripple className='mr-1 mb-1' color='primary' style={{ fontSize: '1.2em' }} onClick={handleimport_modal}><CgImport className='mr-1' size={25} />Import</Button.Ripple>
+                        </Col>
+                        {/* <Col md='5' style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+                            <Button className='mr-1 mb-1' color='primary' style={{ fontSize: '1.5em', mi }} color='primary' caret onClick={handleexport_modal}>
                                 <CgExport size={15} />
                                 <span className='align-middle ml-50'>Export</span>
                             </Button>
@@ -131,7 +108,7 @@ const ImportExport = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
                                 <CgImport size={15} />
                                 <span className='align-middle ml-50'>Import</span>
                             </Button>
-                        </Col>
+                        </Col> */}
                     </Row>
                 </CardBody>
             </Card>
