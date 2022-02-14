@@ -361,35 +361,33 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
                 </Card>
                 <Card>
                     <Row className='p-1'>
-                        <Col md='4' className='py-1'>
+                        <Col md='3' className='py-1'>
                             <Button color='primary' block outline onClick={handleModal} block>
                                 <Plus size={15} />
                                 <span className='align-middle ml-50'>Add Address</span>
                             </Button>
                         </Col>
-                        <Col md='4' className='d-flex flex-row justify-content-around py-1'>
-                            <div className='px-1'>
-                                <Button color='primary' onClick={handleImpAdrsBook} block outline>
-                                    <CgImport size={15} />
-                                    <span className='align-middle ml-50'>Import</span>
-                                </Button>
-                            </div>
-                            <div className='px-1'>
-                                {adrs_data.length > 0 ? (
-                                    <Button color='primary' onClick={() => { handleExpAdrsBook() }} block outline>
-                                        <CgExport className='mx-1' size={15} />Export
-                                    </Button>
-                                ) : (
-                                    <Button color='primary' block outline disabled>
-                                        <CgExport className='mx-1' size={15} />Export
-                                    </Button>
-                                )}
-                            </div>
+                        <Col md='3' className='py-1'>
+                            <Button color='primary' onClick={handleImpAdrsBook} block outline>
+                                <CgImport size={15} />
+                                <span className='align-middle ml-50'>Import</span>
+                            </Button>
                         </Col>
-                        <Col md='4' className='text-right py-1'>
-                            <Button color='danger' block outline onClick={handleConfirmDelete}>
+                        <Col md='3' className='py-1'>
+                            {adrs_data.length > 0 ? (
+                                <Button color='primary' onClick={() => { handleExpAdrsBook() }} block outline>
+                                    <CgExport className='mx-1' size={15} />Export
+                                </Button>
+                            ) : (
+                                <Button color='primary' block outline disabled>
+                                    <CgExport className='mx-1' size={15} />Export
+                                </Button>
+                            )}
+                        </Col>
+                        <Col md='3' className='text-right py-1'>
+                            <Button className='px-0' color='danger' block outline onClick={handleConfirmDelete}>
                                 <X size={15} />
-                                <span className='align-middle ml-50'>Delete Address Book</span>
+                                <span className='align-middle ml-50'>Delete Adddress Book</span>
                             </Button>
                         </Col>
                     </Row>
