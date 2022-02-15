@@ -130,7 +130,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
         // console.log('segaListFilter', segaListFilter)
         const list = segaListFilter && segaListFilter.filter(i => i.vault === selected_adrs)
         console.log('list', list)
-        if (list.length > 0) {
+        if (list && list.length > 0) {
             setExeSega_flag(true)
         } else {
             setExeSega_flag(false)
