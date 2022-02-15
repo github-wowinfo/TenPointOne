@@ -235,9 +235,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
 
                 const data = response.data.transactions.filter((a) => a.type.includes('receive') || a.type.includes('send') || a.type.includes('approve'))
                 const exedata = response.data.transactions.filter((a) => !a.type.includes('receive') && !a.type.includes('send') && !a.type.includes('approve'))
-                if (data.length === 0 || exedata.length === 0) {
-                    setLoading(false)
-                }
+
                 setDataList(data)
                 setEdataList(exedata)
             } else {
@@ -260,6 +258,9 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
 
                 const data = response.data.transactions.filter((a) => a.type.includes('receive') || a.type.includes('send') || a.type.includes('approve'))
                 const exedata = response.data.transactions.filter((a) => !a.type.includes('receive') && !a.type.includes('send') && !a.type.includes('approve'))
+                if (data.length === 0 || exedata.length === 0) {
+                    setLoading(false)
+                }
                 setDataList(data)
                 setTransaction_trans(data)
                 setEdataList(exedata)
