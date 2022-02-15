@@ -17,12 +17,12 @@ const ImportAdrsBook = ({ openimport, handleImpAdrsBook, globalVaultFlag, dispat
             <div className='toastify-header'>
                 <div className='title-wrapper'>
                     <Avatar size='md' color='success' icon={<FaRegCheckCircle size={12} />} />
-                    <h3 className='toast-title'>Addres Book Imported!</h3>
+                    <h3 className='toast-title'>Address Book Imported!</h3>
                 </div>
             </div>
             <div className='toastify-body'>
                 <span role='img' aria-label='toast-text'>
-                    The Addresbook data was succesfully imported.
+                    The Address Book data was succesfully imported.
                 </span>
             </div>
         </Fragment>

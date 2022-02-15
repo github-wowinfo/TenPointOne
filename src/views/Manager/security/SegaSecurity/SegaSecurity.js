@@ -315,13 +315,13 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                     </Row>
                 </ModalBody>
                 <Col className='d-flex flex-column justify-content-center'>
-                    <Alert isOpen={showTxnMiningSnack} toggle={() => handleTxnSnackClose()} color="info">
+                    <Alert className='p-1' isOpen={showTxnMiningSnack} toggle={() => handleTxnSnackClose()} color="info">
                         <div>Transaction in Progress- Txn ID : &emsp; </div>
                         <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
                             target="_blank" rel="noreferrer">
                             {shortenIfTransactionHash(txnID)} </a>
                     </Alert>
-                    <Alert isOpen={showTxnSuccessSnack} toggle={() => handleTxnSnackClose()} color="success">
+                    <Alert className='p-1' isOpen={showTxnSuccessSnack} toggle={() => handleTxnSnackClose()} color="success">
                         <div>Transaction Completed - Txn ID :</div>
                         <a href={getExplorerTransactionLink(txnID, chainId ? chainId : 1)}
                             target="_blank" rel="noreferrer">

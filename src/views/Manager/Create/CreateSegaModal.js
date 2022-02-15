@@ -290,13 +290,13 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
                 }
             </ModalFooter>
             <Col className='d-flex flex-column justify-content-center'>
-                <Alert isOpen={showSegaLaunchingSnack} toggle={() => handleSnackClose()} color="info">
+                <Alert className='p-1' isOpen={showSegaLaunchingSnack} toggle={() => handleSnackClose()} color="info">
                     <div>Sega Launch in Progress. Transaction ID : &emsp; </div>
                     <a href={getExplorerTransactionLink(launchSegaTxn, chainId ? chainId : 1)}
                         target="_blank" rel="noreferrer">
                         {shortenIfTransactionHash(launchSegaTxn)} </a>
                 </Alert>
-                <Alert isOpen={showSegaCreatedSnack} toggle={() => handleSegaCreatedSnackClose()} color="success">
+                <Alert className='p-1' isOpen={showSegaCreatedSnack} toggle={() => handleSegaCreatedSnackClose()} color="success">
                     New Sega Launched :
                     <div><a href={getExplorerAddressLink(newSegaAddress, chainId ? chainId : 1)} target="_blank" rel="noreferrer">
                         {newSegaAddress} </a> </div>

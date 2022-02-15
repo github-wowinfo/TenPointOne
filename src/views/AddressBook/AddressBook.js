@@ -313,7 +313,7 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
     useEffect(() => {
         const adrsBookdata = JSON.parse(localStorage.getItem('adrsbook'))
         const filterAdrsBook = adrsBookdata && adrsBookdata.filter(i => i.owner === account && i.network === chainId)
-        if (filterAdrsBook.length > 0) {
+        if (filterAdrsBook && filterAdrsBook.length > 0) {
             for (const i in filterAdrsBook) {
                 delete filterAdrsBook[i].owner
             }
@@ -374,7 +374,7 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
                             </Button>
                         </Col>
                         <Col md='3' className='py-1'>
-                            {adrs_data.length > 0 ? (
+                            {adrs_data && adrs_data.length > 0 ? (
                                 <Button color='primary' onClick={() => { handleExpAdrsBook() }} block outline>
                                     <CgExport className='mx-1' size={15} />Export
                                 </Button>

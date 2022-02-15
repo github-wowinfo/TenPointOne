@@ -34,11 +34,14 @@ const Export_Modal = ({ openexport_modal, handleexport_modal, globalFavFlag, glo
     const [vaultList, setVaultList] = useState([])
     const [segaList, setSegaList] = useState([])
     const [dlist, setDlist] = useState([])
+    let vlist_local
+    let slist_local
 
     const getVaultListFromLocal = () => {
         const getdata = JSON.parse(localStorage.getItem('vaultdata'))
         const valueData = getdata && getdata.filter(a => a.network === chainId && a.owner === account)
-        setVaultList(valueData)
+        vlist_local = valueData
+        // setVaultList(valueData)
         // const reqData = valueData && valueData.map((vadrs) => ({ value: vadrs.address, label: vadrs.name }))
         // setVaultList(reqData)
     }
@@ -46,7 +49,8 @@ const Export_Modal = ({ openexport_modal, handleexport_modal, globalFavFlag, glo
     const getSegaListFromLocal = () => {
         const getdata = JSON.parse(localStorage.getItem('segadata'))
         const valueData = getdata && getdata.filter(a => a.network === chainId && a.owner === account)
-        setSegaList(valueData)
+        slist_local = valueData
+        // setSegaList(valueData)
         // const reqData = valueData && valueData.map((sadrs) => ({ value: sadrs.address, label: sadrs.name, ofvault: sadrs.vault }))
         // setSegaList(reqData)
     }
@@ -56,18 +60,18 @@ const Export_Modal = ({ openexport_modal, handleexport_modal, globalFavFlag, glo
 
     const [display_list, setDisplay_list] = useState([])
     const display = () => {
-        vaultList.forEach(vault => { vault["checked"] = "no" })
-        vaultList.forEach(vault => { vault["children"] = [] })
-        segaList.forEach(sega => { sega["checked"] = "no" })
+        vlist_local.forEach(vault => { vault["checked"] = "no" })
+        vlist_local.forEach(vault => { vault["children"] = [] })
+        slist_local.forEach(sega => { sega["checked"] = "no" })
         // console.log('vaultList', vaultList)
-        vaultList.forEach(vadrs => {
-            segaList.forEach(sadrs => {
+        vlist_local.forEach(vadrs => {
+            slist_local.forEach(sadrs => {
                 if (sadrs.vault === vadrs.address) {
                     vadrs.children.push(sadrs)
                 }
             })
         })
-        setDisplay_list(vaultList)
+        setDisplay_list(vlist_local)
     }
 
     useEffect(() => {
