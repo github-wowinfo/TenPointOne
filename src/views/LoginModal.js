@@ -220,7 +220,7 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
                                                 </CardText>
                                             </Col>
                                             <Col>
-                                                <CardText>Network's supported are <strong>Polygon Mainnet, Kovan, BSC Testnet, Polygon Mumbai</strong></CardText>
+                                                <CardText>Network supported : <strong>Polygon Mainnet</strong></CardText>
                                                 {/* <CardText>Polygon Mainnet, Kovan, BSC Testnet, Polygon Mumbai</CardText> */}
                                             </Col>
                                             {/* <Col className='mt-1'>
