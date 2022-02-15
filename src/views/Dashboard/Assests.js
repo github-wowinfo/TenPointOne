@@ -39,6 +39,10 @@ const Assests = ({ cols = 0, globalAdrs }) => {
       })
       // const response = await axios.get(`https://api.unmarshal.com/v1/${helperConfig.unmarshal[chainId]}/address/${account}/assets?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
       console.log('response', response)
+      const asset_data = response.data
+      if (asset_data.length === 0) {
+        setLoading(false)
+      }
       setAssetList(response.data)
 
 

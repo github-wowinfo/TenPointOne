@@ -192,6 +192,10 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
             } else {
                 const response = await axios.get(`https://api.unmarshal.com/v1/${helperConfig.unmarshal[chainId]}/address/${globalAdrs}/assets?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
                 console.log('response', response)
+                const asset_data = response.data
+                if (asset_data.length === 0) {
+                    setLoading(false)
+                }
                 setAssetList(response.data)
                 const balance = response.data.map(item => item.balance / (10 ** item.contract_decimals) * item.quote_rate).reduce((acc, curr) => acc + curr, 0)
                 setSum(balance)

@@ -60,18 +60,20 @@ const Export_Modal = ({ openexport_modal, handleexport_modal, globalFavFlag, glo
 
     const [display_list, setDisplay_list] = useState([])
     const display = () => {
-        vlist_local.forEach(vault => { vault["checked"] = "no" })
-        vlist_local.forEach(vault => { vault["children"] = [] })
-        slist_local.forEach(sega => { sega["checked"] = "no" })
-        // console.log('vaultList', vaultList)
-        vlist_local.forEach(vadrs => {
-            slist_local.forEach(sadrs => {
-                if (sadrs.vault === vadrs.address) {
-                    vadrs.children.push(sadrs)
-                }
+        if (vlist_local && vlist_local.length > 0 && slist_local && slist_local.length > 0) {
+            vlist_local.forEach(vault => { vault["checked"] = "no" })
+            vlist_local.forEach(vault => { vault["children"] = [] })
+            slist_local.forEach(sega => { sega["checked"] = "no" })
+            // console.log('vaultList', vaultList)
+            vlist_local.forEach(vadrs => {
+                slist_local.forEach(sadrs => {
+                    if (sadrs.vault === vadrs.address) {
+                        vadrs.children.push(sadrs)
+                    }
+                })
             })
-        })
-        setDisplay_list(vlist_local)
+            setDisplay_list(vlist_local)
+        }
     }
 
     useEffect(() => {
