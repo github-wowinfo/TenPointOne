@@ -231,10 +231,13 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                         setLoading(false)
                     }
                 })
+                console.log('response', response)
                 setTransaction(response.data)
-
                 const data = response.data.transactions.filter((a) => a.type.includes('receive') || a.type.includes('send') || a.type.includes('approve'))
                 const exedata = response.data.transactions.filter((a) => !a.type.includes('receive') && !a.type.includes('send') && !a.type.includes('approve'))
+                if (data.length === 0 || exedata.length === 0) {
+                    setLoading(false)
+                }
                 setDataList(data)
                 setEdataList(exedata)
             } else {

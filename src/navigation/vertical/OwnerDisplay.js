@@ -63,8 +63,8 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
   useEffect(() => {
     getSegaListFromLocal()
     const segaadrs = segaList && segaList.find(i => i.adrs === globalAdrs)
-    // console.log('segaadrs', segaadrs)
-    if (segaadrs === undefined) {
+    console.log('segaadrs', segaadrs)
+    if (segaadrs === undefined || segaadrs === null) {
       setis_sega(false)
     } else {
       setis_sega(true)

@@ -41,9 +41,13 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
           setLoading(false)
         }
       })
+      console.log('response', response)
       // const response = await axios.get(`https://stg-api.unmarshal.io/v1/${helperConfig.unmarshal[chainId]}/address/${account}/transactions?page=1&pageSize=20&auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
       setTransaction(response.data)
       const data = response.data.transactions.filter((a) => a.type.includes('receive') || a.type.includes('send') || a.type.includes('approve'))
+      if (data.length === 0) {
+        setLoading(false)
+      }
       setDataList(data)
     } catch (error) {
       console.log(`Activity[getTokenTransaction]`, error)
@@ -51,6 +55,8 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
   }
 
   const data = dataList
+
+  console.log('data', data)
 
   useEffect(() => {
     getTokenTransaction()
