@@ -231,13 +231,13 @@ const CreateVaultModal = ({ openvault, handleVaultModal, globalVaultFlag, dispat
                 }
             </ModalFooter>
             <Col className='d-flex flex-column justify-content-center'>
-                <Alert isOpen={showLaunchingSnack} toggle={() => handleSnackClose()} color="info">
+                <Alert className='p-1' isOpen={showLaunchingSnack} toggle={() => handleSnackClose()} color="info">
                     <div>Vault Launch in Progress. Transaction ID : &emsp; </div>
                     <a href={getExplorerTransactionLink(launchVaultTxn, chainId ? chainId : 1)}
                         target="_blank" rel="noreferrer">
                         {shortenIfTransactionHash(launchVaultTxn)} </a>
                 </Alert>
-                <Alert isOpen={showVaultCreatedSnack} toggle={() => handleVaultCreatedSnackClose()} color="success">
+                <Alert className='p-1' isOpen={showVaultCreatedSnack} toggle={() => handleVaultCreatedSnackClose()} color="success">
                     New Vault Launched :
                     <div><a href={getExplorerAddressLink(newVaultAddress, chainId ? chainId : 1)} target="_blank" rel="noreferrer">
                         {newVaultAddress} </a> </div>
