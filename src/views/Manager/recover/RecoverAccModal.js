@@ -15,7 +15,7 @@ const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
 
     const [Vault, setVault] = useState("")
 
-    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false, position: toast.POSITION.TOP_CENTER })
+    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false })
 
     const SuccessToast = () => (
         <Fragment>
@@ -130,7 +130,7 @@ const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
         localStorage.setItem('adrsbook', JSON.stringify(adrsbook))
     }
 
-    const notifyError = (emsg) => toast.error(<ErrorToast msg={emsg} />, { hideProgressBar: false, position: toast.POSITION.TOP_CENTER })
+    const notifyError = (emsg) => toast.error(<ErrorToast msg={emsg} />, { hideProgressBar: false })
     const ErrorToast = ({ msg }) => (
         <Fragment>
             <div className='toastify-header'>

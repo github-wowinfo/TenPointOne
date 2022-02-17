@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 
 const CopyAdrsDropList = ({ item }) => {
 
-    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false, position: toast.POSITION.TOP_CENTER })
+    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false })
 
     const copy = async () => {
         const textField = document.createElement('textarea')

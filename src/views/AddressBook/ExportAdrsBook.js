@@ -12,7 +12,7 @@ const ExportAdrsBook = ({ openexport, handleExpAdrsBook, data }) => {
     const [a_check, setA_check] = useState(false)
     const [exp_list, setExp_list] = useState([])
 
-    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false, position: toast.POSITION.TOP_CENTER })
+    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false })
     const SuccessToast = () => (
         <Fragment>
             <div className='toastify-header'>
