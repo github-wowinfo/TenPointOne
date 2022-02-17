@@ -33,7 +33,7 @@ const NavbarUser = props => {
       <div className='bookmark-wrapper d-flex align-items-center'>
         <NavItem className='d-none d-lg-block'>
           <NavLink className='nav-link-style'>
-            <ThemeToggler />
+            {/* <ThemeToggler /> */}
           </NavLink>
         </NavItem>
       </div>
