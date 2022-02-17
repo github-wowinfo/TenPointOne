@@ -316,15 +316,14 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
                 <CardTitle className='mb-0'>Force Recall</CardTitle>
             </ModalHeader>
             <ModalBody className='p-1'>
-
-                <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                <Row className='d-flex flex-column justify-content-center align-items-center' >
                     <Col>
                         <h3>For Risk Officers and Vault operators to pull Sega assests back into its Parent Vault bypassing the Sega operator.</h3>
                     </Col>
                     <Col className='my-1'>
                         <Row className='d-flex flex-row align-items-center'>
-                            <Col md='1' >
-                                <Avatar className='mr-1' size='md' color='light-primary' icon={<SiWebmoney size={40} />} />
+                            <Col xs='1' className='mr-1'>
+                                <Avatar className='mr-1' size='lg' color='light-primary' icon={<SiWebmoney size={40} />} />
                             </Col>
                             <Col className='d-flex flex-column justify-content-start'>
                                 <CardTitle className='mb-0 pb-1' tag='h3'>Selected Sega</CardTitle>

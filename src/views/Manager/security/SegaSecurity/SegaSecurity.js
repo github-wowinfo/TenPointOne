@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react'
 import Select from 'react-select'
 import { selectThemeColors } from '@utils'
 import { getAddress, isAddress } from "ethers/lib/utils"
-import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, InputGroup, InputGroupAddon, Alert } from 'reactstrap'
+import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, InputGroup, InputGroupAddon, Alert, UncontrolledButtonDropdown, DropdownToggle, DropdownMenu } from 'reactstrap'
 import ForceRecall from './ForceRecall'
 import { useRCU } from '../../../../utility/hooks/useRCU'
 import { useVault } from '../../../../utility/hooks/useVaults'
@@ -26,7 +26,6 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
     const [Vault, setVault] = useState("")
     const [Sega, setSega] = useState("")
     const [haveInfo, setHaveInfo] = useState(false)
-    const [display, setDisplay] = useState(false)
 
     // Get SEGA List
     const { getSegaList } = useVault(Vault)
@@ -57,7 +56,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
             if (getdata) {
                 const sega = getdata.filter(a => a.vault === Vault && a.show === true && a.network === chainId && a.owner === account)
                 setSegaList(sega)
-                console.log("Sega-List", sega)
+                // console.log("Sega-List", sega)
             }
         }
     }
@@ -73,15 +72,18 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
         }
     }
 
+    // const vlist = VaultList && VaultList.map((vault, index) => ({ value: index, label: vault }))
+    const vlist = VaultList && VaultList.map((vault, index) => ({ value: index, label: `${vault.name} - ${vault.address}`, adrs: `${vault.address}` }))
+
+    const slist = SegaList && SegaList.map((sega, index) => ({ value: index, label: `${sega.name} - ${sega.address}`, adrs: `${sega.address}` }))
+    const newSlist = slist.filter((sega) => { return sega.label !== "0x0000000000000000000000000000000000000000" })
+    // const slist = SegaList && SegaList.map((sega, index) => ({ value: index, label: sega }))
+
     // Set Vault to Manage
     const handleSetVault = (value) => {
-        // setSegaList([])
         setHaveInfo(false)
         setVault(value.adrs)
-
         // setVault(value.label)
-
-
     }
 
     // Set Sega to Manage
@@ -89,7 +91,6 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
         setHaveInfo(false)
         setSega(value.adrs)
         // setSega(value.label)
-        value = ''
     }
 
     const handleGetSegaInfo = () => {
@@ -105,13 +106,6 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
             // handleGetAllVaults()
         }
     }
-
-    // const vlist = VaultList && VaultList.map((vault, index) => ({ value: index, label: vault }))
-    const vlist = VaultList && VaultList.map((vault, index) => ({ value: index, label: `${vault.name} - ${vault.address}`, adrs: `${vault.address}` }))
-
-    const slist = SegaList && SegaList.map((sega, index) => ({ value: index, label: `${sega.name} - ${sega.address}`, adrs: `${sega.address}` }))
-    const newSlist = slist.filter((sega) => { return sega.label !== "0x0000000000000000000000000000000000000000" })
-    // const slist = SegaList && SegaList.map((sega, index) => ({ value: index, label: sega }))
 
     const handlePauseSega = () => {
         if (Vault.length > 0 && Sega.length > 0) { return pauseSega() }
@@ -150,7 +144,6 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
     // }, [Vault, Sega])
 
     useEffect(() => {
-
         getValueSegaFromLocal()
         // handleGetSegas()
     }, [Vault])
@@ -212,8 +205,9 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                 setVault('')
                 setSega('')
             }} >
-                {console.log('newSlist', newSlist)}
-                {/* {console.log('vlist', vlist)} */}
+                {/* {console.log('newSlist', newSlist)}
+                {console.log('Vault', Vault)}
+                {console.log('Sega', Sega)} */}
                 <ModalHeader tag='h2' toggle={() => {
                     handleSegaSecModal()
                     handleTxnSnackClose()
@@ -233,14 +227,25 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                                 <Label style={{ fontSize: "1.3em" }}>Select Vault</Label>
                                 {/* <Button.Ripple size='sm' color='primary' onClick={handleGetAllVaults}>Refresh</Button.Ripple> */}
                             </div>
+                            {/* <div>
+                                <UncontrolledButtonDropdown className='w-100'>
+                                    <DropdownToggle color='primary' outline caret>
+                                        <span>Select Vault</span>
+                                    </DropdownToggle>
+                                    <DropdownMenu className='w-100'>
+
+                                    </DropdownMenu>
+                                </UncontrolledButtonDropdown>
+                            </div> */}
                             <Select
+                                theme={selectThemeColors}
                                 className='react-select'
                                 classNamePrefix='select'
                                 defaultValue=''
                                 name='clear'
-                                // options={VaultList}
-                                options={vlist}
                                 onChange={handleSetVault}
+                                options={vlist}
+                            // options={VaultList}
                             />
                         </Col>
                         <Col className='mb-1'>
@@ -249,13 +254,13 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                                 {/* <Button.Ripple size='sm' color='primary' onClick={handleGetSegas}>Refresh</Button.Ripple> */}
                             </div>
                             <Select
-                                // theme={selectThemeColors}
+                                theme={selectThemeColors}
                                 className='react-select'
                                 classNamePrefix='select'
-                                defaultValue=''
+                                defaultValue=""
                                 name='clear'
-                                options={newSlist}
                                 onChange={handleSetSega}
+                                options={newSlist}
                             />
                         </Col>
                         <Col>
@@ -305,7 +310,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                                                 <Label for='rcvrydate' style={{ fontSize: "1.2em" }}>Assest Recall</Label>
                                                 <div className="d-flex justify-content-between">
                                                     <p><strong>Force Recall to Vault</strong></p>
-                                                    <Button.Ripple className='mx-1' color='primary' onClick={handlRecoverModal}>Recall</Button.Ripple>
+                                                    <Button.Ripple className='text-center' color='primary' onClick={handlRecoverModal}>Recall</Button.Ripple>
                                                 </div>
                                             </FormGroup>
                                         </Col>
