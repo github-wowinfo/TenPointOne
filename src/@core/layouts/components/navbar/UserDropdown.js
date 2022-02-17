@@ -36,7 +36,7 @@ const UserDropdown = ({ networkC }) => {
 
   const [text, setText] = useState(account)
 
-  const notifySuccess = () => toast.success(<SuccessToast />, { theme: "colored", hideProgressBar: false, position: toast.POSITION.TOP_CENTER })
+  const notifySuccess = () => toast.success(<SuccessToast />, { theme: "colored", hideProgressBar: false })
 
   const copy = async () => {
     // await navigator.clipboard.writeText(text)

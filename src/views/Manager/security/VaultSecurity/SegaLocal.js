@@ -20,7 +20,7 @@ const SegaLocal = ({ opensegaLocalModal, handleSegaLocalModal, segas, vault }) =
         <AddNicknameForSega item={item} index={index} segas={segas} getSega={getSega} setSega={setSega} />
     ))
 
-    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false, position: toast.POSITION.TOP_CENTER })
+    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false })
     const SuccessToast = () => (
         <Fragment>
             <div className='toastify-header'>

@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 
 const CopyAdrsSegaList = ({ item }) => {
 
-    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false, position: toast.POSITION.TOP_CENTER })
+    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false })
 
     const copy = async () => {
         // await navigator.clipboard.writeText(item)

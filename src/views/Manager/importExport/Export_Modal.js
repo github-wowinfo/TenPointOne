@@ -14,7 +14,7 @@ const Export_Modal = ({ openexport_modal, handleexport_modal, globalFavFlag, glo
 
     const { account, chainId } = useEthers()
 
-    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false, position: toast.POSITION.TOP_CENTER })
+    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false })
     const SuccessToast = () => (
         <Fragment>
             <div className='toastify-header'>

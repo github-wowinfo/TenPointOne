@@ -53,7 +53,7 @@ const AddNewModal = ({ open, handleModal, trxnId, description, local }) => {
     }
   }
 
-  const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false, position: toast.POSITION.TOP_CENTER })
+  const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false })
   const copy = async () => {
     // await navigator.clipboard.writeText(details?.id)
     const textField = document.createElement('textarea')

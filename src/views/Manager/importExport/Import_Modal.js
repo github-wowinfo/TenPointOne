@@ -16,7 +16,7 @@ const Import_Modal = ({ openimport_modal, handleimport_modal, globalVaultFlag, d
         // setLoginModal(!loginModal)
     }
 
-    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false, position: toast.POSITION.TOP_CENTER })
+    const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false })
     const SuccessToast = () => (
         <Fragment>
             <div className='toastify-header'>
