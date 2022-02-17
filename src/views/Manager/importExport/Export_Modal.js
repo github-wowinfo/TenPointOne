@@ -106,7 +106,7 @@ const Export_Modal = ({ openexport_modal, handleexport_modal, globalFavFlag, glo
     const handleExport = () => {
         console.log('v_list', v_list)
         console.log('s_list', s_list)
-        if (v_list.length > 0) {
+        if (v_list && v_list.length > 0) {
             const newlist = v_list.concat(s_list)
             for (const i in newlist) {
                 delete newlist[i].owner
@@ -237,7 +237,7 @@ const Export_Modal = ({ openexport_modal, handleexport_modal, globalFavFlag, glo
             </ModalBody>
             <ModalFooter>
                 <Col className='text-center'>
-                    {final_list.length > 0 ? (
+                    {final_list && final_list.length > 0 ? (
                         <Button.Ripple color="success" onClick={() => {
                             for (const i in final_list) {
                                 delete final_list[i].children
