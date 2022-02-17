@@ -69,6 +69,19 @@ const DeFi = ({ dispatch, globalAdrs, globalNickName, globalVaultFlag }) => {
     const accountChange = async () => {
         await ethereum.request({ method: "wallet_requestPermissions", params: [{ eth_accounts: {} }] })
     }
+
+    const handleInfo = () => {
+        return MySwal.fire({
+            title: 'This section is indicative only. DeFi linkages will be added soon.',
+            //   text: 'You clicked the button!',
+            icon: 'info',
+            customClass: {
+                confirmButton: 'btn btn-primary'
+            },
+            buttonsStyling: false
+        })
+    }
+
     const handleAjax = () => {
         return MySwal.fire({
             title: 'Do you want to change your current network?',
@@ -121,6 +134,12 @@ const DeFi = ({ dispatch, globalAdrs, globalNickName, globalVaultFlag }) => {
     }
 
     console.log('curt_account', curt_account)
+
+    useEffect(() => {
+        if (globalNickName !== 'Create a Vault') {
+            handleInfo()
+        }
+    }, [])
 
     useEffect(() => {
         if (chainId !== undefined && curt_chain !== undefined && chainId !== curt_chain) {
