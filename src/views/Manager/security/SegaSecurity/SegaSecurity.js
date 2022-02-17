@@ -25,7 +25,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
     const [SegaList, setSegaList] = useState([])
     const [Vault, setVault] = useState("")
     const [Sega, setSega] = useState("")
-    const [haveInfo, setHaveInfo] = useState(0)
+    const [haveInfo, setHaveInfo] = useState(false)
     const [display, setDisplay] = useState(false)
 
     // Get SEGA List
@@ -76,7 +76,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
     // Set Vault to Manage
     const handleSetVault = (value) => {
         // setSegaList([])
-        setHaveInfo(0)
+        setHaveInfo(false)
         setVault(value.adrs)
 
         // setVault(value.label)
@@ -86,7 +86,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
 
     // Set Sega to Manage
     const handleSetSega = (value) => {
-        setHaveInfo(0)
+        setHaveInfo(false)
         setSega(value.adrs)
         // setSega(value.label)
         value = ''
@@ -99,7 +99,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
             setTrader(_trader)
             setActiveStatus(_active)
             if (Vault && Sega) {
-                setHaveInfo(1)
+                setHaveInfo(true)
             }
         } else {
             // handleGetAllVaults()
@@ -150,6 +150,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
     // }, [Vault, Sega])
 
     useEffect(() => {
+
         getValueSegaFromLocal()
         // handleGetSegas()
     }, [Vault])
@@ -207,16 +208,16 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
             <Modal className='modal-dialog-centered modal-lg' isOpen={opensegasec} toggle={() => {
                 handleSegaSecModal()
                 handleTxnSnackClose()
-                setHaveInfo(0)
+                setHaveInfo(false)
                 setVault('')
                 setSega('')
             }} >
-                {/* {console.log('newSlist', newSlist)}
-                {console.log('vlist', vlist)} */}
+                {console.log('newSlist', newSlist)}
+                {/* {console.log('vlist', vlist)} */}
                 <ModalHeader tag='h2' toggle={() => {
                     handleSegaSecModal()
                     handleTxnSnackClose()
-                    setHaveInfo(0)
+                    setHaveInfo(false)
                     setVault('')
                     setSega('')
                 }}>
