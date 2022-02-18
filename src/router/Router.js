@@ -27,7 +27,7 @@ import { useEthers } from '@usedapp/core'
 
 const Router = ({ globalAdrs, dispatch, globalNickName, globalVaultFlag }) => {
 
-  const {activateBrowserWallet, account, chainId } = useEthers()
+  const { activateBrowserWallet, account, chainId } = useEthers()
 
   const handleGlobalLocal = () => {
     const getdata = JSON.parse(localStorage.getItem('g_acc'))
@@ -246,7 +246,7 @@ const Router = ({ globalAdrs, dispatch, globalNickName, globalVaultFlag }) => {
         />
         {ResolveRoutes()}
         {/* NotFound Error page */}
-        <Route path='*' component={Error} />/
+        <Route path='*' component={Error} />
       </Switch>
     </AppRouter>
   )
