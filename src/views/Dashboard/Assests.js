@@ -112,7 +112,7 @@ const Assests = ({ cols = 0, globalAdrs }) => {
               {showDollar ? (
                 <CardText className='font-small-3 mb-0'>$ {(item.balance / (10 ** item.contract_decimals) * item.quote_rate).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</CardText>
               ) : (
-                <CardText className='font-small-3 mb-0'>{((item.balance / (10 ** item.contract_decimals))).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 })} </CardText>
+                <CardText className='font-small-3 mb-0'>{((item.balance / (10 ** item.contract_decimals))).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 6 })} </CardText>
               )}
             </Media>
           </Media>

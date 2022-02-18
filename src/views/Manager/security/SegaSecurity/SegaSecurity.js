@@ -26,7 +26,8 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
     const [Vault, setVault] = useState("")
     const [Sega, setSega] = useState("")
     const [haveInfo, setHaveInfo] = useState(0)
-    const [display, setDisplay] = useState(false)
+    // const [notParentVault, setNotParentVault] = useState(false)
+    const [sega_value, setSega_value] = useState({ value: 'Select...', label: 'Select...' })
 
     // Get SEGA List
     const { getSegaList } = useVault(Vault)
@@ -78,7 +79,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
         // setSegaList([])
         setHaveInfo(0)
         setVault(value.adrs)
-
+        setSega_value(null)
         // setVault(value.label)
 
 
@@ -88,8 +89,8 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
     const handleSetSega = (value) => {
         setHaveInfo(0)
         setSega(value.adrs)
+        setSega_value(value)
         // setSega(value.label)
-        value = ''
     }
 
     const handleGetSegaInfo = () => {
@@ -98,6 +99,11 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
             setParentVault(_parentVault)
             setTrader(_trader)
             setActiveStatus(_active)
+            // if (_parentVault !== Vault) {
+            //     setNotParentVault(true)
+            // } else {
+            //     setNotParentVault(false)
+            // }
             if (Vault && Sega) {
                 setHaveInfo(1)
             }
@@ -207,6 +213,8 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
             <Modal className='modal-dialog-centered modal-lg' isOpen={opensegasec} toggle={() => {
                 handleSegaSecModal()
                 handleTxnSnackClose()
+                // setNotParentVault(false)
+                setSega_value(null)
                 setHaveInfo(0)
                 setVault('')
                 setSega('')
@@ -216,6 +224,8 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                 <ModalHeader tag='h2' toggle={() => {
                     handleSegaSecModal()
                     handleTxnSnackClose()
+                    // setNotParentVault(false)
+                    setSega_value(null)
                     setHaveInfo(0)
                     setVault('')
                     setSega('')
@@ -251,7 +261,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                                 // theme={selectThemeColors}
                                 className='react-select'
                                 classNamePrefix='select'
-                                defaultValue=''
+                                value={sega_value}
                                 name='clear'
                                 options={newSlist}
                                 onChange={handleSetSega}
