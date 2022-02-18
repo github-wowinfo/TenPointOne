@@ -180,6 +180,7 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
                                                         // } else {
                                                         //     window.location.reload()
                                                         // }
+
                                                         // if (!isConnected && init_flag) {
                                                         //     window.location.reload()
                                                         // localStorage.setItem('load_flag', JSON.stringify(false))
