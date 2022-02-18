@@ -23,6 +23,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
     const [VaultList, setVaultList] = useState([])
     const [SegaList, setSegaList] = useState([])
     const [rm_flag, setRm_flag] = useState(0)
+    const [sega_value, setSega_value] = useState({ value: 'Select...', label: 'Select...' })
 
     const getVaultListFromLocal = () => {
         const getdata = JSON.parse(localStorage.getItem('vaultdata'))
@@ -66,6 +67,8 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
         if (isAddress(value.address)) {
             setVault(value.address)
             setVault_flag(true)
+            setSega_flag(false)
+            setSega_value(null)
         }
     }
     // console.log('Vault', Vault)
@@ -282,6 +285,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
         if (isAddress(segaadrs)) {
             setSelectSega(segaadrs)
             setSega_flag(true)
+            setSega_value(value)
         } else {
             alert("Select a valid address!")
         }
@@ -355,6 +359,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
             setSega_present_flag(false)
             setSadrs('')
             setIs_sega_adrs()
+            setSega_value(null)
             handleExeSegaModal()
         }}>
             <ModalHeader tag='h2' toggle={() => {
@@ -363,6 +368,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
                 setSega_present_flag(false)
                 setSadrs('')
                 setIs_sega_adrs()
+                setSega_value(null)
                 handleExeSegaModal()
             }}>
                 <span style={{ color: '#1919d2' }}>Track or Hide Existing Sega</span>
@@ -464,7 +470,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
                                     // theme={selectThemeColors}
                                     className='react-select'
                                     classNamePrefix='select'
-                                    defaultValue=''
+                                    value={sega_value}
                                     name='clear'
                                     options={newSlist}
                                     onChange={handleSegaRemove}

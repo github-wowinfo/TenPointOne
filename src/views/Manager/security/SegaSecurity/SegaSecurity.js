@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react'
 import Select from 'react-select'
 import { selectThemeColors } from '@utils'
 import { getAddress, isAddress } from "ethers/lib/utils"
-import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, InputGroup, InputGroupAddon, Alert, UncontrolledButtonDropdown, DropdownToggle, DropdownMenu } from 'reactstrap'
+import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, InputGroup, InputGroupAddon, Alert, UncontrolledButtonDropdown, DropdownToggle, DropdownMenu, UncontrolledAlert } from 'reactstrap'
 import ForceRecall from './ForceRecall'
 import { useRCU } from '../../../../utility/hooks/useRCU'
 import { useVault } from '../../../../utility/hooks/useVaults'
@@ -26,6 +26,8 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
     const [Vault, setVault] = useState("")
     const [Sega, setSega] = useState("")
     const [haveInfo, setHaveInfo] = useState(false)
+    const [notParentVault, setNotParentVault] = useState(false)
+    const [sega_value, setSega_value] = useState({ value: 'Select...', label: 'Select...' })
 
     // Get SEGA List
     const { getSegaList } = useVault(Vault)
@@ -83,6 +85,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
     const handleSetVault = (value) => {
         setHaveInfo(false)
         setVault(value.adrs)
+        setSega_value(null)
         // setVault(value.label)
     }
 
@@ -90,6 +93,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
     const handleSetSega = (value) => {
         setHaveInfo(false)
         setSega(value.adrs)
+        setSega_value(value)
         // setSega(value.label)
     }
 
@@ -99,6 +103,11 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
             setParentVault(_parentVault)
             setTrader(_trader)
             setActiveStatus(_active)
+            // if (_parentVault !== Vault) {
+            //     setNotParentVault(true)
+            // } else {
+            //     setNotParentVault(false)
+            // }
             if (Vault && Sega) {
                 setHaveInfo(true)
             }
@@ -201,6 +210,8 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
             <Modal className='modal-dialog-centered modal-lg' isOpen={opensegasec} toggle={() => {
                 handleSegaSecModal()
                 handleTxnSnackClose()
+                // setNotParentVault(false)
+                setSega_value(null)
                 setHaveInfo(false)
                 setVault('')
                 setSega('')
@@ -211,6 +222,8 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                 <ModalHeader tag='h2' toggle={() => {
                     handleSegaSecModal()
                     handleTxnSnackClose()
+                    // setNotParentVault(false)
+                    setSega_value(null)
                     setHaveInfo(false)
                     setVault('')
                     setSega('')
@@ -227,16 +240,6 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                                 <Label style={{ fontSize: "1.3em" }}>Select Vault</Label>
                                 {/* <Button.Ripple size='sm' color='primary' onClick={handleGetAllVaults}>Refresh</Button.Ripple> */}
                             </div>
-                            {/* <div>
-                                <UncontrolledButtonDropdown className='w-100'>
-                                    <DropdownToggle color='primary' outline caret>
-                                        <span>Select Vault</span>
-                                    </DropdownToggle>
-                                    <DropdownMenu className='w-100'>
-
-                                    </DropdownMenu>
-                                </UncontrolledButtonDropdown>
-                            </div> */}
                             <Select
                                 theme={selectThemeColors}
                                 className='react-select'
@@ -249,6 +252,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                             />
                         </Col>
                         <Col className='mb-1'>
+                            {console.log('sega_value', sega_value)}
                             <div className='d-flex flex-row justify-content-between my-1'>
                                 <Label style={{ fontSize: "1.3em" }}>Select Sega</Label>
                                 {/* <Button.Ripple size='sm' color='primary' onClick={handleGetSegas}>Refresh</Button.Ripple> */}
@@ -257,7 +261,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                                 theme={selectThemeColors}
                                 className='react-select'
                                 classNamePrefix='select'
-                                defaultValue=""
+                                value={sega_value}
                                 name='clear'
                                 onChange={handleSetSega}
                                 options={newSlist}
@@ -266,10 +270,17 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                         <Col>
                             <hr />
                         </Col>
+                        {/* {notParentVault ? (
+                            <Col>
+                                <UncontrolledAlert color='danger'>
+                                    <h4 className='alert-heading'>Select a valid Sega</h4>
+                                </UncontrolledAlert>
+                            </Col>
+                        ) : null} */}
                         <Col className='text-center'>
                             <Button.Ripple color='primary' onClick={handleGetSegaInfo}><Tool className='mr-1' size={20} />Get Sega Info</Button.Ripple>
                         </Col>
-                        {haveInfo ? (
+                        {haveInfo && notParentVault === false ? (
                             <>
                                 <Col>
                                     <FormGroup>
