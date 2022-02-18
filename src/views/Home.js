@@ -166,7 +166,6 @@ const Home = ({ globalVaultFlag, globalAdrs, dispatch, globalNickName }) => {
   }, [account, chainId, globalAdrs])
 
   return (
-
     <div>
       <Row>
         {globalNickName === 'Create a Vault' ? (

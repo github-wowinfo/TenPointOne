@@ -75,7 +75,7 @@ ReactDOM.render(
         <ToastContainer newestOnTop />
       </ThemeContext>
     </Suspense>
-  </Provider >,
+  </Provider>,
   document.getElementById('root')
 )
 

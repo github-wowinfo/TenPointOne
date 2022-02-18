@@ -143,6 +143,9 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
     const networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
     const backgroundChange = { backgroundColor: networkName === "BSC testnet" ? '#cc9b00' : networkName === "Polygon Network" ? '#8146e4' : networkName === "Ethereum" ? '#4559f4' : networkName === "Kovan" ? '#6435c9' : networkName === "BSC Mainet" ? '#cc9b00' : networkName === "Polygon Mumbai" ? '#140035' : null }
 
+    const reload = () => {
+        window.location.reload()
+    }
     return (
         <>
             <Modal className='modal-xl modal-dialog-centered' isOpen={openloginmodal}>
@@ -163,23 +166,20 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
                                         <CardTitle tag='h2' style={{ color: '#00cfe8' }} className='font-weight-bold text-center mb-1 px-1'>
                                             RISK PROTOCOL
                                         </CardTitle>
+                                        {console.log('isConnected', isConnected)}
                                         {is_metamask ? (<>
                                             {isConnected ? (<Button.Ripple color='primary' style={{ fontSize: "1em", marginBottom: 5 }}
                                                 onClick={() => {
                                                     disconnect()
-                                                    // if (chainId === '137') {
-                                                    //     disconnect()
-                                                    // } else {
-                                                    //     netchange()
-                                                    // }
                                                 }} block>LOGIN</Button.Ripple>) : (
                                                 <Button.Ripple color='primary' style={{ fontSize: "1em", marginBottom: 5 }}
-                                                    onClick={async () => {
-                                                        if (curr_chain !== '137') {
-                                                            netchange()
-                                                        } else {
-                                                            window.location.reload()
-                                                        }
+                                                    onClick={() => {
+                                                        reload()
+                                                        // if (curr_chain !== '137') {
+                                                        //     netchange()
+                                                        // } else {
+                                                        //     window.location.reload()
+                                                        // }
                                                         // if (!isConnected && init_flag) {
                                                         //     window.location.reload()
                                                         // localStorage.setItem('load_flag', JSON.stringify(false))
