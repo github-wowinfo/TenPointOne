@@ -26,7 +26,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
     const [Vault, setVault] = useState("")
     const [Sega, setSega] = useState("")
     const [haveInfo, setHaveInfo] = useState(false)
-    const [notParentVault, setNotParentVault] = useState(false)
+    // const [notParentVault, setNotParentVault] = useState(false)
     const [sega_value, setSega_value] = useState({ value: 'Select...', label: 'Select...' })
 
     // Get SEGA List
@@ -241,7 +241,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                                 {/* <Button.Ripple size='sm' color='primary' onClick={handleGetAllVaults}>Refresh</Button.Ripple> */}
                             </div>
                             <Select
-                                theme={selectThemeColors}
+                                // theme={selectThemeColors}
                                 className='react-select'
                                 classNamePrefix='select'
                                 defaultValue=''
@@ -258,7 +258,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                                 {/* <Button.Ripple size='sm' color='primary' onClick={handleGetSegas}>Refresh</Button.Ripple> */}
                             </div>
                             <Select
-                                theme={selectThemeColors}
+                                // theme={selectThemeColors}
                                 className='react-select'
                                 classNamePrefix='select'
                                 value={sega_value}
@@ -280,7 +280,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                         <Col className='text-center'>
                             <Button.Ripple color='primary' onClick={handleGetSegaInfo}><Tool className='mr-1' size={20} />Get Sega Info</Button.Ripple>
                         </Col>
-                        {haveInfo && notParentVault === false ? (
+                        {haveInfo ? (
                             <>
                                 <Col>
                                     <FormGroup>

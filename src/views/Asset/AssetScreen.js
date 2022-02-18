@@ -236,7 +236,7 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                 <span className='align-middle font-weight-bold'>
                     {
 
-                        (row.balance && (row.balance / (10 ** row.contract_decimals))).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 })
+                        (row.balance && (row.balance / (10 ** row.contract_decimals))).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 6 })
 
                     }
                 </span>
