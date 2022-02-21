@@ -161,6 +161,7 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
                             <Select
                                 className='react-select'
                                 classNamePrefix='select'
+                                maxMenuHeight={200}
                                 defaultValue=''
                                 name='clear'
                                 options={VaultList}

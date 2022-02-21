@@ -261,6 +261,7 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
                             className='react-select'
                             classNamePrefix='select'
                             defaultValue=''
+                            maxMenuHeight={200}
                             name='clear'
                             options={VaultList}
                             onChange={handleSetVault}

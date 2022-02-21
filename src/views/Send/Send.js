@@ -643,7 +643,7 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                       <Label style={{ fontSize: '1.2em' }} for='selectasset'>Asset</Label>
                       <Select
                         // theme={selectThemeColors}
-                        maxMenuHeight={250}
+                        maxMenuHeight={200}
                         className='react-select'
                         classNamePrefix='select'
                         defaultValue=''

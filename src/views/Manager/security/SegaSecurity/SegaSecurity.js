@@ -245,6 +245,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                             <Select
                                 className='react-select'
                                 classNamePrefix='select'
+                                maxMenuHeight={200}
                                 defaultValue=''
                                 name='clear'
                                 // options={VaultList}
@@ -261,6 +262,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                                 // theme={selectThemeColors}
                                 className='react-select'
                                 classNamePrefix='select'
+                                maxMenuHeight={200}
                                 value={sega_value}
                                 name='clear'
                                 options={newSlist}

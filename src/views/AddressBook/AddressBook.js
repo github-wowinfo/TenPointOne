@@ -396,7 +396,6 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
                                     <span className='align-middle ml-50'>Delete Adddress Book</span>
                                 </Button>
                             )}
-
                         </Col>
                     </Row>
                 </Card>
