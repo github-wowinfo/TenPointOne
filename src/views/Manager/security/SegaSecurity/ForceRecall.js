@@ -357,6 +357,7 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
                             // theme={selectThemeColors}
                             className='react-select'
                             classNamePrefix='select'
+                            maxMenuHeight={200}
                             defaultValue=''
                             placeholder='Select an asset...'
                             name='clear'

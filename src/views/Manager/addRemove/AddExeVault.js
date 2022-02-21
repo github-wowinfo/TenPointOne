@@ -495,6 +495,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
                                 <Select
                                     className='react-select'
                                     classNamePrefix='select'
+                                    maxMenuHeight={200}
                                     defaultValue=''
                                     name='clear'
                                     options={VaultList}
