@@ -385,10 +385,18 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
                             )}
                         </Col>
                         <Col md='3' className='text-right py-1'>
-                            <Button className='px-0' color='danger' block outline onClick={handleConfirmDelete}>
-                                <X size={15} />
-                                <span className='align-middle ml-50'>Delete Adddress Book</span>
-                            </Button>
+                            {adrs_data && adrs_data.length > 0 ? (
+                                <Button className='px-0' color='danger' block outline onClick={handleConfirmDelete}>
+                                    <X size={15} />
+                                    <span className='align-middle ml-50'>Delete Adddress Book</span>
+                                </Button>
+                            ) : (
+                                <Button className='px-0' color='danger' block outline disabled>
+                                    <X size={15} />
+                                    <span className='align-middle ml-50'>Delete Adddress Book</span>
+                                </Button>
+                            )}
+
                         </Col>
                     </Row>
                 </Card>
