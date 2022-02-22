@@ -15,7 +15,7 @@ import { XCircle } from 'react-feather'
 import Avatar from '@components/avatar'
 import { FiXCircle } from 'react-icons/fi'
 
-const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, haveInfo }) => {
+const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, sega_name, pVault, haveInfo }) => {
 
     const { chainId } = useEthers()
 
@@ -317,7 +317,7 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, pVault, h
                         <Row className='d-flex flex-row'>
                             <Col md='1'><SiWebmoney size={40} /></Col>
                             <Col className='d-flex flex-column justify-content-start'>
-                                <h3>Selected Sega</h3>
+                                <h3>{sega_name}</h3>
                                 <h5>{selectSega}</h5>
                             </Col>
                         </Row>
