@@ -104,7 +104,6 @@ const UserDropdown = ({ networkC }) => {
     <>
       <Dropdown isOpen={dropdownOpen} toggle={toggle} tag='li' className='nav-item'>
         <DropdownToggle tag='a' className='nav-link'>
-
           <div style={{
             display: 'flex',
             flex: 1,
@@ -113,7 +112,7 @@ const UserDropdown = ({ networkC }) => {
             alignItems: 'center',
             maxWidth: 500
           }}>
-            <div style={{
+            <div className='d-none d-sm-block' style={{
               marginRight: 5,
               textAlign: 'right'
             }}>

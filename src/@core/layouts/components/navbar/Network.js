@@ -176,8 +176,8 @@ const Network = ({ networkC, dispatch, globalFlag }) => {
     <>
       <UncontrolledButtonDropdown style={{ marginLeft: 20, marginRight: 20 }}>
 
-        <DropdownToggle color='primary' outline caret>
-          <span><Icon className='mx-1' name={network.icon} size={20} />{network.name}</span>
+        <DropdownToggle className='pl-0' color='primary' outline caret>
+          <span><Icon className='mx-1' name={network.icon} size={20} /></span><span className='d-none d-sm-inline'>{network.name}</span>
         </DropdownToggle>
 
         <DropdownMenu style={{ relative: 'relative' }}>

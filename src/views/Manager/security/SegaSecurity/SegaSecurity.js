@@ -25,6 +25,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
     const [SegaList, setSegaList] = useState([])
     const [Vault, setVault] = useState("")
     const [Sega, setSega] = useState("")
+    const [segaName, setSegaName] = useState("")
     const [haveInfo, setHaveInfo] = useState(false)
     // const [notParentVault, setNotParentVault] = useState(false)
     const [sega_value, setSega_value] = useState({ value: 'Select...', label: 'Select...' })
@@ -77,7 +78,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
     // const vlist = VaultList && VaultList.map((vault, index) => ({ value: index, label: vault }))
     const vlist = VaultList && VaultList.map((vault, index) => ({ value: index, label: `${vault.name} - ${vault.address}`, adrs: `${vault.address}` }))
 
-    const slist = SegaList && SegaList.map((sega, index) => ({ value: index, label: `${sega.name} - ${sega.address}`, adrs: `${sega.address}` }))
+    const slist = SegaList && SegaList.map((sega, index) => ({ value: index, label: `${sega.name} - ${sega.address}`, adrs: `${sega.address}`, name: `${sega.name}` }))
     const newSlist = slist.filter((sega) => { return sega.label !== "0x0000000000000000000000000000000000000000" })
     // const slist = SegaList && SegaList.map((sega, index) => ({ value: index, label: sega }))
 
@@ -85,6 +86,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
     const handleSetVault = (value) => {
         setHaveInfo(false)
         setVault(value.adrs)
+        setSega('')
         setSega_value(null)
         // setVault(value.label)
     }
@@ -93,6 +95,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
     const handleSetSega = (value) => {
         setHaveInfo(false)
         setSega(value.adrs)
+        setSegaName(value.name)
         setSega_value(value)
         // setSega(value.label)
     }
@@ -348,7 +351,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                     </Alert>
                 </Col>
             </Modal>
-            <ForceRecall openrecallmodal={recallmodal} handlRecoverModal={handlRecoverModal} selectSega={Sega} pVault={parentVault} haveInfo={haveInfo} />
+            <ForceRecall openrecallmodal={recallmodal} handlRecoverModal={handlRecoverModal} selectSega={Sega} sega_name={segaName} pVault={parentVault} haveInfo={haveInfo} />
         </div>
     )
 }

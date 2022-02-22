@@ -31,13 +31,14 @@ const NavbarUser = props => {
         </NavItem>
       </ul>
       <div className='bookmark-wrapper d-flex align-items-center'>
-        <NavItem className='d-none d-lg-block'>
+        {/* <NavItem className='d-none d-lg-block'> */}
+        <NavItem className='d-block'>
           <NavLink className='nav-link-style'>
             <ThemeToggler />
           </NavLink>
         </NavItem>
       </div>
-      <ul className='nav navbar-nav align-items-center ml-auto '>
+      <ul className='nav navbar-nav align-items-center flex-nowrap ml-auto '>
         <UserDropdown />
         <Network />
       </ul>
