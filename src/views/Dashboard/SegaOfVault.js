@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useEthers } from '@usedapp/core'
+import { shortenIfAddress, useEthers } from '@usedapp/core'
 import axios from 'axios'
 import helperConfig from '../../helper-config.json'
 import { SiWebmoney } from 'react-icons/si'
@@ -30,7 +30,7 @@ const SegaOfVault = ({ item }) => {
             <td>
                 <span className='align-middle font-weight-bold' style={{ whiteSpace: "nowrap", color: '#0000CD' }}><SiWebmoney className="mr-1" size={25} />{item.name}</span>
             </td>
-            <td style={{ textAlign: "center" }}>{item.address}</td>
+            <td style={{ textAlign: "center" }}>{shortenIfAddress(item.address)}</td>
             <td style={{ textAlign: "right" }}> ${(sum.toFixed(6))} </td>
         </tr>
 
