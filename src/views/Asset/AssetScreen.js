@@ -299,7 +299,7 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                 ) : (
                     <>
                         <Card className='my-1'>
-                            <CardBody className='px-1'>
+                            <CardBody className='px-1 py-0'>
                                 <Row className='d-flex flex-row justify-content-between'>
                                     <Col>
                                         <CardHeader className='px-0'>
