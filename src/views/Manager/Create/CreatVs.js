@@ -32,7 +32,7 @@ const CreateVs = () => {
                                 <CardText style={{ fontSize: '1rem' }}>Create new Vault and SEGAs (incurs network fees)</CardText>
                             </CardBody>
                         </Col>
-                        <Col md='5' style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+                        <Col md='5' className='d-flex flex-column flex-sm-row justify-content-end align-items-center'>
                             <Button.Ripple className='mr-1 mb-1' color='primary' style={{ fontSize: '1.7em' }} onClick={handleSegaModal}><PlusCircle className='mr-1' size={25} />Sega</Button.Ripple>
                             <Button.Ripple className='mr-1 mb-1' color='primary' style={{ fontSize: '1.7em' }} onClick={handleVaultModal}><PlusCircle className='mr-1' size={25} />Vault</Button.Ripple>
                         </Col>

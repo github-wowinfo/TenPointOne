@@ -95,7 +95,7 @@ const ImportExport = ({ globalFavFlag, globalVaultFlag, dispatch }) => {
                                 <CardText style={{ fontSize: '1rem' }}>Import/Export your account data.</CardText>
                             </CardBody>
                         </Col>
-                        <Col md='5' style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+                        <Col md='5' className='d-flex flex-column flex-sm-row justify-content-end align-items-center'>
                             <Button.Ripple className='mr-1 mb-1' color='primary' style={{ fontSize: '1.2em' }} onClick={handleexport_modal}><CgExport className='mr-1' size={25} />Export</Button.Ripple>
                             <Button.Ripple className='mr-1 mb-1' color='primary' style={{ fontSize: '1.2em' }} onClick={handleimport_modal}><CgImport className='mr-1' size={25} />Import</Button.Ripple>
                         </Col>

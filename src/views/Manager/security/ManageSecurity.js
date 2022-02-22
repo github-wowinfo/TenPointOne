@@ -32,7 +32,7 @@ const ManageSecurity = () => {
                                 <CardText style={{ fontSize: '1rem' }}>Modify security and recovery parameters of your accounts.</CardText>
                             </CardBody>
                         </Col>
-                        <Col md='5' style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+                        <Col md='5' className='d-flex flex-column flex-sm-row justify-content-end align-items-center'>
                             <Button.Ripple className='mr-1 mb-1' color='primary' style={{ fontSize: '1.7em' }} onClick={handleSegaSecModal}><Tool className='mr-1' size={25} />Sega</Button.Ripple>
                             <Button.Ripple className='mr-1 mb-1' color='primary' style={{ fontSize: '1.7em' }} onClick={handleVaultSecModal}><Tool className='mr-1' size={25} />Vault</Button.Ripple>
                         </Col>
