@@ -113,7 +113,7 @@ const UserDropdown = ({ networkC }) => {
             alignItems: 'center',
             maxWidth: 500
           }}>
-            <div style={{
+            <div className='d-none d-sm-block' style={{
               marginRight: 5,
               textAlign: 'right'
             }}>
