@@ -126,7 +126,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                                                     {j.ofvault === i.adrs ? <>
                                                         {/* <Label style={{ width: '100%' }} check> */}
                                                         <Row className='d-flex flex-row justify-content-around'>
-                                                            <Col className='d-flex flex-column'>
+                                                            <Col className='w-50 d-flex flex-column'>
                                                                 <Input key={index} id={index} type='radio' name='vaults' value={j.adrs} onChange={e => handleChange(e, j.name)} />
                                                                 <h4 style={{ color: '#1919d2' }} className='mb-0 ml-2'>{j.name}</h4>
                                                                 <h6 className='font-weight-light mx-2'>{shortenIfAddress(j.adrs)}</h6>
