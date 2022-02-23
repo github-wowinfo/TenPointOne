@@ -1,5 +1,5 @@
 import { BsSafe2 } from 'react-icons/bs'
-import { Modal, ModalBody, ModalHeader, InputGroup, InputGroupAddon, Row, Col, Input, Label, FormGroup, Button, Alert } from 'reactstrap'
+import { Modal, ModalBody, ModalHeader, InputGroup, InputGroupAddon, Row, Col, Input, Label, FormGroup, Button, Alert, CardTitle } from 'reactstrap'
 import { useEthers, getExplorerAddressLink, getExplorerTransactionLink, shortenIfTransactionHash, shortenIfAddress } from "@usedapp/core"
 import { getAddress, hexStripZeros } from "ethers/lib/utils"
 import { useState, useEffect, Fragment } from 'react'
@@ -8,6 +8,7 @@ import { toast } from 'react-toastify'
 import Avatar from '@components/avatar'
 import { XCircle } from 'react-feather'
 import { FiXCircle } from 'react-icons/fi'
+import { GiHobbitDoor, GiShipWheel } from 'react-icons/gi'
 
 const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault, vaultName }) => {
 
@@ -120,21 +121,23 @@ const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault, vaul
                 handleTxnSnackClose()
             }
             } >
-            <ModalHeader tag='h1' toggle={() => {
+            <ModalHeader tag='h2' toggle={() => {
                 handleModifyVaultModal()
                 handleTxnSnackClose()
             }
             }>
-                <span style={{ color: '#1919d2' }}>Modify Vault Settings</span>
+                {/* <span style={{ color: '#1919d2' }}>Modify Vault Settings</span> */}
+                <CardTitle className='mb-0'>Modify Vault Settings</CardTitle>
             </ModalHeader>
-            <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+            <ModalBody >
                 <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                     <Col>
                         <h3>Update your Vault with new security parameters and modify.</h3>
                     </Col>
                     <Col className='my-1'>
                         <Row className='d-flex flex-row justify-content-evenly'>
-                            <Col md='1' sm='1' className='mx-1'><Avatar size='lg' color='light-primary' icon={<BsSafe2 size={35} />} /></Col>
+                            {/* <Col md='1' sm='1' className='mx-1'><Avatar size='lg' color='light-primary' icon={<BsSafe2 size={35} />} /></Col> */}
+                            <Col md='1' sm='1' className='mx-1'><Avatar size='lg' color='light-primary' icon={<GiHobbitDoor size={35} />} /></Col>
                             <Col className='d-flex flex-column justify-content-start'>
                                 <h3 style={{ color: '#1919d2' }}>{vaultName}</h3>
                                 <h5 className='font-weight-bold'>{shortenIfAddress(vault)}</h5>

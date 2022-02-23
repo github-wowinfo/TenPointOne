@@ -391,7 +391,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
     }
 
     return (
-        <Modal className='modal-dialog-centered' isOpen={openexevault} toggle={() => {
+        <Modal className='modal-dialog-centered modal-lg' isOpen={openexevault} toggle={() => {
             handleExeVaultModal()
             setName_flag(false)
             setAdrs_flag(false)
@@ -411,7 +411,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
             }} >
                 <span style={{ color: '#1919d2' }}>Track or Hide Existing Vault</span>
             </ModalHeader>
-            <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+            <ModalBody>
                 <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                     <Col>
                         <h3>Start tracking your already existing Vaults.</h3>

@@ -1,11 +1,13 @@
 import { Fragment, useState } from "react"
 import { connect } from "react-redux"
-import { Button, CardTitle, Col, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap"
+import { Alert, Button, CardTitle, Col, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap"
 import * as AppData from '../../../redux/actions/cookies/appDataType'
 import { useEthers } from "@usedapp/core"
 import { toast } from "react-toastify"
 import Avatar from '@components/avatar'
+import 'animate.css'
 import { FaRegCheckCircle } from "react-icons/fa"
+import { AlertTriangle } from "react-feather"
 
 const Import_Modal = ({ openimport_modal, handleimport_modal, globalVaultFlag, dispatch }) => {
 
@@ -33,6 +35,25 @@ const Import_Modal = ({ openimport_modal, handleimport_modal, globalVaultFlag, d
         </Fragment>
     )
 
+    const [visible, setVisible] = useState(false)
+
+    const handleAlert = () => {
+        setVisible(true)
+        setTimeout(() => {
+            setVisible(false)
+        }, 5000)
+    }
+
+    const WrongFormat = () => (
+        <Fragment>
+            <Alert className='animate__animated animate__slideInDown' color='danger' isOpen={visible} toggle={() => setVisible(false)}>
+                <div className='my-1 alert-heading'>
+                    <AlertTriangle size={20} /><span className='ml-1'>Please select file with JSON format!</span>
+                </div>
+            </Alert>
+        </Fragment>
+    )
+
     const [adrsFile, setAdrsFile] = useState()
     const [selectedFile, setSelectedFile] = useState()
     const [isjson, setIsjson] = useState(false)
@@ -48,7 +69,8 @@ const Import_Modal = ({ openimport_modal, handleimport_modal, globalVaultFlag, d
                 setAdrsFile(result)
             }
         } else {
-            alert('The uploaded file is of the wrong format. File should be a ".JSON" file')
+            // alert('The uploaded file is of the wrong format. File should be a ".JSON" file')
+            handleAlert()
             setIsjson(false)
         }
     }
@@ -141,23 +163,29 @@ const Import_Modal = ({ openimport_modal, handleimport_modal, globalVaultFlag, d
             setIsjson(false)
             handleimport_modal()
         }}>
-            <ModalHeader toggle={() => {
+            <ModalHeader tag='h2' toggle={() => {
                 setSelectedFile()
                 setAdrsFile()
                 setIsjson(false)
                 handleimport_modal()
             }}>
-                <CardTitle>Upload/Select Address Book data (.JSON)</CardTitle>
+                {/* <span style={{ color: '#1919d2' }}>Upload/Select Address Book data (.JSON)</span> */}
+                <CardTitle className='mb-0'>Upload Vault & Sega data (.JSON)</CardTitle>
             </ModalHeader>
+            <Col>
+                {visible ? <WrongFormat /> : null}
+            </Col>
             <ModalBody>
                 <Col className='text-center'>
                     <label className={custom_file_upload}>
                         <input type="file" name="file" accept=".json" onChange={changeHandler} />
                     </label>
                 </Col>
-                <Col className='m-1' style={{ overflow: 'auto' }}>
-                    {selectedFile}
-                </Col>
+                {selectedFile ? (
+                    <Col className='m-1' style={{ overflow: 'auto' }}>
+                        {selectedFile}
+                    </Col>
+                ) : null}
             </ModalBody>
             <ModalFooter>
                 <Col className='text-center'>
@@ -168,7 +196,7 @@ const Import_Modal = ({ openimport_modal, handleimport_modal, globalVaultFlag, d
                     )}
                 </Col>
             </ModalFooter>
-        </Modal >
+        </Modal>
     )
 }
 

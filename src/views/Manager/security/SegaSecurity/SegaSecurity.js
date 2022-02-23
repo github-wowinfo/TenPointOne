@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react'
 import Select from 'react-select'
 import { selectThemeColors } from '@utils'
 import { getAddress, isAddress } from "ethers/lib/utils"
-import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, InputGroup, InputGroupAddon, Alert, UncontrolledButtonDropdown, DropdownToggle, DropdownMenu, UncontrolledAlert } from 'reactstrap'
+import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, InputGroup, InputGroupAddon, Alert, UncontrolledButtonDropdown, DropdownToggle, DropdownMenu, UncontrolledAlert, CardTitle } from 'reactstrap'
 import ForceRecall from './ForceRecall'
 import { useRCU } from '../../../../utility/hooks/useRCU'
 import { useVault } from '../../../../utility/hooks/useVaults'
@@ -231,9 +231,10 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                     setVault('')
                     setSega('')
                 }}>
-                    <span style={{ color: '#1919d2' }}>Select Account to Manage</span>
+                    {/* <span style={{ color: '#1919d2' }}>Select Account to Manage</span> */}
+                    <CardTitle className='mb-0'>Select Account to Manage</CardTitle>
                 </ModalHeader>
-                <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                <ModalBody>
                     <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                         <Col>
                             <h3>Select the account to view or modify security settings.</h3>

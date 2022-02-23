@@ -34,11 +34,12 @@ const ExportAdrsBook = ({ openexport, handleExpAdrsBook, data }) => {
             setExp_list([])
             handleExpAdrsBook()
         }}>
-            <ModalHeader toggle={() => {
+            <ModalHeader tag='h2' toggle={() => {
                 setExp_list([])
                 handleExpAdrsBook()
             }}>
-                <CardTitle className='mb-0'>Select Address you want to Export, or if you want to export the whole address book click <a href='#' onClick={() => {
+                <CardTitle className='mb-0'>Select Address you want to Export
+                    {/* <a href='#' onClick={() => {
                     exportFromJSON(
                         {
                             data: alldata,
@@ -48,34 +49,33 @@ const ExportAdrsBook = ({ openexport, handleExpAdrsBook, data }) => {
                     )
                     notifySuccess()
                     handleExpAdrsBook()
-                }}><u>here</u></a>.</CardTitle>
+                }}><u>Full Address Book export</u></a> */}
+                </CardTitle>
             </ModalHeader>
             <ModalBody>
-                <Card className='p-1 mb-0'>
-                    <Form>
-                        <FormGroup check>
-                            {data && data.map((i, index) => {
-                                return (
-                                    <>
-                                        <Row>
-                                            <Col className='pb-1'>
-                                                <Input className='my-1' key={index} type='checkbox' value={i} checked={a_check[index]} onChange={e => {
-                                                    setA_check(!a_check)
-                                                    exp_list.push(i)
-                                                    if (!e.target.checked) {
-                                                        setExp_list(exp_list.filter(adrs => adrs !== i))
-                                                    }
-                                                }} />
-                                                <h4 style={{ color: '#1919d2' }} className='mb-0 '>{i.nickname}</h4>
-                                                <h6 className='font-weight-light '>{shortenIfAddress(i.adrs)}</h6>
-                                            </Col>
-                                        </Row>
-                                    </>
-                                )
-                            })}
-                        </FormGroup>
-                    </Form>
-                </Card>
+                <Form>
+                    <FormGroup check>
+                        {data && data.map((i, index) => {
+                            return (
+                                <>
+                                    <Row>
+                                        <Col className='pb-1'>
+                                            <Input className='my-1' key={index} type='checkbox' value={i} checked={a_check[index]} onChange={e => {
+                                                setA_check(!a_check)
+                                                exp_list.push(i)
+                                                if (!e.target.checked) {
+                                                    setExp_list(exp_list.filter(adrs => adrs !== i))
+                                                }
+                                            }} />
+                                            <h4 style={{ color: '#1919d2' }} className='mb-0 '>{i.nickname}</h4>
+                                            <h6 className='font-weight-light '>{shortenIfAddress(i.adrs)}</h6>
+                                        </Col>
+                                    </Row>
+                                </>
+                            )
+                        })}
+                    </FormGroup>
+                </Form>
             </ModalBody>
             <ModalFooter>
                 <Col className='text-center'>

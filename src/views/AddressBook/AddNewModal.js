@@ -40,9 +40,29 @@ const AddNewModal = ({ open, handleModal, dispatch, globalVaultFlag }) => {
   // const [chain, setChain] = useState([])
   // const [chain_flag, setChain_flag] = useState(false)
 
+  const [visible_n, setVisible_n] = useState(false)
+
+  const handleNameAlert = () => {
+    setVisible_n(true)
+    setTimeout(() => {
+      setVisible_n(false)
+    }, 4000)
+  }
+
+  const NameAlert = () => (
+    <Fragment>
+      <Alert className='animate__animated animate__slideInDown' color='danger' isOpen={visible_n} toggle={() => setVisible_n(false)}>
+        <div className='my-1 alert-heading'>
+          <AlertTriangle size={20} /><span className='ml-1'>Name Field cannot be blank!</span>
+        </div>
+      </Alert>
+    </Fragment>
+  )
+
   const handleName = (e) => {
     if (e.target.value === '') {
-      alert("Name cannot be blank!")
+      // alert("Name cannot be blank!")
+      handleNameAlert()
       setName_flag(false)
     } else {
       setName(e.target.value)
@@ -82,7 +102,7 @@ const AddNewModal = ({ open, handleModal, dispatch, globalVaultFlag }) => {
     setVisible(true)
     setTimeout(() => {
       setVisible(false)
-    }, 3000)
+    }, 4000)
   }
 
   const EmptyAlert = () => (
@@ -177,7 +197,7 @@ const AddNewModal = ({ open, handleModal, dispatch, globalVaultFlag }) => {
       modalClassName='modal-slide-in'
       contentClassName='pt-0'
     >
-      <ModalHeader className='mb-1' toggle={() => {
+      <ModalHeader tag='h3' className='mb-1' toggle={() => {
         setName_flag(false)
         setAdrs_flag(false)
         setName('')
@@ -196,6 +216,7 @@ const AddNewModal = ({ open, handleModal, dispatch, globalVaultFlag }) => {
             </Alert>
           </Col>
         ) : null} */}
+        {visible_n ? <NameAlert /> : null}
         {visible ? <EmptyAlert /> : null}
         <Col style={{ ...networkstyle, ...backgroundChange, fontSize: '1em', marginBottom: '0px' }} className='my-1 d-flex flex-row flex-nowrap align-self-center '>
           {/* <Icon className='mr-1' name={networkC.icon} size={20} />{networkC.name} */}

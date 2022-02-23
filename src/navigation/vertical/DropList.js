@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { Button, Col, DropdownItem, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap'
+import { Button, CardTitle, Col, DropdownItem, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap'
 import { useEthers, shortenIfAddress, getExplorerAddressLink } from '@usedapp/core'
 import Avatar from '@components/avatar'
 import { FaRegCopy } from 'react-icons/fa'
@@ -92,13 +92,14 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                 className='sidebar-sm'
                 modalClassName='modal-slide-in'
                 contentClassName='py-0' >
-                <ModalHeader className='mb-1' close={CloseBtn} tag='div' toggle={() => {
+                <ModalHeader className='mb-1' close={CloseBtn} tag='h3' toggle={() => {
                     handleDropList()
                     setAdrs('')
                     setNick_Name('')
                     setSelect_Flag(false)
                 }}>
-                    <h3 style={{ color: '#000080' }}>Select Account</h3>
+                    {/* <h3 style={{ color: '#000080' }}>Select Account</h3> */}
+                    <CardTitle className='modal-title'>Select Account</CardTitle>
                 </ModalHeader>
                 <ModalBody className='flex-grow-1'>
                     <Form>

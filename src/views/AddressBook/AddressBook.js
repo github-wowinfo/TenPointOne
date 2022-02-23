@@ -238,13 +238,13 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
     const columns = [
         {
             name: 'Name',
-            sortable: true,
+            // sortable: true,
             selector: row => (
                 <div className='d-flex flex-row justify-content-between'>
                     <span className='mr-1'>
                         {<ChangeName item={row} />}
                     </span>
-                    <span>
+                    <span className='text-truncate'>
                         {row.nickname}
                     </span>
                 </div>
@@ -252,17 +252,21 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
         },
         {
             name: 'Address',
+            maxWidth: '200px',
+            right: true,
             selector: 'adrs',
             cell: row => shortenIfAddress(row.adrs)
         },
         {
             name: '',
+            right: true,
+            maxWidth: '400px',
             cell: row => (
-                <span className='d-flex felx-row align-items-center'>
+                <span className='d-flex felx-row justify-content-start align-items-center'>
+                    {(getVaultList && getVaultList.find(i => i.address === row.adrs && i.network === row.network)) || (getSegaList && getSegaList.find(i => i.address === row.adrs && i.network === row.network)) ? <Heart item={row} /> : null}
                     {<CopyAdrs item={row} />}
                     {<a href={getExplorerAddressLink(row.adrs, chainId ? chainId : 1)} target='_blank'><GoLinkExternal className='mr-1' size={25} color='grey' /></a>}
                     {<DeleteContact item={row} />}
-                    {(getVaultList && getVaultList.find(i => i.address === row.adrs && i.network === row.network)) || (getSegaList && getSegaList.find(i => i.address === row.adrs && i.network === row.network)) ? <Heart item={row} /> : null}
                 </span>
             )
         },

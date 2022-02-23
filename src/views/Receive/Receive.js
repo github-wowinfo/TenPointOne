@@ -17,6 +17,7 @@ import 'animate.css'
 import LoginModal from '../LoginModal'
 import * as AppData from '../../redux/actions/cookies/appDataType'
 import { SiWebmoney } from 'react-icons/si'
+import { GiHobbitDoor, GiShipWheel } from 'react-icons/gi'
 
 const Receive = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
 
@@ -160,7 +161,8 @@ const Receive = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
 
   const logos = [
     {
-      icon: <BsSafe2 size={25} />,
+      icon: <GiHobbitDoor size={25} />,
+      // icon: <BsSafe2 size={25} />,
       color: 'primary'
     },
     {

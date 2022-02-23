@@ -1,11 +1,13 @@
 import { Fragment, useState } from "react"
-import { Button, CardTitle, Col, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap"
+import { Alert, Button, CardTitle, Col, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap"
 import { useEthers } from "@usedapp/core"
 import * as AppData from '../../redux/actions/cookies/appDataType'
 import { connect } from "react-redux"
 import { FaRegCheckCircle } from "react-icons/fa"
 import { toast } from "react-toastify"
 import Avatar from '@components/avatar'
+import { AlertTriangle } from "react-feather"
+import 'animate.css'
 
 const ImportAdrsBook = ({ openimport, handleImpAdrsBook, globalVaultFlag, dispatch }) => {
 
@@ -28,6 +30,25 @@ const ImportAdrsBook = ({ openimport, handleImpAdrsBook, globalVaultFlag, dispat
         </Fragment>
     )
 
+    const [visible, setVisible] = useState(false)
+
+    const handleAlert = () => {
+        setVisible(true)
+        setTimeout(() => {
+            setVisible(false)
+        }, 5000)
+    }
+
+    const WrongFormat = () => (
+        <Fragment>
+            <Alert className='animate__animated animate__slideInDown' color='danger' isOpen={visible} toggle={() => setVisible(false)}>
+                <div className='my-1 alert-heading'>
+                    <AlertTriangle size={20} /><span className='ml-1'>Please select file with JSON format!</span>
+                </div>
+            </Alert>
+        </Fragment>
+    )
+
     const [adrsFile, setAdrsFile] = useState()
     const [selectedFile, setSelectedFile] = useState()
     const [isjson, setIsjson] = useState(false)
@@ -43,7 +64,8 @@ const ImportAdrsBook = ({ openimport, handleImpAdrsBook, globalVaultFlag, dispat
                 setAdrsFile(result)
             }
         } else {
-            alert('The uploaded file is of the wrong format. File should be a ".JSON" file')
+            // alert('The uploaded file is of the wrong format. File should be a ".JSON" file')
+            handleAlert()
             setIsjson(false)
         }
     }
@@ -88,30 +110,35 @@ const ImportAdrsBook = ({ openimport, handleImpAdrsBook, globalVaultFlag, dispat
             setAdrsFile()
             handleImpAdrsBook()
         }}>
-            <ModalHeader toggle={() => {
+            <ModalHeader tag='h2' toggle={() => {
                 setSelectedFile()
                 setIsjson(false)
                 setAdrsFile()
                 handleImpAdrsBook()
             }}>
-                <CardTitle>Upload/Select Address Book data (.JSON)</CardTitle>
+                <CardTitle className='mb-0'>Upload Address Book data (.JSON)</CardTitle>
             </ModalHeader>
+            <Col>
+                {visible ? <WrongFormat /> : null}
+            </Col>
             <ModalBody>
                 <Col className='text-center'>
                     <label className={custom_file_upload}>
                         <input type="file" name="file" accept=".json" onChange={changeHandler} />
                     </label>
                 </Col>
-                <Col className='m-1' style={{ overflow: 'auto' }}>
-                    {selectedFile}
-                </Col>
+                {selectedFile ? (
+                    <Col className='m-1' style={{ overflow: 'auto' }}>
+                        {selectedFile}
+                    </Col>
+                ) : null}
             </ModalBody>
             <ModalFooter>
                 <Col className='text-center'>
                     {isjson ? (
                         <Button.Ripple color="primary" onClick={() => handleImport(adrsFile)}>Import</Button.Ripple>
                     ) : (
-                        <Button.Ripple color="primary" disabled>Upload</Button.Ripple>
+                        <Button.Ripple color="primary" disabled>Import</Button.Ripple>
                     )}
                 </Col>
             </ModalFooter>

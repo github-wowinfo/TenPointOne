@@ -353,7 +353,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
     }
 
     return (
-        <Modal className='modal-dialog-centered' isOpen={openexesega} toggle={() => {
+        <Modal className='modal-dialog-centered modal-lg' isOpen={openexesega} toggle={() => {
             setVault_flag(false)
             setSega_flag(false)
             setSega_present_flag(false)
@@ -373,7 +373,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
             }}>
                 <span style={{ color: '#1919d2' }}>Track or Hide Existing Sega</span>
             </ModalHeader>
-            <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+            <ModalBody>
                 <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                     <Col>
                         <h3>Start tracking your already existing Sega.</h3>
