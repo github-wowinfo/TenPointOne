@@ -145,7 +145,7 @@ const Export_Modal = ({ openexport_modal, handleexport_modal, globalFavFlag, glo
                 setFinal_list([])
                 handleexport_modal()
             }}>
-                <CardTitle>Select Address that you want to export.</CardTitle>
+                <CardTitle>Select Address/Addresses to export.</CardTitle>
             </ModalHeader>
             <ModalBody>
                 <Card className='p-1 mb-0'>
