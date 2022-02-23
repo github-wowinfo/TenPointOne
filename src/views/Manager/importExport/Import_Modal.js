@@ -156,9 +156,9 @@ const Import_Modal = ({ openimport_modal, handleimport_modal, globalVaultFlag, d
             <ModalFooter>
                 <Col className='text-center'>
                     {isjson ? (
-                        <Button.Ripple color="success" onClick={() => handleImport(adrsFile)}>Import</Button.Ripple>
+                        <Button.Ripple color="primary" onClick={() => handleImport(adrsFile)}>Import</Button.Ripple>
                     ) : (
-                        <Button.Ripple color="success" disabled>Import</Button.Ripple>
+                        <Button.Ripple color="primary" disabled>Import</Button.Ripple>
                     )}
                 </Col>
             </ModalFooter>

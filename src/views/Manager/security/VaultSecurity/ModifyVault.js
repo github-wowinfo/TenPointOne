@@ -136,8 +136,8 @@ const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault, vaul
                     </Col>
                     <Col className='my-1'>
                         <Row className='d-flex flex-row justify-content-evenly'>
-                            {/* <Col md='1' sm='1' className='mx-1'><Avatar size='lg' color='light-primary' icon={<BsSafe2 size={35} />} /></Col> */}
-                            <Col md='1' sm='1' className='mx-1'><Avatar size='lg' color='light-primary' icon={<GiShipWheel size={35} />} /></Col>
+                            <Col md='1' sm='1' className='mx-1'><Avatar size='lg' color='light-primary' icon={<BsSafe2 size={35} />} /></Col>
+                            {/* <Col md='1' sm='1' className='mx-1'><Avatar size='lg' color='light-primary' icon={<GiShipWheel size={35} />} /></Col> */}
                             <Col className='d-flex flex-column justify-content-start'>
                                 <h3 style={{ color: '#1919d2' }}>{vaultName}</h3>
                                 <h5 className='font-weight-bold'>{shortenIfAddress(vault)}</h5>

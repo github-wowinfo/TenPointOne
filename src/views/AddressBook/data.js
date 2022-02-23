@@ -11,8 +11,8 @@ import { GiShipWheel } from 'react-icons/gi'
 // cell: row => { return (<div><FaRegCopy size={25} /><GoLinkExternal size={25}/></div>) }
 const avatar =
 {
-    // icon: <BsSafe2 size={25} />
-    icon: <GiShipWheel size={25} />
+    icon: <BsSafe2 size={25} />
+    // icon: <GiShipWheel size={25} />
 }
 export default [
     {

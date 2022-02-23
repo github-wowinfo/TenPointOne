@@ -96,8 +96,8 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
 
   const logos = [
     {
-      icon: <GiShipWheel size={25} />,
-      // icon: <BsSafe2 size={25} />,
+      // icon: <GiShipWheel size={25} />,
+      icon: <BsSafe2 size={25} />,
       color: 'primary',
       // color: 'light-primary'
     },

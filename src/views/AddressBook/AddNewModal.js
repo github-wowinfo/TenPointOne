@@ -19,7 +19,8 @@ import {
   Input,
   Label,
   Alert,
-  Col
+  Col,
+  CardTitle
 } from 'reactstrap'
 import 'animate.css'
 import { useEthers } from '@usedapp/core'

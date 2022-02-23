@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { Button, Col, DropdownItem, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap'
+import { Button, CardTitle, Col, DropdownItem, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap'
 import { useEthers, shortenIfAddress, getExplorerAddressLink } from '@usedapp/core'
 import Avatar from '@components/avatar'
 import { FaRegCopy } from 'react-icons/fa'

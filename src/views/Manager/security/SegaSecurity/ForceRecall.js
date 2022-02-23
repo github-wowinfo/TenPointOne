@@ -1,10 +1,10 @@
 import { Fragment, useEffect, useState } from 'react'
 import { BsSafe2, BsArrowDown } from 'react-icons/bs'
 import Select, { components } from 'react-select'
-import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, CustomInput, Alert } from 'reactstrap'
+import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, CustomInput, Alert, CardTitle, CardSubtitle } from 'reactstrap'
 import Badge from 'reactstrap/lib/Badge'
 import axios from 'axios'
-import { CurrencyValue, Token, useEthers, useEtherBalance, useTokenBalance, getExplorerTransactionLink, shortenIfTransactionHash, getExplorerAddressLink } from "@usedapp/core"
+import { CurrencyValue, Token, useEthers, useEtherBalance, useTokenBalance, getExplorerTransactionLink, shortenIfTransactionHash, getExplorerAddressLink, shortenIfAddress } from "@usedapp/core"
 import helperConfig from "../../../../helper-config.json"
 import { constants, utils, BigNumber } from "ethers"
 import { useTokens } from '../../../../utility/hooks/useTokens'
