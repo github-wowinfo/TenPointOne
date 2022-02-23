@@ -34,11 +34,12 @@ const ExportAdrsBook = ({ openexport, handleExpAdrsBook, data }) => {
             setExp_list([])
             handleExpAdrsBook()
         }}>
-            <ModalHeader toggle={() => {
+            <ModalHeader tag='h2' toggle={() => {
                 setExp_list([])
                 handleExpAdrsBook()
             }}>
-                <CardTitle className='mb-0'>Select Address you want to Export, or if you want to export the whole address book click <a href='#' onClick={() => {
+                <CardTitle className='mb-0'>Select Address you want to export
+                    {/* <a href='#' onClick={() => {
                     exportFromJSON(
                         {
                             data: alldata,
@@ -48,7 +49,8 @@ const ExportAdrsBook = ({ openexport, handleExpAdrsBook, data }) => {
                     )
                     notifySuccess()
                     handleExpAdrsBook()
-                }}><u>here</u></a>.</CardTitle>
+                }}><u>here</u></a>. */}
+                </CardTitle>
             </ModalHeader>
             <ModalBody>
                 <Card className='p-1 mb-0'>

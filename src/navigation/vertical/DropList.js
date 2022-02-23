@@ -92,13 +92,14 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                 className='sidebar-sm'
                 modalClassName='modal-slide-in'
                 contentClassName='py-0' >
-                <ModalHeader className='mb-1' close={CloseBtn} tag='div' toggle={() => {
+                <ModalHeader className='mb-1' close={CloseBtn} tag='h3' toggle={() => {
                     handleDropList()
                     setAdrs('')
                     setNick_Name('')
                     setSelect_Flag(false)
                 }}>
-                    <h3 style={{ color: '#000080' }}>Select Account</h3>
+                    {/* <h3 style={{ color: '#000080' }}>Select Account</h3> */}
+                    <CardTitle className='modal-title'>Select Account</CardTitle>
                 </ModalHeader>
                 <ModalBody className='flex-grow-1'>
                     <Form>

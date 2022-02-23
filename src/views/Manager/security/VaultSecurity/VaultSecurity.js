@@ -139,7 +139,7 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
 
     return (
         <div>
-            <Modal className='modal-dialog-centered' isOpen={openvaultsec} toggle={() => {
+            <Modal className='modal-dialog-centered modal-lg' isOpen={openvaultsec} toggle={() => {
                 setVault("")
                 handleVaultSecModal()
                 setHaveInfo(0)

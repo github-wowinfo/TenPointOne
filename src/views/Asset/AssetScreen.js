@@ -231,7 +231,6 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
             name: 'Amount',
             maxWidth: '150px',
             right: true,
-            // right: true,
             selector: row => (
                 <span className='align-middle font-weight-bold'>
                     {

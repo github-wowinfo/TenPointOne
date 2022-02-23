@@ -314,6 +314,18 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, sega_name
                         <h3>For Risk Officers and Vault operators to pull Sega assests back into its Parent Vault bypassing the Sega operator.</h3>
                     </Col>
                     <Col className='my-1'>
+                        <Row className='d-flex flex-row align-items-center'>
+                            <Col xs='1' >
+                                <Avatar className='mr-1' size='lg' color='light-primary' icon={<SiWebmoney size={40} />} />
+                            </Col>
+                            <Col className='d-flex flex-column justify-content-start'>
+                                {/* <CardTitle className='mb-0 pb-1' tag='h3'>Selected Sega</CardTitle> */}
+                                <CardTitle className='mb-0 pb-1' tag='h3'>{sega_name}</CardTitle>
+                                <CardSubtitle tag='h5'>{shortenIfAddress(selectSega)}</CardSubtitle>
+                            </Col>
+                        </Row>
+                    </Col>
+                    {/* <Col className='my-1'>
                         <Row className='d-flex flex-row'>
                             <Col md='1'><SiWebmoney size={40} /></Col>
                             <Col className='d-flex flex-column justify-content-start'>
@@ -321,7 +333,7 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, sega_name
                                 <h5>{selectSega}</h5>
                             </Col>
                         </Row>
-                    </Col>
+                    </Col> */}
                     <Col className='d-flex flex-row mb-1'>
                         <Col md='1'><BsArrowDown size={40} /></Col>
                         <Col>

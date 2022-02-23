@@ -17,6 +17,7 @@ import Icon from 'react-crypto-icons'
 import helperConfig from '../../helper-config.json'
 import Text from '../../views/CustomComponent/Text'
 import DropList from "./DropList"
+import { GiShipWheel } from "react-icons/gi"
 // import { useSkin } from '@hooks/useSkin'
 
 
@@ -95,7 +96,8 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
 
   const logos = [
     {
-      icon: <BsSafe2 size={25} />,
+      icon: <GiShipWheel size={25} />,
+      // icon: <BsSafe2 size={25} />,
       color: 'primary',
       // color: 'light-primary'
     },
@@ -154,7 +156,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
           )}
           <Row className='mb-1 d-flex flex-column'>
             <h3>{shortenIfAddress(globalAdrs)}</h3>
-            <Col className='text-center'>
+            <Col className='text-center' style={{ paddingTop: '5px' }}>
               <Link to='/receive'><IoQrCodeOutline className="mx-1" color={skin === 'dark' ? 'white' : 'grey'} size={25} /></Link>
 
               <FaRegCopy style={{ cursor: 'pointer' }} className="mx-1" color={skin === 'dark' ? 'white' : 'grey'} size={25} onClick={copy} />

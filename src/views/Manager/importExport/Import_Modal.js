@@ -134,21 +134,24 @@ const Import_Modal = ({ openimport_modal, handleimport_modal, globalVaultFlag, d
             setIsjson(false)
             handleimport_modal()
         }}>
-            <ModalHeader toggle={() => {
+            <ModalHeader tag='h2' toggle={() => {
                 setSelectedFile()
                 setAdrsFile()
                 setIsjson(false)
                 handleimport_modal()
             }}>
-                <CardTitle>Upload/Select Address Book data (.JSON)</CardTitle>
+                {/* <span style={{ color: '#1919d2' }}>Upload/Select Address Book data (.JSON)</span> */}
+                <CardTitle className='mb-0'>Upload Vault & Sega data (.JSON)</CardTitle>
             </ModalHeader>
             <ModalBody>
                 <Col className='text-center'>
                     <input type="file" name="file" accept=".json" onChange={changeHandler} />
                 </Col>
-                <Col className='m-1' style={{ overflow: 'auto' }}>
-                    {selectedFile}
-                </Col>
+                {selectedFile ? (
+                    <Col className='m-1' style={{ overflow: 'auto' }}>
+                        {selectedFile}
+                    </Col>
+                ) : null}
             </ModalBody>
             <ModalFooter>
                 <Col className='text-center'>

@@ -81,21 +81,23 @@ const ImportAdrsBook = ({ openimport, handleImpAdrsBook, globalVaultFlag, dispat
             setAdrsFile()
             handleImpAdrsBook()
         }}>
-            <ModalHeader toggle={() => {
+            <ModalHeader tag='h2' toggle={() => {
                 setSelectedFile()
                 setIsjson(false)
                 setAdrsFile()
                 handleImpAdrsBook()
             }}>
-                <CardTitle>Upload/Select Address Book data (.JSON)</CardTitle>
+                <CardTitle className='mb-0'>Upload/Select Address Book data (.JSON)</CardTitle>
             </ModalHeader>
             <ModalBody>
                 <Col className='text-center'>
                     <input type="file" name="file" accept=".json" onChange={changeHandler} />
                 </Col>
-                <Col className='m-1' style={{ overflow: 'auto' }}>
-                    {selectedFile}
-                </Col>
+                {selectedFile ? (
+                    <Col className='m-1' style={{ overflow: 'auto' }}>
+                        {selectedFile}
+                    </Col>
+                ) : null}
             </ModalBody>
             <ModalFooter>
                 <Col className='text-center'>

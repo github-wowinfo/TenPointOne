@@ -1,12 +1,15 @@
 import { BsSafe2 } from 'react-icons/bs'
 import { FaRegCopy } from 'react-icons/fa'
 import { GoLinkExternal } from 'react-icons/go'
-import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Button, Table } from 'reactstrap'
+import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Button, Table, CardTitle } from 'reactstrap'
 import DataTable from 'react-data-table-component'
 import '@styles/react/libs/tables/react-dataTable-component.scss'
 import { useState } from 'react'
 import SegaLocal from './SegaLocal'
 import ExistingSega from './ExistingSega'
+import Avatar from '@components/avatar'
+import { shortenIfAddress } from '@usedapp/core'
+import { GiShipWheel } from 'react-icons/gi'
 
 const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultName, segas }) => {
 
@@ -52,20 +55,21 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultN
                 {/* {console.log('segas', segas)}
                 {console.log('data', data)}
                 {console.log('actual segas', actualSegas)} */}
-                <ModalHeader tag='h1' toggle={handleChildSegatModal}>
-                    Children Sega
+                <ModalHeader tag='h2' toggle={handleChildSegatModal}>
+                    <CardTitle className='mb-0'>Children Sega</CardTitle>
                 </ModalHeader>
-                <ModalBody >
+                <ModalBody>
                     <Row className='d-flex flex-column justify-content-center align-items-center'>
                         <Col>
                             <h3>View all the Sega created through your Vault and linked to it</h3>
                         </Col>
                         <Col className='my-1'>
                             <Row className='d-flex flex-row'>
-                                <Col className='mx-1' md='1'><BsSafe2 size={40} /></Col>
+                                {/* <Col className='mx-1' md='1'><Avatar size='lg' color='light-primary' icon={<BsSafe2 size={35} />} /></Col> */}
+                                <Col className='mx-1' md='1'><Avatar size='lg' color='light-primary' icon={<GiShipWheel size={35} />} /></Col>
                                 <Col className='d-flex flex-column justify-content-start'>
-                                    <h3>{vaultName}</h3>
-                                    <h5>{vault}</h5>
+                                    <h3 style={{ color: '#1919d2' }}>{vaultName}</h3>
+                                    <h5 className='font-weight-bold'>{shortenIfAddress(vault)}</h5>
                                 </Col>
                             </Row>
                         </Col>

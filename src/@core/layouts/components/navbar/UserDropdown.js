@@ -149,7 +149,7 @@ const UserDropdown = ({ networkC }) => {
                 }}>
                   {/* <label className='mr-1'> {account && account.slice(0, 4)}...{account && account.slice(account.length - 4, account.length)}</label> */}
                   <label className='mr-1'> {shortenIfAddress(account)}</label>
-                  <FaRegCopy style={{ cursor: 'pointer' }} size={15} className='mr-1' onClick={copy} />
+                  <FaRegCopy title='copy' style={{ cursor: 'pointer' }} size={15} className='mr-1' onClick={copy} />
                   {/* <a href={getExplorerAddressLink(account, chainId)} target='blank'><GoLinkExternal size={15} color='grey' /></a> */}
                   <GoLinkExternal size={15} style={{ cursor: 'pointer' }} color='$primary' onClick={externalLink} />
                 </div>
