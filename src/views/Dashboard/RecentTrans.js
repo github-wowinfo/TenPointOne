@@ -53,7 +53,7 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
     }
   }
 
-  const data = dataList
+  const data = dataList.slice(0, 5)
 
   useEffect(() => {
     getTokenTransaction()
