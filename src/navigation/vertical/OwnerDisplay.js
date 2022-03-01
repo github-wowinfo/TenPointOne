@@ -142,7 +142,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
               {globalNickName === 'Create a Vault' ? (
                 <Row className='d-flex flex-row justify-content-center align-items-center'>
                   <Col md='2' style={{ paddingLeft: '10px' }}>
-                    <Avatar size='md' color={logos[0].color} onClick={() => { window.location.href = '/manager' }} title={globalNickName} icon={logos[0].icon} href='/home' />
+                    <Avatar size='md' color={logos[0].color} onClick={() => { window.location.href = '/manager' }} title={globalNickName} icon={logos[0].icon} href='home' />
                   </Col>
                   <Col md='10' className='px-0'>
                     <NavLink href='manager' ><h4 className="mb-0 text-primary" style={{ cursor: 'pointer' }} >{globalNickName}</h4></NavLink>
@@ -152,7 +152,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
                 is_sega ? (
                   <Row className='d-flex flex-row justify-content-center align-items-center'>
                     <Col md='2' style={{ paddingLeft: '10px' }}>
-                      <Avatar size='md' color={logos[1].color} title={globalNickName} icon={logos[1].icon} href='/home' />
+                      <Avatar size='md' color={logos[1].color} title={globalNickName} icon={logos[1].icon} href='home' />
                     </Col>
                     <Col md='10' className='px-0 text-break text-wrap'>
                       <h4 className="mb-0 text-primary">{globalNickName}</h4>
@@ -162,7 +162,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
                 ) : (
                   <Row className='d-flex flex-row justify-content-center align-items-center'>
                     <Col md='2' style={{ paddingLeft: '10px' }}>
-                      <Avatar size='md' color={logos[0].color} title={globalNickName} icon={logos[0].icon} href='/home' />
+                      <Avatar size='md' color={logos[0].color} title={globalNickName} icon={logos[0].icon} href='home' />
                     </Col>
                     <Col md='10' className='px-0 text-break text-wrap'>
                       <h4 className="mb-0 text-primary">{globalNickName}</h4>
