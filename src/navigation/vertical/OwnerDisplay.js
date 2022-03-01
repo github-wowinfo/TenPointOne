@@ -145,7 +145,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
                     <Avatar size='md' color={logos[0].color} onClick={() => { window.location.href = '/manager' }} title={globalNickName} icon={logos[0].icon} href='/home' />
                   </Col>
                   <Col md='10' className='px-0'>
-                    <h4 className="mb-0 text-primary" style={{ cursor: 'pointer' }} onClick={() => { window.location.href = 'manager' }}>{globalNickName}</h4>
+                    <Link to='manager'><h4 className="mb-0 text-primary" style={{ cursor: 'pointer' }} >{globalNickName}</h4></Link>
                   </Col>
                 </Row>
               ) : (
