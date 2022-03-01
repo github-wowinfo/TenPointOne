@@ -213,7 +213,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
 
     return (
         <div>
-            <Modal className='modal-dialog-centered modal-lg' isOpen={opensegasec} toggle={() => {
+            <Modal className='modal-dialog-centered' isOpen={opensegasec} toggle={() => {
                 handleSegaSecModal()
                 handleTxnSnackClose()
                 // setNotParentVault(false)
@@ -234,7 +234,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                     setSega('')
                 }}>
                     {/* <span style={{ color: '#1919d2' }}>Select Account to Manage</span> */}
-                    <CardTitle className='mb-0'>Select Account to Manage</CardTitle>
+                    Select Account to Manage
                 </ModalHeader>
                 <ModalBody>
                     <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -320,7 +320,9 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                                                 <Label for='rcvrydate' style={{ fontSize: "1.2em" }}>Assest Recall</Label>
                                                 <div className="d-flex justify-content-between">
                                                     <p><strong>Force Recall to Vault</strong></p>
-                                                    <Button.Ripple className='mx-1' color='primary' onClick={handlRecoverModal}>Recall</Button.Ripple>
+                                                    <div>
+                                                        <Button.Ripple className='mx-1' color='primary' onClick={handlRecoverModal}>Recall</Button.Ripple>
+                                                    </div>
                                                 </div>
                                             </FormGroup>
                                         </Col>

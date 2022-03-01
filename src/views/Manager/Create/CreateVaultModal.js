@@ -191,7 +191,7 @@ const CreateVaultModal = ({ openvault, handleVaultModal, globalVaultFlag, dispat
 
 
     return (
-        <Modal className='modal-dialog-centered modal-lg' isOpen={openvault} >
+        <Modal className='modal-dialog-centered' isOpen={openvault} >
             <ModalHeader tag='h2' toggle={() => {
                 handleModalVaultSnackClose()
                 handleVaultModal()

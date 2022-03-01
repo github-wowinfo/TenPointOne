@@ -5,7 +5,7 @@ import { SiWebmoney } from 'react-icons/si'
 import { useEthers } from '@usedapp/core'
 import { connect } from 'react-redux'
 import * as AppData from '../../redux/actions/cookies/appDataType'
-import { GiShipWheel } from 'react-icons/gi'
+import { GiCircleCage, GiShipWheel } from 'react-icons/gi'
 
 const FavAvatar = ({ item }) => {
 
@@ -43,11 +43,11 @@ const FavAvatar = ({ item }) => {
     const logos = [
         {
             // icon: <GiShipWheel size={20} />,
-            icon: <BsSafe2 size={20} />,
+            icon: <GiCircleCage size={20} />,
             color: 'light-primary'
         },
         {
-            icon: <SiWebmoney size={20} />,
+            icon: <GiShipWheel size={20} />,
             color: 'light-primary'
         }
     ]

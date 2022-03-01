@@ -9,7 +9,7 @@ import SegaLocal from './SegaLocal'
 import ExistingSega from './ExistingSega'
 import Avatar from '@components/avatar'
 import { shortenIfAddress } from '@usedapp/core'
-import { GiShipWheel } from 'react-icons/gi'
+import { GiCircleCage, GiShipWheel } from 'react-icons/gi'
 
 const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultName, segas }) => {
 
@@ -51,7 +51,7 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultN
     // const CloseBtn = <X className='cursor-pointer' size={25} onClick={handleModal} />
     return (
         <>
-            <Modal className='modal-dialog-centered modal-lg' isOpen={openchildsegamodal} toggle={handleChildSegatModal} >
+            <Modal className='modal-dialog-centered' isOpen={openchildsegamodal} toggle={handleChildSegatModal} >
                 {/* {console.log('segas', segas)}
                 {console.log('data', data)}
                 {console.log('actual segas', actualSegas)} */}
@@ -65,7 +65,7 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultN
                         </Col>
                         <Col className='my-1'>
                             <Row className='d-flex flex-row'>
-                                <Col className='mx-1' md='1'><Avatar size='lg' color='light-primary' icon={<BsSafe2 size={35} />} /></Col>
+                                <Col className='mx-1' md='1'><Avatar size='lg' color='light-primary' icon={<GiCircleCage size={35} />} /></Col>
                                 {/* <Col className='mx-1' md='1'><Avatar size='lg' color='light-primary' icon={<GiShipWheel size={35} />} /></Col> */}
                                 <Col className='d-flex flex-column justify-content-start'>
                                     <h3 style={{ color: '#1919d2' }}>{vaultName}</h3>

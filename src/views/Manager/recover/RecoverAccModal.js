@@ -197,7 +197,7 @@ const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
                 handleRecoverModal()
                 handleTxnSnackClose()
             }} >
-                <span style={{ color: '#1919d2' }}>Recover Vault</span>
+                Recover Vault
             </ModalHeader>
             <ModalBody>
                 <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>

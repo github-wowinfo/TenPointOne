@@ -3,6 +3,7 @@ import { useEthers } from '@usedapp/core'
 import axios from 'axios'
 import helperConfig from '../../helper-config.json'
 import { SiWebmoney } from 'react-icons/si'
+import { GiShipWheel } from 'react-icons/gi'
 
 const SegaOfVault = ({ item }) => {
 
@@ -28,7 +29,7 @@ const SegaOfVault = ({ item }) => {
     return (
         <tr>
             <td>
-                <span className='align-middle font-weight-bold' style={{ whiteSpace: "nowrap" }}><SiWebmoney className="mr-1" size={25} />{item.name}</span>
+                <span className='align-middle font-weight-bold' style={{ whiteSpace: "nowrap" }}><GiShipWheel className="mr-1" size={25} />{item.name}</span>
             </td>
             <td style={{ textAlign: "center" }}>{item.address}</td>
             <td style={{ textAlign: "right" }}> ${(sum.toFixed(6))} </td>

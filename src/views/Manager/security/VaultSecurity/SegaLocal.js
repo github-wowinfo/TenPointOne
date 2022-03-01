@@ -77,7 +77,7 @@ const SegaLocal = ({ opensegaLocalModal, handleSegaLocalModal, segas, vault }) =
     }
     return (
         <>
-            <Modal className='modal-dialog-centered modal-lg' isOpen={opensegaLocalModal} toggle={handleSegaLocalModal} >
+            <Modal className='modal-dialog-centered' isOpen={opensegaLocalModal} toggle={handleSegaLocalModal} >
                 <ModalHeader tag='h1' toggle={handleSegaLocalModal}>
                     Add Segas to Local
                 </ModalHeader>

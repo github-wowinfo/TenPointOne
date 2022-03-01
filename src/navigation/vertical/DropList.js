@@ -9,6 +9,7 @@ import * as AppData from '../../redux/actions/cookies/appDataType'
 import { isAddress } from "ethers/lib/utils"
 import { X } from 'react-feather'
 import CopyAdrsDropList from './CopyAdrsDropList'
+import { GiCircleCage, GiShipWheel } from 'react-icons/gi'
 
 const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNickName }) => {
 
@@ -79,6 +80,18 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
         setNick_Name('')
         setSelect_Flag(false)
     }} />
+    const logos = [
+        {
+            // icon: <GiHobbitDoor size={30} />,
+            icon: <GiCircleCage size={27} />,
+            // icon: <BsSafe2 size={20} />,
+            color: 'light-primary'
+        },
+        {
+            icon: <GiShipWheel size={27} />,
+            color: 'light-primary'
+        }
+    ]
     return (
         <div>
             <Modal
@@ -126,7 +139,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                                             </Col>
                                             <Col className='mb-1 d-flex flex-row justify-content-end'>
                                                 {/* <FaRegCopy color='grey' size={15} /> */}
-                                                {/* <Avatar className='mr-1' color={logos[0].color} icon={logos[0].icon} /> */}
+                                                <Avatar className='mr-1' color={logos[0].color} icon={logos[0].icon} />
                                                 <CopyAdrsDropList item={i} />
                                                 <a href={getExplorerAddressLink(i.adrs, chainId)} target='_blank'><GoLinkExternal color='gray' size={27} /></a>
                                             </Col>
@@ -156,7 +169,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                                                             </Col>
                                                             <Col className='mb-1 d-flex flex-row justify-content-end'>
                                                                 {/* <FaRegCopy color='grey' size={15} /> */}
-                                                                {/* <Avatar className='mr-1' color={logos[1].color} icon={logos[1].icon} /> */}
+                                                                <Avatar className='mr-1' color={logos[1].color} icon={logos[1].icon} />
                                                                 <CopyAdrsDropList item={j} />
                                                                 <a href={getExplorerAddressLink(j.adrs, chainId)} target='_blank'><GoLinkExternal color='gray' size={27} /></a>
                                                             </Col>

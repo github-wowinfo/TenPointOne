@@ -139,7 +139,7 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
 
     return (
         <div>
-            <Modal className='modal-dialog-centered modal-lg' isOpen={openvaultsec} toggle={() => {
+            <Modal className='modal-dialog-centered' isOpen={openvaultsec} toggle={() => {
                 setVault("")
                 handleVaultSecModal()
                 setHaveInfo(0)
@@ -149,7 +149,7 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
                     handleVaultSecModal()
                     setHaveInfo(0)
                 }}>
-                    <span style={{ color: '#1919d2' }}>Select Account to Manage</span>
+                    Select Account to Manage
                 </ModalHeader>
                 <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                     <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '-webkit-fill-available' }}>

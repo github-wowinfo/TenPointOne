@@ -146,7 +146,7 @@ const Export_Modal = ({ openexport_modal, handleexport_modal, globalFavFlag, glo
                 handleexport_modal()
             }}>
                 {/* <span style={{ color: '#1919d2' }}>Select Address that you want to export.</span> */}
-                <CardTitle className='mb-0'>Select Address/Addresses to export.</CardTitle>
+                Select Address/Addresses to export.
             </ModalHeader>
             <ModalBody>
                 <Form>

@@ -17,7 +17,7 @@ import Icon from 'react-crypto-icons'
 import helperConfig from '../../helper-config.json'
 import Text from '../../views/CustomComponent/Text'
 import DropList from "./DropList"
-import { GiShipWheel } from "react-icons/gi"
+import { GiCircleCage, GiShipWheel } from "react-icons/gi"
 // import { useSkin } from '@hooks/useSkin'
 
 
@@ -97,12 +97,12 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
   const logos = [
     {
       // icon: <GiShipWheel size={25} />,
-      icon: <BsSafe2 size={25} />,
+      icon: <GiCircleCage size={25} />,
       color: 'primary',
       // color: 'light-primary'
     },
     {
-      icon: <SiWebmoney size={25} />,
+      icon: <GiShipWheel size={25} />,
       color: 'primary',
       // color: 'light-primary'
     }

@@ -17,7 +17,7 @@ import 'animate.css'
 import LoginModal from '../LoginModal'
 import * as AppData from '../../redux/actions/cookies/appDataType'
 import { SiWebmoney } from 'react-icons/si'
-import { GiShipWheel } from 'react-icons/gi'
+import { GiCircleCage, GiShipWheel } from 'react-icons/gi'
 
 const Receive = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
 
@@ -161,12 +161,12 @@ const Receive = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
 
   const logos = [
     {
-      icon: <BsSafe2 size={25} />,
+      icon: <GiCircleCage size={25} />,
       // icon: <GiShipWheel size={25} />,
       color: 'primary'
     },
     {
-      icon: <SiWebmoney size={25} />,
+      icon: <GiShipWheel size={25} />,
       color: 'primary'
     }
   ]
@@ -250,7 +250,7 @@ const Receive = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                     ) : (
                       <Avatar className='m-1' size='lg' color={logos[0].color} icon={logos[0].icon} />
                     )}
-                    {/* <Avatar size='lg' color='light-danger' icon={<BsSafe2 size={25} />} /> */}
+                    {/* <Avatar size='lg' color='light-danger' icon={<GiCircleCage size={25} />} /> */}
                   </Col>
                   <Col className='mb-1'>
                     <h3 style={{ color: '#1919d2' }} className='text-center mb-0'>{globalNickName}</h3>

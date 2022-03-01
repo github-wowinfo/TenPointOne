@@ -8,7 +8,7 @@ import { toast } from 'react-toastify'
 import Avatar from '@components/avatar'
 import { XCircle } from 'react-feather'
 import { FiXCircle } from 'react-icons/fi'
-import { GiShipWheel } from 'react-icons/gi'
+import { GiCircleCage, GiShipWheel } from 'react-icons/gi'
 
 const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault, vaultName }) => {
 
@@ -115,7 +115,7 @@ const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault, vaul
 
     // const CloseBtn = <X className='cursor-pointer' size={25} onClick={handleModal} />
     return (
-        <Modal className='modal-dialog-centered modal-lg' isOpen={openmodifyvaultmodal}
+        <Modal className='modal-dialog-centered' isOpen={openmodifyvaultmodal}
             toggle={() => {
                 handleModifyVaultModal()
                 handleTxnSnackClose()
@@ -127,7 +127,7 @@ const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault, vaul
             }
             }>
                 {/* <span style={{ color: '#1919d2' }}>Modify Vault Settings</span> */}
-                <CardTitle className='mb-0'>Modify Vault Settings</CardTitle>
+                Modify Vault Settings
             </ModalHeader>
             <ModalBody>
                 <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -136,7 +136,7 @@ const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault, vaul
                     </Col>
                     <Col className='my-1'>
                         <Row className='d-flex flex-row justify-content-evenly'>
-                            <Col md='1' sm='1' className='mx-1'><Avatar size='lg' color='light-primary' icon={<BsSafe2 size={35} />} /></Col>
+                            <Col md='1' sm='1' className='mx-1'><Avatar size='lg' color='light-primary' icon={<GiCircleCage size={35} />} /></Col>
                             {/* <Col md='1' sm='1' className='mx-1'><Avatar size='lg' color='light-primary' icon={<GiShipWheel size={35} />} /></Col> */}
                             <Col className='d-flex flex-column justify-content-start'>
                                 <h3 style={{ color: '#1919d2' }}>{vaultName}</h3>

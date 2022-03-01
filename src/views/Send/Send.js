@@ -27,7 +27,7 @@ import LoginModal from '../LoginModal'
 import * as AppData from '../../redux/actions/cookies/appDataType'
 import QrReader from 'react-qr-reader'
 import { FiXCircle } from 'react-icons/fi'
-import { GiShipWheel } from 'react-icons/gi'
+import { GiCircleCage, GiShipWheel } from 'react-icons/gi'
 
 const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
 
@@ -444,12 +444,12 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
 
   const logos = [
     {
-      icon: <BsSafe2 size={25} />,
+      icon: <GiCircleCage size={25} />,
       // icon: <GiShipWheel size={25} />,
       color: 'primary'
     },
     {
-      icon: <SiWebmoney size={25} />,
+      icon: <GiShipWheel size={25} />,
       color: 'primary'
     }
   ]
