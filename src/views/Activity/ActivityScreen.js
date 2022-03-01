@@ -604,7 +604,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                             </Button.Ripple> */}
                         </CardHeader>
                         <CardBody>
-                            <CardText>Track your transaction here</CardText>
+                            <CardText>Account Transaction List</CardText>
                         </CardBody>
                     </Card>
 
@@ -626,7 +626,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                                     <NavLink color='primary' active={active === '2'} onClick={() => {
                                         toggle('2')
                                     }}>
-                                        <h3>Contract Interaction</h3>
+                                        <h3>Contract Interactions</h3>
                                     </NavLink>
                                 </NavItem>
                             </Col>
