@@ -202,19 +202,22 @@ const RecoverAccModal = ({ openrecovermodal, handleRecoverModal }) => {
             <ModalBody>
                 <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                     <Col>
-                        <p>Recovery is only possible by the designated Backup Account and only after the owner has been inactive
-                            for the time period as set by Owner.</p>
+                        {/* <p>Recovery is only possible by the designated Backup Account and only after the owner has been inactive
+                            for the time period as set by Owner.</p> */}
+                        <p>Only Vaults with inactive owners are recoverable. Recovery is possible only through the designated backup address.
+                            Account names are stored locally and are not collected by Risk Protocol.
+                        </p>
                     </Col>
                     <Col className="my-1">
                         <FormGroup>
                             <Label for='nickname' style={{ fontSize: "1.3em" }}>Nickname</Label>
-                            <Input type='text' id='nickname' onChange={onChangeName} placeholder="Provide a Nickname for the vault being recovered!" />
+                            <Input type='text' id='nickname' onChange={onChangeName} placeholder="Enter nickname for the Vault being recovered" />
                         </FormGroup>
                         <FormGroup>
                             <Label for='vaultadrs' style={{ fontSize: "1.3em" }}>Vault Address</Label>
-                            <Input type='text' id='vaultadrs' onChange={handleSetVault} placeholder="Paste the address of the vault you want to recover over here!" />
-                            <p className='pt-1' style={{ fontSize: '.70em', lineHeight: 'normal' }}>If you are uncertain of the vault address, you can still find it. If you know the account address of the Owner. Check documentation
-                                <a href='#' style={{ color: 'red' }}> here</a> to see how.</p>
+                            <Input type='text' id='vaultadrs' onChange={handleSetVault} placeholder="Enter address of the Vault being recovered" />
+                            {/* <p className='pt-1' style={{ fontSize: '.70em', lineHeight: 'normal' }}>If you are uncertain of the vault address, you can still find it. If you know the account address of the Owner. Check documentation
+                                <a href='#' style={{ color: 'red' }}> here</a> to see how.</p> */}
                         </FormGroup>
                         {exe_vault ? (
                             <Col>
