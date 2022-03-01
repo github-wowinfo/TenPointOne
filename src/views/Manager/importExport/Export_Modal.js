@@ -166,8 +166,15 @@ const Export_Modal = ({ openexport_modal, handleexport_modal, globalFavFlag, glo
                                     <>
                                         <Row>
                                             <Col>
-                                                <Input className='my-1' key={indexv} type='checkbox' value={i}
-                                                    checked={v_check[indexv]} onChange={e => {
+                                                {/* <Col className='line-vault'> */}
+                                                <Input
+                                                    className='my-1'
+                                                    style={{ transform: "scale(1.5)", zIndex: '1' }}
+                                                    key={indexv}
+                                                    type='checkbox'
+                                                    value={i}
+                                                    checked={v_check[indexv]}
+                                                    onChange={e => {
                                                         setV_check(!v_check[indexv])
                                                         i.checked = "yes"
                                                         v_list.push(i)
@@ -187,19 +194,30 @@ const Export_Modal = ({ openexport_modal, handleexport_modal, globalFavFlag, glo
                                                         } else {
                                                             setCheck_flag(true)
                                                         }
-                                                    }} />
-                                                <h4 style={{ color: '#1919d2' }} className='mb-0 '>{i.name}</h4>
-                                                <h6 className='font-weight-light '>{shortenIfAddress(i.address)}</h6>
+                                                    }}
+                                                />
+                                                <div className="mx-1">
+                                                    <h4 style={{ color: '#1919d2' }} className='mb-0'>{i.name}</h4>
+                                                    <h6 className='font-weight-light '>{shortenIfAddress(i.address)}</h6>
+                                                </div>
                                             </Col>
                                         </Row>
                                         {i.children && i.children.map((j, indexs) => {
                                             return (
                                                 <>
-                                                    <Row>
-                                                        <Col>
+                                                    {/* <Row className='my-1 line-sega-export'> */}
+                                                    <Row className='ml-2 my-1'>
+                                                        {/* <Col style={{ marginLeft: '7px' }}> */}
+                                                        <Col className='line-sega-export'>
                                                             {i.checked === "yes" ? (
-                                                                <Input className='my-1' key={indexs} type='checkbox' value={j}
-                                                                    checked={s_check[indexs]} onChange={(e) => {
+                                                                <Input
+                                                                    className='my-1'
+                                                                    style={{ transform: "scale(1.5)", zIndex: '1' }}
+                                                                    key={indexs}
+                                                                    type='checkbox'
+                                                                    value={j}
+                                                                    checked={s_check[indexs]}
+                                                                    onChange={(e) => {
                                                                         setS_check(!s_check[indexs])
                                                                         j.checked = "yes"
                                                                         s_list.push(j)
@@ -212,10 +230,17 @@ const Export_Modal = ({ openexport_modal, handleexport_modal, globalFavFlag, glo
                                                                         } else {
                                                                             setCheck_flag(true)
                                                                         }
-                                                                    }} />
+                                                                    }}
+                                                                />
                                                             ) : (
-                                                                <Input className='my-1' key={indexs} type='checkbox'
-                                                                    checked={false} disabled />
+                                                                <Input
+                                                                    className='my-1'
+                                                                    style={{ transform: "scale(1.5)", zIndex: '1' }}
+                                                                    key={indexs}
+                                                                    type='checkbox'
+                                                                    checked={false}
+                                                                    disabled
+                                                                />
                                                             )}
                                                             <Col className='mx-1'>
                                                                 <h4 style={{ color: '#1919d2' }} className='mb-0 '>{j.name}</h4>
