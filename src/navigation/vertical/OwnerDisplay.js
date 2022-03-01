@@ -1,4 +1,4 @@
-import { DropdownToggle, DropdownItem, DropdownMenu, ButtonDropdown, UncontrolledButtonDropdown, Button, Row, Col } from "reactstrap"
+import { DropdownToggle, DropdownItem, DropdownMenu, ButtonDropdown, UncontrolledButtonDropdown, Button, Row, Col, NavLink } from "reactstrap"
 import { Link } from 'react-router-dom'
 import { IoQrCodeOutline } from 'react-icons/io5'
 import { SiWebmoney, SiGithubactions } from "react-icons/si"
@@ -145,7 +145,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
                     <Avatar size='md' color={logos[0].color} onClick={() => { window.location.href = '/manager' }} title={globalNickName} icon={logos[0].icon} href='/home' />
                   </Col>
                   <Col md='10' className='px-0'>
-                    <Link to='manager'><h4 className="mb-0 text-primary" style={{ cursor: 'pointer' }} >{globalNickName}</h4></Link>
+                    <NavLink href='manager' ><h4 className="mb-0 text-primary" style={{ cursor: 'pointer' }} >{globalNickName}</h4></NavLink>
                   </Col>
                 </Row>
               ) : (
@@ -326,7 +326,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
             </UncontrolledButtonDropdown>
             <div md='6' className="w-100">
               {globalNickName === 'Create a Vault' ? (
-                <Avatar size='md' color='light-primary' onClick={() => { window.location.href = '/manager' }} icon={<ChevronsRight size={25} />} />
+                <NavLink href='manager'><Avatar size='md' color='light-primary' icon={<ChevronsRight size={25} />} /></NavLink>
               ) : (
                 <Avatar size='md' color='light-primary' title='Click to select account' onClick={handleDropList} icon={<ChevronsRight size={25} />} />
               )}
