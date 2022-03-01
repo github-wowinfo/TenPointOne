@@ -160,7 +160,7 @@ const Export_Modal = ({ openexport_modal, handleexport_modal, globalFavFlag, glo
                                 showExpandAll='true'
                                 noCascade='true'
                             /> */}
-                        {display_list.length > 0 ? (
+                        {display_list && display_list.length > 0 ? (
                             display_list && display_list.map((i, indexv) => {
                                 return (
                                     <>
