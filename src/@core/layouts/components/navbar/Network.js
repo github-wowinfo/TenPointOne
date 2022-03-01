@@ -62,7 +62,7 @@ const Network = ({ networkC, dispatch, globalFlag }) => {
   //   },
   //   {
   //     id: '4',
-  //     name: 'BSC testnet',
+  //     name: 'BSC Testnet',
   //     icon: 'bnb',
   //     netid: '0x61'
   //   },
