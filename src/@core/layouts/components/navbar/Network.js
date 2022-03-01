@@ -50,7 +50,7 @@ const Network = ({ networkC, dispatch, globalFlag }) => {
   //   },
   //   {
   //     id: '2',
-  //     name: 'Polygon Network',
+  //     name: 'Polygon',
   //     icon: 'matic',
   //     netid: '0x89'
   //   },
