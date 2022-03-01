@@ -240,17 +240,18 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
                 handleModalSegaSnackClose()
                 handleSegaModal()
             }}>
-                <span style={{ color: '#1919d2' }}>New Sega</span>
+                <span style={{ color: '#1919d2' }}>Create New Sega</span>
             </ModalHeader>
             <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                    <Col>
+                    {/* <Col>
                         <h3>Create a new independent Sega linked to any of your Vault.</h3>
-                    </Col>
+                    </Col> */}
                     <Col>
-                        <p>All names set by you are stored locally on your PC and are not collected by Risk Protocol. Current user will also be designated as the owner
+                        <p>Account names are stored locally and are not collected by Risk Protocol. Current user will be designated as the Sega Operator.</p>
+                        {/* <p>All names set by you are stored locally on your PC and are not collected by Risk Protocol. Current user will also be designated as the owner
                             for the new Vault. You will be required to pay the network fees for new Vault creation.
-                        </p>
+                        </p> */}
                     </Col>
                     <Col className='mb-1'>
                         <div className='d-flex flex-row justify-content-between my-1'>
