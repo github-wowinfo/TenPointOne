@@ -409,7 +409,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
                 setVadrs('')
                 setIs_vault_adrs()
             }} >
-                <span style={{ color: '#1919d2' }}>Track or Hide Existing Vault</span>
+                Track or Hide Existing Vault
             </ModalHeader>
             <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>

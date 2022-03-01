@@ -14,6 +14,7 @@ import { toast } from 'react-toastify'
 import { XCircle } from 'react-feather'
 import Avatar from '@components/avatar'
 import { FiXCircle } from 'react-icons/fi'
+import { GiShipWheel } from 'react-icons/gi'
 
 const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, sega_name, pVault, haveInfo }) => {
 

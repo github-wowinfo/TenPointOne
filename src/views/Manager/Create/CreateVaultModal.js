@@ -196,7 +196,7 @@ const CreateVaultModal = ({ openvault, handleVaultModal, globalVaultFlag, dispat
                 handleModalVaultSnackClose()
                 handleVaultModal()
             }} >
-                <span style={{ color: '#1919d2' }}>Create New Vault</span>
+                Create New Vault
             </ModalHeader>
             <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>

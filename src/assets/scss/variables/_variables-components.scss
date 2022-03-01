@@ -113,6 +113,11 @@
   color: #b4b7bd;
 }
 
+//sidebar-column
+.modal-slide-in .modal-dialog.sidebar-sm.droplist {
+  width: 40rem;
+}
+
 //droplist tree structure line
 .decor:before {
   content: '';
@@ -163,4 +168,25 @@
   top: -39px;
   border-left: 1px solid black;
   border-bottom: 1px solid black;
+}
+
+//modal-header
+.modal .modal-header {
+  background: linear-gradient(118deg, rgba(#0000cd, 1), rgba(#0000cd, 0.7));
+  box-shadow: 0 0 10px 1px rgba(#0000cd, 0.4);
+  color: $white;
+  border-bottom: none;
+}
+
+.modal-title {
+  color: $white;
+}
+
+//if Avatar size='lg' the icon size is custom
+.avatar.avatar-lg .avatar-content .avatar-icon,
+.avatar.avatar-lg .avatar-content i,
+.avatar.avatar-lg .avatar-content svg {
+  height: 3rem;
+  width: 3rem;
+  font-size: 2rem;
 }

@@ -87,7 +87,7 @@ const ImportAdrsBook = ({ openimport, handleImpAdrsBook, globalVaultFlag, dispat
                 setAdrsFile()
                 handleImpAdrsBook()
             }}>
-                <CardTitle className='mb-0'>Upload Address Book data (.JSON)</CardTitle>
+                Upload Address Book data (.JSON)
             </ModalHeader>
             <ModalBody>
                 <Col className='text-center'>
@@ -102,9 +102,9 @@ const ImportAdrsBook = ({ openimport, handleImpAdrsBook, globalVaultFlag, dispat
             <ModalFooter>
                 <Col className='text-center'>
                     {isjson ? (
-                        <Button.Ripple color="success" onClick={() => handleImport(adrsFile)}>Import</Button.Ripple>
+                        <Button.Ripple color="primary" onClick={() => handleImport(adrsFile)}>Import</Button.Ripple>
                     ) : (
-                        <Button.Ripple color="success" disabled>Upload</Button.Ripple>
+                        <Button.Ripple color="primary" disabled>Upload</Button.Ripple>
                     )}
                 </Col>
             </ModalFooter>

@@ -155,7 +155,7 @@ const AddNewModal = ({ open, handleModal, dispatch, globalVaultFlag }) => {
 
 
   // ** Custom close btn
-  const CloseBtn = <X className='cursor-pointer' size={15} onClick={() => {
+  const CloseBtn = <X className='cursor-pointer' size={30} onClick={() => {
     setName_flag(false)
     setAdrs_flag(false)
     setName('')

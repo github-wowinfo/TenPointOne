@@ -5,12 +5,17 @@ import exportFromJSON from 'export-from-json'
 import Avatar from '@components/avatar'
 import { toast } from "react-toastify"
 import { FaRegCheckCircle } from "react-icons/fa"
+import DataTable from "react-data-table-component"
 
 const ExportAdrsBook = ({ openexport, handleExpAdrsBook, data }) => {
 
     const alldata = data
     const [a_check, setA_check] = useState(false)
     const [exp_list, setExp_list] = useState([])
+
+    const handleRowSelected = (state) => {
+        setExp_list([state.selectedRows])
+    }
 
     const notifySuccess = () => toast.success(<SuccessToast />, { hideProgressBar: false })
     const SuccessToast = () => (
@@ -29,6 +34,20 @@ const ExportAdrsBook = ({ openexport, handleExpAdrsBook, data }) => {
         </Fragment>
     )
 
+    const columns = [
+        {
+            name: 'Addresses',
+            compact: 'true',
+            maxWidth: '400px',
+            selector: row => (
+                <>
+                    <CardTitle tag='h4' className='text-truncate mb-0'>{row.nickname}</CardTitle>
+                    <CardSubtitle className='pt-1'>{shortenIfAddress(row.adrs)}</CardSubtitle>
+                </>
+            )
+        }
+    ]
+
     return (
         <Modal isOpen={openexport} toggle={() => {
             setExp_list([])
@@ -38,8 +57,8 @@ const ExportAdrsBook = ({ openexport, handleExpAdrsBook, data }) => {
                 setExp_list([])
                 handleExpAdrsBook()
             }}>
-                <CardTitle className='mb-0'>Select Address you want to export
-                    {/* <a href='#' onClick={() => {
+                Select Address you want to export
+                {/* <a href='#' onClick={() => {
                     exportFromJSON(
                         {
                             data: alldata,
@@ -50,9 +69,18 @@ const ExportAdrsBook = ({ openexport, handleExpAdrsBook, data }) => {
                     notifySuccess()
                     handleExpAdrsBook()
                 }}><u>here</u></a>. */}
-                </CardTitle>
             </ModalHeader>
             <ModalBody>
+                <DataTable
+                    className='react-dataTable'
+                    noHeader
+                    columns={columns}
+                    data={alldata}
+                    selectableRows
+                    onSelectedRowsChange={handleRowSelected}
+                />
+            </ModalBody>
+            {/* <ModalBody>
                 <Card className='p-1 mb-0'>
                     <Form>
                         <FormGroup check>
@@ -78,14 +106,14 @@ const ExportAdrsBook = ({ openexport, handleExpAdrsBook, data }) => {
                         </FormGroup>
                     </Form>
                 </Card>
-            </ModalBody>
+            </ModalBody> */}
             <ModalFooter>
                 <Col className='text-center'>
-                    {exp_list.length > 0 ? (
-                        <Button.Ripple color="success" onClick={() => {
+                    {exp_list[0] && exp_list[0].length > 0 ? (
+                        <Button.Ripple color="primary" onClick={() => {
                             exportFromJSON(
                                 {
-                                    data: exp_list,
+                                    data: exp_list[0],
                                     fileName: 'Address_Book',
                                     exportType: exportFromJSON.types.json
                                 }
@@ -95,7 +123,7 @@ const ExportAdrsBook = ({ openexport, handleExpAdrsBook, data }) => {
                             handleExpAdrsBook()
                         }}>Export</Button.Ripple>
                     ) : (
-                        <Button.Ripple color="success" disabled>Export</Button.Ripple>
+                        <Button.Ripple color="primary" disabled>Export</Button.Ripple>
                     )}
                 </Col>
             </ModalFooter>

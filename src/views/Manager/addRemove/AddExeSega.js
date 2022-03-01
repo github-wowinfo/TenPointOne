@@ -371,7 +371,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
                 setSega_value(null)
                 handleExeSegaModal()
             }}>
-                <span style={{ color: '#1919d2' }}>Track or Hide Existing Sega</span>
+                Track or Hide Existing Sega
             </ModalHeader>
             <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>

@@ -74,7 +74,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
         localStorage.setItem('g_acc', JSON.stringify(global_data))
     }
 
-    const CloseBtn = <X className='cursor-pointer' size={15} onClick={() => {
+    const CloseBtn = <X className='cursor-pointer' size={30} onClick={() => {
         handleDropList()
         setAdrs('')
         setNick_Name('')
@@ -102,7 +102,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                     setNick_Name('')
                     setSelect_Flag(false)
                 }}
-                className='sidebar-sm'
+                className='sidebar-sm droplist'
                 modalClassName='modal-slide-in'
                 contentClassName='py-0' >
                 <ModalHeader className='mb-1' close={CloseBtn} tag='h3' toggle={() => {
@@ -117,6 +117,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                 <ModalBody className='flex-grow-1'>
                     <Form>
                         <FormGroup check>
+                            {/* <FormGroup className='decor' check> */}
                             {vaultList && vaultList.map((i, index) => {
                                 return (
                                     <>
@@ -137,7 +138,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                                                 <h4 style={{ color: '#1919d2' }} className='ml-1 mb-0 '>{i.name}</h4>
                                                 <h6 className='ml-1 font-weight-light '>{shortenIfAddress(i.adrs)}</h6>
                                             </Col>
-                                            <Col className='mb-1 d-flex flex-row justify-content-end'>
+                                            <Col className='mb-1 d-flex flex-row justify-content-end align-items-center'>
                                                 {/* <FaRegCopy color='grey' size={15} /> */}
                                                 <Avatar className='mr-1' color={logos[0].color} icon={logos[0].icon} />
                                                 <CopyAdrsDropList item={i} />
@@ -145,6 +146,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                                             </Col>
                                         </Row>
                                         {/* <hr className='my-0' /> */}
+                                        {/* </Label> */}
                                         {segaList && segaList.map((j, index) => {
                                             return (
                                                 <>
@@ -167,7 +169,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                                                                 <h4 style={{ color: '#1919d2' }} className='mb-0 ml-1'>{j.name}</h4>
                                                                 <h6 className='font-weight-light mx-2'>{shortenIfAddress(j.adrs)}</h6>
                                                             </Col>
-                                                            <Col className='mb-1 d-flex flex-row justify-content-end'>
+                                                            <Col className='mb-1 d-flex flex-row justify-content-end align-items-center'>
                                                                 {/* <FaRegCopy color='grey' size={15} /> */}
                                                                 <Avatar className='mr-1' color={logos[1].color} icon={logos[1].icon} />
                                                                 <CopyAdrsDropList item={j} />
