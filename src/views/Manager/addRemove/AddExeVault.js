@@ -491,7 +491,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
                         <TabPane tabId='2'>
                             <Col className='mb-1'>
                                 {/* <div className='d-flex flex-row justify-content-between my-1'> */}
-                                <Label style={{ fontSize: "1.3em" }}>Select Vault to Hide.</Label>
+                                <Label style={{ fontSize: "1.3em" }}>Select Vault to Hide</Label>
                                 {/* <Button.Ripple size='sm' color='primary' onClick={handleGetAllVaults}>Refresh</Button.Ripple> */}
                                 {/* </div> */}
                                 <Select
