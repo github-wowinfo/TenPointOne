@@ -14,6 +14,7 @@ import { toast } from 'react-toastify'
 import { XCircle } from 'react-feather'
 import Avatar from '@components/avatar'
 import { FiXCircle } from 'react-icons/fi'
+import { GiShipWheel } from 'react-icons/gi'
 
 const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, sega_name, pVault, haveInfo }) => {
 
@@ -300,7 +301,7 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, sega_name
     }
 
     return (
-        <Modal className='modal-dialog-centered modal-lg' isOpen={openrecallmodal} toggle={() => {
+        <Modal className='modal-dialog-centered' isOpen={openrecallmodal} toggle={() => {
             setBalance_max('')
             handleForceReacallAlert()
             handlRecoverModal()
@@ -313,7 +314,7 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, sega_name
                 handleForceReacallAlert()
                 handlRecoverModal()
             }}>
-                <CardTitle className='mb-0'>Force Recall</CardTitle>
+                Force Recall
             </ModalHeader>
             <ModalBody className='p-1'>
                 <Row className='d-flex flex-column justify-content-center align-items-center' >
@@ -322,13 +323,12 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, sega_name
                     </Col>
                     <Col className='my-1'>
                         <Row className='d-flex flex-row align-items-center'>
-                            <Col xs='1' >
-                                <Avatar className='mr-1' size='lg' color='light-primary' icon={<SiWebmoney size={40} />} />
-                            </Col>
-                            <Col className='d-flex flex-column justify-content-start'>
-                                {/* <CardTitle className='mb-0 pb-1' tag='h3'>Selected Sega</CardTitle> */}
-                                <CardTitle className='mb-0 pb-1' tag='h3'>{sega_name}</CardTitle>
-                                <CardSubtitle tag='h5'>{shortenIfAddress(selectSega)}</CardSubtitle>
+                            <Col className='d-flex flex-row justify-content-start align-items-center'>
+                                <Avatar size='lg' color='light-primary' icon={<GiShipWheel size={40} />} />
+                                <div className='ml-1 d-flex flex-column justify-content-start '>
+                                    <CardTitle className='mb-0' tag='h3'>{sega_name}</CardTitle>
+                                    <CardSubtitle className='pt-1' tag='h5'>{shortenIfAddress(selectSega)}</CardSubtitle>
+                                </div>
                             </Col>
                         </Row>
                     </Col>

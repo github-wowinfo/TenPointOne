@@ -77,7 +77,7 @@ const SegaLocal = ({ opensegaLocalModal, handleSegaLocalModal, segas, vault }) =
     }
     return (
         <>
-            <Modal className='modal-dialog-centered modal-lg' isOpen={opensegaLocalModal} toggle={handleSegaLocalModal} >
+            <Modal className='modal-dialog-centered' isOpen={opensegaLocalModal} toggle={handleSegaLocalModal} >
                 <ModalHeader tag='h1' toggle={handleSegaLocalModal}>
                     Add Segas to Local
                 </ModalHeader>
@@ -85,7 +85,7 @@ const SegaLocal = ({ opensegaLocalModal, handleSegaLocalModal, segas, vault }) =
                     <Row className='d-flex flex-column justify-content-center' >
                         <Col>
                             <h3>Add Nicknames for all the selected Segas</h3>
-                            <h3>Make sure you are the "Designated Operator" for all the selected segas.</h3>
+                            <p>Make sure you are the "Designated Operator" for all the selected segas.</p>
                         </Col>
                         <Col>
                             <span>{data}</span>

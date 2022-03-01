@@ -391,7 +391,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
     }
 
     return (
-        <Modal className='modal-dialog-centered modal-lg' isOpen={openexevault} toggle={() => {
+        <Modal className='modal-dialog-centered ' isOpen={openexevault} toggle={() => {
             handleExeVaultModal()
             setName_flag(false)
             setAdrs_flag(false)
@@ -409,15 +409,17 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
                 setVadrs('')
                 setIs_vault_adrs()
             }} >
-                <span style={{ color: '#1919d2' }}>Track or Hide Existing Vault</span>
+                Track or Hide Existing Vault
             </ModalHeader>
             <ModalBody>
                 <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                    <Col>
+                    {/* <Col>
                         <h3>Start tracking your already existing Vaults.</h3>
-                    </Col>
+                    </Col> */}
                     <Col>
-                        <p>All names set by you are stored locally on your PC and are not collected by Risk Protocol.</p>
+                        {/* <p>All names set by you are stored locally on your PC and are not collected by Risk Protocol.</p> */}
+                        <p>Start or stop tracking your accounts. A names are stored locally and are not collected by Risk Protocol.
+                            Vaults need to be added first before adding their SEGAs.</p>
                     </Col>
                     <Nav style={{ width: '-webkit-fill-available' }} tabs>
                         <div style={{ display: 'flex', flex: 1, justifyContent: 'space-evenly' }}>
@@ -455,7 +457,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
                             </Col>
                             <Col>
                                 <FormGroup>
-                                    <Label for='accadrs' style={{ fontSize: "1.3em" }}>Account Address</Label>
+                                    <Label for='accadrs' style={{ fontSize: "1.3em" }}>Vault Address</Label>
                                     <Input type='text' id='accadrs' onChange={onChangeAdrs} />
                                 </FormGroup>
                             </Col>
@@ -488,10 +490,10 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
                         </TabPane>
                         <TabPane tabId='2'>
                             <Col className='mb-1'>
-                                <div className='d-flex flex-row justify-content-between my-1'>
-                                    <Label style={{ fontSize: "1.3em" }}>Select Vault to remove.</Label>
-                                    {/* <Button.Ripple size='sm' color='primary' onClick={handleGetAllVaults}>Refresh</Button.Ripple> */}
-                                </div>
+                                {/* <div className='d-flex flex-row justify-content-between my-1'> */}
+                                <Label style={{ fontSize: "1.3em" }}>Select Vault to Hide</Label>
+                                {/* <Button.Ripple size='sm' color='primary' onClick={handleGetAllVaults}>Refresh</Button.Ripple> */}
+                                {/* </div> */}
                                 <Select
                                     className='react-select'
                                     classNamePrefix='select'

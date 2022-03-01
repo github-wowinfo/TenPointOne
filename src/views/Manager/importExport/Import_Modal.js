@@ -170,7 +170,7 @@ const Import_Modal = ({ openimport_modal, handleimport_modal, globalVaultFlag, d
                 handleimport_modal()
             }}>
                 {/* <span style={{ color: '#1919d2' }}>Upload/Select Address Book data (.JSON)</span> */}
-                <CardTitle className='mb-0'>Upload Vault & Sega data (.JSON)</CardTitle>
+                Upload Vault & Sega data (.JSON)
             </ModalHeader>
             <Col>
                 {visible ? <WrongFormat /> : null}

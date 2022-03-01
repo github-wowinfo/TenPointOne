@@ -9,7 +9,7 @@ import SegaLocal from './SegaLocal'
 import ExistingSega from './ExistingSega'
 import Avatar from '@components/avatar'
 import { shortenIfAddress } from '@usedapp/core'
-import { GiHobbitDoor, GiShipWheel } from 'react-icons/gi'
+import { GiCircleCage, GiHobbitDoor, GiShipWheel } from 'react-icons/gi'
 
 const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultName, segas }) => {
 
@@ -51,7 +51,7 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultN
     // const CloseBtn = <X className='cursor-pointer' size={25} onClick={handleModal} />
     return (
         <>
-            <Modal className='modal-dialog-centered modal-lg' isOpen={openchildsegamodal} toggle={() => {
+            <Modal className='modal-dialog-centered ' isOpen={openchildsegamodal} toggle={() => {
                 handleChildSegatModal()
                 setSelectedRows([])
             }} >
@@ -62,7 +62,7 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultN
                     handleChildSegatModal()
                     setSelectedRows([])
                 }}>
-                    <CardTitle className='mb-0'>Children Sega</CardTitle>
+                    Children Sega
                 </ModalHeader>
                 <ModalBody >
                     <Row className='d-flex flex-column justify-content-center align-items-center'>
@@ -72,7 +72,7 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultN
                         <Col className='my-1'>
                             <Row className='d-flex flex-row'>
                                 {/* <Col className='mx-1' md='1'><Avatar size='lg' color='light-primary' icon={<BsSafe2 size={35} />} /></Col> */}
-                                <Col className='mx-1' md='1'><Avatar size='lg' color='light-primary' icon={<GiHobbitDoor size={35} />} /></Col>
+                                <Col className='mx-1' md='1'><Avatar size='lg' color='light-primary' icon={<GiCircleCage size={35} />} /></Col>
                                 <Col className='d-flex flex-column justify-content-start'>
                                     <h3 style={{ color: '#1919d2' }}>{vaultName}</h3>
                                     <h5 className='font-weight-bold'>{shortenIfAddress(vault)}</h5>
@@ -106,7 +106,7 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultN
                     )}
 
                 </ModalFooter>
-            </Modal >
+            </Modal>
             <SegaLocal opensegaLocalModal={segaLocalModal} handleSegaLocalModal={handleSegaLocalModal} vault={vault} segas={selectedRows} />
         </>
     )

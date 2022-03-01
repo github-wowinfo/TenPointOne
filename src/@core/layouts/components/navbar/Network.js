@@ -50,7 +50,7 @@ const Network = ({ networkC, dispatch, globalFlag }) => {
   //   },
   //   {
   //     id: '2',
-  //     name: 'Polygon Network',
+  //     name: 'Polygon',
   //     icon: 'matic',
   //     netid: '0x89'
   //   },
@@ -62,7 +62,7 @@ const Network = ({ networkC, dispatch, globalFlag }) => {
   //   },
   //   {
   //     id: '4',
-  //     name: 'BSC testnet',
+  //     name: 'BSC Testnet',
   //     icon: 'bnb',
   //     netid: '0x61'
   //   },
@@ -131,14 +131,15 @@ const Network = ({ networkC, dispatch, globalFlag }) => {
 
   const handleAjax = (netid, name, cdetail) => {
     return MySwal.fire({
-      title: 'Do you want to change your current network?',
-      text: `Current network is "${helperConfig.network[chainId].name}"`,
+      // title: 'Do you want to change your current network?',
+      title: `Current network:<br /> "${helperConfig.network[chainId].name}"`,
       allowOutsideClick: false,
-      showCancelButton: true,
-      confirmButtonText: `Switch metamask to "${name}" and log in again`,
+      showCloseButton: true,
+      // showCancelButton: true,
+      confirmButtonText: `Switch to "${name}"`,
       customClass: {
         confirmButton: 'btn btn-primary mx-1',
-        cancelButton: 'btn btn-danger my-1'
+        // cancelButton: 'btn btn-danger my-1'
       },
       showClass: {
         popup: 'animate__animated animate__flipInX'
@@ -174,7 +175,7 @@ const Network = ({ networkC, dispatch, globalFlag }) => {
 
   return (
     <>
-      <UncontrolledButtonDropdown style={{ marginLeft: 20, marginRight: 20 }}>
+      <UncontrolledButtonDropdown style={{ marginLeft: 20, marginRight: 20, minWidth: 180 }}>
 
         <DropdownToggle className='pl-0' color='primary' outline caret>
           <span><Icon className='mx-1' name={network.icon} size={20} /></span><span className='d-none d-sm-inline'>{network.name}</span>

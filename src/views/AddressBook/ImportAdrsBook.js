@@ -8,6 +8,8 @@ import { toast } from "react-toastify"
 import Avatar from '@components/avatar'
 import { AlertTriangle } from "react-feather"
 import 'animate.css'
+import FileDrop from "./FileDrop"
+import DragDropScratch from "./DragDropScratch"
 
 const ImportAdrsBook = ({ openimport, handleImpAdrsBook, globalVaultFlag, dispatch }) => {
 
@@ -116,7 +118,7 @@ const ImportAdrsBook = ({ openimport, handleImpAdrsBook, globalVaultFlag, dispat
                 setAdrsFile()
                 handleImpAdrsBook()
             }}>
-                <CardTitle className='mb-0'>Upload Address Book data (.JSON)</CardTitle>
+                Upload Address Book data (.JSON)
             </ModalHeader>
             <Col>
                 {visible ? <WrongFormat /> : null}
@@ -132,6 +134,12 @@ const ImportAdrsBook = ({ openimport, handleImpAdrsBook, globalVaultFlag, dispat
                         {selectedFile}
                     </Col>
                 ) : null}
+                {/* <Col>
+                    <DragDropScratch />
+                </Col> */}
+                {/* <Col>
+                    <FileDrop />
+                </Col> */}
             </ModalBody>
             <ModalFooter>
                 <Col className='text-center'>

@@ -353,7 +353,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
     }
 
     return (
-        <Modal className='modal-dialog-centered modal-lg' isOpen={openexesega} toggle={() => {
+        <Modal className='modal-dialog-centered ' isOpen={openexesega} toggle={() => {
             setVault_flag(false)
             setSega_flag(false)
             setSega_present_flag(false)
@@ -371,11 +371,11 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
                 setSega_value(null)
                 handleExeSegaModal()
             }}>
-                <span style={{ color: '#1919d2' }}>Track or Hide Existing Sega</span>
+                Track or Hide Existing Sega
             </ModalHeader>
             <ModalBody>
                 <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                    <Col>
+                    {/* <Col>
                         <h3>Start tracking your already existing Sega.</h3>
                     </Col>
                     <Col>
@@ -383,6 +383,10 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
                     </Col>
                     <Col>
                         <p>All names set by you are stored locally on your PC and are not collected by Risk Protocol.</p>
+                    </Col> */}
+                    <Col>
+                        <p>Start or stop tracking your accounts. A names are stored locally and are not collected by Risk Protocol.
+                            Vaults need to be added first before adding their SEGAs.</p>
                     </Col>
                     <Nav style={{ width: '-webkit-fill-available' }} tabs>
                         <div style={{ display: 'flex', flex: 1, justifyContent: 'space-evenly' }}>
@@ -432,7 +436,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
                             </Col>
                             <Col>
                                 <FormGroup>
-                                    <Label for='accadrs' style={{ fontSize: "1.3em" }}>Account Address</Label>
+                                    <Label for='accadrs' style={{ fontSize: "1.3em" }}>Sega Address</Label>
                                     <Input type='text' id='accadrs' onChange={accountAdrsInput} />
                                 </FormGroup>
                             </Col>
@@ -466,7 +470,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
                                 />
                             </Col>
                             <Col className='mb-1'>
-                                <Label style={{ fontSize: "1.3em" }}>Select Sega</Label>
+                                <Label style={{ fontSize: "1.3em" }}>Select Sega to Hide</Label>
                                 <Select
                                     // theme={selectThemeColors}
                                     className='react-select'

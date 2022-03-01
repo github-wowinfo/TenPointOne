@@ -17,7 +17,7 @@ import 'animate.css'
 import LoginModal from '../LoginModal'
 import * as AppData from '../../redux/actions/cookies/appDataType'
 import { SiWebmoney } from 'react-icons/si'
-import { GiHobbitDoor, GiShipWheel } from 'react-icons/gi'
+import { GiCircleCage, GiHobbitDoor, GiShipWheel } from 'react-icons/gi'
 
 const Receive = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
 
@@ -161,12 +161,12 @@ const Receive = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
 
   const logos = [
     {
-      icon: <GiHobbitDoor size={25} />,
+      icon: <GiCircleCage size={25} />,
       // icon: <BsSafe2 size={25} />,
       color: 'primary'
     },
     {
-      icon: <SiWebmoney size={25} />,
+      icon: <GiShipWheel size={25} />,
       color: 'primary'
     }
   ]
@@ -208,7 +208,7 @@ const Receive = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
 
   const networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"
   const networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
-  const backgroundChange = { backgroundColor: networkName === "BSC testnet" ? '#cc9b00' : networkName === "Polygon Network" ? '#8146e4' : networkName === "Ethereum" ? '#4559f4' : networkName === "Kovan" ? '#6435c9' : networkName === "BSC Mainet" ? '#cc9b00' : networkName === "Polygon Mumbai" ? '#140035' : null }
+  const backgroundChange = { backgroundColor: networkName === "BSC Testnet" ? '#cc9b00' : networkName === "Polygon" ? '#8146e4' : networkName === "Ethereum" ? '#4559f4' : networkName === "Kovan" ? '#6435c9' : networkName === "BSC Mainet" ? '#cc9b00' : networkName === "Polygon Mumbai" ? '#140035' : null }
   // const backgroundChange = { backgroundColor: networkC.name === 'BSC Mainet' ? '#cc9b01' : networkC.name === 'Etherum' ? '#627eea' : networkC.name === 'Optimism' ? '#ff0420' : networkC.name === 'Arbitrum' ? '#2d374b' : '#8247e5' }
 
   const [qrcode, setQrcode] = useState(false)

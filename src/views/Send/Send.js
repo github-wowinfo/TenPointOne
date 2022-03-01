@@ -27,7 +27,7 @@ import LoginModal from '../LoginModal'
 import * as AppData from '../../redux/actions/cookies/appDataType'
 import QrReader from 'react-qr-reader'
 import { FiXCircle } from 'react-icons/fi'
-import { GiHobbitDoor, GiShipWheel } from 'react-icons/gi'
+import { GiCircleCage, GiHobbitDoor, GiShipWheel } from 'react-icons/gi'
 
 const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
 
@@ -445,11 +445,11 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
   const logos = [
     {
       // icon: <BsSafe2 size={25} />,
-      icon: <GiHobbitDoor size={25} />,
+      icon: <GiCircleCage size={25} />,
       color: 'primary'
     },
     {
-      icon: <SiWebmoney size={25} />,
+      icon: <GiShipWheel size={25} />,
       color: 'primary'
     }
   ]
@@ -545,7 +545,7 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
 
   const networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"
   const networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
-  const backgroundChange = { backgroundColor: networkName === "BSC testnet" ? '#cc9b00' : networkName === "Polygon Network" ? '#8146e4' : networkName === "Ethereum" ? '#4559f4' : networkName === "Kovan" ? '#6435c9' : networkName === "BSC Mainet" ? '#cc9b00' : networkName === "Polygon Mumbai" ? '#140035' : null }
+  const backgroundChange = { backgroundColor: networkName === "BSC Testnet" ? '#cc9b00' : networkName === "Polygon" ? '#8146e4' : networkName === "Ethereum" ? '#4559f4' : networkName === "Kovan" ? '#6435c9' : networkName === "BSC Mainet" ? '#cc9b00' : networkName === "Polygon Mumbai" ? '#140035' : null }
   return (
     <>
       <Col style={cardStyle} md={{ offset: 3, size: 6 }} lg={{ offset: 3, size: 6 }} sm="12">

@@ -2,50 +2,65 @@
 //  ? TIP:  It is recommended to use this file for overriding component variables.
 //  ================================================================================================
 
+//Navbar vertical width
+// .vertical-layout.vertical-menu-modern.menu-expanded .main-menu {
+//   width: 260px;
+// }
+
 //Navigation active component
 .main-menu.menu-light .navigation > li.active > a {
-    background: linear-gradient(118deg, rgba(#1028e4, 1), rgba(#1028e4, 0.7));
-    box-shadow: 0 0 10px 1px rgba(#1028e4, 0.4);
-    border-radius: 4px;
-    z-index: 1;
-    color: $white
+  background: #dddcf9;
+  //   background: linear-gradient(118deg, rgba(#a9a6fa, 1), rgba(#a9a6fa, 0.7));
+  box-shadow: none;
+  border-radius: 4px;
+  z-index: 1;
+  //   color: #7a7885;
+  color: $primary;
 }
 // .main-menu.menu-light .navigation > li.active > a {
-//     background: linear-gradient(118deg, rgba(#74b281, 1), rgba(#74b281, 0.7));
-//     box-shadow: 0 0 10px 1px rgba(#74b281, 0.4);
-//     border-radius: 4px;
-//     z-index: 1;
-//     color: $white
+//   background: linear-gradient(118deg, rgba(#dddcf9, 1), rgba(#dddcf9, 0.7));
+//   box-shadow: 0 0 10px 1px rgba(#dddcf9, 0.4);
+//   border-radius: 4px;
+//   z-index: 1;
+//   color: $white;
 // }
 // .main-menu.menu-light .navigation > li.active > a {
-//     background: linear-gradient(118deg, rgba(#6e6b7b, 1), rgba(#6e6b7b, 0.7));
-//     box-shadow: 0 0 10px 1px rgba(#6e6b7b, 0.4);
-//     border-radius: 4px;
-//     z-index: 1;
-//     color: $white
+//   background: linear-gradient(118deg, rgba(#74b281, 1), rgba(#74b281, 0.7));
+//   box-shadow: 0 0 10px 1px rgba(#74b281, 0.4);
+//   border-radius: 4px;
+//   z-index: 1;
+//   color: $white;
+// }
+// .main-menu.menu-light .navigation > li.active > a {
+//   background: linear-gradient(118deg, rgba(#6e6b7b, 1), rgba(#6e6b7b, 0.7));
+//   box-shadow: 0 0 10px 1px rgba(#6e6b7b, 0.4);
+//   border-radius: 4px;
+//   z-index: 1;
+//   color: $white;
 // }
 
 //Cards
 .dark-layout .card {
-    // background: linear-gradient(0, #ab2ee3, transparent);    
-    // background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0), transparent) ;
-    background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0)); 
+  // background: linear-gradient(0, #ab2ee3, transparent);
+  // background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0), transparent) ;
+  background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0));
 }
 
-.card-title{
-    color: $primary;
+.card-title {
+  color: $primary;
+  //   color: $white;
 }
 
 //Navbar
 .dark-layout .navbar-container {
-    // background: linear-gradient(0, #ab2ee3, transparent);  
-    // background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0), transparent) ; 
-    background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0));    
+  // background: linear-gradient(0, #ab2ee3, transparent);
+  // background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0), transparent) ;
+  background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0));
 }
 
 //Receive component
-.dark-layout h4{
-    color: white !important;
+.dark-layout h4 {
+  color: white !important;
 }
 
 //Table
@@ -55,16 +70,16 @@
 // }
 
 .dark-layout .react-dataTable .rdt_TableBody .rdt_TableRow {
-    // border-color: #ffff !important;
-    border:rgb(48, 57, 66) !important;
-    background: rgb(16, 25, 33);
+  // border-color: #ffff !important;
+  border: rgb(48, 57, 66) !important;
+  background: rgb(16, 25, 33);
 }
 
 //Sidebar
 .dark-layout .main-menu {
-    // background: #006277 !important;
-    background: rgba(0,0,0,0.8);
-    // backdrop-filter: saturate(180%) blur(10px);
+  // background: #006277 !important;
+  background: rgba(0, 0, 0, 0.8);
+  // backdrop-filter: saturate(180%) blur(10px);
 }
 
 // .dark-layout .main-menu-content .navigation-main{
@@ -72,50 +87,139 @@
 // }
 
 .dark-layout .main-menu-content .navigation-main {
-    // background: linear-gradient(0, #ab2ee3, transparent); 
-    // background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0), transparent) ; 
-    // background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0)); 
-    background: rgba(0,0,0,0.8);
-    backdrop-filter: saturate(180%) blur(10px);
-    // background-color: transparent;
-    // background-repeat: no-repeat;
-    // background-image: url(../../images/backg/bg.png);
-    // background-size: auto 200%;
+  // background: linear-gradient(0, #ab2ee3, transparent);
+  // background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0), transparent) ;
+  // background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0));
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: saturate(180%) blur(10px);
+  // background-color: transparent;
+  // background-repeat: no-repeat;
+  // background-image: url(../../images/backg/bg.png);
+  // background-size: auto 200%;
 }
 
 //login Page
 .dark-layout .auth-wrapper .auth-bg {
-    background-color: transparent;
-    background: linear-gradient(rgba(4, 85, 104, 0.3), rgba(0, 210, 255, 0)); 
+  background-color: transparent;
+  background: linear-gradient(rgba(4, 85, 104, 0.3), rgba(0, 210, 255, 0));
 }
 
 //Modals
-.dark-layout .modal .modal-content, [dir] .dark-layout .modal .modal-body, [dir] .dark-layout .modal .modal-footer{
-    // background: linear-gradient(0, #ab2ee3, transparent); 
-    background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0)); 
+.dark-layout .modal .modal-content,
+[dir] .dark-layout .modal .modal-body,
+[dir] .dark-layout .modal .modal-footer {
+  // background: linear-gradient(0, #ab2ee3, transparent);
+  background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0));
 }
 
 .dark-layout .dropdown-menu {
-    // background-color: rgba(0, 210, 255, 0.95);
-    background-color: #006277 !important;
+  // background-color: rgba(0, 210, 255, 0.95);
+  background-color: #006277 !important;
 }
 
-.dark-layout .nav-tabs .nav-item .nav-link.active, 
-[dir] .dark-layout .nav-pills .nav-item .nav-link.active, 
-[dir] .dark-layout .nav-tabs.nav-justified .nav-item .nav-link.active{
-    background-color: transparent !important;
+.dark-layout .nav-tabs .nav-item .nav-link.active,
+[dir] .dark-layout .nav-pills .nav-item .nav-link.active,
+[dir] .dark-layout .nav-tabs.nav-justified .nav-item .nav-link.active {
+  background-color: transparent !important;
 }
 
 //Sweet Alert
-.dark-layout .swal2-container .swal2-modal{
-    background-color: #006277 !important;
+.dark-layout .swal2-container .swal2-modal {
+  background-color: #006277 !important;
 }
 
-.dark-layout .swal2-container .swal2-modal .swal2-content, .dark-layout .swal2-container .swal2-modal .swal2-html-container {
-    color: #b4b7bd;
+.dark-layout .swal2-container .swal2-modal .swal2-content,
+.dark-layout .swal2-container .swal2-modal .swal2-html-container {
+  color: #b4b7bd;
 }
 
 //sidebar-column
-.modal-slide-in .modal-dialog.sidebar-sm {
-    width: 24rem;
+.modal-slide-in .modal-dialog.sidebar-sm.droplist {
+  width: 40rem;
+}
+
+//border for drag-drop import
+.drag-drop_border {
+  border: 2px dashed $primary;
+  border-radius: 12px;
+  padding: 1em;
+}
+
+.drag-drop_border_drag {
+  border: 2px dashed $success;
+  border-radius: 12px;
+  padding: 1em;
+}
+
+//droplist tree structure line
+.decor:before {
+  content: '';
+  height: 100%;
+  left: 5px;
+  top: 12px;
+  border-left: 1px solid #8f8b8b;
+  font-weight: 200;
+  position: absolute;
+}
+
+// .line-vault:before {
+//   content: '';
+//   position: relative;
+//   left: -4px;
+//   top: 18px;
+//   border-top: 1px solid #8f8b8b;
+//   width: 10px;
+// }
+
+// .line-sega-vertical:before {
+//   content: '';
+//   height: 53px;
+//   left: 5px;
+//   top: 27px;
+//   border-left: 1px solid black;
+//   font-weight: 200;
+//   position: absolute;
+// }
+
+.line-sega:before {
+  content: '';
+  position: absolute;
+  height: 60px;
+  width: 48px;
+  left: -41px;
+  top: -39px;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.line-sega-export:before {
+  content: '';
+  position: absolute;
+  height: 60px;
+  width: 27px;
+  left: -33.5px;
+  top: -39px;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+//modal-header
+.modal .modal-header {
+  background: linear-gradient(118deg, rgba(#0000cd, 1), rgba(#0000cd, 0.7));
+  box-shadow: 0 0 10px 1px rgba(#0000cd, 0.4);
+  color: $white;
+  border-bottom: none;
+}
+
+.modal-title {
+  color: $white;
+}
+
+//if Avatar size='lg' the icon size is custom
+.avatar.avatar-lg .avatar-content .avatar-icon,
+.avatar.avatar-lg .avatar-content i,
+.avatar.avatar-lg .avatar-content svg {
+  height: 3rem;
+  width: 3rem;
+  font-size: 2rem;
 }

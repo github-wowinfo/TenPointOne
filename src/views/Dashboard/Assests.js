@@ -58,7 +58,7 @@ const Assests = ({ cols = 0, globalAdrs }) => {
 
   console.log('assetList', assetList)
 
-  const data = assetList.slice(0, 6)
+  const data = assetList.slice(0, 4)
 
   const addDefaultSrc = (ev) => {
     ev.target.src = require(`@src/assets/images/logo/question.jpg`).default

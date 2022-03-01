@@ -15,12 +15,12 @@
     "network": {
         "97": {
             "icon": "bnb",
-            "name": "BSC testnet",
+            "name": "BSC Testnet",
             "netid": "0x61"
         },
         "137": {
             "icon": "matic",
-            "name": "Polygon Network",
+            "name": "Polygon",
             "netid": "0x89"
         },
         "1": {

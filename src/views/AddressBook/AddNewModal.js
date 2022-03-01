@@ -155,7 +155,7 @@ const AddNewModal = ({ open, handleModal, dispatch, globalVaultFlag }) => {
 
 
   // ** Custom close btn
-  const CloseBtn = <X className='cursor-pointer' size={15} onClick={() => {
+  const CloseBtn = <X className='cursor-pointer' size={30} onClick={() => {
     setName_flag(false)
     setAdrs_flag(false)
     setName('')
@@ -180,7 +180,7 @@ const AddNewModal = ({ open, handleModal, dispatch, globalVaultFlag }) => {
 
   const networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"
   const networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
-  const backgroundChange = { backgroundColor: networkName === "BSC testnet" ? '#cc9b00' : networkName === "Polygon Network" ? '#8146e4' : networkName === "Ethereum" ? '#4559f4' : networkName === "Kovan" ? '#6435c9' : networkName === "BSC Mainet" ? '#cc9b00' : networkName === "Polygon Mumbai" ? '#140035' : null }
+  const backgroundChange = { backgroundColor: networkName === "BSC Testnet" ? '#cc9b00' : networkName === "Polygon" ? '#8146e4' : networkName === "Ethereum" ? '#4559f4' : networkName === "Kovan" ? '#6435c9' : networkName === "BSC Mainet" ? '#cc9b00' : networkName === "Polygon Mumbai" ? '#140035' : null }
 
 
   return (

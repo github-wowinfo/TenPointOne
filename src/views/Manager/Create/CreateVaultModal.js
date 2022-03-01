@@ -191,22 +191,20 @@ const CreateVaultModal = ({ openvault, handleVaultModal, globalVaultFlag, dispat
 
 
     return (
-        <Modal className='modal-dialog-centered modal-lg' isOpen={openvault} >
+        <Modal className='modal-dialog-centered ' isOpen={openvault} >
             <ModalHeader tag='h2' toggle={() => {
                 handleModalVaultSnackClose()
                 handleVaultModal()
             }} >
-                <span style={{ color: '#1919d2' }}>New Vault</span>
+                Create New Vault
             </ModalHeader>
-            <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+            <ModalBody>
                 <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                    <Col>
+                    {/* <Col>
                         <h3>Create a new independent Vault.</h3>
-                    </Col>
+                    </Col> */}
                     <Col>
-                        <p>All names set by you are stored locally on your PC and are not collected by Risk Protocol. Current user will also be designated as the owner
-                            for the new Vault. You will be required to pay the network fees for new Vault creation.
-                        </p>
+                        <p>Account names are stored locally and are not collected by Risk Protocol. Current user will be designated as the Vault Owner.</p>
                     </Col>
                     <Col>
                         <FormGroup>

@@ -13,7 +13,8 @@ import {
     CardFooter,
     CardHeader,
     Button,
-    NavLink
+    NavLink,
+    Spinner
 } from 'reactstrap'
 import Icon from 'react-crypto-icons'
 import DataTable from 'react-data-table-component'
@@ -160,7 +161,7 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
 
     const [assetList, setAssetList] = useState([])
     const [sum, setSum] = useState(0)
-
+    const [loading, setLoading] = useState(true)
     const [custom_adrs, setCustom_adrs] = useState('')
     const [have_custom_adrs, setHave_custom_adrs] = useState(false)
 
@@ -190,16 +191,33 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                 setSum(balance)
                 console.log(balance)
             } else {
-                const response = await axios.get(`https://api.unmarshal.com/v1/${helperConfig.unmarshal[chainId]}/address/${globalAdrs}/assets?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
-                console.log('response', response)
-                const asset_data = response.data
-                if (asset_data.length === 0) {
-                    setLoading(false)
+                try {
+                    const response = await axios.get(`https://api.unmarshal.com/v1/${helperConfig.unmarshal[chainId]}/address/${globalAdrs}/assets?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`).catch(error => {
+                        if (error.response) {
+                            console.log(error.response.data)
+                            console.log(error.response.status)
+                            console.log(error.response.headers)
+                            setLoading(false)
+                        } else if (error.request) {
+                            console.log(error.request)
+                            setLoading(false)
+                        } else {
+                            console.log('Error', error.message)
+                            setLoading(false)
+                        }
+                    })
+                    const asset_data = response.data
+                    if (asset_data.length === 0) {
+                        setLoading(false)
+                    }
+                    setAssetList(response.data)
+                    const balance = response.data.map(item => item.balance / (10 ** item.contract_decimals) * item.quote_rate).reduce((acc, curr) => acc + curr, 0)
+                    setSum(balance)
+                    console.log(balance)
+                } catch (error) {
+                    setAssetList([])
+                    console.log(`Asset [getTokkenBalance]`, error)
                 }
-                setAssetList(response.data)
-                const balance = response.data.map(item => item.balance / (10 ** item.contract_decimals) * item.quote_rate).reduce((acc, curr) => acc + curr, 0)
-                setSum(balance)
-                console.log(balance)
             }
 
         } catch (error) {
@@ -339,14 +357,21 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                         </Card>
 
                         <Card>
-                            <DataTable
-                                className='react-dataTable'
-                                noHeader
-                                customStyles={tablestyle}
-                                data={assetList}
-                                columns={columns}
-                                sortIcon={<ChevronDown size={10} />}
-                            />
+                            {loading && assetList.length === 0 ? (
+                                <Col className='my-1 text-center'>
+                                    <Spinner color='primary' />
+                                </Col>
+                            ) : (
+                                <DataTable
+                                    className='react-dataTable'
+                                    noHeader
+                                    customStyles={tablestyle}
+                                    data={assetList}
+                                    columns={columns}
+                                    sortIcon={<ChevronDown size={10} />}
+                                />
+                            )}
+
                         </Card>
 
                         {/* <Card>

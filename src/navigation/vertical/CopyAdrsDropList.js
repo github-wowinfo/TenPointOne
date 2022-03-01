@@ -34,7 +34,7 @@ const CopyAdrsDropList = ({ item }) => {
 
     return (
         <>
-            <FaRegCopy style={{ cursor: 'pointer' }} className='mx-1' size={20} onClick={copy} />
+            <FaRegCopy style={{ cursor: 'pointer' }} className='mx-1' size={25} onClick={copy} />
         </>
     )
 }

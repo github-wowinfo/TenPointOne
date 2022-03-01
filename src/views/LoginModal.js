@@ -112,7 +112,7 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
     }, [])
     const networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"
     const networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
-    const backgroundChange = { backgroundColor: networkName === "BSC testnet" ? '#cc9b00' : networkName === "Polygon Network" ? '#8146e4' : networkName === "Ethereum" ? '#4559f4' : networkName === "Kovan" ? '#6435c9' : networkName === "BSC Mainet" ? '#cc9b00' : networkName === "Polygon Mumbai" ? '#140035' : null }
+    const backgroundChange = { backgroundColor: networkName === "BSC Testnet" ? '#cc9b00' : networkName === "Polygon" ? '#8146e4' : networkName === "Ethereum" ? '#4559f4' : networkName === "Kovan" ? '#6435c9' : networkName === "BSC Mainet" ? '#cc9b00' : networkName === "Polygon Mumbai" ? '#140035' : null }
 
     return (
         <>
@@ -187,9 +187,9 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
                                             <ul className='list-unstyled'>
                                                 <li>The supported network's are,</li>
                                                 <ul>
-                                                    <li>"Polygon Network"</li>
+                                                    <li>"Polygon"</li>
                                                     <li>"Kovan"</li>
-                                                    <li>"BSC testnet"</li>
+                                                    <li>"BSC Testnet"</li>
                                                     <li>"Polygon Mumbai"</li>
                                                 </ul>
                                             </ul>

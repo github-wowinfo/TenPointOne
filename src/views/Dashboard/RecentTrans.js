@@ -54,7 +54,7 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
     }
   }
 
-  const data = dataList
+  const data = dataList.slice(0, 5)
 
   console.log('data', data)
 
@@ -104,10 +104,10 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
   const columns = [
     {
       name: '',
-      maxWidth: '20px',
-      center: true,
+      width: '75px',
+      // padding: '0px',
+      // maxWidth: '55px',
       compact: true,
-      wrap: true,
       selector: row => (
         <>
           {row.type === 'receive' && <Avatar color='light-success' icon={<BsArrowDownCircle size={30} />} />}
@@ -118,7 +118,7 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
     },
     {
       name: 'Transaction',
-      minWidth: '250px',
+      maxWidth: '300px',
       selector: row => row.description
     },
     // {
@@ -166,7 +166,7 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
     // },
     {
       name: 'Asset',
-      minWidth: '170px',
+      maxWidth: '150px',
       // center: 'true',
       compact: true,
       selector: row => (
@@ -197,7 +197,7 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
     },
     {
       name: 'Amount',
-      maxWidth: '90px',
+      maxWidth: '100px',
       right: 'true',
       compact: true,
       selector: row => (
@@ -233,8 +233,10 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
     },
     {
       name: 'Status',
-      minWidth: '90px',
+      maxWidth: '10px',
+      padding: '0px',
       right: 'true',
+      compact: 'true',
       selector: row => (
         <span className='mx-1'>
           {

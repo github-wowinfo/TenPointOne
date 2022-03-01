@@ -9,6 +9,8 @@ import * as AppData from '../../redux/actions/cookies/appDataType'
 import { isAddress } from "ethers/lib/utils"
 import { X } from 'react-feather'
 import CopyAdrsDropList from './CopyAdrsDropList'
+import { GiCircleCage, GiHobbitDoor, GiShipWheel } from 'react-icons/gi'
+import { SiWebmoney } from 'react-icons/si'
 
 const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNickName }) => {
 
@@ -73,12 +75,24 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
         localStorage.setItem('g_acc', JSON.stringify(global_data))
     }
 
-    const CloseBtn = <X className='cursor-pointer' size={15} onClick={() => {
+    const CloseBtn = <X className='cursor-pointer' size={30} onClick={() => {
         handleDropList()
         setAdrs('')
         setNick_Name('')
         setSelect_Flag(false)
     }} />
+    const logos = [
+        {
+            // icon: <GiHobbitDoor size={30} />,
+            icon: <GiCircleCage size={27} />,
+            // icon: <BsSafe2 size={20} />,
+            color: 'light-primary'
+        },
+        {
+            icon: <GiShipWheel size={27} />,
+            color: 'light-primary'
+        }
+    ]
     return (
         <div>
             <Modal
@@ -89,7 +103,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                     setNick_Name('')
                     setSelect_Flag(false)
                 }}
-                className='sidebar-sm'
+                className='sidebar-sm droplist'
                 modalClassName='modal-slide-in'
                 contentClassName='py-0' >
                 <ModalHeader className='mb-1' close={CloseBtn} tag='h3' toggle={() => {
@@ -104,40 +118,66 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                 <ModalBody className='flex-grow-1'>
                     <Form>
                         <FormGroup check>
+                            {/* <FormGroup className='decor' check> */}
                             {vaultList && vaultList.map((i, index) => {
                                 return (
                                     <>
                                         {/* <Label style={{ width: '100%' }} check> */}
                                         <Row className='d-flex flex-row justify-content-around'>
-                                            <Col className='d-flex flex-column '>
-                                                <Input className='px-1' key={index} name='vaults' type='radio' value={i.adrs} onChange={e => handleChange(e, i.name)} />
-                                                <h4 style={{ color: '#1919d2' }} className='mb-0 '>{i.name}</h4>
-                                                <h6 className='font-weight-light '>{shortenIfAddress(i.adrs)}</h6>
+                                            <Col className='d-flex flex-column'>
+                                                {/* <Col className='d-flex flex-column line-vault'> */}
+                                                <Input
+                                                    className='mt-1'
+                                                    key={index}
+                                                    name='vaults'
+                                                    type='radio'
+                                                    value={i.adrs}
+                                                    onChange={e => handleChange(e, i.name)}
+                                                    style={{ transform: "scale(1.5)", zIndex: '1' }}
+                                                />
+                                                {/* <Avatar className='mr-1' size='md' color={logos[0].color} icon={logos[0].icon} /> */}
+                                                <h4 style={{ color: '#1919d2' }} className='ml-1 mb-0 '>{i.name}</h4>
+                                                <h6 className='ml-1 font-weight-light '>{shortenIfAddress(i.adrs)}</h6>
                                             </Col>
-                                            <Col className='mt-1 d-flex flex-row justify-content-end'>
+                                            <Col className='mb-1 d-flex flex-row justify-content-end align-items-center'>
                                                 {/* <FaRegCopy color='grey' size={15} /> */}
+                                                <Avatar className='mr-1' color={logos[0].color} icon={logos[0].icon} />
                                                 <CopyAdrsDropList item={i} />
-                                                <a href={getExplorerAddressLink(i.adrs, chainId)} target='_blank'><GoLinkExternal color='grey' size={20} /></a>
+                                                <a href={getExplorerAddressLink(i.adrs, chainId)} target='_blank'><GoLinkExternal color='gray' size={27} /></a>
                                             </Col>
                                         </Row>
+                                        {/* <hr className='my-0' /> */}
                                         {/* </Label> */}
                                         {segaList && segaList.map((j, index) => {
                                             return (
                                                 <>
                                                     {j.ofvault === i.adrs ? <>
                                                         {/* <Label style={{ width: '100%' }} check> */}
-                                                        <Row className='d-flex flex-row justify-content-around'>
-                                                            <Col className='w-50 d-flex flex-column'>
-                                                                <Input key={index} id={index} type='radio' name='vaults' value={j.adrs} onChange={e => handleChange(e, j.name)} />
-                                                                <h4 style={{ color: '#1919d2' }} className='mb-0 ml-2'>{j.name}</h4>
+                                                        <Row className='my-1 d-flex flex-row justify-content-around'>
+                                                            {/* <Col className='ml-3 w-50 d-flex flex-column'> */}
+                                                            <Col className='ml-3 w-50 d-flex flex-column line-sega '>
+                                                                <Input
+                                                                    className='mt-1'
+                                                                    key={index}
+                                                                    id={index}
+                                                                    type='radio'
+                                                                    name='vaults'
+                                                                    value={j.adrs}
+                                                                    onChange={e => handleChange(e, j.name)}
+                                                                    style={{ transform: "scale(1.5)" }}
+                                                                />
+                                                                {/* <Avatar className='mr-1' size='md' color={logos[1].color} icon={logos[1].icon} /> */}
+                                                                <h4 style={{ color: '#1919d2' }} className='mb-0 ml-1'>{j.name}</h4>
                                                                 <h6 className='font-weight-light mx-2'>{shortenIfAddress(j.adrs)}</h6>
                                                             </Col>
-                                                            <Col className='mt-1 d-flex flex-row justify-content-end'>
+                                                            <Col className='mb-1 d-flex flex-row justify-content-end align-items-center'>
                                                                 {/* <FaRegCopy color='grey' size={15} /> */}
+                                                                <Avatar className='mr-1' color={logos[1].color} icon={logos[1].icon} />
                                                                 <CopyAdrsDropList item={j} />
-                                                                <a href={getExplorerAddressLink(j.adrs, chainId)} target='_blank'><GoLinkExternal color='grey' size={20} /></a>
+                                                                <a href={getExplorerAddressLink(j.adrs, chainId)} target='_blank'><GoLinkExternal color='gray' size={27} /></a>
                                                             </Col>
                                                         </Row>
+                                                        {/* <hr /> */}
                                                         {/* </Label> */}
                                                     </> : null}
                                                 </>
