@@ -27,7 +27,7 @@ const DeleteContact = ({ item, dispatch, globalFavFlag }) => {
 
     return (
         <>
-            <Trash2 style={{ cursor: 'pointer' }} className='mr-1' size={25} color='grey' onClick={handleDelete} />
+            <Trash2 style={{ cursor: 'pointer' }} className='mr-1' size={25} onClick={handleDelete} />
         </>
     )
 }

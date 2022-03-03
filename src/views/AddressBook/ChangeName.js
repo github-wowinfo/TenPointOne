@@ -9,7 +9,7 @@ const ChangeName = ({ item }) => {
 
     return (
         <>
-            <Edit3 style={{ cursor: 'pointer' }} size={25} color='grey' onClick={handleModal} />
+            <Edit3 style={{ cursor: 'pointer' }} size={25} onClick={handleModal} />
             <NameChangeModal openmodal={modal} handleModal={handleModal} item={item} />
         </>
     )

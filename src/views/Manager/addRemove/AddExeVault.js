@@ -1,6 +1,6 @@
 import { useState, Fragment, useEffect } from 'react'
 import { Eye, EyeOff } from 'react-feather'
-import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, TabPane, TabContent, Nav, NavItem, NavLink, Alert, UncontrolledAlert } from 'reactstrap'
+import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, TabPane, TabContent, Nav, NavItem, NavLink, Alert, UncontrolledAlert, CardTitle } from 'reactstrap'
 import { useEthers } from '@usedapp/core'
 import { toast } from 'react-toastify'
 import { isAddress } from "ethers/lib/utils"
@@ -429,7 +429,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
                                         <NavLink color='primary' size='lg' active={active === '1'} onClick={() => {
                                             toggle('1')
                                         }}>
-                                            TRACK
+                                            <CardTitle className='mb-0'>TRACK</CardTitle>
                                         </NavLink>
                                     </div>
                                 </Col>
@@ -440,7 +440,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
                                         <NavLink color='primary' size='lg' active={active === '2'} onClick={() => {
                                             toggle('2')
                                         }}>
-                                            HIDE
+                                            <CardTitle className='mb-0'>HIDE</CardTitle>
                                         </NavLink>
                                     </div>
                                 </Col>

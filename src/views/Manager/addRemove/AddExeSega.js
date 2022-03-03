@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Select from 'react-select'
 import { Eye, EyeOff } from 'react-feather'
 import { selectThemeColors } from '@utils'
-import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, Nav, NavItem, NavLink, TabContent, TabPane, UncontrolledAlert } from 'reactstrap'
+import { Modal, ModalBody, ModalHeader, ModalFooter, Row, Col, Input, Label, FormGroup, Button, Nav, NavItem, NavLink, TabContent, TabPane, UncontrolledAlert, CardTitle } from 'reactstrap'
 import { shortenIfAddress, useEthers } from '@usedapp/core'
 import { isAddress } from "ethers/lib/utils"
 import * as AppData from '../../../redux/actions/cookies/appDataType'
@@ -396,7 +396,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
                                         <NavLink color='primary' size='lg' active={active === '1'} onClick={() => {
                                             toggle('1')
                                         }}>
-                                            TRACK
+                                            <CardTitle className='mb-0'>TRACK</CardTitle>
                                         </NavLink>
                                     </div>
                                 </Col>
@@ -407,7 +407,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
                                         <NavLink color='primary' size='lg' active={active === '2'} onClick={() => {
                                             toggle('2')
                                         }}>
-                                            HIDE
+                                            <CardTitle className='mb-0'>HIDE</CardTitle>
                                         </NavLink>
                                     </div>
                                 </Col>

@@ -201,10 +201,10 @@ const Home = ({ globalVaultFlag, globalAdrs, dispatch, globalNickName }) => {
             </CardBody>
             </Card> */}
             <Row>
-              <Col>
+              <Col className='pt-1'>
                 <Card className='mb-0'>
                   <CardHeader>
-                    <CardTitle className='d-flex flex-row justify-content-between' style={{ width: '100%', fontSize: '3.5em' }}>
+                    <CardTitle className='d-flex flex-row justify-content-between text-truncate' style={{ width: '100%', fontSize: '3.5em' }}>
                       $ {sum.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
                     </CardTitle>
                   </CardHeader>

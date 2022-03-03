@@ -286,7 +286,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
           {/* </UncontrolledButtonDropdown> */}
           <Col className='d-flex flex-row justify-content-center align-items-center'>
             <UncontrolledButtonDropdown md='6' >
-              <DropdownToggle size='md' className='btn-gradient-primary round' color='none' caret>
+              <DropdownToggle size='md' className='btn-primary round' color='none' caret>
                 Quick Actions
               </DropdownToggle>
               <DropdownMenu style={{ minWidth: '200px' }} >
@@ -310,7 +310,6 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
                   <Link to='/send'>
                     <Button.Ripple color='primary' style={{ minWidth: '120px' }}>SEND</Button.Ripple>
                   </Link>
-                  {/* <Link to='/send'>SEND</Link> */}
                 </DropdownItem>
                 <DropdownItem divider></DropdownItem>
                 <DropdownItem className='text-center py-0' tag='a'>

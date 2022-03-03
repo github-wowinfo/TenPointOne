@@ -1,6 +1,6 @@
 import { height } from 'dom7'
 import React, { useState } from 'react'
-import { Button, Card, CardBody, Col, Label, Nav, NavItem, NavLink, Row, TabContent, TabPane } from 'reactstrap'
+import { Button, Card, CardBody, CardTitle, Col, Label, Nav, NavItem, NavLink, Row, TabContent, TabPane } from 'reactstrap'
 import BuyCrypto from './BuyCrypto'
 import SellBTC from './SellBtc.js'
 
@@ -40,7 +40,7 @@ const Buy = () => {
                                                 toggle('1')
                                             }}
                                         >
-                                            Buy Crypto
+                                            <CardTitle className='mb-0'>Buy Crypto</CardTitle>
                                         </NavLink>
 
                                     </NavItem>
@@ -51,7 +51,7 @@ const Buy = () => {
                                                 toggle('2')
                                             }}
                                         >
-                                            Sell BTC
+                                            <CardTitle className='mb-0'>Sell BTC</CardTitle>
                                         </NavLink>
                                     </NavItem>
 

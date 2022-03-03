@@ -6,4 +6,16 @@
 
 // $primary: #05cbfc
 
-$primary: #0000CD
+$primary: #0000cd;
+
+// .dark-layout {
+//   $primary: #05cbfc;
+// }
+
+// $theme-dark: '.dark-layout';
+
+// @if $theme-dark == '.dark-layout' {
+//   $primary: #05cbfc;
+// } @else {
+//   $primary: #0000cd;
+// }

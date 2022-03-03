@@ -592,7 +592,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                     </Col>
                 ) : (<>
                     <Card className='my-1'>
-                        <CardHeader className='d-flex flex-row '>
+                        <CardHeader className='d-flex flex-row heading'>
                             <CardTitle>Transactions</CardTitle>
                             {/* <Button color='primary' >
                                 <CSVLink style={{ color: 'white' }} data={export_data} headers={headers} filename='Activity_Data.csv'>Export</CSVLink>

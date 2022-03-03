@@ -550,8 +550,8 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
     <>
       <Col style={cardStyle} md={{ offset: 3, size: 6 }} lg={{ offset: 3, size: 6 }} sm="12">
         <Card style={globalNickName === 'Create a Vault' ? null : style_no_vault} className='my-1 card-payment'>
-          <CardHeader className='py-1'>
-            <CardTitle style={{ color: '#1919d2' }}>Send Funds</CardTitle>
+          <CardHeader className='py-1 heading'>
+            <CardTitle>Send Funds</CardTitle>
           </CardHeader>
           {/* <hr /> */}
           {globalNickName === 'Create a Vault' ? (
@@ -576,12 +576,12 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                       <Avatar className='m-1' size='lg' color={logos[0].color} icon={logos[0].icon} />
                     )}
                     <Col className='px-0 d-flex flex-column justify-content-start'>
-                      <h3 style={{ color: '#1919d2' }} className='mt-1 mb-0'>{globalNickName}</h3>
+                      <CardTitle style={{ fontSize: '1.5rem' }} className='mt-1 mb-0'>{globalNickName}</CardTitle>
                       <h6 className='font-weight-bold'>{shortenIfAddress(globalAdrs)}</h6>
                     </Col>
                     <Col className='d-flex flex-row justify-content-end'>
-                      <FaRegCopy style={{ cursor: 'pointer' }} className='mx-1' color='grey' size={20} onClick={copy} />
-                      <a href={getExplorerAddressLink(globalAdrs, chainId)} target='_blank'><GoLinkExternal color='grey' size={20} /></a>
+                      <FaRegCopy style={{ cursor: 'pointer' }} className='mx-1' size={25} onClick={copy} />
+                      <a href={getExplorerAddressLink(globalAdrs, chainId)} target='_blank'><GoLinkExternal size={25} /></a>
                     </Col>
                   </Col>
                   {/* <Col className='d-flex flex-column justify-content-start'>

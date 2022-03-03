@@ -1,5 +1,5 @@
 import { BsSafe2 } from 'react-icons/bs'
-import { Modal, ModalBody, ModalHeader, InputGroup, InputGroupAddon, Row, Col, Input, Label, FormGroup, Button, Alert, CardTitle } from 'reactstrap'
+import { Modal, ModalBody, ModalHeader, InputGroup, InputGroupAddon, Row, Col, Input, Label, FormGroup, Button, Alert, CardTitle, CardSubtitle } from 'reactstrap'
 import { useEthers, getExplorerAddressLink, getExplorerTransactionLink, shortenIfTransactionHash, shortenIfAddress } from "@usedapp/core"
 import { getAddress, hexStripZeros } from "ethers/lib/utils"
 import { useState, useEffect, Fragment } from 'react'
@@ -139,7 +139,7 @@ const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault, vaul
                             {/* <Col md='1' sm='1' className='mx-1'><Avatar size='lg' color='light-primary' icon={<BsSafe2 size={35} />} /></Col> */}
                             <Col md='1' sm='1' className='mx-1'><Avatar size='lg' color='light-primary' icon={<GiCircleCage size={35} />} /></Col>
                             <Col className='d-flex flex-column justify-content-start'>
-                                <h3 style={{ color: '#1919d2' }}>{vaultName}</h3>
+                                <CardTitle className='mb-0' style={{ fontSize: '1.5rem' }}>{vaultName}</CardTitle>
                                 <h5 className='font-weight-bold'>{shortenIfAddress(vault)}</h5>
                             </Col>
                         </Row>

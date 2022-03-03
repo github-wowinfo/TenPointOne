@@ -104,10 +104,12 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
   const columns = [
     {
       name: '',
-      width: '75px',
-      // padding: '0px',
-      // maxWidth: '55px',
+      // width: '75px',
+      // width: '12%',
+      maxWidth: '75px',
+      center: true,
       compact: true,
+      wrap: true,
       selector: row => (
         <>
           {row.type === 'receive' && <Avatar color='light-success' icon={<BsArrowDownCircle size={30} />} />}
@@ -118,56 +120,16 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
     },
     {
       name: 'Transaction',
-      maxWidth: '300px',
+      minWidth: '300px',
+      // width: '50%',
       selector: row => row.description
     },
-    // {
-    //   name: 'Asset',
-    //   center: true,
-    //   compact: true,
-    //   wrap: true,
-    //   selector: row => (
-    //     <span>
-    //       {
-    //         row.type === 'receive' ? (
-    //           <div className='align-middle font-weight-bold'>
-    //             <img src={row.received && row.received[0].logo_url} alt={row.received[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
-    //           </div>
-    //         ) : row.type === 'send' ? (
-    //           <div className='align-middle font-weight-bold'>
-    //             <img src={row.sent && row.sent[0].logo_url} alt={row.sent[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
-    //           </div>
-    //         ) : null
-    //       }
-    //     </span>
-
-    //   )
-    // },
-    // {
-    //   name: 'Token',
-    //   minWidth: '100px',
-    //   center: 'true',
-    //   compact: true,
-    //   selector: row => (
-    //     <span>
-    //       {
-    //         row.type === 'receive' ? (
-    //           <span className='font-weight-bold'>
-    //             {row.received && row.received[0].symbol}
-    //           </span>
-    //         ) : (
-    //           <span className='font-weight-bold'>
-    //             {row.sent && row.sent[0].symbol}
-    //           </span>
-    //         )
-    //       }
-    //     </span>
-    //   )
-    // },
     {
       name: 'Asset',
-      maxWidth: '150px',
+      // maxWidth: '150px',
+      // width: '14%',
       // center: 'true',
+      minWidth: '150px',
       compact: true,
       selector: row => (
         <span>
@@ -197,8 +159,10 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
     },
     {
       name: 'Amount',
-      maxWidth: '100px',
-      right: 'true',
+      // maxWidth: '100px',
+      // width: '12%',
+      maxWidth: '150px',
+      right: true,
       compact: true,
       selector: row => (
         <span>
@@ -233,8 +197,8 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
     },
     {
       name: 'Status',
-      maxWidth: '10px',
-      padding: '0px',
+      // maxWidth: '10px',
+      // width: '12%',
       right: 'true',
       compact: 'true',
       selector: row => (

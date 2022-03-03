@@ -4,6 +4,7 @@ import axios from 'axios'
 import helperConfig from '../../helper-config.json'
 import { SiWebmoney } from 'react-icons/si'
 import { GiShipWheel } from 'react-icons/gi'
+import { CardTitle } from 'reactstrap'
 
 const SegaOfVault = ({ item }) => {
 
@@ -29,7 +30,8 @@ const SegaOfVault = ({ item }) => {
     return (
         <tr>
             <td>
-                <span className='align-middle font-weight-bold' style={{ whiteSpace: "nowrap", color: '#0000CD' }}><GiShipWheel className="mr-1" size={25} />{item.name}</span>
+                {/* <CardTitle tag='span' className='align-middle font-weight-bold' style={{ whiteSpace: "nowrap" }}><GiShipWheel className="mr-1" size={25} />{item.name}</CardTitle> */}
+                <h4 tag='span' className='align-middle font-weight-bold' style={{ whiteSpace: "nowrap" }}><GiShipWheel className="mr-1" size={25} />{item.name}</h4>
             </td>
             <td style={{ textAlign: "center" }}>{shortenIfAddress(item.address)}</td>
             <td style={{ textAlign: "right" }}> ${(sum.toFixed(6))} </td>

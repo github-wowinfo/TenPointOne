@@ -46,7 +46,7 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, sega_name
 
     const OptionComponent = ({ data, ...props }) => {
         return (
-            <components.Option {...props}>
+            <components.Option {...props} className='lightSelect'>
                 <img src={data.img} alt='logo' style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
                 {data.label}
             </components.Option>

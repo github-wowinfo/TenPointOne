@@ -265,7 +265,7 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
                 <span className='d-flex felx-row justify-content-start align-items-center'>
                     {(getVaultList && getVaultList.find(i => i.address === row.adrs && i.network === row.network)) || (getSegaList && getSegaList.find(i => i.address === row.adrs && i.network === row.network)) ? <Heart item={row} /> : null}
                     {<CopyAdrs item={row} />}
-                    {<a href={getExplorerAddressLink(row.adrs, chainId ? chainId : 1)} target='_blank'><GoLinkExternal className='mr-1' size={25} color='grey' /></a>}
+                    {<a href={getExplorerAddressLink(row.adrs, chainId ? chainId : 1)} target='_blank'><GoLinkExternal className='mr-1' size={25} /></a>}
                     {<DeleteContact item={row} />}
                 </span>
             )
@@ -343,7 +343,7 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
 
             <div>
                 <Card className='my-1'>
-                    <CardHeader>
+                    <CardHeader className='heading'>
                         <CardTitle>Address Book</CardTitle>
                     </CardHeader>
                     <CardBody>
@@ -380,11 +380,13 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
                         <Col md='3' className='py-1'>
                             {adrs_data && adrs_data.length > 0 ? (
                                 <Button color='primary' onClick={() => { handleExpAdrsBook() }} block outline>
-                                    <CgExport className='mx-1' size={15} />Export
+                                    <CgExport size={15} />
+                                    <span className='align-middle ml-50'>Export</span>
                                 </Button>
                             ) : (
                                 <Button color='primary' block outline disabled>
-                                    <CgExport className='mx-1' size={15} />Export
+                                    <CgExport size={15} />
+                                    <span className='align-middle ml-50'>Export</span>
                                 </Button>
                             )}
                         </Col>

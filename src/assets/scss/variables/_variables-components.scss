@@ -1,11 +1,27 @@
 //  ================================================================================================
 //  ? TIP:  It is recommended to use this file for overriding component variables.
 //  ================================================================================================
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
 
-//Navbar vertical width
-// .vertical-layout.vertical-menu-modern.menu-expanded .main-menu {
-//   width: 260px;
-// }
+//body background(dark)
+body.dark-layout {
+  //   background-color: red;
+  background-color: #0cbaba;
+  background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
+}
+
+//expandable navbar circle
+.dark-layout .text-primary {
+  color: #05cbfc !important;
+}
 
 //Navigation active component
 .main-menu.menu-light .navigation > li.active > a {
@@ -24,26 +40,43 @@
 //   z-index: 1;
 //   color: $white;
 // }
-// .main-menu.menu-light .navigation > li.active > a {
-//   background: linear-gradient(118deg, rgba(#74b281, 1), rgba(#74b281, 0.7));
-//   box-shadow: 0 0 10px 1px rgba(#74b281, 0.4);
-//   border-radius: 4px;
-//   z-index: 1;
-//   color: $white;
-// }
-// .main-menu.menu-light .navigation > li.active > a {
-//   background: linear-gradient(118deg, rgba(#6e6b7b, 1), rgba(#6e6b7b, 0.7));
-//   box-shadow: 0 0 10px 1px rgba(#6e6b7b, 0.4);
-//   border-radius: 4px;
-//   z-index: 1;
-//   color: $white;
+
+//Navigation active component(dark)
+.main-menu.menu-dark .navigation > li.active > a {
+  background: #01191f;
+  //   background: linear-gradient(118deg, rgba(#a9a6fa, 1), rgba(#a9a6fa, 0.7));
+  box-shadow: none;
+  border-radius: 4px;
+  z-index: 1;
+  //   color: #7a7885;
+  color: $primary;
+}
+
+//buttons(dark)
+.dark-layout .btn-primary {
+  border-color: #05cbfc !important;
+  background-color: #05cbfc !important;
+}
+
+// .dark-layout .bg-gradient-primary{
+//   background-image: linear-gradient(47deg, #05cbfc, #059fc6);
 // }
 
 //Cards
 .dark-layout .card {
-  // background: linear-gradient(0, #ab2ee3, transparent);
-  // background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0), transparent) ;
-  background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0));
+  //   background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0));
+  //   background: transparent;
+  //   border: 1px solid #05cbfc;
+  //   border-radius: 10px;
+  background: #25506f;
+}
+
+.dark-layout .card-title {
+  color: #05cbfc;
+}
+
+.dark-layout .card-title {
+  color: white;
 }
 
 .card-title {
@@ -51,11 +84,40 @@
   //   color: $white;
 }
 
-//Navbar
+// .dark-layout .heading {
+//   background: linear-gradient(118deg, rgba(#05cbfc, 1), rgba(#05cbfc, 0.7));
+// }
+
+//Navbar shadow (dark)
+.dark-layout .main-menu .shadow-bottom {
+  //   background: linear-gradient(180deg, #06070b 44%, #06080d82 73%, #13172300);
+  background: linear-gradient(180deg, #044a5f 44%, #06080d70 73%, #080a0f00);
+}
+
+//vertical navbar border
+.dark-layout .vertical-layout.vertical-menu-modern.menu-expanded .main-menu {
+  //   border-right: 1px solid white;
+  box-shadow: -11px 12px 20px 0px #05cbfc;
+}
+
+.dark-layout .vertical-layout.vertical-menu-modern.menu-collapsed .main-menu {
+  //   border-right: 1px solid white;
+  box-shadow: -11px 12px 20px 0px #05cbfc;
+}
+
+//Navbar Top
+.dark-layout .header-navbar {
+  // background-color: #283046;
+  background-color: #0cbaba;
+  background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
+}
+
 .dark-layout .navbar-container {
-  // background: linear-gradient(0, #ab2ee3, transparent);
-  // background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0), transparent) ;
-  background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0));
+  //   background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0));
+  //   background: black;
+  background: transparent;
+  border: 1px solid #05cbfc;
+  border-radius: 10px;
 }
 
 //Receive component
@@ -63,23 +125,69 @@
   color: white !important;
 }
 
-//Table
+//React-data-table pagination(drak)
+.dark-layout .page-item.active .page-link {
+  border-radius: 5rem;
+  background-color: #05cbfc;
+}
 
+//Table(dark)
+
+//linked segas table
+.dark-layout
+  .table:not(.table-dark):not(.table-light)
+  thead:not(.thead-dark)
+  th,
+[dir]
+  .dark-layout
+  .table:not(.table-dark):not(.table-light)
+  tfoot:not(.thead-dark)
+  th {
+  background-color: #05cbfc !important;
+}
+
+.dark-layout .react-dataTable .rdt_TableHead .rdt_TableHeadRow {
+  //this is for extra space when table head is compressed
+  background-color: #05cbfc !important;
+  border-color: #3b4253;
+}
+
+.dark-layout .react-dataTable .rdt_TableBody .rdt_TableRow {
+  //this is for extra space when table body is compressed
+  background-color: #25506f !important;
+  border-color: #3b4253;
+}
+
+.dark-layout .react-dataTable .rdt_TableHead .rdt_TableHeadRow .rdt_TableCol {
+  background-color: #05cbfc !important;
+}
+
+.dark-layout .react-dataTable .rdt_TableBody .rdt_TableRow .rdt_TableCell {
+  background-color: #25506f !important;
+}
+
+// ==================================
+// previous changes
+// ==================================
 // .dark-layout .react-dataTable .rdt_Table {
 //     background: transparent !important;
 // }
 
-.dark-layout .react-dataTable .rdt_TableBody .rdt_TableRow {
-  // border-color: #ffff !important;
-  border: rgb(48, 57, 66) !important;
-  background: rgb(16, 25, 33);
-}
+// .dark-layout .react-dataTable .rdt_TableBody .rdt_TableRow {
+//   // border-color: #ffff !important;
+//   border: rgb(48, 57, 66) !important;
+//   background: rgb(16, 25, 33);
+// }
+// ==================================
 
 //Sidebar
 .dark-layout .main-menu {
   // background: #006277 !important;
-  background: rgba(0, 0, 0, 0.8);
+  //   background: rgba(0, 0, 0, 0.8);
   // backdrop-filter: saturate(180%) blur(10px);
+  //   background: #25506f;
+  background-color: #0cbaba;
+  background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
 }
 
 // .dark-layout .main-menu-content .navigation-main{
@@ -87,15 +195,12 @@
 // }
 
 .dark-layout .main-menu-content .navigation-main {
-  // background: linear-gradient(0, #ab2ee3, transparent);
-  // background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0), transparent) ;
   // background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0));
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: saturate(180%) blur(10px);
-  // background-color: transparent;
-  // background-repeat: no-repeat;
-  // background-image: url(../../images/backg/bg.png);
-  // background-size: auto 200%;
+  //   background: rgba(0, 0, 0, 0.8);
+  //   background: #25506f;
+  //   backdrop-filter: saturate(180%) blur(10px);
+  background-color: #0cbaba;
+  background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
 }
 
 //login Page
@@ -104,17 +209,26 @@
   background: linear-gradient(rgba(4, 85, 104, 0.3), rgba(0, 210, 255, 0));
 }
 
-//Modals
-.dark-layout .modal .modal-content,
-[dir] .dark-layout .modal .modal-body,
-[dir] .dark-layout .modal .modal-footer {
-  // background: linear-gradient(0, #ab2ee3, transparent);
-  background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0));
+//Badges
+.dark-layout .badge-primary {
+  background-color: #05cbfc;
+}
+
+//dropdown
+.dark-layout .btn span {
+  color: white;
+}
+
+.dark-layout .btn-outline-primary {
+  border: 1px solid #05cbfc !important;
+  background-color: transparent;
 }
 
 .dark-layout .dropdown-menu {
   // background-color: rgba(0, 210, 255, 0.95);
-  background-color: #006277 !important;
+  //   background-color: #006277 !important;
+  border: 1px solid white;
+  background-color: black !important;
 }
 
 .dark-layout .nav-tabs .nav-item .nav-link.active,
@@ -125,7 +239,8 @@
 
 //Sweet Alert
 .dark-layout .swal2-container .swal2-modal {
-  background-color: #006277 !important;
+  border: 1px solid white;
+  background-color: black !important;
 }
 
 .dark-layout .swal2-container .swal2-modal .swal2-content,
@@ -162,25 +277,6 @@
   position: absolute;
 }
 
-// .line-vault:before {
-//   content: '';
-//   position: relative;
-//   left: -4px;
-//   top: 18px;
-//   border-top: 1px solid #8f8b8b;
-//   width: 10px;
-// }
-
-// .line-sega-vertical:before {
-//   content: '';
-//   height: 53px;
-//   left: 5px;
-//   top: 27px;
-//   border-left: 1px solid black;
-//   font-weight: 200;
-//   position: absolute;
-// }
-
 .line-sega:before {
   content: '';
   position: absolute;
@@ -190,6 +286,17 @@
   top: -39px;
   border-left: 1px solid black;
   border-bottom: 1px solid black;
+}
+
+.dark-layout .line-sega:before {
+  content: '';
+  position: absolute;
+  height: 60px;
+  width: 48px;
+  left: -41px;
+  top: -39px;
+  border-left: 1px solid white;
+  border-bottom: 1px solid white;
 }
 
 .line-sega-export:before {
@@ -203,6 +310,54 @@
   border-bottom: 1px solid black;
 }
 
+.dark-layout .line-sega-export:before {
+  content: '';
+  position: absolute;
+  height: 60px;
+  width: 27px;
+  left: -33.5px;
+  top: -39px;
+  border-left: 1px solid white;
+  border-bottom: 1px solid white;
+}
+
+//Modals(dark)
+.dark-layout .modal .modal-header {
+  background: linear-gradient(118deg, rgba(#05cbfc, 1), rgba(#05cbfc, 0.7));
+}
+
+.dark-layout .modal .modal-content,
+.dark-layout .modal .modal-body,
+.dark-layout .modal .modal-footer {
+  // background: linear-gradient(0, #ab2ee3, transparent);
+  //   background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0));
+  background: black;
+}
+
+//(this is for the logo that takes us to ethersacn, polyscan and the likes.)
+//goexternal
+.goexternal {
+  color: gray;
+}
+
+//anchor tag (light)
+a {
+  color: gray;
+}
+
+a:hover {
+  color: #0000cd;
+}
+
+//anchor tag (dark)
+.dark-layout a {
+  color: white;
+}
+
+.dark-layout a:hover {
+  color: #05cbfc;
+}
+
 //modal-header
 .modal .modal-header {
   background: linear-gradient(118deg, rgba(#0000cd, 1), rgba(#0000cd, 0.7));
@@ -211,8 +366,38 @@
   border-bottom: none;
 }
 
+.dark-layout .modal-title {
+  color: $white;
+}
+
 .modal-title {
   color: $white;
+}
+
+//modal-header close button
+.modal-header .close {
+  margin: -0.6rem -0.8rem -0.8rem auto;
+}
+
+.close {
+  text-shadow: none;
+  color: white;
+}
+.dark-layout .close {
+  text-shadow: none;
+  color: white;
+}
+
+.modal .modal-header .close {
+  transform: translate(8px, -2px);
+  background: transparent;
+  background-color: transparent !important;
+}
+.dark-layout .modal .modal-header .close {
+  transform: translate(8px, -2px);
+  background: transparent;
+  background-color: transparent !important;
+  box-shadow: none !important;
 }
 
 //if Avatar size='lg' the icon size is custom
@@ -222,4 +407,126 @@
   height: 3rem;
   width: 3rem;
   font-size: 2rem;
+}
+
+//tabs color (dark)
+.dark-layout .nav-tabs .nav-link:after {
+  left: 0;
+  background: linear-gradient(30deg, #05cbfc, rgba(#05cbfc, 0.5)) !important;
+}
+
+//background primary in avatar (dark)
+.dark-layout .bg-primary {
+  //   background-color: black !important;
+  background-color: #25506f !important;
+  color: #05cbfc !important;
+}
+
+//background light-primary in avatar (dark)
+.dark-layout .bg-light-primary {
+  color: #05cbfc !important;
+}
+
+//Navbar Header (dark)
+.dark-layout .main-menu .navbar-header .navbar-brand .brand-text {
+  color: #05cbfc;
+}
+
+//Forms/input tag in darkmode
+[dir] .dark-layout input.form-control:not(:focus),
+[dir] .dark-layout .custom-file-label:not(:focus),
+[dir] .dark-layout textarea.form-control:not(:focus) {
+  border-color: white;
+}
+
+[dir] .dark-layout input.form-control:focus,
+[dir] .dark-layout .custom-file-label:focus,
+[dir] .dark-layout textarea.form-control:focus {
+  border-color: #05cbfc;
+}
+
+[dir] .dark-layout input.form-control,
+[dir] .dark-layout .custom-file-label,
+[dir] .dark-layout textarea.form-control {
+  background-color: black;
+}
+
+//react-select
+
+.dark-layout {
+  .select__control {
+    // background-color: #404964;
+    background-color: black;
+    border-color: #ffff;
+
+    .select__indicator svg {
+      fill: #ffff;
+    }
+
+    .select__indicator span,
+    .select__single-value {
+      color: #ffff;
+    }
+
+    .select__multi-value {
+      background-color: rgba($color: $primary, $alpha: 0.12);
+      .select__multi-value__label {
+        color: $primary;
+      }
+    }
+    .select__multi-value__remove {
+      svg {
+        fill: $primary;
+      }
+      &:hover {
+        background-color: transparent !important;
+      }
+    }
+
+    .select__placeholder {
+      color: #ffff;
+    }
+
+    &.select__control--is-disabled {
+      opacity: 0.5;
+    }
+  }
+  .select__menu {
+    background-color: #283046;
+  }
+}
+
+.dark-layout
+  .select__menu
+  .select__menu-list
+  .select__option.select__option--is-focused,
+.select__menu
+  .select__menu-list
+  .react-select__option.select__option--is-focused,
+.select__menu
+  .react-select__menu-list
+  .select__option.select__option--is-focused,
+.select__menu
+  .react-select__menu-list
+  .react-select__option.select__option--is-focused,
+.react-select__menu
+  .select__menu-list
+  .select__option.select__option--is-focused,
+.react-select__menu
+  .select__menu-list
+  .react-select__option.select__option--is-focused,
+.react-select__menu
+  .react-select__menu-list
+  .select__option.select__option--is-focused,
+.react-select__menu
+  .react-select__menu-list
+  .react-select__option.select__option--is-focused {
+  color: #05cbfc;
+}
+
+//form button
+.dark-layout .btn-outline-primary {
+  border: 1px solid #05cbfc !important;
+  background-color: transparent;
+  color: #05cbfc;
 }

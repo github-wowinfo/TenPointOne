@@ -4,7 +4,6 @@ import { FaRegCopy } from 'react-icons/fa'
 import { GoLinkExternal } from 'react-icons/go'
 import { connect } from 'react-redux'
 import Avatar from '@components/avatar'
-import qrcode from './qrcode_localhost.png'
 import Icon from 'react-crypto-icons'
 import { toast } from 'react-toastify'
 import { ArrowDownCircle, ArrowRight, ArrowRightCircle, Clipboard, Info } from "react-feather"
@@ -223,8 +222,8 @@ const Receive = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
     <>
       <Col style={cardStyle} md={{ offset: 3, size: 6 }} lg={{ offset: 3, size: 6 }} sm="12">
         <Card style={globalNickName === 'Create a Vault' ? null : style_no_vault} className='my-1 card-payment' >
-          <CardHeader className='py-1'>
-            <CardTitle style={{ color: '#1919d2' }}>Receive Assests</CardTitle>
+          <CardHeader className='py-1 heading'>
+            <CardTitle>Receive Assests</CardTitle>
           </CardHeader>
           {globalNickName === 'Create a Vault' ? (
             <>
@@ -253,7 +252,7 @@ const Receive = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                     {/* <Avatar size='lg' color='light-danger' icon={<BsSafe2 size={25} />} /> */}
                   </Col>
                   <Col className='mb-1'>
-                    <h3 style={{ color: '#1919d2' }} className='text-center mb-0'>{globalNickName}</h3>
+                    <CardTitle style={{ fontSize: '1.5rem' }} className='text-center mb-0'>{globalNickName}</CardTitle>
                     {/* <CardTitle style={{ textAlign: 'center', marginBottom: 0 }}><strong>{globalNickName}</strong></CardTitle> */}
                   </Col>
                   <Col className='text-center'>
@@ -263,8 +262,8 @@ const Receive = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                   </Col>
                   <Col>
                     <span className='d-flex flex-row justify-content-center'>
-                      <FaRegCopy style={{ cursor: 'pointer' }} className='m-1' color='grey' size={25} onClick={copy} />
-                      <a href={getExplorerAddressLink(globalAdrs, chainId)} target='_blank'><GoLinkExternal className='m-1' color='grey' size={25} /></a>
+                      <FaRegCopy style={{ cursor: 'pointer' }} className='m-1' size={25} onClick={copy} />
+                      <a href={getExplorerAddressLink(globalAdrs, chainId)} target='_blank'><GoLinkExternal className='m-1' size={25} /></a>
                     </span>
                   </Col>
                   <Col className='text-center '>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import Select from 'react-select'
+import Select, { components } from 'react-select'
 import { toast } from 'react-toastify'
 import Avatar from '@components/avatar'
 import { FaRegCopy } from 'react-icons/fa'
@@ -13,6 +13,7 @@ import { useVault } from '../../../../utility/hooks/useVaults'
 import { useEthers, getExplorerAddressLink, getExplorerTransactionLink } from "@usedapp/core"
 import CopyAdrsSegaList from './CopyAdrsSegaList'
 import { Tool } from 'react-feather'
+import chroma from 'chroma-js'
 
 const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
 
@@ -137,6 +138,14 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
 
     }, [openvaultsec])
 
+    const OptionComponent = ({ data, ...props }) => {
+        return (
+            <components.Option {...props}>
+                {data.label}
+            </components.Option>
+        )
+    }
+
     return (
         <div>
             <Modal className='modal-dialog-centered' isOpen={openvaultsec} toggle={() => {
@@ -159,6 +168,7 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
                                 {/* <Button.Ripple size='sm' color='primary' onClick={handleGetAllVaults}>Refresh</Button.Ripple> */}
                             </div>
                             <Select
+                                // theme={selectThemeColors}
                                 className='react-select'
                                 classNamePrefix='select'
                                 maxMenuHeight={200}
@@ -166,6 +176,10 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
                                 name='clear'
                                 options={VaultList}
                                 // options={vlist}
+                                // components={{
+                                //     Option: OptionComponent
+                                // }}
+                                // menuIsOpen={true}
                                 onChange={handleSetVault}
                             />
                         </Col>

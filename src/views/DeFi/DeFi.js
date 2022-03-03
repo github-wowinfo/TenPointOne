@@ -164,33 +164,33 @@ const DeFi = ({ dispatch, globalAdrs, globalNickName, globalVaultFlag }) => {
                                 <NavItem>
                                     <Col md={6} sm={12}>
                                         <div className='d-inline-block mr-1 mb-1'>
-                                            <Button.Ripple outline color='primary' size='lg' active={active === '1'} onClick={() => {
+                                            <NavLink outline color='primary' size='lg' active={active === '1'} onClick={() => {
                                                 toggle('1')
                                             }}>
-                                                Buy
-                                            </Button.Ripple>
+                                                <CardTitle className='mb-0'>BUY</CardTitle>
+                                            </NavLink>
                                         </div>
                                     </Col>
                                 </NavItem>
                                 <NavItem>
                                     <Col md={6} sm={12}>
                                         <div className='d-inline-block mr-1 mb-1'>
-                                            <Button.Ripple outline color='primary' size='lg' active={active === '2'} onClick={() => {
+                                            <NavLink outline color='primary' size='lg' active={active === '2'} onClick={() => {
                                                 toggle('2')
                                             }}>
-                                                Swap
-                                            </Button.Ripple>
+                                                <CardTitle className='mb-0'>SWAP</CardTitle>
+                                            </NavLink>
                                         </div>
                                     </Col>
                                 </NavItem>
                                 <NavItem>
                                     <Col md={6} sm={12}>
                                         <div className='d-inline-block mr-1 mb-1'>
-                                            <Button.Ripple outline color='primary' size='lg' active={active === '3'} onClick={() => {
+                                            <NavLink outline color='primary' size='lg' active={active === '3'} onClick={() => {
                                                 toggle('3')
                                             }}>
-                                                Yield
-                                            </Button.Ripple>
+                                                <CardTitle className='mb-0'>YIELD</CardTitle>
+                                            </NavLink>
                                         </div>
                                     </Col>
                                 </NavItem>
