@@ -20,7 +20,7 @@ const Manager = ({ globalAdrs, globalNickName, dispatch, globalVaultFlag }) => {
 
     const [loginModal, setLoginModal] = useState(false)
     const disconnect = () => {
-        window.location.href = '/home'
+        window.location.href = 'home'
         setLoginModal(!loginModal)
     }
 
