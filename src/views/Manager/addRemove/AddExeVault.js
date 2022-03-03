@@ -508,7 +508,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
                                         <UncontrolledAlert className='my-1' color='danger'>
                                             <h4 className='alert-heading'>There are SEGAs associated with this Vault.</h4>
                                             <div className='alert-body'>
-                                                Please remove all associated SEGAs first, before remmoving the Vault.
+                                                Please remove all associated SEGAs first, before removing the Vault.
                                             </div>
                                         </UncontrolledAlert>
                                     </Col>
