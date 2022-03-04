@@ -156,12 +156,10 @@ const UserDropdown = ({ networkC }) => {
             </DropdownItem>
           </li>
           <li className='dropdown-menu-header'>
-            <div className='d-flex justify-content-between p-1'>
-              <label>Wallet</label>
-
+            <div className='d-flex justify-content-between align-items-center p-1'>
+              <label className='mb-0'>Wallet</label>
               <div>
-
-                <RiWallet3Line />
+                <RiWallet3Line size={20} className='wallet' />
                 <label>Metamask</label>
               </div>
             </div>

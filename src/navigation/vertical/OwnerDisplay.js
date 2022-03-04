@@ -306,20 +306,20 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
                   <a href={getExplorerAddressLink(globalAdrs, chainId ? chainId : 1)} target='_blank'><GoLinkExternal color='grey' size={25} /></a>
                 </DropdownItem>
                 <DropdownItem divider></DropdownItem> */}
-                <DropdownItem className='text-center py-0' tag='a'>
+                <DropdownItem className='text-center py-0 qa' tag='a'>
                   <Link to='/send'>
                     <Button.Ripple color='primary' style={{ minWidth: '120px' }}>SEND</Button.Ripple>
                   </Link>
                 </DropdownItem>
                 <DropdownItem divider></DropdownItem>
-                <DropdownItem className='text-center py-0' tag='a'>
+                <DropdownItem className='text-center py-0 qa' tag='a'>
                   <Link to='/receive'>
                     <Button.Ripple color='primary' style={{ minWidth: '120px' }}>RECEIVE</Button.Ripple>
                   </Link>
                   {/* <Link to='/receive'>RECEIVE</Link> */}
                 </DropdownItem>
                 <DropdownItem divider></DropdownItem>
-                <DropdownItem className='text-center py-0' href='/manager' tag='a'>
+                <DropdownItem className='text-center py-0 qa' href='/manager' tag='a'>
                   <Link to='/manager'>
                     <Button.Ripple color='primary' style={{ minWidth: '120px' }}>MANAGE</Button.Ripple>
                   </Link>

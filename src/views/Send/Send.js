@@ -550,7 +550,7 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
     <>
       <Col style={cardStyle} md={{ offset: 3, size: 6 }} lg={{ offset: 3, size: 6 }} sm="12">
         <Card style={globalNickName === 'Create a Vault' ? null : style_no_vault} className='my-1 card-payment'>
-          <CardHeader className='py-1 heading'>
+          <CardHeader className='py-1 heading`'>
             <CardTitle>Send Funds</CardTitle>
           </CardHeader>
           {/* <hr /> */}
@@ -658,6 +658,7 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                         components={{
                           Option: OptionComponent
                         }}
+                        // menuIsOpen={true}
                         onChange={handleSetTokenTicker}
                       />
                     </Col>

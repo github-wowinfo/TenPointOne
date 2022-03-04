@@ -214,7 +214,26 @@ body.dark-layout {
   background-color: #05cbfc;
 }
 
-//dropdown
+//dropdown(light)
+.qa:hover,
+// .dropdown-item:hover,
+// .dropdown-item:focus 
+.qa:focus {
+  background-color: transparent;
+}
+
+//dropdown (dark)
+[dir] .dark-layout .dropdown-menu .dropdown-item:active,
+[dir] .dark-layout .dropdown-menu .dropdown-item.active {
+  background-color: #05cbfc;
+}
+
+.dark-layout .dropdown-menu .dropdown-item:hover,
+.dark-layout .dropdown-menu .dropdown-item:focus {
+  color: #05cbfc;
+  background: rgb(99, 145, 157);
+}
+
 .dark-layout .btn span {
   color: white;
 }
@@ -241,6 +260,7 @@ body.dark-layout {
 .dark-layout .swal2-container .swal2-modal {
   border: 1px solid white;
   background-color: black !important;
+  // background: #25506f !important;
 }
 
 .dark-layout .swal2-container .swal2-modal .swal2-content,
@@ -332,6 +352,7 @@ body.dark-layout {
   // background: linear-gradient(0, #ab2ee3, transparent);
   //   background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0));
   background: black;
+  // background: #25506f;
 }
 
 //(this is for the logo that takes us to ethersacn, polyscan and the likes.)
@@ -522,6 +543,7 @@ a:hover {
   .react-select__menu-list
   .react-select__option.select__option--is-focused {
   color: #05cbfc;
+  background: rgb(99, 145, 157);
 }
 
 //form button
@@ -529,4 +551,14 @@ a:hover {
   border: 1px solid #05cbfc !important;
   background-color: transparent;
   color: #05cbfc;
+}
+
+//login_modal (dark)
+.dark-layout .dark_login {
+  box-shadow: 1px 0px 20px 0px #05cbfc;
+}
+
+//wallet logo in dropdown
+.dark-layout .wallet {
+  color: white;
 }

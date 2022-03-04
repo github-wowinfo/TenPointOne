@@ -201,7 +201,7 @@ const Home = ({ globalVaultFlag, globalAdrs, dispatch, globalNickName }) => {
             </CardBody>
             </Card> */}
             <Row>
-              <Col className='pt-1'>
+              <Col>
                 <Card className='mb-0'>
                   <CardHeader>
                     <CardTitle className='d-flex flex-row justify-content-between text-truncate' style={{ width: '100%', fontSize: '3.5em' }}>
