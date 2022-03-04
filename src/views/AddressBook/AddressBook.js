@@ -126,14 +126,17 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
 
     const handleAdrsBookDeleteLocal = () => {
         const getAdrsBookList = JSON.parse(localStorage.getItem('adrsbook'))
-        for (const i in getAdrsBookList) {
-            if (getAdrsBookList[i].owner === account && getAdrsBookList[i].network === chainId) {
-                getAdrsBookList.splice(i, 1)
-            } else {
-                console.log('No matching data')
-            }
-        }
-        localStorage.setItem('adrsbook', JSON.stringify(getAdrsBookList))
+        const newAddArray = getAdrsBookList.filter(i => i.owner !== account && i.network === chainId)
+        console.log('getAdrsBookList', getAdrsBookList)
+        console.log('newAddArray', newAddArray)
+        // for (const i in getAdrsBookList) {
+        //     if (getAdrsBookList[i].owner === account && getAdrsBookList[i].network === chainId) {
+        //         getAdrsBookList.splice(i, 1)
+        //     } else {
+        //         console.log('No matching data')
+        //     }
+        // }
+        localStorage.setItem('adrsbook', JSON.stringify(newAddArray))
         if (globalVaultFlag === 0) {
             dispatch(AppData.globalVaultFlag(1))
         } else {
@@ -366,7 +369,7 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
                 <Card>
                     <Row className='p-1'>
                         <Col md='3' className='py-1'>
-                            <Button color='primary' block outline onClick={handleModal} block>
+                            <Button color='primary' block outline onClick={handleModal}>
                                 <Plus size={15} />
                                 <span className='align-middle ml-50'>Add Address</span>
                             </Button>
