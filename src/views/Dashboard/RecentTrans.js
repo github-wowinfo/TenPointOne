@@ -125,7 +125,7 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
       wrap: 'true',
       // width: '50%',
       selector: row => (
-        <Col className='d-flex flex-row align-items-center'>
+        <Col className='pt-1 d-flex flex-row align-items-center'>
           <span>
             {row.type === 'receive' && <Avatar color='light-success' icon={<BsArrowDownCircle size={30} />} />}
             {row.type === 'send' && <Avatar color='light-danger' icon={<BsArrowUpCircle size={30} />} />}
