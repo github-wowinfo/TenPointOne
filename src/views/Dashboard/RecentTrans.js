@@ -102,27 +102,38 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
   // ]
 
   const columns = [
-    {
-      name: '',
-      // width: '75px',
-      // width: '12%',
-      maxWidth: '75px',
-      center: true,
-      compact: true,
-      wrap: true,
-      selector: row => (
-        <>
-          {row.type === 'receive' && <Avatar color='light-success' icon={<BsArrowDownCircle size={30} />} />}
-          {row.type === 'send' && <Avatar color='light-danger' icon={<BsArrowUpCircle size={30} />} />}
-          {row.type === 'approve' && <Avatar color='light-primary' icon={<BsInfoCircle size={30} />} />}
-        </>
-      )
-    },
+    // {
+    //   name: '',
+    //   // width: '75px',
+    //   // width: '12%',
+    //   maxWidth: '75px',
+    //   center: true,
+    //   compact: true,
+    //   wrap: true,
+    //   selector: row => (
+    //     <>
+    //       {row.type === 'receive' && <Avatar color='light-success' icon={<BsArrowDownCircle size={30} />} />}
+    //       {row.type === 'send' && <Avatar color='light-danger' icon={<BsArrowUpCircle size={30} />} />}
+    //       {row.type === 'approve' && <Avatar color='light-primary' icon={<BsInfoCircle size={30} />} />}
+    //     </>
+    //   )
+    // },
     {
       name: 'Transaction',
-      minWidth: '300px',
+      minWidth: '270px',
+      compact: 'true',
+      wrap: 'true',
       // width: '50%',
-      selector: row => row.description
+      selector: row => (
+        <Col className='d-flex flex-row align-items-center'>
+          <span>
+            {row.type === 'receive' && <Avatar color='light-success' icon={<BsArrowDownCircle size={30} />} />}
+            {row.type === 'send' && <Avatar color='light-danger' icon={<BsArrowUpCircle size={30} />} />}
+            {row.type === 'approve' && <Avatar color='light-primary' icon={<BsInfoCircle size={30} />} />}
+          </span>
+          <span className='ml-1'>{row.description}</span>
+        </Col>
+      )
     },
     {
       name: 'Asset',
@@ -224,6 +235,14 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
     },
   ]
 
+  const customStyles = {
+    rows: {
+      style: {
+        height: '65px', // override the row height
+      },
+    }
+  }
+
   return (
     <Card style={{ height: "100%" }}>
       <CardHeader>
@@ -242,6 +261,7 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
           noHeader
           columns={columns}
           data={data}
+          customStyles={customStyles}
         />
       )}
     </Card>
