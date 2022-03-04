@@ -140,6 +140,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
     const { getRecoveryInfo } = useVault(vadrs)
     // const [owner_flag, setOwner_flag] = useState('')
     let owner_flag
+    let is__vault_adrs
     const [is_vault_adrs, setIs_vault_adrs] = useState()
     const getVaultRecoveryInfo = () => {
         const { _owner, _backup, _releaseDt, _unlockDays } = getRecoveryInfo()
@@ -149,6 +150,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
         console.log('owner_flag', owner_flag)
         if (isAddress(_owner)) {
             setIs_vault_adrs(true)
+            is__vault_adrs = true
             if (_owner === account) {
                 owner_flag = true
             } else {
@@ -157,6 +159,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
         } else {
             // alert("This vault does not exist on this network")
             setIs_vault_adrs(false)
+            is__vault_adrs = false
         }
     }
 
@@ -250,7 +253,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
         console.log('owner_flag', owner_flag)
         console.log('handleAdd')
         getVaultRecoveryInfo()
-        if (is_vault_adrs) {
+        if (is_vault_adrs || is__vault_adrs) {
             if (owner_flag === false) {
                 handleConfirmText()
             } else {
