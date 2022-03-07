@@ -113,19 +113,20 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
   ]
 
   const dstyle = skin === 'dark' ? {
-    border: '1px solid  white',
-    borderRadius: '10px'
+    // border: '1px solid  white',
+    backgroundColor: '#25506f',
+    borderRadius: '0.428rem'
   } : {
     background: "#fcfaff",
     boxShadow: '-20px 20px 60px #d6d5d9, 20px -20px 60px #ffffff',
-    borderRadius: '10px'
+    borderRadius: '0.428rem'
   }
 
   const renderItem = () => {
     return (
       <div className="mb-2 pb-1" style={dstyle} >
         <Col style={{ padding: '0px 0px' }}>
-          <Col style={{ ...networkstyle, ...backgroundChange, fontSize: '1em', marginBottom: '0px' }} className='my-1 d-flex flex-row flex-nowrap align-self-center '>
+          <Col style={{ ...networkstyle, ...backgroundChange, fontSize: '1em', marginBottom: '0px', borderRadius: '0.428rem 0.428rem 0px 0px' }} className='mb-1 d-flex flex-row flex-nowrap align-self-center '>
             {/* <Icon className='mr-1' name={networkC.icon} size={20} />{networkC.name} */}
             <Icon className='mr-1' name={networkIcon} size={20} />{networkName}
           </Col>

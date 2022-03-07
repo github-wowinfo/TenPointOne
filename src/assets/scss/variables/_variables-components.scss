@@ -20,7 +20,8 @@ body.dark-layout {
 
 //expandable navbar circle
 .dark-layout .text-primary {
-  color: #05cbfc !important;
+  // color: #05cbfc !important;
+  color: white !important;
 }
 
 //Navigation active component
@@ -440,12 +441,14 @@ a:hover {
 .dark-layout .bg-primary {
   //   background-color: black !important;
   background-color: #25506f !important;
-  color: #05cbfc !important;
+  // color: #05cbfc !important;
+  color: white !important;
 }
 
 //background light-primary in avatar (dark)
 .dark-layout .bg-light-primary {
-  color: #05cbfc !important;
+  // color: #05cbfc !important;
+  color: white !important;
 }
 
 //Navbar Header (dark)
