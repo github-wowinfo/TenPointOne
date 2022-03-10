@@ -122,7 +122,7 @@ const AddNewModal = ({ open, handleModal, trxnId, description, local }) => {
   }
 
   // ** Custom close btn
-  const CloseBtn = <X className='cursor-pointer' size={15} onClick={() => {
+  const CloseBtn = <X className='cursor-pointer' size={30} onClick={() => {
     setDesc_flag(false)
     handleModal()
   }} />
@@ -138,9 +138,9 @@ const AddNewModal = ({ open, handleModal, trxnId, description, local }) => {
       modalClassName='modal-slide-in'
       contentClassName='pt-0'
     >
-      <ModalHeader className='mb-1' toggle={handleModal} close={CloseBtn} tag='div'>
-        <label style={{ fontSize: '1.5em', fontWeight: 'bold', color: '#1919d2' }}>Transaction Details</label>
-        <br />
+      <ModalHeader className='mb-1' toggle={handleModal} close={CloseBtn} tag='h3'>
+        {/* <label style={{ fontSize: '1.5em', fontWeight: 'bold', color: '#1919d2' }}>Transaction Details</label> */}
+        <CardTitle className='modal-title pb-1'>Transaction Details</CardTitle>
         {/* <label style={{ fontSize: 15, fontWeight: 'normal' }}>{details?.description}</label> */}
         <label style={{ fontSize: 15, fontWeight: 'normal' }}><ExistingDesc id={trxnId} api_desc={description} /></label>
       </ModalHeader>
