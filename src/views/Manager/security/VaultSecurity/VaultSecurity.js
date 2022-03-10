@@ -160,8 +160,8 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
                 }}>
                     Select Account to Manage
                 </ModalHeader>
-                <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                    <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '-webkit-fill-available' }}>
+                <ModalBody>
+                    <Row className='w-100 d-flex flex-column justify-content-center align-items-center'>
                         <Col className='mb-1'>
                             <div className='d-flex flex-row justify-content-between my-1'>
                                 <Label style={{ fontSize: "1.3em" }}>Account</Label>

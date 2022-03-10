@@ -81,9 +81,11 @@ const ImportAdrsBook = ({ openimport, handleImpAdrsBook, globalVaultFlag, dispat
         const getLocalAdrs = JSON.parse(localStorage.getItem('adrsbook'))
         console.log('getLocalAdrs', getLocalAdrs)
         let newAdrsBookData
-        if (getLocalAdrs.length > 0) {
+        if (getLocalAdrs && getLocalAdrs.length > 0) {
             newAdrsBookData = getLocalAdrs.concat(adrsFile)
             console.log('newAdrsBookData', newAdrsBookData)
+        } else {
+            newAdrsBookData = adrsFile
         }
         localStorage.setItem('adrsbook', JSON.stringify(newAdrsBookData))
         if (globalVaultFlag === 0) {

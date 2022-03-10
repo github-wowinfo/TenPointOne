@@ -235,7 +235,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                     Select Account to Manage
                 </ModalHeader>
                 <ModalBody>
-                    <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                    <Row className='d-flex flex-column justify-content-center align-items-center'>
                         <Col>
                             <h3>Select the account to view or modify security settings.</h3>
                         </Col>
