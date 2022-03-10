@@ -373,8 +373,8 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
             }}>
                 Track or Hide Existing Sega
             </ModalHeader>
-            <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+            <ModalBody>
+                <Row className='d-flex flex-column justify-content-center align-items-center'>
                     {/* <Col>
                         <h3>Start tracking your already existing Sega.</h3>
                     </Col>
@@ -388,7 +388,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
                         <p>Start or stop tracking your accounts. A names are stored locally and are not collected by Risk Protocol.
                             Vaults need to be added first before adding their SEGAs.</p>
                     </Col>
-                    <Nav style={{ width: '-webkit-fill-available' }} tabs>
+                    <Nav className='w-100' tabs>
                         <div style={{ display: 'flex', flex: 1, justifyContent: 'space-evenly' }}>
                             <NavItem>
                                 <Col md={6} sm={12}>
@@ -414,7 +414,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
                             </NavItem>
                         </div>
                     </Nav>
-                    <TabContent style={{ width: '-webkit-fill-available' }} activeTab={active}>
+                    <TabContent className='w-100' activeTab={active}>
                         <TabPane tabId='1'>
                             {/* <Col className='mb-1'>
                                 <Label style={{ fontSize: "1.3em" }}>Parent Vault</Label>

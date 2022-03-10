@@ -414,8 +414,8 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
             }} >
                 Track or Hide Existing Vault
             </ModalHeader>
-            <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+            <ModalBody>
+                <Row className='d-flex flex-column justify-content-center align-items-center'>
                     {/* <Col>
                         <h3>Start tracking your already existing Vaults.</h3>
                     </Col> */}
@@ -424,7 +424,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
                         <p>Start or stop tracking your accounts. A names are stored locally and are not collected by Risk Protocol.
                             Vaults need to be added first before adding their SEGAs.</p>
                     </Col>
-                    <Nav style={{ width: '-webkit-fill-available' }} tabs>
+                    <Nav className='w-100' tabs>
                         <div style={{ display: 'flex', flex: 1, justifyContent: 'space-evenly' }}>
                             <NavItem>
                                 <Col md={6} sm={12}>
@@ -450,7 +450,7 @@ const AddExeVault = ({ openexevault, handleExeVaultModal, globalAdrs, globalNick
                             </NavItem>
                         </div>
                     </Nav>
-                    <TabContent style={{ width: '-webkit-fill-available' }} activeTab={active}>
+                    <TabContent className='w-100' activeTab={active}>
                         <TabPane tabId='1'>
                             <Col>
                                 <FormGroup>

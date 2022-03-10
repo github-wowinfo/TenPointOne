@@ -3,7 +3,7 @@ const ExistingSega = ({ item }) => {
     const getSegaData = JSON.parse(localStorage.getItem('segadata'))
 
     let adrs
-    if (getSegaData !== undefined || getSegaData !== []) {
+    if (getSegaData && getSegaData.length > 0) {
         for (const i in getSegaData) {
 
             if (getSegaData[i].address === item.address) {
