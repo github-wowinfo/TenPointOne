@@ -13,9 +13,13 @@ body {
 
 //body background(dark)
 body.dark-layout {
-  //   background-color: red;
-  background-color: #0cbaba;
-  background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
+  // background-color: #121212;
+
+  // background-color: #0cbaba;
+  // background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
+
+  background-color: #2d3436;
+  background-image: linear-gradient(315deg, #215d6a 0%, #2f3434 68%);
 }
 
 //expandable navbar circle
@@ -55,8 +59,15 @@ body.dark-layout {
 
 //buttons(dark)
 .dark-layout .btn-primary {
-  border-color: #05cbfc !important;
-  background-color: #05cbfc !important;
+  // border-color: #05cbfc !important;
+  // background-color: #05cbfc !important;
+
+  border-color: #27aae1 !important;
+  background-color: #27aae1 !important;
+}
+
+.dark-layout .btn-primary:hover:not(.disabled):not(:disabled) {
+  box-shadow: 0 8px 25px -8px #27aae1;
 }
 
 // .dark-layout .bg-gradient-primary{
@@ -69,15 +80,18 @@ body.dark-layout {
   //   background: transparent;
   //   border: 1px solid #05cbfc;
   //   border-radius: 10px;
-  background: #25506f;
+  // background: #25506f;
+  background: #23242a;
 }
 
-.dark-layout .card-title {
-  color: #05cbfc;
-}
+// .dark-layout .card-title {
+//   color: #05cbfc;
+// }
 
 .dark-layout .card-title {
-  color: white;
+  // color: #ffffffee;
+  // color: #bb86fc;
+  color: #27aae1;
 }
 
 .card-title {
@@ -98,38 +112,44 @@ body.dark-layout {
 //vertical navbar border
 .dark-layout .vertical-layout.vertical-menu-modern.menu-expanded .main-menu {
   //   border-right: 1px solid white;
-  box-shadow: -11px 12px 20px 0px #05cbfc;
+  box-shadow: -11px 12px 20px 0px #27aae1;
 }
 
 .dark-layout .vertical-layout.vertical-menu-modern.menu-collapsed .main-menu {
   //   border-right: 1px solid white;
-  box-shadow: -11px 12px 20px 0px #05cbfc;
+  box-shadow: -11px 12px 20px 0px #27aae1;
 }
 
 //Navbar Top
 .dark-layout .header-navbar {
   // background-color: #283046;
-  background-color: #0cbaba;
-  background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
+
+  // background-color: #0cbaba;
+  // background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
+
+  background-color: #2d3436;
+  background-image: linear-gradient(315deg, #215d6a 0%, #2f3434 68%);
 }
 
 .dark-layout .navbar-container {
   //   background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0));
   //   background: black;
   background: transparent;
-  border: 1px solid #05cbfc;
-  border-radius: 10px;
+  // border: 1px solid #05cbfc;
+  // border-radius: 10px;
 }
 
 //Receive component
 .dark-layout h4 {
   color: white !important;
+  // color: #27aae1 !important;
 }
 
 //React-data-table pagination(drak)
 .dark-layout .page-item.active .page-link {
   border-radius: 5rem;
-  background-color: #05cbfc;
+  // background-color: #05cbfc;
+  background-color: #27aae1;
 }
 
 //Table(dark)
@@ -144,27 +164,32 @@ body.dark-layout {
   .table:not(.table-dark):not(.table-light)
   tfoot:not(.thead-dark)
   th {
-  background-color: #05cbfc !important;
+  // background-color: #05cbfc !important;
+  background-color: #ffffff24 !important;
 }
 
 .dark-layout .react-dataTable .rdt_TableHead .rdt_TableHeadRow {
   //this is for extra space when table head is compressed
-  background-color: #05cbfc !important;
+  // background-color: #05cbfc !important;
+  background-color: #ffffff24 !important;
   border-color: #3b4253;
 }
 
 .dark-layout .react-dataTable .rdt_TableBody .rdt_TableRow {
   //this is for extra space when table body is compressed
-  background-color: #25506f !important;
+  background-color: #23242a !important;
+  // background-color: #25506f !important;
   border-color: #3b4253;
 }
 
 .dark-layout .react-dataTable .rdt_TableHead .rdt_TableHeadRow .rdt_TableCol {
-  background-color: #05cbfc !important;
+  background-color: #ffffff24 !important;
+  // background-color: #05cbfc !important;
 }
 
 .dark-layout .react-dataTable .rdt_TableBody .rdt_TableRow .rdt_TableCell {
-  background-color: #25506f !important;
+  background-color: #23242a !important;
+  // background-color: #25506f !important;
 }
 
 // ==================================
@@ -187,8 +212,12 @@ body.dark-layout {
   //   background: rgba(0, 0, 0, 0.8);
   // backdrop-filter: saturate(180%) blur(10px);
   //   background: #25506f;
-  background-color: #0cbaba;
-  background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
+
+  // background-color: #0cbaba;
+  // background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
+
+  background-color: #2d3436;
+  background-image: linear-gradient(315deg, #215d6a 0%, #2f3434 68%);
 }
 
 // .dark-layout .main-menu-content .navigation-main{
@@ -200,8 +229,12 @@ body.dark-layout {
   //   background: rgba(0, 0, 0, 0.8);
   //   background: #25506f;
   //   backdrop-filter: saturate(180%) blur(10px);
-  background-color: #0cbaba;
-  background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
+
+  // background-color: #0cbaba;
+  // background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
+
+  background-color: #2d3436;
+  background-image: linear-gradient(315deg, #215d6a 0%, #2f3434 68%);
 }
 
 //login Page
@@ -212,7 +245,8 @@ body.dark-layout {
 
 //Badges
 .dark-layout .badge-primary {
-  background-color: #05cbfc;
+  background-color: #27aae1;
+  // background-color: #05cbfc;
 }
 
 //dropdown(light)
@@ -226,7 +260,8 @@ body.dark-layout {
 //dropdown (dark)
 [dir] .dark-layout .dropdown-menu .dropdown-item:active,
 [dir] .dark-layout .dropdown-menu .dropdown-item.active {
-  background-color: #05cbfc;
+  background-color: #27aae1;
+  // background-color: #05cbfc;
 }
 
 .dark-layout .dropdown-menu .dropdown-item:hover,
@@ -240,7 +275,8 @@ body.dark-layout {
 }
 
 .dark-layout .btn-outline-primary {
-  border: 1px solid #05cbfc !important;
+  border: 1px solid #27aae1 !important;
+  // border: 1px solid #05cbfc !important;
   background-color: transparent;
 }
 
@@ -248,7 +284,8 @@ body.dark-layout {
   // background-color: rgba(0, 210, 255, 0.95);
   //   background-color: #006277 !important;
   border: 1px solid white;
-  background-color: black !important;
+  background-color: #23242a !important;
+  // background-color: black !important;
 }
 
 .dark-layout .nav-tabs .nav-item .nav-link.active,
@@ -260,7 +297,8 @@ body.dark-layout {
 //Sweet Alert
 .dark-layout .swal2-container .swal2-modal {
   border: 1px solid white;
-  background-color: black !important;
+  background-color: #23242a !important;
+  // background-color: black !important;
   // background: #25506f !important;
 }
 
@@ -352,8 +390,12 @@ body.dark-layout {
 .dark-layout .modal .modal-footer {
   // background: linear-gradient(0, #ab2ee3, transparent);
   //   background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0));
-  background: black;
   // background: #25506f;
+  // background: black;
+  background: #23242a;
+}
+.dark-layout .modal .modal-content {
+  box-shadow: 0px 0px 10px 1px #27aae1;
 }
 
 //(this is for the logo that takes us to ethersacn, polyscan and the likes.)
@@ -434,13 +476,14 @@ a:hover {
 //tabs color (dark)
 .dark-layout .nav-tabs .nav-link:after {
   left: 0;
-  background: linear-gradient(30deg, #05cbfc, rgba(#05cbfc, 0.5)) !important;
+  // background: linear-gradient(30deg, #05cbfc, rgba(#05cbfc, 0.5)) !important;
+  background: linear-gradient(30deg, #27aae1, rgba(#27aae1, 0.5)) !important;
 }
 
 //background primary in avatar (dark)
 .dark-layout .bg-primary {
-  //   background-color: black !important;
-  background-color: #25506f !important;
+  // background-color: #25506f !important;
+  background-color: #23242a !important;
   // color: #05cbfc !important;
   color: white !important;
 }
@@ -449,11 +492,12 @@ a:hover {
 .dark-layout .bg-light-primary {
   // color: #05cbfc !important;
   color: white !important;
+  background-color: #27a9e137 !important;
 }
 
-//Navbar Header (dark)
+//Navbar Heading (dark)
 .dark-layout .main-menu .navbar-header .navbar-brand .brand-text {
-  color: #05cbfc;
+  color: #27aae1;
 }
 
 //Forms/input tag in darkmode
@@ -466,7 +510,7 @@ a:hover {
 [dir] .dark-layout input.form-control:focus,
 [dir] .dark-layout .custom-file-label:focus,
 [dir] .dark-layout textarea.form-control:focus {
-  border-color: #05cbfc;
+  border-color: #27aae1;
 }
 
 [dir] .dark-layout input.form-control,
@@ -557,9 +601,9 @@ a:hover {
 }
 
 //login_modal (dark)
-.dark-layout .dark_login {
-  box-shadow: 1px 0px 20px 0px #05cbfc;
-}
+// .dark-layout .dark_login {
+//   box-shadow: 1px 0px 20px 0px #05cbfc;
+// }
 
 //wallet logo in dropdown
 .dark-layout .wallet {

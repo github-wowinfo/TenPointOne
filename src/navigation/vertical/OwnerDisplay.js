@@ -114,8 +114,9 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
 
   const dstyle = skin === 'dark' ? {
     // border: '1px solid  white',
-    backgroundColor: '#25506f',
-    borderRadius: '0.428rem'
+    // backgroundColor: '#25506f',
+    backgroundColor: '#23242a',
+    borderRadius: '0.428rem',
   } : {
     background: "#fcfaff",
     boxShadow: '-20px 20px 60px #d6d5d9, 20px -20px 60px #ffffff',
