@@ -240,7 +240,8 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
             name: 'Asset',
             selector: row => (
                 <div className='align-middle font-weight-bold'>
-                    <img src={row.logo_url && row.logo_url} alt={row.contract_ticker_symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
+                    {/* <img src={row.logo_url && row.logo_url} alt={row.contract_ticker_symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} /> */}
+                    <Avatar size='lg' img={row.logo_url} onError={addDefaultSrc} className='mr-1' />
                     {row.contract_ticker_symbol}
                 </div>
             )
@@ -329,8 +330,8 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
 
     const NoDataConst = () => {
         return (
-            <Col style={{ backgroundColor: '#283046' }}>
-                <p className='mt-1 d-flex flex-row justify-content-center align-items-center' style={{ color: 'white' }}>There are no records to display</p>
+            <Col className='nodatastyle mt-1 d-flex flex-row justify-content-center align-items-center'>
+                <p>There are no records to display</p>
             </Col>
         )
     }

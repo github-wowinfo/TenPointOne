@@ -160,7 +160,8 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
             row.type === 'receive' ? (
               <div className='d-flex flex-row justify-content-start'>
                 <div className=' align-middle font-weight-bold'>
-                  <img src={row.received && row.received[0].logo_url} alt={row.received[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
+                  {/* <img src={row.received && row.received[0].logo_url} alt={row.received[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} /> */}
+                  <Avatar className='mr-1' size='md' img={row.received[0].logo_url} onError={addDefaultSrc} />
                 </div>
                 <span style={{ paddingTop: '10px' }} className='font-weight-bold'>
                   {row.received && row.received[0].symbol.length > 5 ? row.received[0].symbol.substring(0, 5).concat('..') : row.received[0].symbol}
@@ -169,7 +170,8 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
             ) : row.type === 'send' ? (
               <div className='d-flex flex-row justify-content-start'>
                 <div className=' align-middle font-weight-bold'>
-                  <img src={row.sent && row.sent[0].logo_url} alt={row.sent[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} />
+                  {/* <img src={row.sent && row.sent[0].logo_url} alt={row.sent[0].symbol} style={{ height: 40, width: 40, marginRight: 10 }} onError={addDefaultSrc} /> */}
+                  <Avatar className='mr-1' size='md' img={row.sent[0].logo_url} onError={addDefaultSrc} />
                 </div>
                 <span style={{ paddingTop: '10px' }} className='font-weight-bold'>
                   {row.sent && row.sent[0].symbol.length > 5 ? row.sent[0].symbol.substring(0, 5).concat('..') : row.sent[0].symbol}
@@ -257,8 +259,8 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
 
   const NoDataConst = () => {
     return (
-      <Col className='d-flex flex-row justify-content-center align-items-center' style={{ backgroundColor: '#283046' }}>
-        <p style={{ color: 'white' }}>There are no records to display</p>
+      <Col className='nodatastyle d-flex flex-row justify-content-center align-items-center' >
+        <p>There are no records to display</p>
       </Col>
     )
   }

@@ -58,27 +58,31 @@ const SegaDisplay = ({ globalAdrs }) => {
   }
 
   return (
-    <Card className="my-1">
-      <CardHeader>
-        <CardTitle>Linked SEGAs</CardTitle>
-      </CardHeader>
-      <Table borderless responsive>
-        <thead className='thead-light'>
-          <tr>
-            <th>Nickname</th>
-            <th style={{ textAlign: "center" }}>Public Address</th>
-            <th style={{ textAlign: "right" }}>Total Balance</th>
-          </tr>
-        </thead>
-        <tbody>
-          {actualdata && actualdata.map((item, index) => {
-            return (
-              <SegaOfVault item={item} />
-            )
-          })}
-        </tbody>
-      </Table>
-    </Card>
+    <>
+      {actualdata && actualdata.length === 0 ? null : (
+        <Card className="my-1">
+          <CardHeader>
+            <CardTitle>Linked SEGAs</CardTitle>
+          </CardHeader>
+          <Table borderless responsive>
+            <thead className='thead-light'>
+              <tr>
+                <th>Nickname</th>
+                <th style={{ textAlign: "center" }}>Public Address</th>
+                <th style={{ textAlign: "right" }}>Total Balance</th>
+              </tr>
+            </thead>
+            <tbody>
+              {actualdata && actualdata.map((item, index) => {
+                return (
+                  <SegaOfVault item={item} />
+                )
+              })}
+            </tbody>
+          </Table>
+        </Card>
+      )}
+    </>
   )
 }
 

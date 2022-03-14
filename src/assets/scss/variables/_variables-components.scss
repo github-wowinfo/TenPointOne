@@ -84,15 +84,32 @@ body.dark-layout {
 //   background-image: linear-gradient(47deg, #05cbfc, #059fc6);
 // }
 
-//Cards
+//`s
 .dark-layout .card {
-  //   background: linear-gradient(rgba(0, 210, 255, 0.3), rgba(0, 210, 255, 0));
-  //   background: transparent;
-  //   border: 1px solid #05cbfc;
-  //   border-radius: 10px;
-  // background: #25506f;
-  // background: #23242a;
-  background: #283046;
+  // background: #283046;
+
+  // background-color: #7f5a83;
+  // background-image: linear-gradient(315deg, #8c5dab 0%, #0d324d 74%);
+
+  //purp-vader//
+  // background-color: #310e68;
+  // background-image: linear-gradient(316deg, #310e68 0%, #5f0f40 74%);
+
+  //deep water
+  background-color: #000000;
+  background-image: linear-gradient(147deg, #000000 0%, #0f3070e8 74%);
+
+  //lie-detector
+  // background-color: #4c4177;
+  // background-image: linear-gradient(315deg, #4c4177 0%, #2a5470 74%);
+
+  //fraude election
+  // background-color: #7f5a83;
+  // background-image: linear-gradient(315deg, #7f5a83 0%, #0d324d 74%);
+
+  //labour
+  // background-color: #000000;
+  // background-image: linear-gradient(147deg, #000000 0%, #2c3e50 74%);
 }
 
 // .dark-layout .card-title {
@@ -100,9 +117,7 @@ body.dark-layout {
 // }
 
 .dark-layout .card-title {
-  // color: #ffffffee;
-  // color: #bb86fc;
-  color: #27aae1;
+  color: #ffff;
 }
 
 .card-title {
@@ -172,6 +187,14 @@ body.dark-layout {
   background-color: #27aae1;
 }
 
+//React-data-table (no data component)
+.dark-layout .nodatastyle {
+  color: white;
+  // background-color: #283046;
+  background-color: #000000;
+  background-image: linear-gradient(147deg, #000000 0%, #0f3070e8 74%);
+}
+
 //Table(dark)
 
 //linked segas table
@@ -195,7 +218,8 @@ body.dark-layout {
 
 .dark-layout .react-dataTable .rdt_TableBody .rdt_TableRow {
   //this is for extra space when table body is compressed
-  background-color: #283046 !important;
+  // background-color: #1d183f !important;
+  background-image: linear-gradient(147deg, #000000 0%, #0f3070e8 74%);
   border-color: #3b4253;
 }
 
@@ -204,7 +228,8 @@ body.dark-layout {
 }
 
 .dark-layout .react-dataTable .rdt_TableBody .rdt_TableRow .rdt_TableCell {
-  background-color: #283046 !important;
+  // background-color: #1d183f !important;
+  background-color: linear-gradient(147deg, #000000 0%, #0f3070e8 74%);
 }
 
 // ==================================
@@ -341,7 +366,7 @@ body.dark-layout {
 
 //sidebar-column
 .modal-slide-in .modal-dialog.sidebar-sm.droplist {
-  width: 40rem;
+  width: 31rem;
 }
 
 //border for drag-drop import
@@ -527,10 +552,16 @@ a:hover {
 }
 
 //background light-primary in avatar (dark)
-.dark-layout .bg-light-primary {
+.dark-layout .avatar.bg-light-primary {
   // color: #05cbfc !important;
   color: white !important;
   background-color: #27aae1 !important;
+}
+
+//background light-primary in avatar (light)
+.avatar.bg-light-primary {
+  color: #ffff !important;
+  background-color: #0000cd !important;
 }
 
 //Navbar Heading (dark)

@@ -58,7 +58,7 @@ const Assests = ({ cols = 0, globalAdrs }) => {
 
   console.log('assetList', assetList)
 
-  const data = assetList.slice(0, 4)
+  const data = assetList.slice(0, 6)
 
   const addDefaultSrc = (ev) => {
     ev.target.src = require(`@src/assets/images/logo/question.jpg`).default
@@ -126,14 +126,14 @@ const Assests = ({ cols = 0, globalAdrs }) => {
 
   } : {
     height: '28em',
-    maxHeight: '28em'
+    maxHeight: '28em',
   }
 
   return (
     // <Card className='h-100 card-statistics mb-0'>
     <Card className='card-statistics mb-0' style={cardHeightStyle}>
       <CardHeader>
-        <CardTitle>Top Assests</CardTitle>
+        <CardTitle>Top Assets</CardTitle>
         <CardText className='card-text font-small-2 mr-25 mb-0'>
           <Link to='/asset'>
             <Badge style={{ fontSize: "1.3em" }} color="primary" >View All</Badge>
@@ -141,7 +141,7 @@ const Assests = ({ cols = 0, globalAdrs }) => {
         </CardText>
       </CardHeader>
       {data.length === 0 ? <p style={{ paddingBottom: '1.5em' }} className='d-flex justify-content-center align-items-center'>There are no assets to display</p> : (
-        <CardBody className='statistics-body'>
+        <CardBody className='statistics-body' style={{ overflow: 'hidden' }}>
           <Row>
             {loading && data.length === 0 ? (
               <Col className='my-1 text-center'>

@@ -115,7 +115,22 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
   const dstyle = skin === 'dark' ? {
     // border: '1px solid  white',
     // backgroundColor: '#25506f',
-    backgroundColor: '#283046',
+
+    //purp-vader
+    // backgroundColor: ' #310e68',
+    // backgroundImage: 'linear-gradient(316deg, #310e68 0%, #5f0f40 74%)',
+
+    //deepwater
+    backgroundColor: ' #000000',
+    backgroundImage: 'linear-gradient(147deg, #000000 0 0%, #0f3070e8 74%)',
+
+    //election-fraud
+    // backgroundColor: ' #7f5a83',
+    // backgroundImage: 'linear-gradient(315deg, #7f5a83 0%, #0d324d 74%)',
+
+    //labour
+    // backgroundColor: ' #000000',
+    // backgroundImage: 'linear-gradient(147deg, #000000 0%, #2c3e50 74%)',
     borderRadius: '0.428rem',
   } : {
     background: "#fcfaff",
@@ -123,10 +138,22 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
     borderRadius: '0.428rem'
   }
 
+  const [display_style_arrow, setDisplay_style_arrow] = useState({ display: 'none' })
+  const [display_style_logo, setDisplay_style_logo] = useState({ display: 'block' })
+
   const renderItem = () => {
     return (
       <div className="mb-2 pb-1" style={dstyle} >
-        <Col style={{ padding: '0px 0px' }}>
+        <Col style={{ padding: '0px 0px' }}
+          onMouseEnter={e => {
+            setDisplay_style_arrow({ display: 'block' })
+            setDisplay_style_logo({ display: 'none' })
+          }}
+          onMouseLeave={e => {
+            setDisplay_style_arrow({ display: 'none' })
+            setDisplay_style_logo({ display: 'block' })
+          }}
+        >
           <Col style={{ ...networkstyle, ...backgroundChange, fontSize: '1em', marginBottom: '0px', borderRadius: '0.428rem 0.428rem 0px 0px' }} className='mb-1 d-flex flex-row flex-nowrap align-self-center '>
             {/* <Icon className='mr-1' name={networkC.icon} size={20} />{networkC.name} */}
             <Icon className='mr-1' name={networkIcon} size={20} />{networkName}
@@ -143,8 +170,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
             )}
           </Link> */}
           <Col>
-            <Link to='/home'>
-              {/* <Avatar size='xl' color='light-danger' title='SBI Vault' icon={<BsSafe2 size={25} />} href='/home' /> */}
+            {/* <Link to='/home'>
               {globalNickName === 'Create a Vault' ? (
                 <Row className='d-flex flex-row justify-content-center align-items-center'>
                   <Col md='2' style={{ paddingLeft: '10px' }}>
@@ -162,7 +188,6 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
                     </Col>
                     <Col md='10' className='px-0 text-break text-wrap'>
                       <h4 className="mb-0 text-primary">{globalNickName}</h4>
-                      {/* <h5 className="font-weight-light">{shortenIfAddress(globalAdrs)}</h5> */}
                     </Col>
                   </Row>
                 ) : (
@@ -172,12 +197,45 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
                     </Col>
                     <Col md='10' className='px-0 text-break text-wrap'>
                       <h4 className="mb-0 text-primary">{globalNickName}</h4>
-                      {/* <h5 className="font-weight-light">{shortenIfAddress(globalAdrs)}</h5> */}
                     </Col>
                   </Row>
                 )
               )}
-            </Link>
+            </Link> */}
+
+            {/* <Link to='/home'> */}
+            {globalNickName === 'Create a Vault' ? (
+              <Row className='d-flex flex-row justify-content-center align-items-center'>
+                <Col style={display_style_logo}>
+                  <Avatar size='lg' color={logos[0].color} title={globalNickName} icon={logos[0].icon} />
+                </Col>
+                <Col style={display_style_arrow}>
+                  <NavLink href='manager'><Avatar size='lg' color='light-primary' icon={<ChevronsRight size={25} />} /></NavLink>
+                </Col>
+              </Row>
+            ) : (
+              is_sega ? (
+                <Row className='d-flex flex-row justify-content-center align-items-center'>
+                  <Col style={display_style_logo}>
+                    <Avatar size='lg' color={logos[1].color} title={globalNickName} icon={logos[1].icon} />
+                  </Col>
+                  <Col style={display_style_arrow}>
+                    <Avatar className="mx-1" size='lg' color='light-primary' title='Click to select account' onClick={handleDropList} icon={<ChevronsRight size={25} />} />
+                  </Col>
+                </Row>
+              ) : (
+                <Row className='d-flex flex-row justify-content-center align-items-center'>
+                  <Col style={display_style_logo}>
+                    <Avatar size='lg' color={logos[0].color} title={globalNickName} icon={logos[0].icon} />
+                  </Col>
+                  <Col style={display_style_arrow}>
+                    <Avatar className="mx-1" size='lg' color='light-primary' title='Click to select account' onClick={handleDropList} icon={<ChevronsRight size={25} />} />
+                  </Col>
+                </Row>
+              )
+            )}
+            {/* </Link> */}
+
           </Col>
         </Col>
 
@@ -192,9 +250,22 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
             </div>
           )} */}
           <Row className='pb-1 d-flex flex-column'>
-            {/* <h3 className="font-weight-light">{shortenIfAddress(globalAdrs)}</h3> */}
-            <Col>
-              <h4 className="font-weight-light">{shortenIfAddress(globalAdrs)}</h4>
+            <Col className='pb-1 d-flex flex-column justify-content-center align-items-center'>
+              {globalNickName === 'Create a Vault' ? (
+                <Link to='/manager'>
+                  <h3 className="text-primary my-1" style={{ cursor: 'pointer' }} >{globalNickName} </h3>
+                </Link>
+              ) : (
+                <h3 className="text-primary mt-1" >{globalNickName}</h3>
+              )}
+              <h4 className="mb-0 font-weight-light">{shortenIfAddress(globalAdrs)}</h4>
+              {/* <div>
+                {globalNickName === 'Create a Vault' ? (
+                  <NavLink href='manager'><Avatar size='md' color='light-primary' icon={<ChevronsRight size={25} />} /></NavLink>
+                ) : (
+                  <Avatar className="mx-1" size='md' color='light-primary' title='Click to select account' onClick={handleDropList} icon={<ChevronsRight size={25} />} />
+                )}
+              </div> */}
             </Col>
             <Col className='d-flex flex-row justify-content-around align-items-center'>
               <Link to='/receive'><IoQrCodeOutline className="mx-1" color={skin === 'dark' ? 'white' : 'gray'} size={25} /></Link>
@@ -202,14 +273,6 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
               <FaRegCopy style={{ cursor: 'pointer' }} className="mx-1" color={skin === 'dark' ? 'white' : 'gray'} size={25} onClick={copy} />
 
               <a href={getExplorerAddressLink(globalAdrs, chainId ? chainId : 1)} target='_blank'><GoLinkExternal className="mx-1" color={skin === 'dark' ? 'white' : 'gray'} size={25} /></a>
-
-              <div >
-                {globalNickName === 'Create a Vault' ? (
-                  <NavLink href='manager'><Avatar size='md' color='light-primary' icon={<ChevronsRight size={25} />} /></NavLink>
-                ) : (
-                  <Avatar className="mx-1" size='md' color='light-primary' title='Click to select account' onClick={handleDropList} icon={<ChevronsRight size={25} />} />
-                )}
-              </div>
             </Col>
           </Row>
           {/* < <Col></Col>Button.Ripple className='my-1' color='flat-primary' onClick={handleDropList}>
@@ -299,7 +362,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
               <DropdownToggle className='btn-primary round' color='none' caret>
                 Quick Actions
               </DropdownToggle>
-              <DropdownMenu style={{ minWidth: '200px' }} >
+              <DropdownMenu >
                 {/* <DropdownItem className='px-1 py-0' >
                   <dl>
                     <dt>{globalNickName}</dt>
