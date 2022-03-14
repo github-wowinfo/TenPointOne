@@ -167,7 +167,7 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
                                             <Col className='mb-1 d-flex flex-row justify-content-first'>
                                                 <strong>Network</strong> :
                                                 {networkName === 'Not Connected' ? null : (
-                                                    <CardText as='p' className='mx-1' style={{ width: 'fit-content', color: 'black' }}>
+                                                    <CardText as='p' className='w-100 mx-1'>
                                                         <Icon className='mr-1' name={networkIcon} size={25} />
                                                         {networkName}
                                                     </CardText>

@@ -573,6 +573,14 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
     //     setLoading(false)
     // }, 5000)
 
+    const NoDataConst = () => {
+        return (
+            <Col style={{ backgroundColor: '#283046' }}>
+                <p className='mt-1 d-flex flex-row justify-content-center align-items-center' style={{ color: 'white' }}>There are no records to display</p>
+            </Col>
+        )
+    }
+
     return (
         <>
             <>
@@ -648,6 +656,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                                         paginationPerPage={10}
                                         paginationDefaultPage={currentPage + 1}
                                         paginationComponent={CustomPagination_trans}
+                                        noDataComponent={<NoDataConst />}
                                     />
                                 )}
                             </TabPane>
@@ -667,6 +676,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                                         paginationPerPage={10}
                                         paginationDefaultPage={currentPage + 1}
                                         paginationComponent={CustomPagination_exe}
+                                        noDataComponent={<NoDataConst />}
                                     />
                                 )}
                             </TabPane>

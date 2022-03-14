@@ -18,8 +18,17 @@ body.dark-layout {
   // background-color: #0cbaba;
   // background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
 
-  background-color: #2d3436;
-  background-image: linear-gradient(315deg, #215d6a 0%, #2f3434 68%);
+  // background-color: #2b4162;
+  // background-image: linear-gradient(315deg, #2b4162 0%, #12100e 74%);
+
+  // background-color: #000000;
+  // background-image: linear-gradient(147deg, #000000 0%, #04619f 74%);
+
+  // background-color: #4834d4;
+  // background-image: linear-gradient(315deg, #4834d4 0%, #0c0c0c 74%);
+
+  background-color: #0b0f54;
+  background-image: linear-gradient(135deg, #121212, #0b0f54);
 }
 
 //expandable navbar circle
@@ -48,7 +57,8 @@ body.dark-layout {
 
 //Navigation active component(dark)
 .main-menu.menu-dark .navigation > li.active > a {
-  background: #01191f;
+  // background: #01191f;
+  background: #04637a8f;
   //   background: linear-gradient(118deg, rgba(#a9a6fa, 1), rgba(#a9a6fa, 0.7));
   box-shadow: none;
   border-radius: 4px;
@@ -81,7 +91,8 @@ body.dark-layout {
   //   border: 1px solid #05cbfc;
   //   border-radius: 10px;
   // background: #25506f;
-  background: #23242a;
+  // background: #23242a;
+  background: #283046;
 }
 
 // .dark-layout .card-title {
@@ -127,8 +138,17 @@ body.dark-layout {
   // background-color: #0cbaba;
   // background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
 
-  background-color: #2d3436;
-  background-image: linear-gradient(315deg, #215d6a 0%, #2f3434 68%);
+  // background-color: #2b4162;
+  // background-image: linear-gradient(315deg, #2b4162 0%, #12100e 74%);
+
+  // background-color: #000000;
+  // background-image: linear-gradient(147deg, #000000 0%, #04619f 74%);
+
+  // background-color: #4834d4;
+  // background-image: linear-gradient(315deg, #4834d4 0%, #0c0c0c 74%);
+
+  background-color: #0b0f54;
+  background-image: linear-gradient(135deg, #121212, #0b0f54);
 }
 
 .dark-layout .navbar-container {
@@ -164,32 +184,27 @@ body.dark-layout {
   .table:not(.table-dark):not(.table-light)
   tfoot:not(.thead-dark)
   th {
-  // background-color: #05cbfc !important;
-  background-color: #ffffff24 !important;
+  background-color: #201c2e !important;
 }
 
 .dark-layout .react-dataTable .rdt_TableHead .rdt_TableHeadRow {
   //this is for extra space when table head is compressed
-  // background-color: #05cbfc !important;
-  background-color: #ffffff24 !important;
+  background-color: #201c2e !important;
   border-color: #3b4253;
 }
 
 .dark-layout .react-dataTable .rdt_TableBody .rdt_TableRow {
   //this is for extra space when table body is compressed
-  background-color: #23242a !important;
-  // background-color: #25506f !important;
+  background-color: #283046 !important;
   border-color: #3b4253;
 }
 
 .dark-layout .react-dataTable .rdt_TableHead .rdt_TableHeadRow .rdt_TableCol {
-  background-color: #ffffff24 !important;
-  // background-color: #05cbfc !important;
+  background-color: #201c2e !important;
 }
 
 .dark-layout .react-dataTable .rdt_TableBody .rdt_TableRow .rdt_TableCell {
-  background-color: #23242a !important;
-  // background-color: #25506f !important;
+  background-color: #283046 !important;
 }
 
 // ==================================
@@ -216,8 +231,17 @@ body.dark-layout {
   // background-color: #0cbaba;
   // background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
 
-  background-color: #2d3436;
-  background-image: linear-gradient(315deg, #215d6a 0%, #2f3434 68%);
+  // background-color: #2b4162;
+  // background-image: linear-gradient(315deg, #2b4162 0%, #12100e 74%);
+
+  // background-color: #000000;
+  // background-image: linear-gradient(147deg, #000000 0%, #04619f 74%);
+
+  // background-color: #4834d4;
+  // background-image: linear-gradient(315deg, #4834d4 0%, #0c0c0c 74%);
+
+  background-color: #0b0f54;
+  background-image: linear-gradient(135deg, #121212, #0b0f54);
 }
 
 // .dark-layout .main-menu-content .navigation-main{
@@ -233,8 +257,17 @@ body.dark-layout {
   // background-color: #0cbaba;
   // background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
 
-  background-color: #2d3436;
-  background-image: linear-gradient(315deg, #215d6a 0%, #2f3434 68%);
+  // background-color: #2b4162;
+  // background-image: linear-gradient(315deg, #2b4162 0%, #12100e 74%);
+
+  // background-color: #000000;
+  // background-image: linear-gradient(147deg, #000000 0%, #04619f 74%);
+
+  // background-color: #4834d4;
+  // background-image: linear-gradient(315deg, #4834d4 0%, #0c0c0c 74%);
+
+  background-color: #0b0f54;
+  background-image: linear-gradient(135deg, #121212, #0b0f54);
 }
 
 //login Page
@@ -276,7 +309,6 @@ body.dark-layout {
 
 .dark-layout .btn-outline-primary {
   border: 1px solid #27aae1 !important;
-  // border: 1px solid #05cbfc !important;
   background-color: transparent;
 }
 
@@ -419,7 +451,13 @@ a:hover {
 }
 
 .dark-layout a:hover {
-  color: #05cbfc;
+  color: #27aae1;
+}
+
+//Icon for compressed Navbar (burger menu)
+.header-navbar .navbar-container ul.navbar-nav li i.ficon:hover,
+.header-navbar .navbar-container ul.navbar-nav li svg.ficon:hover {
+  color: #27aae1;
 }
 
 //modal-header
@@ -492,7 +530,7 @@ a:hover {
 .dark-layout .bg-light-primary {
   // color: #05cbfc !important;
   color: white !important;
-  background-color: #27a9e137 !important;
+  background-color: #27aae1 !important;
 }
 
 //Navbar Heading (dark)
@@ -595,9 +633,9 @@ a:hover {
 
 //form button
 .dark-layout .btn-outline-primary {
-  border: 1px solid #05cbfc !important;
+  border: 1px solid #27aae1 !important;
   background-color: transparent;
-  color: #05cbfc;
+  color: #27aae1;
 }
 
 //login_modal (dark)

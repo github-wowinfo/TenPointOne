@@ -99,9 +99,10 @@ const Assests = ({ cols = 0, globalAdrs }) => {
         <Col
           key={index}
           {...cols}
-          className={classnames({
-            [`mb-2 mb-${margin[0]}-0`]: index !== data.length - 1
-          })}
+          className='mb-2'
+        // className={classnames({
+        //   [`mb-2 mb-${margin[0]}-0`]: index !== data.length - 1
+        // })}
         >
           <Media>
             <Avatar size='lg' img={item.logo_url} onError={addDefaultSrc} className='mx-2' />
@@ -121,8 +122,16 @@ const Assests = ({ cols = 0, globalAdrs }) => {
     })
   }
 
+  const cardHeightStyle = data.length === 0 ? {
+
+  } : {
+    height: '28em',
+    maxHeight: '28em'
+  }
+
   return (
-    <Card className='card-statistics' style={{ height: "100%" }}>
+    // <Card className='h-100 card-statistics mb-0'>
+    <Card className='card-statistics mb-0' style={cardHeightStyle}>
       <CardHeader>
         <CardTitle>Top Assests</CardTitle>
         <CardText className='card-text font-small-2 mr-25 mb-0'>
@@ -131,26 +140,31 @@ const Assests = ({ cols = 0, globalAdrs }) => {
           </Link>
         </CardText>
       </CardHeader>
-      <CardBody className='statistics-body'>
-        <Row>
-          {loading && data.length === 0 ? (
-            <Col className='my-1 text-center'>
-              <Spinner color='primary' />
-            </Col>
-          ) : renderData()}
-        </Row>
-      </CardBody>
-      <Col className='text-right'>
-        <label>
-          <Toggle
-            defaultChecked={showDollar}
-            icons={{
-              checked: <BsCurrencyDollar style={{ color: 'white' }} />,
-              unchecked: <BsCurrencyBitcoin style={{ color: 'white' }} />,
-            }}
-            onChange={() => setShowDollar(!showDollar)} />
-        </label>
-        {/* {showDollar ? (
+      {data.length === 0 ? <p style={{ paddingBottom: '1.5em' }} className='d-flex justify-content-center align-items-center'>There are no assets to display</p> : (
+        <CardBody className='statistics-body'>
+          <Row>
+            {loading && data.length === 0 ? (
+              <Col className='my-1 text-center'>
+                <Spinner color='primary' />
+              </Col>
+            ) : renderData()}
+          </Row>
+        </CardBody>
+      )}
+      {data.length === 0 ? null : (
+        <Col className='text-right pr-2'>
+          <label>
+            <Toggle
+              defaultChecked={showDollar}
+              icons={{
+                checked: <BsCurrencyDollar style={{ color: 'white' }} />,
+                unchecked: <BsCurrencyBitcoin style={{ color: 'white' }} />,
+              }}
+              onChange={() => setShowDollar(!showDollar)} />
+          </label>
+        </Col>
+      )}
+      {/* {showDollar ? (
           <Col>
             <BiToggleRight size={25} style={{ cursor: 'pointer' }} onClick={() => setShowDollar(false)} />
             <BsCurrencyDollar size={30} />
@@ -161,7 +175,7 @@ const Assests = ({ cols = 0, globalAdrs }) => {
             <BiToggleLeft size={25} style={{ cursor: 'pointer' }} onClick={() => setShowDollar(true)} />
           </Col>
         )} */}
-      </Col>
+
       {/* <CardFooter>
         <Col className='text-right'>
           {showDollar ? (

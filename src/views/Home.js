@@ -211,11 +211,11 @@ const Home = ({ globalVaultFlag, globalAdrs, dispatch, globalNickName }) => {
                 </Card>
               </Col>
             </Row>
-            <Row >
-              <Col md='4' className='my-1'>
+            <Row>
+              <Col md='4' className='mt-1'>
                 <Assests />
               </Col>
-              <Col md='8' className='my-1'>
+              <Col md='8' className='mt-1'>
                 <RecentTrans />
               </Col>
             </Row>

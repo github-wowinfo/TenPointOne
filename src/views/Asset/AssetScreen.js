@@ -17,7 +17,7 @@ import {
     Spinner
 } from 'reactstrap'
 import Icon from 'react-crypto-icons'
-import DataTable from 'react-data-table-component'
+import DataTable, { createTheme } from 'react-data-table-component'
 import data from './data'
 import { ChevronDown } from 'react-feather'
 import Avatar from '@components/avatar'
@@ -296,6 +296,45 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
     }
     // const etherPrice = useCoingeckoPrice('01coin', 'usd')
 
+    //**This is for creating a custom theme for our react data-table */
+    // createTheme(
+    //     'solarized',
+    //     {
+    //         text: {
+    //             primary: '#268bd2',
+    //             secondary: '#2aa198',
+    //         },
+    //         background: {
+    //             default: '#002b36',
+    //         },
+    //         context: {
+    //             background: '#cb4b16',
+    //             text: '#FFFFFF',
+    //         },
+    //         divider: {
+    //             default: '#073642',
+    //         },
+    //         button: {
+    //             default: '#2aa198',
+    //             hover: 'rgba(0,0,0,.08)',
+    //             focus: 'rgba(255,255,255,.12)',
+    //             disabled: 'rgba(255, 255, 255, .34)',
+    //         },
+    //         sortFocus: {
+    //             default: '#2aa198',
+    //         },
+    //     },
+    //     'dark',
+    // )
+
+    const NoDataConst = () => {
+        return (
+            <Col style={{ backgroundColor: '#283046' }}>
+                <p className='mt-1 d-flex flex-row justify-content-center align-items-center' style={{ color: 'white' }}>There are no records to display</p>
+            </Col>
+        )
+    }
+
     return (
         <>
             <>
@@ -363,12 +402,14 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                                 </Col>
                             ) : (
                                 <DataTable
+                                    // theme='solarized'
                                     className='react-dataTable'
                                     noHeader
                                     customStyles={tablestyle}
                                     data={assetList}
                                     columns={columns}
                                     sortIcon={<ChevronDown size={10} />}
+                                    noDataComponent={<NoDataConst />}
                                 />
                             )}
 

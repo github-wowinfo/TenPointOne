@@ -115,7 +115,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
   const dstyle = skin === 'dark' ? {
     // border: '1px solid  white',
     // backgroundColor: '#25506f',
-    backgroundColor: '#23242a',
+    backgroundColor: '#283046',
     borderRadius: '0.428rem',
   } : {
     background: "#fcfaff",
@@ -181,7 +181,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
           </Col>
         </Col>
 
-        <Col style={{ padding: '0px 0px' }}>
+        <Col className='p-0'>
           {/* {globalNickName === 'Create a Vault' ? (
             <Link to='/manager'>
               <h3 className="text-primary my-1" style={{ cursor: 'pointer' }} >{globalNickName} </h3>
@@ -191,7 +191,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
               <h3 className="text-primary mt-1" >{globalNickName}</h3>
             </div>
           )} */}
-          <Row className='py-1 d-flex flex-column'>
+          <Row className='pb-1 d-flex flex-column'>
             {/* <h3 className="font-weight-light">{shortenIfAddress(globalAdrs)}</h3> */}
             <Col>
               <h4 className="font-weight-light">{shortenIfAddress(globalAdrs)}</h4>
@@ -202,6 +202,14 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
               <FaRegCopy style={{ cursor: 'pointer' }} className="mx-1" color={skin === 'dark' ? 'white' : 'gray'} size={25} onClick={copy} />
 
               <a href={getExplorerAddressLink(globalAdrs, chainId ? chainId : 1)} target='_blank'><GoLinkExternal className="mx-1" color={skin === 'dark' ? 'white' : 'gray'} size={25} /></a>
+
+              <div >
+                {globalNickName === 'Create a Vault' ? (
+                  <NavLink href='manager'><Avatar size='md' color='light-primary' icon={<ChevronsRight size={25} />} /></NavLink>
+                ) : (
+                  <Avatar className="mx-1" size='md' color='light-primary' title='Click to select account' onClick={handleDropList} icon={<ChevronsRight size={25} />} />
+                )}
+              </div>
             </Col>
           </Row>
           {/* < <Col></Col>Button.Ripple className='my-1' color='flat-primary' onClick={handleDropList}>
@@ -287,8 +295,8 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
             </DropdownMenu> */}
           {/* </UncontrolledButtonDropdown> */}
           <Col className='d-flex flex-row justify-content-center align-items-center'>
-            <UncontrolledButtonDropdown md='6' >
-              <DropdownToggle size='md' className='btn-primary round' color='none' caret>
+            <UncontrolledButtonDropdown>
+              <DropdownToggle className='btn-primary round' color='none' caret>
                 Quick Actions
               </DropdownToggle>
               <DropdownMenu style={{ minWidth: '200px' }} >
@@ -329,13 +337,6 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledButtonDropdown>
-            <div md='6' className="w-100">
-              {globalNickName === 'Create a Vault' ? (
-                <NavLink href='manager'><Avatar size='md' color='light-primary' icon={<ChevronsRight size={25} />} /></NavLink>
-              ) : (
-                <Avatar size='md' color='light-primary' title='Click to select account' onClick={handleDropList} icon={<ChevronsRight size={25} />} />
-              )}
-            </div>
           </Col>
           {/* <hr style={{ borderTop: '1px solid black' }} /> */}
         </Col>

@@ -180,7 +180,8 @@ const AddNewModal = ({ open, handleModal, trxnId, description, local }) => {
         <FormGroup>
           <label className='label' style={{ fontSize: '1.2em' }}>Transaction Fee</label>
           <br />
-          <label className='text'>{details.fee / (10 ** 18)} MATIC</label>
+          {console.log('details', details)}
+          <label className='text'>{details.fee / (10 ** 18)}</label>
         </FormGroup>
         <FormGroup>
           <label className='label' style={{ fontSize: '1.2em' }}>Created Date & Time</label>

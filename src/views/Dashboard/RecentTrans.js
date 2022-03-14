@@ -1,5 +1,5 @@
 import { ArrowUp, ArrowDown, Check, XCircle, AlertCircle } from 'react-feather'
-import { Table, Badge, Card, Spinner, Col } from 'reactstrap'
+import { Table, Badge, Card, Spinner, Col, CardBody } from 'reactstrap'
 import CardHeader from 'reactstrap/lib/CardHeader'
 import CardTitle from 'reactstrap/lib/CardTitle'
 import { Link } from 'react-router-dom'
@@ -101,6 +101,17 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
   //   },
   // ]
 
+  const truncate_stn = (stn) => {
+    // return (stn.length > 30) ? stn.substring(0, 30) + '...' : stn
+    if (stn.length > 30) {
+      let newstn = stn.substring(0, 28)
+      newstn += '...'
+      return newstn
+    } else {
+      return stn
+    }
+  }
+
   const columns = [
     // {
     //   name: '',
@@ -131,7 +142,8 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
             {row.type === 'send' && <Avatar color='light-danger' icon={<BsArrowUpCircle size={30} />} />}
             {row.type === 'approve' && <Avatar color='light-primary' icon={<BsInfoCircle size={30} />} />}
           </span>
-          <span className='ml-1'>{row.description}</span>
+          {/* <span className='ml-1'>{row.description.substring(0, 30)}</span> */}
+          <span className='ml-1'>{truncate_stn(row.description)}</span>
         </Col>
       )
     },
@@ -238,32 +250,46 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
   const customStyles = {
     rows: {
       style: {
-        height: '65px', // override the row height
+        height: '55px', // override the row height
       },
     }
   }
 
+  const NoDataConst = () => {
+    return (
+      <Col className='d-flex flex-row justify-content-center align-items-center' style={{ backgroundColor: '#283046' }}>
+        <p style={{ color: 'white' }}>There are no records to display</p>
+      </Col>
+    )
+  }
+
   return (
-    <Card style={{ height: "100%" }}>
+    // <Card className='h-100 mb-0'>
+    <Card className='mb-0' style={{ maxHeight: '28em' }}>
       <CardHeader>
         <CardTitle>Recent Transactions</CardTitle>
         <Link to='/activity'>
           <Badge style={{ fontSize: "1.05em" }} color="primary">View All</Badge>
         </Link>
       </CardHeader>
-      {loading && data.length === 0 ? (
-        <Col className='my-1 text-center'>
-          <Spinner color='primary' />
-        </Col>
-      ) : (
-        <DataTable
-          className='react-dataTable'
-          noHeader
-          columns={columns}
-          data={data}
-          customStyles={customStyles}
-        />
-      )}
+      <CardBody className='p-0'>
+        {loading && data.length === 0 ? (
+          <Col className='my-1 text-center'>
+            <Spinner color='primary' />
+          </Col>
+        ) : (
+          <Col className='pb-2 px-0'>
+            <DataTable
+              className='react-dataTable'
+              noHeader
+              columns={columns}
+              data={data}
+              customStyles={customStyles}
+              noDataComponent={<NoDataConst />}
+            />
+          </Col>
+        )}
+      </CardBody>
     </Card>
   )
 }
