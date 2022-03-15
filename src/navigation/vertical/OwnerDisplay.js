@@ -253,7 +253,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
           <Row className='pb-1 d-flex flex-column'>
             <Col className='pb-1 d-flex flex-column justify-content-center align-items-center'>
               {globalNickName === 'Create a Vault' ? (
-                <Link to='/manager'>
+                <Link to='manager'>
                   <h3 className="text-primary my-1" style={{ cursor: 'pointer' }} >{globalNickName} </h3>
                 </Link>
               ) : (
