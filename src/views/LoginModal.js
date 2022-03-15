@@ -114,36 +114,14 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
                         }
                     ],
                 })
-            }
-        }
 
-        try {
-            await ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: '0x38' }] })
-        } catch (error) {
-            if (error.code === 4902) {
-                await ethereum.request({
-                    method: 'wallet_addEthereumChain',
-                    params: [
-                        {
-                            chainId: "0x38", // A 0x-prefixed hexadecimal string
-                            chainName: "BSC Mainet",
-                            nativeCurrency: {
-                                name: "BINANCE COIN",
-                                symbol: "BNB", // 2-6 characters long
-                                decimals: 18
-                            },
-                            rpcUrls: ["https://bsc-dataseed1.ninicoin.io"],
-                            blockExplorerUrls: ["https://bscscan.com"]
-                        }
-                    ],
-                })
             }
         }
     }
 
     useEffect(() => {
         activateBrowserWallet()
-        if (curr_chain !== '137' || curr_chain !== '56') {
+        if (curr_chain !== '137') {
             console.log('netchange')
             netchange()
         }
