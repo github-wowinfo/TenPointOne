@@ -629,7 +629,9 @@ a:hover {
     }
   }
   .select__menu {
-    background-color: #283046;
+    // background-color: #283046;
+    background-color: #000000;
+    // background-image: linear-gradient(147deg, #000000 0%, #0f3070e8 74%);
   }
 }
 
@@ -659,7 +661,7 @@ a:hover {
   .react-select__menu-list
   .react-select__option.select__option--is-focused {
   color: #05cbfc;
-  background: rgb(99, 145, 157);
+  background: rgba(99, 145, 157, 0.347);
 }
 
 //form button

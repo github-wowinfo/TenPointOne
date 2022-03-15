@@ -143,17 +143,17 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
 
   const renderItem = () => {
     return (
-      <div className="mb-2 pb-1" style={dstyle} >
-        <Col style={{ padding: '0px 0px' }}
-          onMouseEnter={e => {
-            setDisplay_style_arrow({ display: 'block' })
-            setDisplay_style_logo({ display: 'none' })
-          }}
-          onMouseLeave={e => {
-            setDisplay_style_arrow({ display: 'none' })
-            setDisplay_style_logo({ display: 'block' })
-          }}
-        >
+      <div className="mb-2 pb-1" style={dstyle}
+        onMouseEnter={e => {
+          setDisplay_style_arrow({ display: 'block' })
+          setDisplay_style_logo({ display: 'none' })
+        }}
+        onMouseLeave={e => {
+          setDisplay_style_arrow({ display: 'none' })
+          setDisplay_style_logo({ display: 'block' })
+        }}
+      >
+        <Col style={{ padding: '0px 0px' }}>
           <Col style={{ ...networkstyle, ...backgroundChange, fontSize: '1em', marginBottom: '0px', borderRadius: '0.428rem 0.428rem 0px 0px' }} className='mb-1 d-flex flex-row flex-nowrap align-self-center '>
             {/* <Icon className='mr-1' name={networkC.icon} size={20} />{networkC.name} */}
             <Icon className='mr-1' name={networkIcon} size={20} />{networkName}

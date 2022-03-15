@@ -449,7 +449,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
                         }
                     </span>
                     <span>
-                        <Avatar color='light-primary' size='md' id='details' onClick={() => {
+                        <Avatar style={{ backgroundColor: '#0421ed9e' }} size='md' id='details' onClick={() => {
                             setModalVisible(!modalVisible)
                             setTrxnId(row.id)
                             setDesc(row.description)

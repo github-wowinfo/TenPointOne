@@ -17,7 +17,8 @@ import {
   Label,
   Row,
   Col,
-  CardTitle
+  CardTitle,
+  CardSubtitle
 } from 'reactstrap'
 import Text from '../../views/CustomComponent/Text'
 // ** Styles
@@ -143,7 +144,8 @@ const AddNewModal = ({ open, handleModal, trxnId, description, local }) => {
         {/* <label style={{ fontSize: '1.5em', fontWeight: 'bold', color: '#1919d2' }}>Transaction Details</label> */}
         <CardTitle className='modal-title pb-1'>Transaction Details</CardTitle>
         {/* <label style={{ fontSize: 15, fontWeight: 'normal' }}>{details?.description}</label> */}
-        <label style={{ fontSize: 15, fontWeight: 'normal' }}><ExistingDesc id={trxnId} api_desc={description} /></label>
+        {/* <label style={{ fontSize: 15, fontWeight: 'normal' }}><ExistingDesc id={trxnId} api_desc={description} /></label> */}
+        <CardSubtitle style={{ fontSize: 15, fontWeight: 'normal' }}><ExistingDesc id={trxnId} api_desc={description} /></CardSubtitle>
       </ModalHeader>
       <ModalBody className='flex-grow-1'>
         <FormGroup>
