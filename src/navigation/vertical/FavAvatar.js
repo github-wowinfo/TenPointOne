@@ -42,12 +42,13 @@ const FavAvatar = ({ item }) => {
 
     const logos = [
         {
-            icon: <GiCircleCage size={20} />,
+            icon: <GiShipWheel size={20} />,
             // icon: <BsSafe2 size={20} />,
             color: 'light-primary'
         },
         {
-            icon: <GiShipWheel size={20} />,
+
+            icon: <GiCircleCage size={20} />,
             color: 'light-primary'
         }
     ]

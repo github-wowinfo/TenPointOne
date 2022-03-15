@@ -99,14 +99,15 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
     {
       // icon: <GiHobbitDoor size={25} />,
       // icon: <GiShipWheel size={25} />,
-      icon: <GiCircleCage size={27} />,
+      icon: <GiShipWheel size={27} />,
       // icon: <BsSafe2 size={25} />,
       color: 'primary',
       // color: 'light-primary'
     },
     {
       // icon: <SiWebmoney size={25} />,
-      icon: <GiShipWheel size={27} />,
+
+      icon: <GiCircleCage size={27} />,
       color: 'primary',
       // color: 'light-primary'
     }
@@ -122,7 +123,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
 
     //deepwater
     backgroundColor: ' #000000',
-    backgroundImage: 'linear-gradient(147deg, #000000 0 0%, #0f3070e8 74%)',
+    backgroundImage: 'linear-gradient(147deg, #000000 66%, #0f3070e8 94%)',
 
     //election-fraud
     // backgroundColor: ' #7f5a83',

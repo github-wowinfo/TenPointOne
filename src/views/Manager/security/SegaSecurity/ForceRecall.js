@@ -324,7 +324,8 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, sega_name
                     <Col className='my-1'>
                         <Row className='d-flex flex-row align-items-center'>
                             <Col className='d-flex flex-row justify-content-start align-items-center'>
-                                <Avatar size='lg' color='light-primary' icon={<GiShipWheel size={40} />} />
+                                {/* <Avatar size='lg' color='light-primary' icon={<GiShipWheel size={40} />} /> */}
+                                <Avatar size='lg' color='light-primary' icon={<GiCircleCage size={40} />} />
                                 <div className='ml-1 d-flex flex-column justify-content-start '>
                                     <CardTitle className='mb-0' tag='h3'>{sega_name}</CardTitle>
                                     <CardSubtitle className='pt-1' tag='h5'>{shortenIfAddress(selectSega)}</CardSubtitle>

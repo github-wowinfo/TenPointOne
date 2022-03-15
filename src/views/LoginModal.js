@@ -72,6 +72,7 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
     }, [is_metamask])
 
     const [curr_acc, setCurr_acc] = useState(account)
+    const [curr_chain, setCurr_chain] = useState(chainId)
 
     // const init_flag = JSON.parse(localStorage.getItem('load_flag'))
 
@@ -92,17 +93,76 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
         </Fragment>
     )
 
-    useEffect(() => {
-        const onError = (error) => {
-            // console.log(error.message)
-            notifyError(error.message)
+    const netchange = async () => {
+        try {
+            await ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: '0x89' }] })
+        } catch (error) {
+            if (error.code === 4902) {
+                await ethereum.request({
+                    method: 'wallet_addEthereumChain',
+                    params: [
+                        {
+                            chainId: "0x89", // A 0x-prefixed hexadecimal string
+                            chainName: "Polygon",
+                            nativeCurrency: {
+                                name: "MATIC",
+                                symbol: "MATIC", // 2-6 characters long
+                                decimals: 18
+                            },
+                            rpcUrls: ["https://polygon-mainnet.infura.io/v3/0ebf4dd05d6740f482938b8a80860d13"],
+                            blockExplorerUrls: ["https://explorer-mainnet.maticvigil.com"]
+                        }
+                    ],
+                })
+            }
         }
 
-        activateBrowserWallet()
+        try {
+            await ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: '0x38' }] })
+        } catch (error) {
+            if (error.code === 4902) {
+                await ethereum.request({
+                    method: 'wallet_addEthereumChain',
+                    params: [
+                        {
+                            chainId: "0x38", // A 0x-prefixed hexadecimal string
+                            chainName: "BSC Mainet",
+                            nativeCurrency: {
+                                name: "BINANCE COIN",
+                                symbol: "BNB", // 2-6 characters long
+                                decimals: 18
+                            },
+                            rpcUrls: ["https://bsc-dataseed1.ninicoin.io"],
+                            blockExplorerUrls: ["https://bscscan.com"]
+                        }
+                    ],
+                })
+            }
+        }
+    }
 
+    useEffect(() => {
+        activateBrowserWallet()
+        if (curr_chain !== '137' || curr_chain !== '56') {
+            console.log('netchange')
+            netchange()
+        }
         if (curr_acc !== account) {
             window.location.reload()
         }
+
+
+        // useEffect(() => {
+        //     const onError = (error) => {
+        //         // console.log(error.message)
+        //         notifyError(error.message)
+        //     }
+
+        //     activateBrowserWallet()
+
+        //     if (curr_acc !== account) {
+        //         window.location.reload()
+        //     }
 
         // const get_load_flag = JSON.parse(localStorage.getItem('load_flag'))
         // if (get_load_flag === undefined || get_load_flag === null) {
@@ -114,6 +174,9 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
     const networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
     const backgroundChange = { backgroundColor: networkName === "BSC Testnet" ? '#cc9b00' : networkName === "Polygon" ? '#8146e4' : networkName === "Ethereum" ? '#4559f4' : networkName === "Kovan" ? '#6435c9' : networkName === "BSC Mainet" ? '#cc9b00' : networkName === "Polygon Mumbai" ? '#140035' : null }
 
+    const reload = () => {
+        window.location.reload()
+    }
     return (
         <>
             <Modal className='modal-xl modal-dialog-centered' isOpen={openloginmodal}>
@@ -138,8 +201,8 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
                                             {isConnected ? (<Button.Ripple color='primary' style={{ fontSize: "1em", marginBottom: 5 }}
                                                 onClick={() => disconnect()} block>LOGIN</Button.Ripple>) : (
                                                 <Button.Ripple color='primary' style={{ fontSize: "1em", marginBottom: 5 }}
-                                                    onClick={async () => {
-                                                        window.location.reload()
+                                                    onClick={() => {
+                                                        reload()
                                                         // if (!isConnected && init_flag) {
                                                         //     window.location.reload()
                                                         // localStorage.setItem('load_flag', JSON.stringify(false))
@@ -180,7 +243,7 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
                                                 </CardText>
                                             </Col>
                                             <Col>
-                                                <CardText>Network's supported are <strong>Polygon Mainnet, Kovan, BSC Testnet, Polygon Mumbai</strong></CardText>
+                                                <CardText>Network's supported are <strong>Polygon , BSC Mainnet</strong></CardText>
                                                 {/* <CardText>Polygon Mainnet, Kovan, BSC Testnet, Polygon Mumbai</CardText> */}
                                             </Col>
                                             {/* <Col className='mt-1'>

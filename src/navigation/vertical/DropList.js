@@ -84,12 +84,13 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
     const logos = [
         {
             // icon: <GiHobbitDoor size={30} />,
-            icon: <GiCircleCage size={27} />,
+            icon: <GiShipWheel size={27} />,
             // icon: <BsSafe2 size={20} />,
             color: 'light-primary'
         },
         {
-            icon: <GiShipWheel size={27} />,
+
+            icon: <GiCircleCage size={27} />,
             color: 'light-primary'
         }
     ]

@@ -229,7 +229,7 @@ const Receive = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
             <>
               <hr />
               <Col style={{ fontSize: '2em' }} className='d-flex flex-row justify-content-center align-items-center'>
-                <NavLink href='/manager' >
+                <NavLink href='manager' >
                   CREATE A VAULT<BsArrowRightCircle size={35} />
                 </NavLink>
               </Col>
