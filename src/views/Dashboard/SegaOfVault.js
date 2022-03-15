@@ -34,7 +34,7 @@ const SegaOfVault = ({ item }) => {
                 <h4 tag='span' className='align-middle font-weight-bold' style={{ whiteSpace: "nowrap" }}><GiShipWheel className="mr-1" size={25} />{item.name}</h4>
             </td>
             <td style={{ textAlign: "center" }}>{shortenIfAddress(item.address)}</td>
-            <td style={{ textAlign: "right" }}> ${(sum.toFixed(6))} </td>
+            <td style={{ textAlign: "right" }}> ${(sum.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 }))} </td>
         </tr>
 
     )

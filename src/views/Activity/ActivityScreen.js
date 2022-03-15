@@ -320,7 +320,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
             wrap: true,
             selector: row => (
                 <div>
-                    <span>
+                    <span className='text-truncate'>
                         {/* <span className='align-middle font-weight-bold' style={{ wordWrap: 'break-word' }}>{row.description}</span> */}
                         <ExistingDesc id={row.id} api_desc={row.description} />
                         <br />

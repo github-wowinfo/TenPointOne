@@ -50,7 +50,7 @@ ReactDOM.render(
             const InfuraKey="08a4622376bd4dbe82b7c0e0b3c42d46"
             config={{
               supportedChains:
-                [ChainId.Polygon, ChainId.Kovan, ChainId.BSCTestnet, ChainId.Mumbai, 1337],
+                [ChainId.Polygon, ChainId.Kovan, ChainId.BSCTestnet, ChainId.Mumbai, ChainId.BSC, 1337],
 
               multicallAddresses: {
                 1337: "0xC158a563CFeeBab087120F3cC51Da26E844ca3F3"

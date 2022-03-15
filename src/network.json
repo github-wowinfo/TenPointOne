@@ -1,19 +1,5 @@
 [
     {
-        "net": "97",
-        "icon": "bnb",
-        "name": "BSC Testnet",
-        "netid": "0x61",
-        "curr_name": "TBNB",
-        "symbol": "tBNB",
-        "rpcUrl": [
-            "https://data-seed-prebsc-1-s1.binance.org:8545"
-        ],
-        "blockUrl": [
-            "https://testnet.bscscan.com"
-        ]
-    },
-    {
         "net": "137",
         "icon": "matic",
         "name": "Polygon",
@@ -28,31 +14,17 @@
         ]
     },
     {
-        "net": "1",
-        "icon": "eth",
-        "name": "Ethereum",
-        "netid": "0x1",
-        "curr_name": "ETHEREUM",
-        "symbol": "ETH",
+        "net": "80001",
+        "icon": "matic",
+        "name": "Polygon Mumbai",
+        "netid": "0x13881",
+        "curr_name": "MATIC",
+        "symbol": "MATIC",
         "rpcUrl": [
-            "https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
+            "https://rpc-mumbai.maticvigil.com/"
         ],
         "blockUrl": [
-            "https://etherscan.io"
-        ]
-    },
-    {
-        "net": "42",
-        "icon": "eth",
-        "name": "Kovan",
-        "netid": "0x2a",
-        "curr_name": "ETHEREUM",
-        "symbol": "ETH",
-        "rpcUrl": [
-            "https://kovan.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
-        ],
-        "blockUrl": [
-            "https://kovan.etherscan.io"
+            "https://mumbai.polygonscan.com/"
         ]
     },
     {
@@ -70,17 +42,31 @@
         ]
     },
     {
-        "net": "80001",
-        "icon": "matic",
-        "name": "Polygon Mumbai",
-        "netid": "0x13881",
-        "curr_name": "MATIC",
-        "symbol": "MATIC",
+        "net": "97",
+        "icon": "bnb",
+        "name": "BSC Testnet",
+        "netid": "0x61",
+        "curr_name": "TBNB",
+        "symbol": "tBNB",
         "rpcUrl": [
-            "https://rpc-mumbai.maticvigil.com/"
+            "https://data-seed-prebsc-1-s1.binance.org:8545"
         ],
         "blockUrl": [
-            "https://mumbai.polygonscan.com/"
+            "https://testnet.bscscan.com"
         ]
-    }
+    },
+    {
+        "net": "42",
+        "icon": "eth",
+        "name": "Kovan",
+        "netid": "0x2a",
+        "curr_name": "ETHEREUM",
+        "symbol": "ETH",
+        "rpcUrl": [
+            "https://kovan.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
+        ],
+        "blockUrl": [
+            "https://kovan.etherscan.io"
+        ]
+    }    
 ]

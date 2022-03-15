@@ -255,8 +255,8 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
         },
         {
             name: 'Address',
-            maxWidth: '200px',
-            right: true,
+            minWidth: '200px',
+            center: true,
             selector: 'adrs',
             cell: row => shortenIfAddress(row.adrs)
         },
