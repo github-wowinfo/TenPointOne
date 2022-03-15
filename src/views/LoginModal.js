@@ -93,54 +93,54 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
         </Fragment>
     )
 
-    const netchange = async () => {
-        try {
-            await ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: '0x89' }] })
-        } catch (error) {
-            if (error.code === 4902) {
-                await ethereum.request({
-                    method: 'wallet_addEthereumChain',
-                    params: [
-                        {
-                            chainId: "0x89", // A 0x-prefixed hexadecimal string
-                            chainName: "Polygon",
-                            nativeCurrency: {
-                                name: "MATIC",
-                                symbol: "MATIC", // 2-6 characters long
-                                decimals: 18
-                            },
-                            rpcUrls: ["https://polygon-mainnet.infura.io/v3/0ebf4dd05d6740f482938b8a80860d13"],
-                            blockExplorerUrls: ["https://explorer-mainnet.maticvigil.com"]
-                        }
-                    ],
-                })
+    // const netchange = async () => {
+    //     try {
+    //         await ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: '0x89' }] })
+    //     } catch (error) {
+    //         if (error.code === 4902) {
+    //             await ethereum.request({
+    //                 method: 'wallet_addEthereumChain',
+    //                 params: [
+    //                     {
+    //                         chainId: "0x89", // A 0x-prefixed hexadecimal string
+    //                         chainName: "Polygon",
+    //                         nativeCurrency: {
+    //                             name: "MATIC",
+    //                             symbol: "MATIC", // 2-6 characters long
+    //                             decimals: 18
+    //                         },
+    //                         rpcUrls: ["https://polygon-mainnet.infura.io/v3/0ebf4dd05d6740f482938b8a80860d13"],
+    //                         blockExplorerUrls: ["https://explorer-mainnet.maticvigil.com"]
+    //                     }
+    //                 ],
+    //             })
 
-            }
-        }
-    }
+    //         }
+    //     }
+    // }
+
+    // useEffect(() => {
+    //     activateBrowserWallet()
+    //     if (curr_chain !== '137') {
+    //         console.log('netchange')
+    //         netchange()
+    //     }
+    //     if (curr_acc !== account) {
+    //         window.location.reload()
+    //     }
+
 
     useEffect(() => {
-        activateBrowserWallet()
-        if (curr_chain !== '137') {
-            console.log('netchange')
-            netchange()
+        const onError = (error) => {
+            // console.log(error.message)
+            notifyError(error.message)
         }
+
+        activateBrowserWallet()
+
         if (curr_acc !== account) {
             window.location.reload()
         }
-
-
-        // useEffect(() => {
-        //     const onError = (error) => {
-        //         // console.log(error.message)
-        //         notifyError(error.message)
-        //     }
-
-        //     activateBrowserWallet()
-
-        //     if (curr_acc !== account) {
-        //         window.location.reload()
-        //     }
 
         // const get_load_flag = JSON.parse(localStorage.getItem('load_flag'))
         // if (get_load_flag === undefined || get_load_flag === null) {
