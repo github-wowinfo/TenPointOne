@@ -1,3 +1,5 @@
+import { shortenAddress } from "@usedapp/core"
+
 const ExistingSega = ({ item }) => {
     console.log('item', item)
     const getSegaData = JSON.parse(localStorage.getItem('segadata'))
@@ -11,12 +13,12 @@ const ExistingSega = ({ item }) => {
                 break
             } else {
                 console.log('false', i, getSegaData[i].address)
-                adrs = item.address
+                adrs = shortenAddress(item.address)
             }
 
         }
     } else {
-        adrs = item.address
+        adrs = shortenAddress(item.address)
     }
     console.log('adrs', adrs)
     return (adrs)
