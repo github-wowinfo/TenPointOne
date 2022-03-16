@@ -12,7 +12,7 @@ const DisConnect = ({ menuCollapsed, menuHover }) => {
             <>
                 <NavLink className='ml-2 mb-1' onClick={deactivate}>
                     <Power className='mr-1' size={20} />
-                    <span className='font-weight-bolder' style={{ fontSize: '0.9rem' }} >DISCONNECT</span>
+                    <span className='font-weight-bolder' style={{ fontSize: '0.9rem', paddingLeft: '0.3em' }} >DISCONNECT</span>
                 </NavLink>
             </>
         )
