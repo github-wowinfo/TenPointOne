@@ -127,6 +127,23 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
         if (Vault.length > 0 && Sega.length > 0) { return unpauseSega() }
     }
 
+    const notifyErrorModify = (emsg) => toast.error(<ErrorToastModify />, { hideProgressBar: false })
+    const ErrorToastModify = ({ msg }) => (
+        <Fragment>
+            <div className='toastify-header'>
+                <div className='title-wrapper'>
+                    <Avatar size='md' color='danger' icon={<FiXCircle size={12} />} />
+                    <h3 className='toast-title'>Error !</h3>
+                </div>
+            </div>
+            <div className='toastify-body'>
+                <span style={{ fontSize: '1.5em' }} role='img' aria-label='toast-text' >
+                    Enter a valid Address for Sega Operator.
+                </span>
+            </div>
+        </Fragment>
+    )
+
     // Reading New SEGA Operator Input Box Inputs
     const [inputNewSegaTrader, setInputNewSegaTrader] = useState("")
     const handleNewSegaTraderInput = (event) => {
@@ -135,7 +152,11 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
         console.log("Setting New Sega Trader:", newAddress)
     }
     const handleChangeSegaTrader = () => {
-        if (Vault.length > 0 && Sega.length > 0 && isAddress(inputNewSegaTrader)) { return changeSegaTrader(getAddress(inputNewSegaTrader)) }
+        if (Vault.length > 0 && Sega.length > 0 && isAddress(inputNewSegaTrader)) {
+            return changeSegaTrader(getAddress(inputNewSegaTrader))
+        } else {
+            notifyErrorModify()
+        }
     }
 
     //SNACKBAR FOR GENERAL TRANSACTIONS
@@ -237,7 +258,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                 <ModalBody>
                     <Row className='d-flex flex-column justify-content-center align-items-center'>
                         <Col>
-                            <h3>Select the account to view or modify security settings.</h3>
+                            <h3>View and Modify Account Security settings.</h3>
                         </Col>
                         <Col className='mb-1' style={{}}>
                             <div className='d-flex flex-row justify-content-between my-1'>
@@ -284,17 +305,17 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                             </Col>
                         ) : null} */}
                         <Col className='text-center'>
-                            <Button.Ripple color='primary' onClick={handleGetSegaInfo}><Tool className='mr-1' size={20} />Get Sega Info</Button.Ripple>
+                            <Button.Ripple color='primary' onClick={handleGetSegaInfo}><Tool className='mr-1' size={20} />Refresh Info</Button.Ripple>
                         </Col>
                         {haveInfo ? (
                             <>
-                                <Col>
+                                <Col className='py-1'>
                                     <FormGroup>
                                         <Label for='ownacc' style={{ fontSize: "1.3em" }}>Parent Vault</Label>
                                         <Input type='text' id='ownacc' value={parentVault} />
                                     </FormGroup>
                                 </Col>
-                                <Col>
+                                <Col className='py-1'>
                                     <FormGroup>
                                         <Label for='inactivedays' style={{ fontSize: "1.3em" }}>Sega Operator</Label>
                                         <InputGroup>
@@ -310,12 +331,14 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                                 <Col>
                                     <Row>
                                         <Col>
-                                            <FormGroup>
+                                            <FormGroup className='text-center'>
                                                 <Label for='days' style={{ fontSize: "1.2em" }}>Operator Status</Label>
-                                                <div className="d-flex justify-content-between">
+                                                <div className='text-center'>
                                                     {/* {console.log(activeStatus)} */}
-                                                    {activeStatus ? (<p><strong><u>ACTIVE</u></strong></p>) : (<p><strong><u>FROZEN</u></strong></p>)}
+                                                    {activeStatus ? (<p><strong><u>Active</u></strong></p>) : (<p><strong><u>Frozen</u></strong></p>)}
                                                     {/* <p><strong>{activeStatus}</strong></p> */}
+                                                </div>
+                                                <div className='text-center'>
                                                     {activeStatus ? (<Button.Ripple className='mx-1' color='primary' onClick={handlePauseSega}>Freeze</Button.Ripple>) : (
                                                         (<Button.Ripple className='mx-1' color='primary' onClick={handleUnpauseSega}>UnFreeze</Button.Ripple>)
                                                     )}
@@ -323,11 +346,11 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                                             </FormGroup>
                                         </Col>
                                         <Col>
-                                            <FormGroup>
+                                            <FormGroup className='text-center'>
                                                 <Label for='rcvrydate' style={{ fontSize: "1.2em" }}>Assest Recall</Label>
-                                                <div className="d-flex justify-content-between">
+                                                <div className="d-flex flex-column">
                                                     <p><strong>Force Recall to Vault</strong></p>
-                                                    <div>
+                                                    <div className='text-center'>
                                                         <Button.Ripple className='text-center' color='primary' onClick={handlRecoverModal}>Recall</Button.Ripple>
                                                     </div>
                                                 </div>

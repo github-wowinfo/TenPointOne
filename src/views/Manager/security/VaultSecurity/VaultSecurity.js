@@ -187,22 +187,22 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
                             <hr />
                         </Col>
                         <Col className='text-center'>
-                            <Button.Ripple color='primary' onClick={handleGetRecoveryInfo}><Tool className='mr-1' size={20} />Get Vault Info</Button.Ripple>
+                            <Button.Ripple color='primary' onClick={handleGetRecoveryInfo}><Tool className='mr-1' size={20} />Refresh Info</Button.Ripple>
                         </Col>
                         {haveInfo ? (<>
-                            <Col>
+                            <Col className='py-1'>
                                 <FormGroup>
                                     <Label for='ownacc' style={{ fontSize: "1.3em" }}>Owner</Label>
                                     <Input type='text' id='ownacc' placeholder='Owner Address' value={owner} />
                                 </FormGroup>
                             </Col>
-                            <Col>
+                            <Col className='py-1'>
                                 <FormGroup>
                                     <Label for='backupacc' style={{ fontSize: "1.3em" }}>Backup Account</Label>
                                     <Input type='text' id='backupacc' placeholder='Backup Address' value={backup} />
                                 </FormGroup>
                             </Col>
-                            <Col>
+                            <Col className='py-1'>
                                 <Row>
                                     <Col>
                                         <FormGroup>

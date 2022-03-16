@@ -124,7 +124,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                                 return (
                                     <>
                                         {/* <Label style={{ width: '100%' }} check> */}
-                                        <Row className='d-flex flex-row justify-content-around'>
+                                        <Row className='pt-2 d-flex flex-row justify-content-around'>
                                             <Col className='d-flex flex-column'>
                                                 {/* <Col className='d-flex flex-column line-vault'> */}
                                                 <Input
@@ -169,7 +169,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                                                                 />
                                                                 {/* <Avatar className='mr-1' size='md' color={logos[1].color} icon={logos[1].icon} /> */}
                                                                 <h4 style={{ color: '#1919d2' }} className='mb-0 ml-1'>{j.name}</h4>
-                                                                <h6 className='font-weight-light mx-2'>{shortenIfAddress(j.adrs)}</h6>
+                                                                <h6 className='font-weight-light mx-1'>{shortenIfAddress(j.adrs)}</h6>
                                                             </Col>
                                                             <Col className='mb-1 d-flex flex-row justify-content-end align-items-center'>
                                                                 {/* <FaRegCopy color='grey' size={15} /> */}

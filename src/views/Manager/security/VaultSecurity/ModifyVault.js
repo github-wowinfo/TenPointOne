@@ -44,17 +44,55 @@ const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault, vaul
         console.log("Inactive Days Input:", newValue)
     }
 
+    const notifyErrorBackup = (emsg) => toast.error(<ErrorToastBackup />, { hideProgressBar: false })
+    const ErrorToastBackup = ({ msg }) => (
+        <Fragment>
+            <div className='toastify-header'>
+                <div className='title-wrapper'>
+                    <Avatar size='md' color='danger' icon={<FiXCircle size={12} />} />
+                    <h3 className='toast-title'>Error !</h3>
+                </div>
+            </div>
+            <div className='toastify-body'>
+                <span style={{ fontSize: '1.5em' }} role='img' aria-label='toast-text' >
+                    Enter a valid Address for Backup Account.
+                </span>
+            </div>
+        </Fragment>
+    )
+
+    const notifyErrorInactiveDays = (emsg) => toast.error(<ErrorToastInactiveDays />, { hideProgressBar: false })
+    const ErrorToastInactiveDays = ({ msg }) => (
+        <Fragment>
+            <div className='toastify-header'>
+                <div className='title-wrapper'>
+                    <Avatar size='md' color='danger' icon={<FiXCircle size={12} />} />
+                    <h3 className='toast-title'>Error !</h3>
+                </div>
+            </div>
+            <div className='toastify-body'>
+                <span style={{ fontSize: '1.5em' }} role='img' aria-label='toast-text' >
+                    Enter valid number of days.
+                </span>
+            </div>
+        </Fragment>
+    )
+
     //Button Handles for Operations
     const handleChangeBackup = () => {
         if (getAddress(inputNewBackup)) {
             const x = inputNewBackup
             return changeBackup(x)
+        } else {
+            notifyErrorBackup()
         }
     }
     const handleChangeInactiveDays = () => {
         if (inputInactiveDays >= 0) {
             const x = inputInactiveDays
             return changeUnlockPeriod(x)
+        } else {
+            notifyErrorInactiveDays()
         }
     }
 
