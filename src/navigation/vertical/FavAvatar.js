@@ -54,11 +54,18 @@ const FavAvatar = ({ item }) => {
     ]
 
     return (
+        // <>
+        //     {is_sega ? (
+        //         <Avatar className='mr-1' size='md' color={logos[1].color} icon={logos[1].icon} />
+        //     ) : (
+        //         <Avatar className='mr-1' size='md' color={logos[0].color} icon={logos[0].icon} />
+        //     )}
+        // </>
         <>
             {is_sega ? (
-                <Avatar className='mr-1' size='md' color={logos[1].color} icon={logos[1].icon} />
+                <GiCircleCage size={25} />
             ) : (
-                <Avatar className='mr-1' size='md' color={logos[0].color} icon={logos[0].icon} />
+                <GiShipWheel size={25} />
             )}
         </>
     )

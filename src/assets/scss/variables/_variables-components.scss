@@ -27,8 +27,13 @@ body.dark-layout {
   // background-color: #4834d4;
   // background-image: linear-gradient(315deg, #4834d4 0%, #0c0c0c 74%);
 
-  background-color: #0b0f54;
-  background-image: linear-gradient(135deg, #121212, #0b0f54);
+  //main
+  // background-color: #0b0f54;
+  // background-image: linear-gradient(135deg, #121212, #0b0f54);
+
+  //deep water
+  background-color: #000000;
+  background-image: linear-gradient(147deg, #000000 66%, #0f3070e8 94%);
 }
 
 //expandable navbar circle
@@ -58,7 +63,7 @@ body.dark-layout {
 //Navigation active component(dark)
 .main-menu.menu-dark .navigation > li.active > a {
   // background: #01191f;
-  background: #04627a66;
+  background: #201c2e;
   //   background: linear-gradient(118deg, rgba(#a9a6fa, 1), rgba(#a9a6fa, 0.7));
   box-shadow: none;
   border-radius: 4px;
@@ -162,8 +167,13 @@ body.dark-layout {
   // background-color: #4834d4;
   // background-image: linear-gradient(315deg, #4834d4 0%, #0c0c0c 74%);
 
-  background-color: #0b0f54;
-  background-image: linear-gradient(135deg, #121212, #0b0f54);
+  //main
+  // background-color: #0b0f54;
+  // background-image: linear-gradient(135deg, #121212, #0b0f54);
+
+  //deep water
+  background-color: #000000;
+  background-image: linear-gradient(147deg, #000000 66%, #0f3070e8 94%);
 }
 
 .dark-layout .navbar-container {
@@ -265,6 +275,7 @@ body.dark-layout {
   // background-color: #4834d4;
   // background-image: linear-gradient(315deg, #4834d4 0%, #0c0c0c 74%);
 
+  //main
   background-color: #0b0f54;
   background-image: linear-gradient(135deg, #121212, #0b0f54);
 }
@@ -291,8 +302,13 @@ body.dark-layout {
   // background-color: #4834d4;
   // background-image: linear-gradient(315deg, #4834d4 0%, #0c0c0c 74%);
 
+  //main
   background-color: #0b0f54;
   background-image: linear-gradient(135deg, #121212, #0b0f54);
+
+  //deep water
+  // background-color: #000000;
+  // background-image: linear-gradient(147deg, #000000 66%, #0f3070e8 94%);
 }
 
 //login Page
@@ -588,6 +604,16 @@ a:hover {
   background-color: black;
 }
 
+[dir] .dark-layout .input-group:focus-within .form-control,
+[dir] .dark-layout .input-group:focus-within .input-group-text {
+  border-color: #27aae1;
+  box-shadow: none;
+}
+
+.dark-layout input.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.401);
+}
+
 //react-select
 
 .dark-layout {
@@ -679,4 +705,13 @@ a:hover {
 //wallet logo in dropdown
 .dark-layout .wallet {
   color: white;
+}
+
+.main-menu.menu-dark {
+  color: #ffff;
+}
+
+//sidebar menu items font size
+.navigation {
+  font-size: 0.9rem;
 }

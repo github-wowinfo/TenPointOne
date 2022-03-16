@@ -81,21 +81,31 @@ const Heart = ({ item, globalFavFlag, dispatch }) => {
                 //<Avatar color='light-info' icon={<FaStar size={25} style={{ color: '#FFCD3C' }} />} onClick={handleNotFav} />
                 //<Avatar color='light' icon={<FaRegStar size={25} style={{ color: '#FFCD3C' }} />} onClick={handleFav} />
                 flag === 0 &&
-                    item?.isFav === true && hicon === true ? (<Avatar color='light-info' icon={<FaStar size={25} style={{ color: '#FFCD3C' }} />} onClick={handleNotFav} />) : (null)
+                    item?.isFav === true && hicon === true ? (
+                    <FaStar size={25} style={{ color: '#FFCD3C' }} onClick={handleNotFav} />
+                ) : (null)
             }
             {
 
                 flag === 1 &&
-                    item?.isFav === true && hicon === true ? (<Avatar color='light' icon={<FaRegStar size={25} style={{ color: '#FFCD3C' }} />} onClick={handleFav} />) : (null)
+                    item?.isFav === true && hicon === true ? (
+                    <FaRegStar size={25} style={{ color: '#FFCD3C' }} onClick={handleFav} />
+                ) : (null)
             }
             {
-                (item?.isFav === false || item?.isFav === undefined) && hicon === false ? (<Avatar color='light' icon={<FaRegStar size={25} style={{ color: '#FFCD3C' }} />} onClick={handleFav} />) : (null)
+                (item?.isFav === false || item?.isFav === undefined) && hicon === false ? (
+                    <FaRegStar size={25} style={{ color: '#FFCD3C' }} onClick={handleFav} />
+                ) : (null)
             }
             {
-                item?.isFav === true && hicon === false ? (<Avatar color='light-info' icon={<FaStar size={25} style={{ color: '#FFCD3C' }} />} onClick={handleNotFav} />) : (null)
+                item?.isFav === true && hicon === false ? (
+                    <FaStar size={25} style={{ color: '#FFCD3C' }} onClick={handleNotFav} />
+                ) : (null)
             }
             {
-                item?.isFav === false && hicon === true ? (<Avatar color='light-info' icon={<FaStar size={25} style={{ color: '#FFCD3C' }} />} onClick={handleNotFav} />) : (null)
+                item?.isFav === false && hicon === true ? (
+                    <FaStar size={25} style={{ color: '#FFCD3C' }} onClick={handleNotFav} />
+                ) : (null)
             }
             {/* {
                 item?.isFav === true && hicon === false ? (<Avatar color='light' icon={<FaRegStar size={25} style={{ color: '#FFCD3C' }} />} onClick={handleFav} />) : (null)
