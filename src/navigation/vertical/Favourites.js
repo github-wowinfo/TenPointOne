@@ -62,12 +62,12 @@ const Favourites = ({ globalAdrs, dispatch, globalNickName, globalFavFlag, menuC
                         fav_list && fav_list.map(i => {
                             return (
                                 <>
-                                    <Row className='my-1 pl-1 d-flex flex-row ' >
+                                    <Row className='my-1 pl-1 d-flex flex-row align-items-center ' >
                                         <Col lg='2'>
                                             <FavAvatar item={i} />
                                         </Col>
                                         <Col>
-                                            <h4><Link onClick={() => handleGlobal(i.adrs, i.nickname)} >{i.nickname}</Link></h4>
+                                            <h4 className='mb-0'><Link onClick={() => handleGlobal(i.adrs, i.nickname)} >{i.nickname}</Link></h4>
                                             <h6>{shortenIfAddress(i.adrs)}</h6>
                                         </Col>
                                     </Row>
