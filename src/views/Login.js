@@ -24,7 +24,7 @@ const Login = () => {
   const isConnected = account !== undefined
 
   const handleRoute = () => {
-    window.location.href = '/home'
+    window.location.href = 'home'
   }
 
   // const activate = () => {

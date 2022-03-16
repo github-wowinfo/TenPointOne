@@ -14,7 +14,7 @@ const Import_Modal = ({ openimport_modal, handleimport_modal, globalVaultFlag, d
     const { account } = useEthers()
 
     const disconnect = () => {
-        window.location.href = '/home'
+        window.location.href = 'home'
         // setLoginModal(!loginModal)
     }
 

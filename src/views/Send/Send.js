@@ -37,7 +37,7 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
 
   const [loginModal, setLoginModal] = useState(false)
   const disconnect = () => {
-    window.location.href = '/home'
+    window.location.href = 'home'
     setLoginModal(!loginModal)
   }
 

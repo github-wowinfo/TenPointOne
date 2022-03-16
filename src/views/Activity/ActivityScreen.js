@@ -40,7 +40,7 @@ const ActivityScreen = ({ message, dispatch, globalAdrs, globalNickName, globalV
 
     const [loginModal, setLoginModal] = useState(false)
     const disconnect = () => {
-        window.location.href = '/home'
+        window.location.href = 'home'
         setLoginModal(!loginModal)
     }
 

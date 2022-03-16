@@ -19,7 +19,7 @@ const Network = ({ networkC, dispatch, globalFlag }) => {
 
   const [loginModal, setLoginModal] = useState(false)
   const disconnect = () => {
-    window.location.href = '/home'
+    window.location.href = 'home'
     // setLoginModal(!loginModal)
   }
 
