@@ -46,6 +46,7 @@ const SegaDisplay = ({ globalAdrs }) => {
     }
   }, [globalAdrs, account, chainId])
 
+  const [noSegaData, setNoSegaData] = useState(false)
   let actualdata
   if (is_sega === false) {
     const getdata = JSON.parse(localStorage.getItem('segadata'))
@@ -55,11 +56,21 @@ const SegaDisplay = ({ globalAdrs }) => {
     } else {
       console.log('No sega data for looping')
     }
+  } else {
+    actualdata = []
   }
+
+  useEffect(() => {
+    if (actualdata && actualdata.length === 0) {
+      setNoSegaData(true)
+    } else {
+      setNoSegaData(false)
+    }
+  }, [actualdata])
 
   return (
     <>
-      {actualdata && actualdata.length === 0 ? null : (
+      {noSegaData ? null : (
         <Card className="my-1">
           <CardHeader>
             <CardTitle>Linked SEGAs</CardTitle>
