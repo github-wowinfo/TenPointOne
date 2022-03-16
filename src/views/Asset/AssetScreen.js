@@ -330,8 +330,8 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
 
     const NoDataConst = () => {
         return (
-            <Col className='nodatastyle mt-1 d-flex flex-row justify-content-center align-items-center'>
-                <p>There are no records to display</p>
+            <Col className='nodatastyle d-flex flex-row justify-content-center align-items-center'>
+                <p className='py-1 mb-0'>There are no assets to display</p>
             </Col>
         )
     }
