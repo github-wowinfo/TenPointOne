@@ -132,11 +132,11 @@ const Network = ({ networkC, dispatch, globalFlag }) => {
   const handleAjax = (netid, name, cdetail) => {
     return MySwal.fire({
       // title: 'Do you want to change your current network?',
-      title: `Current network:<br /> "${helperConfig.network[chainId].name}"`,
+      title: `Current network:<br /> ${helperConfig.network[chainId].name}`,
       allowOutsideClick: false,
       showCloseButton: true,
       // showCancelButton: true,
-      confirmButtonText: `Switch to "${name}"`,
+      confirmButtonText: `Switch to ${name}`,
       customClass: {
         confirmButton: 'btn btn-primary mx-1',
         // cancelButton: 'btn btn-danger my-1'

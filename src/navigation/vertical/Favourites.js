@@ -47,7 +47,7 @@ const Favourites = ({ globalAdrs, dispatch, globalNickName, globalFavFlag, menuC
                 <Col className='d-flex flex-row justify-content-between'>
                     <NavLink className='pl-1' >
                         <Star className='mr-1' size={20} />
-                        <span className='font-weight-bolder' style={{ fontSize: '0.9rem' }} >FAVOURITES</span>
+                        <span className='font-weight-bolder' style={{ fontSize: '0.9rem', paddingLeft: '0.3em' }} >FAVOURITES</span>
                     </NavLink>
                     {fav_list === undefined || fav_list === null ? null : (
                         fav_list.length > 0 && show ? (
@@ -66,9 +66,9 @@ const Favourites = ({ globalAdrs, dispatch, globalNickName, globalFavFlag, menuC
                                         <Col className='ml-1' lg='2'>
                                             <FavAvatar item={i} />
                                         </Col>
-                                        <Col style={{ paddingLeft: '0.3em' }}>
-                                            <h6 className='mb-0 font-weight-bold'><Link onClick={() => handleGlobal(i.adrs, i.nickname)} >{i.nickname}</Link></h6>
-                                            <h6 className='mb-0 font-weight-light'>{shortenIfAddress(i.adrs)}</h6>
+                                        <Col style={{ paddingLeft: '0.6em' }}>
+                                            <h6 style={{ fontSize: '0.9rem' }} className='mb-0 font-weight-bold'><Link onClick={() => handleGlobal(i.adrs, i.nickname)} >{i.nickname}</Link></h6>
+                                            <h6 style={{ fontSize: '0.9rem' }} className='mb-0 font-weight-light'>{shortenIfAddress(i.adrs)}</h6>
                                         </Col>
                                     </Row>
                                 </>

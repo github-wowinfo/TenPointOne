@@ -32,10 +32,10 @@ const SegaOfVault = ({ item }) => {
             <td>
                 {/* <CardTitle tag='span' className='align-middle font-weight-bold' style={{ whiteSpace: "nowrap" }}><GiShipWheel className="mr-1" size={25} />{item.name}</CardTitle> */}
                 {/* <h4 tag='span' className='align-middle font-weight-bold' style={{ whiteSpace: "nowrap" }}><GiShipWheel className="mr-1" size={25} />{item.name}</h4> */}
-                <h4 tag='span' className='align-middle font-weight-bold' style={{ whiteSpace: "nowrap" }}><GiCircleCage className="mr-1" size={25} />{item.name}</h4>
+                <h4 tag='span' className='align-middle font-weight-bold' style={{ whiteSpace: "nowrap", fontSize: '1rem' }}><GiCircleCage className="mr-1" size={25} />{item.name}</h4>
             </td>
-            <td className='text-center font-weight-bold' style={{ fontSize: '1.286rem' }}>{shortenIfAddress(item.address)}</td>
-            <td className='text-right font-weight-bold' style={{ fontSize: '1.286rem' }}> ${(sum.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 }))} </td>
+            <td className='text-center font-weight-bold' style={{ fontSize: '1rem' }}>{shortenIfAddress(item.address)}</td>
+            <td className='text-right font-weight-bold' style={{ fontSize: '1rem' }}> ${(sum.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 }))} </td>
         </tr>
 
     )
