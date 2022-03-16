@@ -68,8 +68,8 @@ const SegaDisplay = ({ globalAdrs }) => {
             <thead className='thead-light'>
               <tr>
                 <th>Nickname</th>
-                <th style={{ textAlign: "center" }}>Public Address</th>
-                <th style={{ textAlign: "right" }}>Total Balance</th>
+                <th className='text-center'>Public Address</th>
+                <th className='text-right'>Total Balance</th>
               </tr>
             </thead>
             <tbody>
