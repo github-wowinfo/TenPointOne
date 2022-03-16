@@ -144,6 +144,7 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
           </span>
           {/* <span className='ml-1'>{row.description.substring(0, 30)}</span> */}
           <span className='ml-1 font-weight-bold'>{truncate_stn(row.description)}</span>
+          {/* <span className='ml-1 font-weight-bold text-truncate'>{row.description}</span> */}
         </Col>
       )
     },
@@ -267,7 +268,7 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
 
   return (
     // <Card className='h-100 mb-0'>
-    <Card className='mb-0' style={{ maxHeight: '28em' }}>
+    <Card className='mb-0' style={{ maxHeight: '28em', height: '28em' }}>
       <CardHeader>
         <CardTitle>Recent Transactions</CardTitle>
         <Link to='/activity'>
