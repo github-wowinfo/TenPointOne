@@ -97,7 +97,7 @@ body.dark-layout {
 
   //deep water
   background-color: #000000;
-  background-image: linear-gradient(147deg, #000000 0%, #0f3070e8 74%);
+  background-image: linear-gradient(147deg, #000000 66%, #0f3070e8 94%);
 
   //lie-detector
   // background-color: #4c4177;
@@ -192,7 +192,7 @@ body.dark-layout {
   color: white;
   // background-color: #283046;
   background-color: #000000;
-  background-image: linear-gradient(147deg, #000000 0%, #0f3070e8 74%);
+  background-image: linear-gradient(147deg, #000000 66%, #0f3070e8 94%);
 }
 
 //Table(dark)
@@ -219,7 +219,7 @@ body.dark-layout {
 .dark-layout .react-dataTable .rdt_TableBody .rdt_TableRow {
   //this is for extra space when table body is compressed
   // background-color: #1d183f !important;
-  background-image: linear-gradient(147deg, #000000 0%, #0f3070e8 74%);
+  background-image: linear-gradient(147deg, #000000 66%, #0f3070e8 94%);
   border-color: #3b4253;
 }
 
@@ -229,7 +229,7 @@ body.dark-layout {
 
 .dark-layout .react-dataTable .rdt_TableBody .rdt_TableRow .rdt_TableCell {
   // background-color: #1d183f !important;
-  background-color: linear-gradient(147deg, #000000 0%, #0f3070e8 74%);
+  background-color: linear-gradient(147deg, #000000 66%, #0f3070e8 94%);
 }
 
 // ==================================
@@ -631,7 +631,7 @@ a:hover {
   .select__menu {
     // background-color: #283046;
     background-color: #000000;
-    // background-image: linear-gradient(147deg, #000000 0%, #0f3070e8 74%);
+    // background-image: linear-gradient(147deg, #000000 66%, #0f3070e8 94%);
   }
 }
 

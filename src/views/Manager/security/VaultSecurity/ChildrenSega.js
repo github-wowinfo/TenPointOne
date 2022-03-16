@@ -72,7 +72,8 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultN
                         <Col className='my-1'>
                             <Row className='d-flex flex-row'>
                                 {/* <Col className='mx-1' md='1'><Avatar size='lg' color='light-primary' icon={<BsSafe2 size={35} />} /></Col> */}
-                                <Col className='mx-1' md='1'><Avatar size='lg' color='light-primary' icon={<GiCircleCage size={35} />} /></Col>
+                                {/* <Col className='mx-1' md='1'><Avatar size='lg' color='light-primary' icon={<GiCircleCage size={35} />} /></Col> */}
+                                <Col className='mx-1' md='1'><Avatar size='lg' color='light-primary' icon={<GiShipWheel size={35} />} /></Col>
                                 <Col className='d-flex flex-column justify-content-start'>
                                     <CardTitle className='mb-0' tag='h3'>{vaultName}</CardTitle>
                                     <h5 className='font-weight-bold'>{shortenIfAddress(vault)}</h5>

@@ -445,11 +445,12 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
   const logos = [
     {
       // icon: <BsSafe2 size={25} />,
-      icon: <GiCircleCage size={25} />,
+      icon: <GiShipWheel size={25} />,
       color: 'primary'
     },
     {
-      icon: <GiShipWheel size={25} />,
+
+      icon: <GiCircleCage size={25} />,
       color: 'primary'
     }
   ]
