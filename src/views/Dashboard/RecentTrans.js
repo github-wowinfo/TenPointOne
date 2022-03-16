@@ -143,7 +143,7 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
             {row.type === 'approve' && <Avatar color='light-primary' icon={<BsInfoCircle size={30} />} />}
           </span>
           {/* <span className='ml-1'>{row.description.substring(0, 30)}</span> */}
-          <span className='ml-1'>{truncate_stn(row.description)}</span>
+          <span className='ml-1 font-weight-bold'>{truncate_stn(row.description)}</span>
         </Col>
       )
     },

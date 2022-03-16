@@ -81,20 +81,20 @@ const VerticalNavMenuLink = ({
         /*eslint-disable */
         {...(item.externalLink === true
           ? {
-              href: item.navLink || '/'
-            }
+            href: item.navLink || '/'
+          }
           : {
-              to: item.navLink || '/',
-              isActive: (match, location) => {
-                if (!match) {
-                  return false
-                }
-
-                if (match.url && match.url !== '' && match.url === item.navLink) {
-                  currentActiveItem = item.navLink
-                }
+            to: item.navLink || '/',
+            isActive: (match, location) => {
+              if (!match) {
+                return false
               }
-            })}
+
+              if (match.url && match.url !== '' && match.url === item.navLink) {
+                currentActiveItem = item.navLink
+              }
+            }
+          })}
         /*eslint-enable */
         onClick={e => {
           if (!item.navLink.length) {
@@ -104,7 +104,7 @@ const VerticalNavMenuLink = ({
         }}
       >
         {item.icon}
-        <span className='menu-item text-truncate'>{item.title}</span>
+        <span className='menu-item text-truncate fontt-weight-bold'>{item.title}</span>
 
         {item.badge && item.badgeText ? (
           <Badge className='ml-auto mr-1' color={item.badge} pill>

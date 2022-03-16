@@ -341,6 +341,14 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
     const [expAdrsBook, setExpAdrsBook] = useState(false)
     const handleExpAdrsBook = () => setExpAdrsBook(!expAdrsBook)
 
+    const NoDataConst = () => {
+        return (
+            <Col className='nodatastyle d-flex flex-row justify-content-center align-items-center'>
+                <p className='py-1 mb-0'>There are no Addresses to display</p>
+            </Col>
+        )
+    }
+
     return (
         <>
 
@@ -364,6 +372,7 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
                         sortIcon={<ChevronDown size={10} />}
                         paginationPerPage={10}
                         paginationRowsPerPageOptions={[5, 10, 15, 20]}
+                        noDataComponent={<NoDataConst />}
                     />
                 </Card>
                 <Card>
