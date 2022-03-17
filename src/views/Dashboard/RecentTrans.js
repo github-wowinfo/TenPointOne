@@ -267,7 +267,7 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
 
   return (
     // <Card className='h-100 mb-0'>
-    <Card className='mb-0' style={{ maxHeight: '28em' }}>
+    <Card className='mb-0' style={{ maxHeight: '28em', height: '28em' }}>
       <CardHeader>
         <CardTitle>Recent Transactions</CardTitle>
         <Link to='/activity'>
