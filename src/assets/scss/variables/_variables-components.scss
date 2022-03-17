@@ -735,6 +735,7 @@ a:hover {
 }
 
 //sweetalert dark
-.dark-layout label {
-  background: #23242a !important;
+.dark-layout .swal2-checkbox,
+.swal2-radio {
+  background: #23242a;
 }
