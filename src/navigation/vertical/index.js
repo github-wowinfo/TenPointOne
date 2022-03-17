@@ -9,19 +9,19 @@ import { randomHexColor } from 'random-hex-color-generator'
 export default [
   {
     id: "home",
-    title: "DASHBOARD",
+    title: "Dashboard",
     icon: <BarChart2 size={20} />,
     navLink: "/home",
   },
   {
     id: "assets",
-    title: "ASSETS",
+    title: "Assets",
     icon: <BsWallet2 size={20} />,
     navLink: "/asset"
   },
   {
     id: "activity",
-    title: "ACTIVITY",
+    title: "Activity",
     icon: <Activity size={20} />,
     navLink: "/activity"
   },
@@ -30,19 +30,19 @@ export default [
   },
   {
     id: 'send',
-    title: "SEND",
+    title: "Send",
     icon: <ArrowUpRight size={20} />,
     navLink: "/send"
   },
   {
     id: 'receive',
-    title: "RECEIVE",
+    title: "Receive",
     icon: <ArrowDownLeft size={20} />,
     navLink: "/receive"
   },
   {
     id: "defi",
-    title: "DeFi - COMING SOON",
+    title: "DeFi - Coming Soon",
     icon: <IoGitMergeOutline size={20} />,
     navLink: "/defi",
     // disabled: true
@@ -52,13 +52,13 @@ export default [
   },
   {
     id: "addressbook",
-    title: "ADDRESS BOOK",
+    title: "Address Book",
     icon: <ImAddressBook size={20} />,
     navLink: "/addressbook"
   },
   {
     id: "manager",
-    title: "MANAGER",
+    title: "Manager",
     icon: <VscTools size={20} />,
     navLink: "/manager"
   },
