@@ -8,10 +8,13 @@ import { useState } from 'react'
 import SegaLocal from './SegaLocal'
 import ExistingSega from './ExistingSega'
 import Avatar from '@components/avatar'
-import { shortenIfAddress } from '@usedapp/core'
+import { ChainId, getExplorerAddressLink, shortenIfAddress, useEthers } from '@usedapp/core'
 import { GiCircleCage, GiHobbitDoor, GiShipWheel } from 'react-icons/gi'
+import CopyAdrsSegaList from './CopyAdrsSegaList'
 
 const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultName, segas }) => {
+
+    const { chainId, account } = useEthers()
 
     const [segaLocalModal, setSegaLocalModal] = useState(false)
     const handleSegaLocalModal = () => {
@@ -29,14 +32,27 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultN
             name: 'Sega Address',
             selector: row => (
                 <div>
-                    {/* {row.address} */}
                     {<ExistingSega item={row} />}
-                    {row.icon1}
-                    {row.icon2}
+
+                    {/* {row.icon1}
+                    {row.icon2} */}
+                </div>
+            )
+        },
+        {
+            name: '',
+            rigth: 'true',
+            compact: 'true',
+            selector: row => (
+                <div>
+                    <CopyAdrsSegaList item={row.address} />
+                    <a href={getExplorerAddressLink(row.address, chainId ? chainId : 1)} target='_blank'><GoLinkExternal className='mx-1' /></a>
                 </div>
             )
         }
     ]
+
+    const rowDisabledCriteria = row => row.isInLocal
 
     const [selectedRows, setSelectedRows] = useState([])
     const handleChange = ({ selectedRows }) => {
@@ -90,6 +106,7 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultN
                                 selectableRows
                                 onSelectedRowsChange={handleChange}
                                 noHeader
+                                selectableRowDisabled={rowDisabledCriteria}
                             />
                         </Col>
                     </Row>

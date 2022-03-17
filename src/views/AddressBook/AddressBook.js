@@ -150,26 +150,47 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
             title: 'Are you sure, you want to delete the whole Address Book data?',
             text: "You won't be able to revert this!",
             icon: 'warning',
+            input: 'checkbox',
+            inputValue: 0,
+            inputPlaceholder:
+                'Are you sure you want to delete?',
             showCancelButton: true,
             confirmButtonText: 'Yes, delete it!',
             customClass: {
-                confirmButton: 'btn btn-primary m-1',
-                cancelButton: 'btn btn-danger m-1'
+                confirmButton: 'btn btn-danger m-1',
+                cancelButton: 'btn btn-primary m-1'
             },
-            buttonsStyling: false
-        }).then(function (result) {
-            if (result.value) {
-                handleAdrsBookDeleteLocal()
-                MySwal.fire({
-                    icon: 'success',
-                    title: 'Deleted!',
-                    text: 'Your file has been deleted.',
-                    customClass: {
-                        confirmButton: 'btn btn-success'
-                    }
-                })
-            }
+            buttonsStyling: false,
+            inputValidator: (result) => {
+                console.log('result', result)
+                if (result === 1) {
+                    handleAdrsBookDeleteLocal()
+                    MySwal.fire({
+                        icon: 'success',
+                        title: 'Deleted!',
+                        text: 'Your file has been deleted.',
+                        customClass: {
+                            confirmButton: 'btn btn-success'
+                        }
+                    })
+                } else {
+                    return !result && 'You need to check the box'
+                }
+            },
         })
+        // .then(function (result) {
+        //     if (result.value) {
+        //         handleAdrsBookDeleteLocal()
+        //         MySwal.fire({
+        //             icon: 'success',
+        //             title: 'Deleted!',
+        //             text: 'Your file has been deleted.',
+        //             customClass: {
+        //                 confirmButton: 'btn btn-success'
+        //             }
+        //         })
+        //     }
+        // })
     }
 
     console.log('curt_account', curt_account)
