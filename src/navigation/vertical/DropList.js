@@ -137,7 +137,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                                                     style={{ transform: "scale(1.5)", zIndex: '1' }}
                                                 />
                                                 {/* <Avatar className='mr-1' size='md' color={logos[0].color} icon={logos[0].icon} /> */}
-                                                <h4 style={{ color: '#1919d2' }} className='ml-1 mb-0 '>{i.name}</h4>
+                                                <h4 style={{ color: '#1919d2' }} className='ml-1 mb-0 text-wrap'>{i.name}</h4>
                                                 <h6 className='ml-1 font-weight-light '>{shortenIfAddress(i.adrs)}</h6>
                                             </Col>
                                             <Col className='mb-1 d-flex flex-row justify-content-end align-items-center'>
@@ -169,7 +169,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                                                                     style={{ transform: "scale(1.5)" }}
                                                                 />
                                                                 {/* <Avatar className='mr-1' size='md' color={logos[1].color} icon={logos[1].icon} /> */}
-                                                                <h4 style={{ color: '#1919d2' }} className='mb-0 ml-1'>{j.name}</h4>
+                                                                <h4 style={{ color: '#1919d2' }} className='mb-0 ml-1 text-wrap'>{j.name}</h4>
                                                                 <h6 className='font-weight-light mx-1'>{shortenIfAddress(j.adrs)}</h6>
                                                             </Col>
                                                             <Col className='mb-1 d-flex flex-row justify-content-end align-items-center'>

@@ -123,7 +123,7 @@ const Assests = ({ cols = 0, globalAdrs }) => {
   }
 
   const cardHeightStyle = data.length === 0 ? {
-
+    height: '28em'
   } : {
     height: '28em',
     maxHeight: '28em',

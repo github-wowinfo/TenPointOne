@@ -8,8 +8,9 @@ import { useState } from 'react'
 import SegaLocal from './SegaLocal'
 import ExistingSega from './ExistingSega'
 import Avatar from '@components/avatar'
-import { shortenIfAddress } from '@usedapp/core'
+import { ChainId, getExplorerAddressLink, shortenIfAddress } from '@usedapp/core'
 import { GiCircleCage, GiHobbitDoor, GiShipWheel } from 'react-icons/gi'
+import CopyAdrsSegaList from './CopyAdrsSegaList'
 
 const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultName, segas }) => {
 
@@ -29,10 +30,21 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultN
             name: 'Sega Address',
             selector: row => (
                 <div>
-                    {/* {row.address} */}
                     {<ExistingSega item={row} />}
-                    {row.icon1}
-                    {row.icon2}
+
+                    {/* {row.icon1}
+                    {row.icon2} */}
+                </div>
+            )
+        },
+        {
+            name: '',
+            rigth: 'true',
+            compact: 'true',
+            selector: row => (
+                <div>
+                    <CopyAdrsSegaList item={row.address} />
+                    <a href={getExplorerAddressLink(row.address, ChainId)} target='_blank'><GoLinkExternal className='mx-1' /></a>
                 </div>
             )
         }
