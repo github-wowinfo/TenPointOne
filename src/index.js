@@ -21,9 +21,6 @@ import 'prismjs'
 import 'prismjs/themes/prism-tomorrow.css'
 import 'prismjs/components/prism-jsx.min'
 
-// ** React Perfect Scrollbar
-import 'react-perfect-scrollbar/dist/css/styles.css'
-
 // ** React Toastify
 import '@styles/react/libs/toastify/toastify.scss'
 
@@ -32,6 +29,8 @@ import './@core/assets/fonts/feather/iconfont.css'
 import './@core/scss/core.scss'
 import './assets/scss/style.scss'
 
+// ** React Perfect Scrollbar
+import 'react-perfect-scrollbar/dist/css/styles.css'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 
 // ** Service Worker

@@ -104,7 +104,7 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
   const truncate_stn = (stn) => {
     // return (stn.length > 30) ? stn.substring(0, 30) + '...' : stn
     if (stn.length > 30) {
-      let newstn = stn.substring(0, 28)
+      let newstn = stn.substring(0, 27)
       newstn += '...'
       return newstn
     } else {
@@ -131,12 +131,12 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
     // },
     {
       name: 'Transaction',
-      minWidth: '270px',
+      // minWidth: '270px',
+      // minWidth: '150px',
       compact: 'true',
       wrap: 'true',
-      // width: '50%',
       selector: row => (
-        <Col className='d-flex flex-row align-items-center'>
+        <Col className='px-0 d-flex flex-row align-items-center'>
           <span>
             {row.type === 'receive' && <Avatar color='light-success' icon={<BsArrowDownCircle size={30} />} />}
             {row.type === 'send' && <Avatar color='light-danger' icon={<BsArrowUpCircle size={30} />} />}
@@ -144,16 +144,15 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
           </span>
           {/* <span className='ml-1'>{row.description.substring(0, 30)}</span> */}
           <span className='ml-1 font-weight-bold'>{truncate_stn(row.description)}</span>
-          {/* <span className='ml-1 font-weight-bold text-truncate'>{row.description}</span> */}
+          {/* <span className='ml-1 font-weight-bold text-wrap'>{row.description}</span> */}
         </Col>
       )
     },
     {
       name: 'Asset',
-      // maxWidth: '150px',
-      // width: '14%',
-      // center: 'true',
-      minWidth: '150px',
+      maxWidth: '150px',
+      // minWidth: '120px',
+      // width: '150px',
       compact: true,
       selector: row => (
         <span>
@@ -223,7 +222,7 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
     },
     {
       name: 'Status',
-      // maxWidth: '10px',
+      maxWidth: '10px',
       // width: '12%',
       right: 'true',
       compact: 'true',
