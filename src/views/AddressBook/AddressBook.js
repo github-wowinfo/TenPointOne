@@ -158,7 +158,7 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
             confirmButtonText: 'Yes, delete it!',
             customClass: {
                 confirmButton: 'btn btn-danger m-1',
-                cancelButton: 'btn btn-primary m-1'
+                cancelButton: 'btn btn-primary m-1',
             },
             buttonsStyling: false,
             inputValidator: (result) => {
