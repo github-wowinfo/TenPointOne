@@ -183,7 +183,7 @@ const Network = ({ networkC, dispatch, globalFlag }) => {
 
         <DropdownMenu style={{ relative: 'relative' }}>
 
-          {networkItems}
+          {/* {networkItems} */}
 
         </DropdownMenu>
 
