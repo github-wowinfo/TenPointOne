@@ -107,7 +107,7 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultN
                                 selectableRows
                                 onSelectedRowsChange={handleChange}
                                 noHeader
-                            // selectableRowDisabled={rowDisabledCriteria}
+                                selectableRowDisabled={rowDisabledCriteria}
                             />
                         </Col>
                     </Row>

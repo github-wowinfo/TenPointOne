@@ -112,13 +112,14 @@ const VaultSecurity = ({ openvaultsec, handleVaultSecModal }) => {
 
     for (const i in segaData) {
         for (const j in slist) {
-            if (segaData[i].address === slist[j].address) {
-                slist[j]["isInLocal"] = 'true'
+            if (segaData[i] === slist[j].address) {
+                slist[j].isInLocal = true
+
             }
         }
     }
 
-    console.log('slist', slist)
+    // console.log('slist', slist)
 
     // const CloseBtn = <X className='cursor-pointer' size={25} onClick={handleModal} />
 
