@@ -142,7 +142,8 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                                             </Col>
                                             <Col className='mb-1 d-flex flex-row justify-content-end align-items-center'>
                                                 {/* <FaRegCopy color='grey' size={15} /> */}
-                                                <Avatar className='mr-1' color={logos[0].color} icon={logos[0].icon} />
+                                                {/* <Avatar className='mr-1' color={logos[0].color} icon={logos[0].icon} /> */}
+                                                <GiShipWheel size={27} />
                                                 <CopyAdrsDropList item={i} />
                                                 <a href={getExplorerAddressLink(i.adrs, chainId)} target='_blank'><GoLinkExternal size={27} /></a>
                                             </Col>
@@ -173,7 +174,8 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                                                             </Col>
                                                             <Col className='mb-1 d-flex flex-row justify-content-end align-items-center'>
                                                                 {/* <FaRegCopy color='grey' size={15} /> */}
-                                                                <Avatar className='mr-1' color={logos[1].color} icon={logos[1].icon} />
+                                                                {/* <Avatar className='mr-1' color={logos[1].color} icon={logos[1].icon} /> */}
+                                                                <GiCircleCage size={27} />
                                                                 <CopyAdrsDropList item={j} />
                                                                 <a href={getExplorerAddressLink(j.adrs, chainId)} target='_blank'><GoLinkExternal size={27} /></a>
                                                             </Col>
