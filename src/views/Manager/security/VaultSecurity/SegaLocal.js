@@ -56,20 +56,23 @@ const SegaLocal = ({ opensegaLocalModal, handleSegaLocalModal, segas, vault }) =
         const getAdrsdata = JSON.parse(localStorage.getItem('adrsbook'))
 
         console.log('SEGALIST', segaList)
-        for (const i in segaList) {
+        const adrsbook = []
+
+        segaList.forEach(i => {
             const adrsdata =
             {
                 owner: account,
-                nickname: segaList[i].name,
-                adrs: segaList[i].address,
+                nickname: i.name,
+                adrs: i.address,
                 network: chainId
             }
-            let adrsbook = []
-            if (getAdrsdata) {
-                adrsbook = [...getAdrsdata, adrsdata]
-            } else {
-                adrsbook = [adrsdata]
-            }
+            adrsbook.push(adrsdata)
+        })
+        if (getAdrsdata.length > 0) {
+            // adrsbook = [...getAdrsdata, adrsdata]
+            localStorage.setItem('adrsbook', JSON.stringify([...getAdrsdata, adrsbook]))
+        } else {
+            // adrsbook = [adrsdata]
             localStorage.setItem('adrsbook', JSON.stringify(adrsbook))
         }
         handleSegaLocalModal()
@@ -85,7 +88,7 @@ const SegaLocal = ({ opensegaLocalModal, handleSegaLocalModal, segas, vault }) =
                     <Row className='d-flex flex-column justify-content-center' >
                         <Col>
                             <h3>Add Nicknames for all the selected Segas</h3>
-                            <p>Make sure you are the "Designated Operator" for all the selected segas.</p>
+                            {/* <p>Make sure you are the "Designated Operator" for all the selected segas.</p> */}
                         </Col>
                         <Col>
                             <span>{data}</span>
