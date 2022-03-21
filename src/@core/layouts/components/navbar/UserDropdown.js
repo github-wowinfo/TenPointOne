@@ -42,7 +42,7 @@ const UserDropdown = ({ networkC }) => {
     // await navigator.clipboard.writeText(text)
     // notifySuccess()
     const textField = document.createElement('textarea')
-    textField.innerText = text
+    textField.innerText = account
     document.body.appendChild(textField)
     textField.select()
     document.execCommand('copy')

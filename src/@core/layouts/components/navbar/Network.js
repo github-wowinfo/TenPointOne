@@ -181,11 +181,11 @@ const Network = ({ networkC, dispatch, globalFlag }) => {
           <span><Icon className='mx-1' name={network.icon} size={20} /></span><span className='d-none d-sm-inline'>{network.name}</span>
         </DropdownToggle>
 
-        <DropdownMenu style={{ relative: 'relative' }}>
+        {/* <DropdownMenu style={{ relative: 'relative' }}>
 
-          {/* {networkItems} */}
+          {networkItems}
 
-        </DropdownMenu>
+        </DropdownMenu> */}
 
       </UncontrolledButtonDropdown>
       <LoginModal openloginmodal={loginModal} disconnect={disconnect} />

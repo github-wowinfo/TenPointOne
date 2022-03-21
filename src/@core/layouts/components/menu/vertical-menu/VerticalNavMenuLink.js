@@ -104,7 +104,7 @@ const VerticalNavMenuLink = ({
         }}
       >
         {item.icon}
-        <span className='menu-item text-truncate fontt-weight-bolder text-uppercase'>{item.title}</span>
+        <span className='menu-item text-truncate font-weight-bolder text-uppercase'>{item.title}</span>
 
         {item.badge && item.badgeText ? (
           <Badge className='ml-auto mr-1' color={item.badge} pill>
