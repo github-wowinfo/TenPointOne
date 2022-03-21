@@ -68,7 +68,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
             setVault(value.address)
             setVault_flag(true)
             setSega_flag(false)
-            setSega_value(null)
+            setSega_value({ value: 'Select...', label: 'Select...' })
         }
     }
     // console.log('Vault', Vault)
@@ -341,6 +341,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
         } else {
             dispatch(AppData.globalFavFlag(0))
         }
+        setSega_value({ value: 'Select...', label: 'Select...' })
         handleExeSegaModal()
     }
 
@@ -359,7 +360,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
             setSega_present_flag(false)
             setSadrs('')
             setIs_sega_adrs()
-            setSega_value(null)
+            setSega_value({ value: 'Select...', label: 'Select...' })
             handleExeSegaModal()
         }}>
             <ModalHeader tag='h2' toggle={() => {
@@ -368,7 +369,7 @@ const AddExeSega = ({ openexesega, handleExeSegaModal, globalAdrs, globalNickNam
                 setSega_present_flag(false)
                 setSadrs('')
                 setIs_sega_adrs()
-                setSega_value(null)
+                setSega_value({ value: 'Select...', label: 'Select...' })
                 handleExeSegaModal()
             }}>
                 Track or Hide Existing Sega
