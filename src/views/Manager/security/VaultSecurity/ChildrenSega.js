@@ -68,15 +68,15 @@ const ChildrenSega = ({ openchildsegamodal, handleChildSegatModal, vault, vaultN
     return (
         <>
             <Modal className='modal-dialog-centered ' isOpen={openchildsegamodal} toggle={() => {
-                handleChildSegatModal()
                 setSelectedRows([])
+                handleChildSegatModal()
             }} >
                 {/* {console.log('segas', segas)}
                 {console.log('data', data)}
                 {console.log('actual segas', actualSegas)} */}
                 <ModalHeader tag='h2' toggle={() => {
-                    handleChildSegatModal()
                     setSelectedRows([])
+                    handleChildSegatModal()
                 }}>
                     Children Sega
                 </ModalHeader>
