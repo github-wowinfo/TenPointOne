@@ -201,7 +201,7 @@ const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault, vaul
                     </Col>
                     <Col>
                         <FormGroup>
-                            <Label for='inactivedays' style={{ fontSize: "1.3em" }}>Inactive After Days</Label>
+                            <Label for='inactivedays' style={{ fontSize: "1.3em" }}>Inactive After (days)</Label>
                             <InputGroup>
                                 <Input type='text' id='inactivedays' placeholder='enter no. of days before owner is declared inactive' onChange={handleInputInactive} />
                                 <InputGroupAddon addonType='append'>
