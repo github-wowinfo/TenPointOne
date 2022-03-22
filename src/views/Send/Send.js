@@ -7,7 +7,7 @@ import { GoLinkExternal } from 'react-icons/go'
 import { BsArrowDown, BsArrowRightCircle, BsSafe2 } from 'react-icons/bs'
 import { SiWebmoney } from 'react-icons/si'
 import { IoQrCodeOutline } from 'react-icons/io5'
-import { Card, CardHeader, CardTitle, CardBody, CardFooter, Form, FormGroup, Label, Input, Button, Row, Col, CardText, NavLink, Alert } from 'reactstrap'
+import { Card, CardHeader, CardTitle, CardBody, CardFooter, Form, FormGroup, Label, Input, Button, Row, Col, CardText, NavLink, Alert, InputGroup, InputGroupAddon } from 'reactstrap'
 import Badge from 'reactstrap/lib/Badge'
 import Icon from 'react-crypto-icons'
 import { toast } from 'react-toastify'
@@ -28,6 +28,8 @@ import * as AppData from '../../redux/actions/cookies/appDataType'
 import QrReader from 'react-qr-reader'
 import { FiXCircle } from 'react-icons/fi'
 import { GiCircleCage, GiHobbitDoor, GiShipWheel } from 'react-icons/gi'
+import { ImAddressBook } from "react-icons/im"
+import AdrsBookSelect from './AdrsBookSelect'
 
 const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
 
@@ -281,8 +283,15 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
   const [adrs_flag, setAdrs_flag] = useState(false)
   const fromAddress = globalAdrs
   const [toAddress, setToAddress] = useState('')
+  const [adrsBookValue, setAdrsBookValue] = useState('')
   const handleToAddressInput = (e) => {
+    if (e.target.value === '') {
+      setAdrsBookValue('')
+    } else {
+      setAdrsBookValue(e.target.value)
+    }
     const newAddress = e.target.value
+
     if (isAddress(newAddress)) {
       setToAddress(newAddress)
       setAdrs_flag(true)
@@ -547,6 +556,10 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
   const networkIcon = chainId ? helperConfig.network[chainId].icon : "Not Connected"
   const networkName = chainId ? helperConfig.network[chainId].name : "Not Connected"
   const backgroundChange = { backgroundColor: networkName === "BSC Testnet" ? '#cc9b00' : networkName === "Polygon" ? '#8146e4' : networkName === "Ethereum" ? '#4559f4' : networkName === "Kovan" ? '#6435c9' : networkName === "BSC Mainet" ? '#cc9b00' : networkName === "Polygon Mumbai" ? '#140035' : null }
+
+  const [adrsbookModal, setAdrsBookModal] = useState(false)
+  const handleadrsbookModal = () => setAdrsBookModal(!adrsbookModal)
+
   return (
     <>
       <Col style={cardStyle} md={{ offset: 3, size: 6 }} lg={{ offset: 3, size: 6 }} sm="12">
@@ -631,13 +644,21 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                         <Row>
                           <Col>
                             {/* <Col xs='8' sm='8' md='10'> */}
-                            <Input
-                              className='form-control'
-                              id='recepient'
-                              placeholder="Enter receiver's address"
-                              // value={qr_result !== "" ? qr_result : null}
-                              onChange={handleToAddressInput}
-                            />
+                            <InputGroup>
+                              <Input
+                                className='form-control'
+                                id='recepient'
+                                placeholder="Enter receiver's address"
+                                value={adrsBookValue}
+                                // value={qr_result !== "" ? qr_result : null}
+                                onChange={handleToAddressInput}
+                              />
+                              <InputGroupAddon addonType='append'>
+                                <Button size='sm' outline onClick={handleadrsbookModal}>
+                                  <ImAddressBook size={20} />
+                                </Button>
+                              </InputGroupAddon>
+                            </InputGroup>
                           </Col>
                           {/* <Col>
                             <IoQrCodeOutline onClick={operScanner} size={30} />
@@ -769,6 +790,7 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
         </Card>
       </Col>
       <LoginModal openloginmodal={loginModal} disconnect={disconnect} />
+      <AdrsBookSelect openadrsbookselect={adrsbookModal} handleadrsbookModal={handleadrsbookModal} setAdrsBookValue={setAdrsBookValue} />
     </>
   )
 }
