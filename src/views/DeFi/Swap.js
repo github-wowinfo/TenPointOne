@@ -40,7 +40,7 @@ const Swap = () => {
                             flex: 1,
                             justifyContent: 'space-between'
                         }}>
-                            <h6 style={{ marginTop: 10 }}>Pay With</h6>
+                            <h6 style={{ marginTop: 10, fontSize: '1.2em' }}>Pay With</h6>
                             <label style={{
                                 marginTop: 10,
                                 fontWeight: 'bold',
@@ -113,7 +113,7 @@ const Swap = () => {
                             flex: 1,
                             justifyContent: 'space-between'
                         }}>
-                            <h6 style={{ marginTop: 10 }}>Receive</h6>
+                            <h6 style={{ marginTop: 10, fontSize: '1.2em' }}>Receive</h6>
                             <label style={{
                                 marginTop: 10,
                                 fontWeight: 'bold',
@@ -171,7 +171,7 @@ const Swap = () => {
 
 
                         <FormGroup className='mt-2'>
-                            <Label for='basicInput'>Description (optional)</Label>
+                            <Label for='basicInput' style={{ fontSize: '1.2em' }}>Description (optional)</Label>
                             <Input type='text' id='basicInput' placeholder='Enter Description' />
                         </FormGroup>
 
