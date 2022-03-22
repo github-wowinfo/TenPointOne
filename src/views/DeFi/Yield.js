@@ -7,21 +7,42 @@ import { Card, CardHeader, CardTitle, Col, Row } from 'reactstrap'
 import '@styles/react/libs/tables/react-dataTable-component.scss'
 
 const Yield = () => {
+    // const tablestyle = {
+    //     headCells: {
+    //         style: {
+    //             fontSize: '1em'
+    //         }
+    //     },
+    //     cells: {
+    //         style: {
+    //             fontSize: '1em'
+    //         }
+    //     },
+    //     rows: {
+    //         style: {
+    //             minHeight: '4em',
+
+    //         }
+    //     }
+    // }
+
     const tablestyle = {
         headCells: {
             style: {
-                fontSize: '1em'
+                fontWeight: '500',
+                fontSize: '1.285rem',
+                color: '#6e6b7b'
             }
         },
         cells: {
             style: {
-                fontSize: '1em'
+                fontSize: '1.3em',
+                minHeight: '5em'
             }
         },
         rows: {
             style: {
-                minHeight: '4em',
-
+                minHeight: '5em'
             }
         }
     }
@@ -34,18 +55,21 @@ const Yield = () => {
             minWidth: '150px',
             cell: row => (
                 <div>
-                    <Icon name={row.icon} size={20} />
-                    <label className='font-weight-bold ml-1'>{row.name}</label>
+                    {/* <Avatar size='lg' icon={<Icon name={row.icon} size={30} />} onError={addDefaultSrc} className='mr-1' /> */}
+                    <Icon name={row.icon} size={30} />
+                    <span className='font-weight-bold ml-1'>{row.name}</span>
                 </div>
             )
         },
         {
-            name: 'Your wallet balance',
+            name: 'Balance',
             selector: 'balance',
             cell: row => (
                 <div>
-                    <h6>{row.balance}</h6>
-                    {row.balance1 !== 0 && <label>$ {row.balance1}</label>}
+                    <h4>{row.balance}</h4>
+                    <h5>
+                        {row.balance1 !== 0 && <label>$ {row.balance1}</label>}
+                    </h5>
                 </div>
             )
         },
@@ -55,7 +79,7 @@ const Yield = () => {
             sortable: true,
             cell: row => (
                 <div >
-                    <h6>{row.apy}</h6>
+                    <h4>{row.apy}</h4>
                 </div>
             )
         },
@@ -64,11 +88,16 @@ const Yield = () => {
             selector: 'apy1',
             cell: row => (
                 <div>
-                    <label style={{
+                    <h4>
+                        <strong>{row.apy1}</strong>
+                    </h4>
+                    {/* <label style={{
                         padding: 2,
                         borderStyle: 'solid',
                         borderWidth: 1
-                    }}><Icon name='matic' size={8} /> <strong>{row.apy1}</strong></label>
+                    }}>
+                    <Icon name='matic' size={8} /> <strong>{row.apy1}</strong>
+                    </label> */}
                 </div>
             )
         }
