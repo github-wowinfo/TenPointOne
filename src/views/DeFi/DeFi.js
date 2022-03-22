@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import { TabContent, TabPane, Nav, NavItem, NavLink, Button, Col, Card, CardHeader, CardTitle } from 'reactstrap'
 import Buy from './Buy'
 import Swap from './Swap'
@@ -11,6 +11,10 @@ import { connect } from 'react-redux'
 import * as AppData from '../../redux/actions/cookies/appDataType'
 import { BsArrowRightCircle } from 'react-icons/bs'
 import LoginModal from '../LoginModal'
+import BuyCrypto from './BuyCrypto'
+import Avatar from '@components/avatar'
+import { Info } from 'react-feather'
+import { toast } from 'react-toastify'
 
 const DeFi = ({ dispatch, globalAdrs, globalNickName, globalVaultFlag }) => {
 
@@ -69,6 +73,36 @@ const DeFi = ({ dispatch, globalAdrs, globalNickName, globalVaultFlag }) => {
     const accountChange = async () => {
         await ethereum.request({ method: "wallet_requestPermissions", params: [{ eth_accounts: {} }] })
     }
+
+    // const handleInfo = () => {
+    //     return MySwal.fire({
+    //         title: 'This section is indicative only. DeFi linkages will be added soon.',
+    //         //   text: 'You clicked the button!',
+    //         icon: 'info',
+    //         customClass: {
+    //             confirmButton: 'btn btn-primary'
+    //         },
+    //         buttonsStyling: false
+    //     })
+    // }
+    const notifyInfo = () => toast.info(<InfoToast />, { hideProgressBar: true })
+    const InfoToast = () => (
+        <Fragment>
+            <div className='toastify-header'>
+                <div className='title-wrapper'>
+                    <Avatar size='md' color='info' icon={<Info size={12} />} />
+                    <h3 className='toast-title'>Info!</h3>
+                </div>
+            </div>
+            <div className='toastify-body'>
+                <span style={{ fontSize: '1.5em' }} role='img' aria-label='toast-text'>
+                    DeFi interlinkages are under active development. This section only gives a representation of the upcoming features.
+                    Buy, Swap and Yield trades are currently disabled.
+                </span>
+            </div>
+        </Fragment>
+    )
+
     const handleAjax = () => {
         return MySwal.fire({
             title: 'Do you want to change your current network?',
@@ -121,6 +155,13 @@ const DeFi = ({ dispatch, globalAdrs, globalNickName, globalVaultFlag }) => {
     }
 
     console.log('curt_account', curt_account)
+
+    useEffect(() => {
+        if (globalNickName !== 'Create a Vault') {
+            // handleInfo()
+            notifyInfo()
+        }
+    }, [])
 
     useEffect(() => {
         if (chainId !== undefined && curt_chain !== undefined && chainId !== curt_chain) {
@@ -199,7 +240,7 @@ const DeFi = ({ dispatch, globalAdrs, globalNickName, globalVaultFlag }) => {
                     </Card>
                     <TabContent className='py-50' activeTab={active}>
                         <TabPane tabId='1'>
-                            <Buy />
+                            <BuyCrypto />
                         </TabPane>
                         <TabPane tabId='2'>
                             <Swap />
