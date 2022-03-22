@@ -166,7 +166,7 @@ const DropList = ({ opendroplist, handleDropList, globalAdrs, dispatch, globalNi
                                                                     name='vaults'
                                                                     value={j.adrs}
                                                                     onChange={e => handleChange(e, j.name)}
-                                                                    style={{ transform: "scale(1.5)" }}
+                                                                    style={{ transform: "scale(1.5)", zIndex: '1' }}
                                                                 />
                                                                 {/* <Avatar className='mr-1' size='md' color={logos[1].color} icon={logos[1].icon} /> */}
                                                                 <h4 style={{ color: '#1919d2' }} className='mb-0 ml-1 text-wrap'>{j.name}</h4>
