@@ -1,27 +1,53 @@
 import React, { Fragment } from 'react'
 import Icon from 'react-crypto-icons'
+import Avatar from '@components/avatar'
 import DataTable from 'react-data-table-component'
 import { ChevronDown } from 'react-feather'
 import { Card, CardHeader, CardTitle, Col, Row } from 'reactstrap'
 // ** Styles
 import '@styles/react/libs/tables/react-dataTable-component.scss'
 
+const addDefaultSrc = (ev) => {
+    ev.target.src = require(`@src/assets/images/logo/question.jpg`).default
+}
+
 const Yield = () => {
+    // const tablestyle = {
+    //     headCells: {
+    //         style: {
+    //             fontSize: '1em'
+    //         }
+    //     },
+    //     cells: {
+    //         style: {
+    //             fontSize: '1em'
+    //         }
+    //     },
+    //     rows: {
+    //         style: {
+    //             minHeight: '4em',
+
+    //         }
+    //     }
+    // }
+
     const tablestyle = {
         headCells: {
             style: {
-                fontSize: '1em'
+                fontWeight: '500',
+                fontSize: '1.285rem',
+                color: '#6e6b7b'
             }
         },
         cells: {
             style: {
-                fontSize: '1em'
+                fontSize: '1.3em',
+                minHeight: '5em',
             }
         },
         rows: {
             style: {
-                minHeight: '4em',
-
+                minHeight: '5em'
             }
         }
     }
@@ -34,18 +60,21 @@ const Yield = () => {
             minWidth: '150px',
             cell: row => (
                 <div>
-                    <Icon name={row.icon} size={20} />
-                    <label className='font-weight-bold ml-1'>{row.name}</label>
+                    {/* <Avatar size='lg' icon={<Icon name={row.icon} size={30} />} onError={addDefaultSrc} className='mr-1' /> */}
+                    <Icon name={row.icon} size={30} />
+                    <span className='font-weight-bold ml-1'>{row.name}</span>
                 </div>
             )
         },
         {
-            name: 'Your wallet balance',
+            name: 'Balance',
             selector: 'balance',
             cell: row => (
                 <div>
-                    <h6>{row.balance}</h6>
-                    {row.balance1 !== 0 && <label>$ {row.balance1}</label>}
+                    <h4 style={{ color: '#282828' }}>{row.balance}</h4>
+                    <h5 style={{ color: '#282828' }}>
+                        {row.balance1 !== 0 && <label>$ {row.balance1}</label>}
+                    </h5>
                 </div>
             )
         },
@@ -55,7 +84,7 @@ const Yield = () => {
             sortable: true,
             cell: row => (
                 <div >
-                    <h6>{row.apy}</h6>
+                    <h4 style={{ color: '#282828' }}>{row.apy}</h4>
                 </div>
             )
         },
@@ -64,11 +93,16 @@ const Yield = () => {
             selector: 'apy1',
             cell: row => (
                 <div>
-                    <label style={{
+                    <h4 style={{ color: '#282828' }}>
+                        {row.apy1}
+                    </h4>
+                    {/* <label style={{
                         padding: 2,
                         borderStyle: 'solid',
                         borderWidth: 1
-                    }}><Icon name='matic' size={8} /> <strong>{row.apy1}</strong></label>
+                    }}>
+                    <Icon name='matic' size={8} /> <strong>{row.apy1}</strong>
+                    </label> */}
                 </div>
             )
         }
@@ -82,7 +116,7 @@ const Yield = () => {
             balance: 0.97718,
             balance1: 1.83,
             apy: '0.31 %',
-            apy1: '3.59 % API'
+            apy1: '3.59 % APR'
 
         },
         {
@@ -92,7 +126,7 @@ const Yield = () => {
             balance: '-',
             balance1: 0,
             apy: '3.54 %',
-            apy1: '2.41 % API'
+            apy1: '2.41 % APR'
 
         },
         {
@@ -102,7 +136,7 @@ const Yield = () => {
             balance: '-',
             balance1: 0,
             apy: '3.26 %',
-            apy1: '2.06 % API'
+            apy1: '2.06 % APR'
 
         },
         {
@@ -112,7 +146,7 @@ const Yield = () => {
             balance: '-',
             balance1: 0,
             apy: '12.41 %',
-            apy1: '5.04 % API'
+            apy1: '5.04 % APR'
 
         },
         {
@@ -122,7 +156,7 @@ const Yield = () => {
             balance: '-',
             balance1: 0,
             apy: '0.93 %',
-            apy1: '1.85 % API'
+            apy1: '1.85 % APR'
 
         },
         {
@@ -132,7 +166,7 @@ const Yield = () => {
             balance: '-',
             balance1: 0,
             apy: '0.05 %',
-            apy1: '0.50 % API'
+            apy1: '0.50 % APR'
 
         }
     ]
