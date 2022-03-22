@@ -14,6 +14,7 @@ import LoginModal from '../LoginModal'
 import Avatar from '@components/avatar'
 import { Info } from 'react-feather'
 import { toast } from 'react-toastify'
+import BuyCrypto from './BuyCrypto'
 
 const DeFi = ({ dispatch, globalAdrs, globalNickName, globalVaultFlag }) => {
 
@@ -239,7 +240,7 @@ const DeFi = ({ dispatch, globalAdrs, globalNickName, globalVaultFlag }) => {
                     </Card>
                     <TabContent className='py-50' activeTab={active}>
                         <TabPane tabId='1'>
-                            <Buy />
+                            <BuyCrypto />
                         </TabPane>
                         <TabPane tabId='2'>
                             <Swap />

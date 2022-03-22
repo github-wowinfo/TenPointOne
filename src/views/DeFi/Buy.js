@@ -13,6 +13,11 @@ const Buy = () => {
         }
     }
 
+    const style_no_vault = {
+        minWidth: '30vw',
+        minHeight: '55vh'
+    }
+
     return (
         <>
             {/* <div className='row' style={{ flex: 1, justifyContent: 'center' }}>
@@ -29,32 +34,33 @@ const Buy = () => {
             <div className='row' style={{ marginTop: 20, flex: 1, justifyContent: 'center' }}>
 
                 <Col md='5' >
-                    <Card className='p-3'>
+                    <Card style={style_no_vault} className='p-3'>
                         <React.Fragment>
                             <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
                                 <Nav tabs>
-                                    <NavItem>
-                                        <NavLink
-                                            active={active === '1'}
-                                            onClick={() => {
-                                                toggle('1')
-                                            }}
-                                        >
-                                            <CardTitle className='mb-0'>Buy Crypto</CardTitle>
-                                        </NavLink>
+                                    <div style={{ display: 'flex', flex: 1, justifyContent: 'space-evenly' }}>
+                                        <NavItem>
+                                            <NavLink
+                                                active={active === '1'}
+                                                onClick={() => {
+                                                    toggle('1')
+                                                }}
+                                            >
+                                                <CardTitle className='mb-0'>Buy Crypto</CardTitle>
+                                            </NavLink>
 
-                                    </NavItem>
-                                    <NavItem>
-                                        <NavLink
-                                            active={active === '2'}
-                                            onClick={() => {
-                                                toggle('2')
-                                            }}
-                                        >
-                                            <CardTitle className='mb-0'>Sell BTC</CardTitle>
-                                        </NavLink>
-                                    </NavItem>
-
+                                        </NavItem>
+                                        <NavItem>
+                                            <NavLink
+                                                active={active === '2'}
+                                                onClick={() => {
+                                                    toggle('2')
+                                                }}
+                                            >
+                                                <CardTitle className='mb-0'>Sell BTC</CardTitle>
+                                            </NavLink>
+                                        </NavItem>
+                                    </div>
                                 </Nav>
                             </div>
                             <TabContent className='py-50' activeTab={active}>
