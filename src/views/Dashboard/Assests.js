@@ -99,10 +99,10 @@ const Assests = ({ cols = 0, globalAdrs }) => {
         <Col
           key={index}
           {...cols}
-          className='mb-2'
-        // className={classnames({
-        //   [`mb-2 mb-${margin[0]}-0`]: index !== data.length - 1
-        // })}
+          // className='mb-2'
+          className={classnames({
+            [`mb-2 mb-${margin[0]}-0`]: index !== data.length - 1
+          })}
         >
           <Media>
             <Avatar size='lg' img={item.logo_url} onError={addDefaultSrc} className='mx-2' />
