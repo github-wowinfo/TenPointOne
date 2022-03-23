@@ -284,20 +284,35 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
   const fromAddress = globalAdrs
   const [toAddress, setToAddress] = useState('')
   const [adrsBookValue, setAdrsBookValue] = useState('')
-  const handleToAddressInput = (e) => {
-    if (e.target.value === '') {
+  console.log('adrsBookValue', adrsBookValue)
+  const handleToAddressInput = (event) => {
+    let newAddress
+    if (event.target.value === '') {
+      newAddress = ''
       setAdrsBookValue('')
     } else {
-      setAdrsBookValue(e.target.value)
-    }
-    const newAddress = e.target.value
-
-    if (isAddress(newAddress)) {
-      setToAddress(newAddress)
-      setAdrs_flag(true)
-      console.log("Setting To Address:", newAddress)
+      newAddress = event.target.value
+      setAdrsBookValue(newAddress)
+      if (isAddress(newAddress)) {
+        setToAddress(newAddress)
+        setAdrs_flag(true)
+        console.log("Setting To Address:", newAddress)
+      } else {
+        console.log('not valid address')
+      }
     }
   }
+
+  useEffect(() => {
+    if (isAddress(adrsBookValue)) {
+      setToAddress(adrsBookValue)
+      setAdrs_flag(true)
+      console.log("Setting To Address:", adrsBookValue)
+    } else {
+      setAdrs_flag(false)
+      console.log('not valid address')
+    }
+  }, [adrsBookValue])
 
   const [tokenTicker, setTokenTicker] = useState("")
   const [assetAdrs, setAssetAdrs] = useState(constants.AddressZero)
@@ -525,10 +540,18 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
     if (newAmount) {
       setAmount(newAmount.toString())
     } else {
-      setAmount(0)
+      setAmount('0')
     }
     console.log("newAmt", newAmount)
   }
+
+  useEffect(() => {
+    if (balance_max !== '') {
+      setAmount(balance_max.toString())
+    } else {
+      setAmount('0')
+    }
+  }, [balance_max])
 
   useEffect(() => {
     // console.log('TransferState', TransferState)
@@ -544,7 +567,7 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
     if (TransferState.status === "Success") {
       setTxnSuccessSnack(true)
       setBalance_max('')
-      setAmount(0)
+      setAmount('0')
     }
   }, [TransferState])
 
@@ -650,7 +673,6 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                                 id='recepient'
                                 placeholder="Enter receiver's address"
                                 value={adrsBookValue}
-                                // value={qr_result !== "" ? qr_result : null}
                                 onChange={handleToAddressInput}
                               />
                               <InputGroupAddon addonType='append'>
@@ -713,66 +735,69 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
             </>
           )}
 
-          {globalNickName !== 'Create a Vault' ? (<CardFooter>
-            <Row >
-              {is_sega ? (
-                <>
-                  {adrs_flag && balance_max !== '' ? (
-                    <>
-                      <Col>
-                        <Button.Ripple color='primary' onClick={handleSegaTransfer} block >
-                          Send
-                        </Button.Ripple>
-                      </Col>
-                      <Col>
-                        <Button.Ripple color='primary' onClick={handleSegaApprove} block>
-                          Approve ERC
-                        </Button.Ripple>
-                      </Col>
-                      {/* <Col>
+          {globalNickName !== 'Create a Vault' ? (
+            <CardFooter>
+              <Row>
+                {is_sega ? (
+                  <>
+                    {adrs_flag && balance_max !== '' ? (
+                      <>
+                        <Col>
+                          <Button.Ripple color='primary' onClick={handleSegaTransfer} block >
+                            Send
+                          </Button.Ripple>
+                        </Col>
+                        <Col>
+                          <Button.Ripple color='primary' onClick={handleSegaApprove} block>
+                            Approve ERC
+                          </Button.Ripple>
+                        </Col>
+                        {/* <Col>
                         <Button.Ripple onClick={handleLog}>TestLog</Button.Ripple>
                       </Col> */}
-                    </>
-                  ) : (
-                    <>
-                      <Col>
-                        <Button.Ripple color='primary' disabled block >
-                          Send
-                        </Button.Ripple>
-                      </Col>
-                      <Col>
-                        <Button.Ripple color='primary' disabled block>
-                          Approve ERC
-                        </Button.Ripple>
-                      </Col>
-                      {/* <Col>
+                      </>
+                    ) : (
+                      <>
+                        <Col>
+                          <Button.Ripple color='primary' disabled block >
+                            Send
+                          </Button.Ripple>
+                        </Col>
+                        <Col>
+                          <Button.Ripple color='primary' disabled block>
+                            Approve ERC
+                          </Button.Ripple>
+                        </Col>
+                        {/* <Col>
                         <Button.Ripple disabled >TestLog</Button.Ripple>
                       </Col> */}
-                    </>
+                      </>
+                    )}
+                  </>
+                ) : (<>
+                  {adrs_flag && balance_max !== '' ? (
+                    <Col className='text-center'>
+                      <Button.Ripple color='primary' onClick={() => {
+                        handleLog()
+                        handleVaultSend()
+                      }}>
+                        Send
+                      </Button.Ripple>
+                      {/* <Button.Ripple onClick={handleLog}>TestLog</Button.Ripple> */}
+                    </Col>
+                  ) : (
+                    <Col className='text-center'>
+                      <Button.Ripple color='primary' disabled >
+                        Send
+                      </Button.Ripple>
+                      {/* <Button.Ripple disabled>TestLog</Button.Ripple> */}
+                    </Col>
                   )}
-
                 </>
-              ) : (<>
-                {adrs_flag && balance_max !== '' ? (
-                  <Col className='text-center'>
-                    <Button.Ripple color='primary' onClick={handleVaultSend}>
-                      Send
-                    </Button.Ripple>
-                    {/* <Button.Ripple onClick={handleLog}>TestLog</Button.Ripple> */}
-                  </Col>
-                ) : (
-                  <Col className='text-center'>
-                    <Button.Ripple color='primary' disabled >
-                      Send
-                    </Button.Ripple>
-                    {/* <Button.Ripple disabled>TestLog</Button.Ripple> */}
-                  </Col>
-                )}
-              </>
 
-              )}
-            </Row>
-          </CardFooter>) : null}
+                )}
+              </Row>
+            </CardFooter>) : null}
           <Col className='d-flex flex-column justify-content-center'>
             <Alert className='p-1' isOpen={showTxnMiningSnack} toggle={() => handleTxnSnackClose()} color="info">
               <div>Transaction in Progress- Txn ID : &emsp; </div>
@@ -791,6 +816,8 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
       </Col>
       <LoginModal openloginmodal={loginModal} disconnect={disconnect} />
       <AdrsBookSelect openadrsbookselect={adrsbookModal} handleadrsbookModal={handleadrsbookModal} setAdrsBookValue={setAdrsBookValue} />
+      {console.log('adrs_flag', adrs_flag)}
+      {console.log('balance_max', balance_max)}
     </>
   )
 }
