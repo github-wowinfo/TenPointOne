@@ -14,7 +14,7 @@ import { toast } from 'react-toastify'
 import { XCircle } from 'react-feather'
 import Avatar from '@components/avatar'
 import { FiXCircle } from 'react-icons/fi'
-import { GiShipWheel, GiCircleCage } from 'react-icons/gi'
+import { GiShipWheel } from 'react-icons/gi'
 
 const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, sega_name, pVault, haveInfo }) => {
 
@@ -218,20 +218,6 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, sega_name
         </Fragment>
     )
 
-    useEffect(() => {
-        if (TransferState.status === "Exception" || TransferState.status === "Fail") {
-            notifyError(TransferState.errorMessage)
-        }
-
-        if (TransferState.status === "Mining") {
-            const tx_id = String(TransferState.transaction?.hash)
-            setTxnID(tx_id.toString())
-            console.log("***Handle TX_ID: ", TransferState.status, tx_id)
-            setShowTxnMiningSnack(true)
-        }
-        if (TransferState.status === "Success") { setTxnSuccessSnack(true) }
-    }, [TransferState])
-
     const handleLog = () => {
         const y = new CurrencyValue(nativeToken, BigNumber.from("100000000000000000000"))
         // const z = new CurrencyValue(ercToken, BigNumber.from("100000000000000000000"))
@@ -295,10 +281,36 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, sega_name
         if (newAmount) {
             setAmount(newAmount.toString())
         } else {
-            setAmount(0)
+            setAmount('0')
         }
         console.log("newAmt", newAmount)
     }
+
+    useEffect(() => {
+        if (balance_max !== '') {
+            setAmount(balance_max.toString())
+        } else {
+            setAmount('0')
+        }
+    }, [balance_max])
+
+    useEffect(() => {
+        if (TransferState.status === "Exception" || TransferState.status === "Fail") {
+            notifyError(TransferState.errorMessage)
+        }
+
+        if (TransferState.status === "Mining") {
+            const tx_id = String(TransferState.transaction?.hash)
+            setTxnID(tx_id.toString())
+            console.log("***Handle TX_ID: ", TransferState.status, tx_id)
+            setShowTxnMiningSnack(true)
+        }
+        if (TransferState.status === "Success") {
+            setTxnSuccessSnack(true)
+            setBalance_max('')
+            setAmount('0')
+        }
+    }, [TransferState])
 
     return (
         <Modal className='modal-dialog-centered' isOpen={openrecallmodal} toggle={() => {
@@ -324,8 +336,7 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, sega_name
                     <Col className='my-1'>
                         <Row className='d-flex flex-row align-items-center'>
                             <Col className='d-flex flex-row justify-content-start align-items-center'>
-                                {/* <Avatar size='lg' color='light-primary' icon={<GiShipWheel size={40} />} /> */}
-                                <Avatar size='lg' color='light-primary' icon={<GiCircleCage size={40} />} />
+                                <Avatar size='lg' color='light-primary' icon={<GiShipWheel size={40} />} />
                                 <div className='ml-1 d-flex flex-column justify-content-start '>
                                     <CardTitle className='mb-0' tag='h3'>{sega_name}</CardTitle>
                                     <CardSubtitle className='pt-1' tag='h5'>{shortenIfAddress(selectSega)}</CardSubtitle>
@@ -403,7 +414,10 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, sega_name
                 </Row>
             </ModalBody>
             <ModalFooter className='justify-content-center'>
-                <Button.Ripple color='primary' onClick={handleForceRecall}>
+                <Button.Ripple color='primary' onClick={() => {
+                    handleLog()
+                    handleForceRecall()
+                }}>
                     Force Recall
                 </Button.Ripple>
                 {/* <Button.Ripple onClick={handleLog}>TestLog</Button.Ripple> */}
