@@ -345,7 +345,7 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, sega_name
                         </Row>
                     </Col>
                     <Col className='d-flex flex-row mb-1'>
-                        <Col md='1'><BsArrowDown size={40} /></Col>
+                        <Col md='1'><BsArrowDown size={41} /></Col>
                         <Col>
                             <hr />
                         </Col>
