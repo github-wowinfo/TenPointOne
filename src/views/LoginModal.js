@@ -93,10 +93,10 @@ const LoginModal = ({ openloginmodal, disconnect }) => {
     )
 
     useEffect(() => {
-        const onError = (error) => {
-            // console.log(error.message)
-            notifyError(error.message)
-        }
+        // const onError = (error) => {
+        //     // console.log(error.message)
+        //     notifyError(error.message)
+        // }
 
         activateBrowserWallet()
 
