@@ -4,9 +4,10 @@ import { Fragment } from 'react'
 import UserDropdown from './UserDropdown'
 
 // ** Third Party Components
-import { Sun, Moon, Menu } from 'react-feather'
+import { Sun, Moon, Menu, Book } from 'react-feather'
 import { NavItem, NavLink } from 'reactstrap'
 import Network from './Network'
+import { VscBook } from 'react-icons/vsc'
 
 const NavbarUser = props => {
   // ** Props
@@ -37,6 +38,17 @@ const NavbarUser = props => {
             <ThemeToggler />
           </NavLink>
         </NavItem>
+      </div>
+      <div className='bookmark-wrapper d-flex align-items-center'>
+        {/* <Book title='Documentation' className='ficon ml-1' onClick={() => (window.location.href = 'https://ts0-1.gitbook.io/risk-protocol-help-docs/')} /> */}
+        {/* <Book title='Documentation' className='ficon ml-1' onClick={() => (window.open('https://ts0-1.gitbook.io/risk-protocol-help-docs/', '_blank'))} /> */}
+        {/* <BookOpen title='Documentation' className='ficon ml-1' onClick={() => (window.open('https://ts0-1.gitbook.io/risk-protocol-help-docs/', '_blank'))} /> */}
+        <VscBook
+          style={{ cursor: 'pointer' }}
+          size={25}
+          title='Documentation'
+          className='ficon ml-1'
+          onClick={() => (window.open('https://ts0-1.gitbook.io/risk-protocol-help-docs/', '_blank'))} />
       </div>
       <ul className='nav navbar-nav align-items-center flex-nowrap ml-auto '>
         <UserDropdown />
