@@ -89,23 +89,42 @@ const Yield = () => {
             )
         },
         {
-            name: '',
+            name: 'APY',
+            selector: 'apy',
+            sortable: true,
+            cell: row => (
+                <div >
+                    <h4>{row.apy}</h4>
+                </div>
+            )
+        },
+        {
+            name: 'Deposit',
             selector: 'apy1',
             cell: row => (
                 <div>
-                    <h4 style={{ color: '#282828' }}>
-                        {row.apy1}
-                    </h4>
-                    {/* <label style={{
-                        padding: 2,
-                        borderStyle: 'solid',
-                        borderWidth: 1
-                    }}>
-                    <Icon name='matic' size={8} /> <strong>{row.apy1}</strong>
-                    </label> */}
+                    <Button color='primary' outline>Deposit</Button>
                 </div>
             )
-        }
+        },
+        // {
+        //     name: '',
+        //     selector: 'apy1',
+        //     cell: row => (
+        //         <div>
+        //             <h4>
+        //                 <strong>{row.apy1}</strong>
+        //             </h4>
+        //             {/* <label style={{
+        //                 padding: 2,
+        //                 borderStyle: 'solid',
+        //                 borderWidth: 1
+        //             }}>
+        //             <Icon name='matic' size={8} /> <strong>{row.apy1}</strong>
+        //             </label> */}
+        //         </div>
+        //     )
+        // }
     ]
 
     const data = [

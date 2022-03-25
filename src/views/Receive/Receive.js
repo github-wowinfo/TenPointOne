@@ -239,7 +239,7 @@ const Receive = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
               <CardBody className='pt-0 px-1 pb-1' >
                 <Row>
                   <Col className='py-1' style={{ ...backgroundChange, textAlign: 'center', height: '100%' }}>
-                    <CardText style={{ color: 'white' }}><Icon className='mr-1' name={networkIcon} size={20} />Only send {networkName} assets to this Safe</CardText>
+                    <CardText style={{ color: 'white' }}><Icon className='mr-1' name={networkIcon} size={20} />Only send {networkName} assets to this Account</CardText>
                   </Col>
                 </Row>
                 <Row className='d-flex flex-column justify-content-center align-items-center'>
