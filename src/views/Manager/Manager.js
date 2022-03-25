@@ -16,11 +16,15 @@ import LoginModal from "../LoginModal"
 const Manager = ({ globalAdrs, globalNickName, dispatch, globalVaultFlag }) => {
     const { account, chainId } = useEthers()
 
+    console.log('account', account)
+
     const isConnected = account !== undefined
+    console.log('isConnected', isConnected)
 
     const [loginModal, setLoginModal] = useState(false)
+
     const disconnect = () => {
-        window.location.href = 'home'
+        window.location.href = '/home'
         setLoginModal(!loginModal)
     }
 

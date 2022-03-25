@@ -27,14 +27,14 @@ const Home = ({ globalVaultFlag, globalAdrs, dispatch, globalNickName }) => {
   const [loginModal, setLoginModal] = useState(false)
   const disconnect = () => {
     setLoginModal(!loginModal)
-    // window.location.href = '/login'
   }
 
   console.log('loginModal', loginModal)
 
   useEffect(() => {
     if (!isConnected) {
-      setLoginModal(!loginModal)
+      disconnect()
+      // setLoginModal(!loginModal)
     }
   }, [account, chainId])
 
