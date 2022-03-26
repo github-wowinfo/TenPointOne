@@ -3,7 +3,7 @@ import Icon from 'react-crypto-icons'
 import Avatar from '@components/avatar'
 import DataTable from 'react-data-table-component'
 import { ChevronDown } from 'react-feather'
-import { Card, CardHeader, CardTitle, Col, Row } from 'reactstrap'
+import { Button, Card, CardHeader, CardTitle, Col, Row } from 'reactstrap'
 // ** Styles
 import '@styles/react/libs/tables/react-dataTable-component.scss'
 
