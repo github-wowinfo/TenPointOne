@@ -1,7 +1,7 @@
 import classnames from 'classnames'
 import Avatar from '@components/avatar'
 import { Link } from 'react-router-dom'
-import { TrendingUp, User, Box, DollarSign } from 'react-feather'
+import { TrendingUp, User, Box, DollarSign, RefreshCw } from 'react-feather'
 import { Card, CardHeader, CardTitle, CardBody, CardText, Row, Col, Media, Badge, CardFooter, Spinner } from 'reactstrap'
 import Icon from 'react-crypto-icons'
 import { useEthers } from '@usedapp/core'
@@ -10,8 +10,8 @@ import axios from 'axios'
 import helperConfig from '../../helper-config.json'
 import { connect } from 'react-redux'
 import { BsCurrencyBitcoin, BsCurrencyDollar, BsToggle2Off, BsToggle2On } from 'react-icons/bs'
-import { AiOutlineDollar } from 'react-icons/ai'
-import { BiToggleLeft, BiToggleRight } from 'react-icons/bi'
+import { IoRefreshCircleOutline } from 'react-icons/io5'
+import { TiRefreshOutline } from 'react-icons/ti'
 import "react-toggle/style.css"
 import Toggle from 'react-toggle'
 
@@ -99,10 +99,10 @@ const Assests = ({ cols = 0, globalAdrs }) => {
         <Col
           key={index}
           {...cols}
-          // className='mb-2'
-          className={classnames({
-            [`mb-2 mb-${margin[0]}-0`]: index !== data.length - 1
-          })}
+          className='mb-2'
+        // className={classnames({
+        //   [`mb-2 mb-${margin[0]}-0`]: index !== data.length - 1
+        // })}
         >
           <Media>
             <Avatar size='lg' img={item.logo_url} onError={addDefaultSrc} className='mx-2' />
@@ -123,7 +123,7 @@ const Assests = ({ cols = 0, globalAdrs }) => {
   }
 
   const cardHeightStyle = data.length === 0 ? {
-
+    height: '28em'
   } : {
     height: '28em',
     maxHeight: '28em',
@@ -152,8 +152,11 @@ const Assests = ({ cols = 0, globalAdrs }) => {
         </CardBody>
       )}
       {data.length === 0 ? null : (
-        <Col className='text-right pr-2'>
-          <label>
+        <Col className='d-flex flex-row justify-content-between' >
+          {/* <RefreshCw className='ml-2 mb-1' size={20} /> */}
+          {/* <IoRefreshCircleOutline className='ml-2 mb-1' size={25} /> */}
+          <TiRefreshOutline title='Refresh' style={{ cursor: 'pointer' }} className='ml-2' size={25} onClick={() => getTokenBalance()} />
+          <label className='text-right px-2'>
             <Toggle
               defaultChecked={showDollar}
               icons={{
