@@ -721,7 +721,7 @@ const Send = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                                 <span>Balance: {erc20_bal}</span>
                               ))}
                           </Col>
-                          <h6 className='d-flex align-items-center' style={{ color: 'red', cursor: 'pointer' }} onClick={handleMax}> Send Max</h6>
+                          <h6 className='d-flex align-items-center' style={{ color: 'red', cursor: 'pointer' }} onClick={handleMax}>Max</h6>
                           {/* <Badge style={{ fontSize: ".9rem" }} color="primary" href='/home' pill>Send Max</Badge> */}
                         </Col>
                         <Input placeholder='Enter transfer amount' id='amount' value={balance_max} onChange={handleInputAmount} />

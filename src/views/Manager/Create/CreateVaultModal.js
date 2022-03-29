@@ -199,7 +199,7 @@ const CreateVaultModal = ({ openvault, handleVaultModal, globalVaultFlag, dispat
                 Create New Vault
             </ModalHeader>
             <ModalBody>
-                <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                <Row className='d-flex flex-column justify-content-center align-items-center'>
                     {/* <Col>
                         <h3>Create a new independent Vault.</h3>
                     </Col> */}
