@@ -35,7 +35,7 @@ const NonVandS = ({ handleadrsbookModal, setAdrsBookValue }) => {
     return (
         <Card style={{ height: '100%' }}>
             <CardHeader>
-                <h3>Other Addresses</h3>
+                <h3>External Addresses</h3>
             </CardHeader>
             <CardBody>
                 {NonRpaAdrs.length === 0 ? (

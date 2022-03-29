@@ -21,7 +21,7 @@ import { CgExport, CgImport } from 'react-icons/cg'
 import '@styles/react/libs/tables/react-dataTable-component.scss'
 
 // ** Third Party Components
-import { ChevronDown, Share, Printer, FileText, File, Grid, Copy, Plus, Trash2, X } from 'react-feather'
+import { ChevronDown, Share, Printer, FileText, File, Grid, Copy, Plus, Trash2, X, User } from 'react-feather'
 import DataTable from 'react-data-table-component'
 import Icon from 'react-crypto-icons'
 import CardText from 'reactstrap/lib/CardText'
@@ -42,6 +42,9 @@ import LoginModal from '../LoginModal'
 import { BsArrowRightCircle } from 'react-icons/bs'
 import ImportAdrsBook from './ImportAdrsBook'
 import ExportAdrsBook from './ExportAdrsBook'
+import { GiCircleCage, GiHobbitDoor, GiShipWheel } from 'react-icons/gi'
+import Avatar from '@components/avatar'
+import Select from 'react-select'
 
 const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName }) => {
 
@@ -51,7 +54,7 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
 
     const [loginModal, setLoginModal] = useState(false)
     const disconnect = () => {
-        window.location.href = 'home'
+        window.location.href = '/home'
         setLoginModal(!loginModal)
     }
 
@@ -158,7 +161,7 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
             confirmButtonText: 'Yes, delete it!',
             customClass: {
                 confirmButton: 'btn btn-danger m-1',
-                cancelButton: 'btn btn-primary m-1'
+                cancelButton: 'btn btn-primary m-1',
             },
             buttonsStyling: false,
             inputValidator: (result) => {
@@ -210,8 +213,8 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
     const getAdrsBookList = () => {
         const getdata = JSON.parse(localStorage.getItem('adrsbook'))
         const adrsData = getdata && getdata.filter(i => i.owner === account && i.network === chainId)
-        console.log()
         if (getdata) {
+            // console.log('first fetch')
             setData(adrsData)
         } else {
             setData([])
@@ -251,28 +254,64 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
 
 
     const getVaultList = JSON.parse(localStorage.getItem('vaultdata'))
-    console.log('getVaultList', getVaultList)
+    const vaultListLocal = getVaultList && getVaultList.filter(v => v.owner === account && v.network === chainId)
+    const vaultadrs = vaultListLocal.map(i => i.address)
+    console.log('vaultadrs', vaultadrs)
 
     const getSegaList = JSON.parse(localStorage.getItem('segadata'))
-    console.log('getSegaList', getSegaList)
+    const segaListLocal = getSegaList && getSegaList.filter(s => s.owner === account && s.network === chainId)
+    const segaadrs = segaListLocal.map(j => j.address)
+    console.log('segaadrs', segaadrs)
 
     const [modal, setModal] = useState(false)
     const handleModal = () => setModal(!modal)
 
+    const logos = [
+        {
+            // icon: <BsSafe2 size={25} />,
+            icon: <GiShipWheel size={25} />,
+            color: 'primary'
+        },
+        {
+            icon: <GiCircleCage size={25} />,
+            color: 'primary'
+        },
+        {
+            icon: <User size={25} />,
+            color: 'primary'
+        }
+    ]
+
     const columns = [
         {
-            name: 'Name',
-            // sortable: true,
+            name: 'Type',
+            maxWidth: '80px',
             selector: row => (
-                <div className='d-flex flex-row justify-content-between'>
-                    <span className='mr-1'>
-                        {<ChangeName item={row} />}
-                    </span>
-                    <span className='text-truncate'>
-                        {row.nickname}
-                    </span>
+                <div>
+                    {vaultadrs.includes(row.adrs) ? (
+                        <Avatar size='md' color={logos[0].color} icon={logos[0].icon} />
+                    ) : segaadrs.includes(row.adrs) ? (
+                        <Avatar size='md' color={logos[1].color} icon={logos[1].icon} />
+                    ) : (
+                        <Avatar size='md' color={logos[2].color} icon={logos[2].icon} />
+                    )}
                 </div>
             )
+        },
+        {
+            name: 'Name',
+            sortable: true,
+            selector: row => row.nickname
+            // selector: row => (
+            //     <div className='d-flex flex-row justify-content-between'>
+            //         {/* <span className='mr-1'>
+            //             {<ChangeName item={row} />}
+            //         </span> */}
+            //         <span className='text-truncate'>
+            //             {row.nickname}
+            //         </span>
+            //     </div>
+            // )
         },
         {
             name: 'Address',
@@ -291,6 +330,7 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
                     {<CopyAdrs item={row} />}
                     {<a href={getExplorerAddressLink(row.adrs, chainId ? chainId : 1)} target='_blank'><GoLinkExternal className='mr-1' size={25} /></a>}
                     {<DeleteContact item={row} />}
+                    {<ChangeName item={row} />}
                 </span>
             )
         },
@@ -319,13 +359,13 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
         cells: {
             style: {
                 fontSize: '1.3em',
-                minHeight: '5em',
+                // minHeight: '5em',
                 color: '#6e6b7b'
             }
         },
         rows: {
             style: {
-                minHeight: '5em'
+                minHeight: '2em'
             }
         }
     }
@@ -370,6 +410,62 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
         )
     }
 
+    const [searchValue, setSearchValue] = useState('')
+
+    // ** Function to handle filter
+    const handleFilter = e => {
+        setSearchValue(e.target.value)
+    }
+
+    // ** Table data to render
+    const dataToRender = () => {
+        const filters = {
+            q: searchValue
+        }
+
+        const isFiltered = Object.keys(filters).some(function (k) {
+            return filters[k].length > 0
+        })
+
+        console.log('isFiltered', isFiltered, data)
+
+        if (data.length > 0 && isFiltered === false) {
+            // console.log('pehle case', data)
+            return data
+        } else if (data.length === 0 && isFiltered) {
+            console.log('empty aya', data)
+            return []
+        } else {
+            //data jo text ke saath match kare
+            console.log('aya', data)
+            return data.filter(i => i.nickname.toLowerCase().includes(searchValue.toLowerCase()) || i.adrs.includes(searchValue))
+        }
+    }
+
+    const [selection, setSelection] = useState('Select a type')
+    const handleFilterTable = e => {
+        setSelection(e.target.value)
+        const getdata = JSON.parse(localStorage.getItem('adrsbook'))
+        const adrsData = getdata && getdata.filter(i => i.owner === account && i.network === chainId)
+        if (e.target.value === 'vault') {
+            const onlyVault = adrsData && adrsData.filter(vault => vaultadrs.includes(vault.adrs))
+            setData(onlyVault)
+
+        } else if (e.target.value === 'sega') {
+            const onlySega = adrsData && adrsData.filter(sega => segaadrs.includes(sega.adrs))
+            setData(onlySega)
+
+        } else if (e.target.value === 'external') {
+            const nonrpc = adrsData && adrsData.filter(external => !vaultadrs.includes(external.adrs) && !segaadrs.includes(external.adrs))
+            setData(nonrpc)
+
+        } else {
+            return setData(adrsData)
+        }
+
+    }
+
+
     return (
         <>
 
@@ -383,12 +479,46 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
                     </CardBody>
                 </Card>
                 <Card>
+                    <Row className='mx-0 mt-1 mb-50'>
+                        <Col sm='6'>
+                            <div className='d-flex align-items-center'>
+                                <Label style={{ fontSize: '1.2em' }} for='sort-select'>Type</Label>
+                                <Input
+                                    // style={{ width: 'fit-content' }}
+                                    className='ml-1 w-50 dataTable-select'
+                                    type='select'
+                                    id='sort-select'
+                                    value={selection}
+                                    onChange={e => handleFilterTable(e)}
+                                >
+                                    <option value='' selected>Select a type</option>
+                                    <option value='vault'>Vault</option>
+                                    <option value='sega'>Sega</option>
+                                    <option value='external'>External</option>
+                                </Input>
+                            </div>
+                        </Col>
+                        <Col className='d-flex align-items-center justify-content-sm-end mt-sm-0 mt-1' sm='6'>
+                            <Label style={{ fontSize: '1.2em' }} className='mr-1' for='search-input'>
+                                Search
+                            </Label>
+                            <Input
+                                className='dataTable-filter'
+                                type='text'
+                                bsSize='sm'
+                                id='search-input'
+                                value={searchValue}
+                                onChange={handleFilter}
+                            />
+                        </Col>
+                    </Row>
                     <DataTable
                         className='react-dataTable'
                         customStyles={tablestyle}
                         noHeader
                         pagination
-                        data={data}
+                        data={dataToRender()}
+                        // data={data}
                         columns={columns}
                         sortIcon={<ChevronDown size={10} />}
                         paginationPerPage={10}

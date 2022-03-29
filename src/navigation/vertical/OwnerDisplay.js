@@ -6,7 +6,7 @@ import { FaRegCopy } from 'react-icons/fa'
 import { GoLinkExternal } from 'react-icons/go'
 import { BsSafe2 } from 'react-icons/bs'
 import { BiChevronDown } from 'react-icons/bi'
-import { PlusCircle, Clipboard, ChevronRight, ChevronsRight } from "react-feather"
+import { PlusCircle, Clipboard, ChevronRight, ChevronsRight, Edit3 } from "react-feather"
 import { randomHexColor } from 'random-hex-color-generator'
 import { toast } from 'react-toastify'
 import Avatar from '@components/avatar'
@@ -19,10 +19,11 @@ import Text from '../../views/CustomComponent/Text'
 import DropList from "./DropList"
 import { GiCircleCage, GiHobbitDoor, GiShipWheel } from "react-icons/gi"
 import { RiDoorLockLine } from "react-icons/ri"
+import NameChangeModal from "../../views/AddressBook/NameChangeModal"
 // import { useSkin } from '@hooks/useSkin'
 
 
-const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNickName, globalVaultFlag, skin }) => {
+const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNickName, globalVaultFlag, skin, globalFavFlag }) => {
 
   const { account, chainId } = useEthers()
   // const [skin, setSkin] = useSkin()
@@ -71,7 +72,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
     } else {
       setis_sega(true)
     }
-  }, [globalAdrs, account, chainId, is_sega])
+  }, [globalAdrs, account, chainId, is_sega, globalFavFlag])
 
   const stylecontainer = {
     textAlign: 'center',
@@ -106,7 +107,6 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
     },
     {
       // icon: <SiWebmoney size={25} />,
-
       icon: <GiCircleCage size={27} />,
       color: 'primary',
       // color: 'light-primary'
@@ -141,6 +141,10 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
 
   const [display_style_arrow, setDisplay_style_arrow] = useState({ display: 'none' })
   const [display_style_logo, setDisplay_style_logo] = useState({ display: 'block' })
+
+  //for name change
+  const [modal, setModal] = useState(false)
+  const handleModal = () => setModal(!modal)
 
   const renderItem = () => {
     return (
@@ -253,7 +257,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
           <Row className='pb-1 d-flex flex-column'>
             <Col className='pb-1 d-flex flex-column justify-content-center align-items-center'>
               {globalNickName === 'Create a Vault' ? (
-                <Link to='manager'>
+                <Link to='/manager'>
                   <h3 className="text-primary my-1" style={{ cursor: 'pointer' }} >{globalNickName} </h3>
                 </Link>
               ) : (
@@ -269,6 +273,8 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
               </div> */}
             </Col>
             <Col className='d-flex flex-row justify-content-around align-items-center'>
+              <Edit3 style={{ cursor: 'pointer' }} className="mx-1" color={skin === 'dark' ? 'white' : 'gray'} size={25} onClick={handleModal} />
+
               <Link to='/receive'><IoQrCodeOutline className="mx-1" color={skin === 'dark' ? 'white' : 'gray'} size={25} /></Link>
 
               <FaRegCopy style={{ cursor: 'pointer' }} className="mx-1" color={skin === 'dark' ? 'white' : 'gray'} size={25} onClick={copy} />
@@ -435,6 +441,12 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
     )
   }
 
+  const g_item = {
+    adrs: globalAdrs,
+    nickname: globalNickName,
+    isFav: false
+  }
+
   return (
     <>
       <Row style={stylecontainer}>
@@ -443,6 +455,7 @@ const OwnerDisplay = ({ menuCollapsed, menuHover, networkC, globalAdrs, globalNi
         }
       </Row>
       <DropList opendroplist={dropList} handleDropList={handleDropList} />
+      <NameChangeModal openmodal={modal} handleModal={handleModal} item={g_item} />
     </>
   )
 }

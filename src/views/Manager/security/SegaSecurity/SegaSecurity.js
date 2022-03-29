@@ -257,9 +257,9 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                 </ModalHeader>
                 <ModalBody>
                     <Row className='d-flex flex-column justify-content-center align-items-center'>
-                        <Col>
+                        {/* <Col>
                             <h3>View and Modify Account Security settings.</h3>
-                        </Col>
+                        </Col> */}
                         <Col className='mb-1' style={{}}>
                             <div className='d-flex flex-row justify-content-between my-1'>
                                 <Label style={{ fontSize: "1.3em" }}>Select Vault</Label>
