@@ -13,6 +13,7 @@ const RefreshButton = () => {
     const handleClick = () => {
         setIsRotate(!isRotate)
         setTimeout(() => {
+            // lazy(() => window.location.reload())
             window.location.reload()
         }, 1001)
     }

@@ -18,6 +18,7 @@ import axios from 'axios'
 import { BsArrowRightCircle } from 'react-icons/bs'
 import LoginModal from './LoginModal'
 import RefreshButton from './RefreshButton'
+import { RiRefreshLine } from 'react-icons/ri'
 
 const Home = ({ globalVaultFlag, globalAdrs, dispatch, globalNickName }) => {
 
@@ -166,6 +167,23 @@ const Home = ({ globalVaultFlag, globalAdrs, dispatch, globalNickName }) => {
     getTokenBalance()
   }, [account, chainId, globalAdrs])
 
+  const icon = {
+    cursor: 'pointer',
+    transform: 'rotate(180deg)',
+    transition: 'all ease-in-out 1s'
+  }
+  const [isRotate, setIsRotate] = useState(false)
+
+  const handleBtnClick = () => {
+    getTokenBalance()
+    setIsRotate(!isRotate)
+    setTimeout(() => {
+      setIsRotate(!isRotate)
+      // lazy(() => window.location.reload())
+      // window.location.reload()
+    }, 1001)
+  }
+
   return (
 
     <div>
@@ -207,7 +225,12 @@ const Home = ({ globalVaultFlag, globalAdrs, dispatch, globalNickName }) => {
                   <CardHeader>
                     <CardTitle className='d-flex flex-row justify-content-between align-items-center text-truncate' style={{ width: '100%', fontSize: '3.5em' }}>
                       $ {sum.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
-                      <RefreshButton />
+                      <RiRefreshLine title='Refresh'
+                        style={isRotate ? icon : { cursor: 'pointer' }}
+                        size={50}
+                        onClick={handleBtnClick}
+                      />
+                      {/* <RefreshButton /> */}
                     </CardTitle>
                   </CardHeader>
                 </Card>
@@ -215,10 +238,10 @@ const Home = ({ globalVaultFlag, globalAdrs, dispatch, globalNickName }) => {
             </Row>
             <Row>
               <Col md='4' className='mt-1'>
-                <Assests />
+                <Assests isRotate={isRotate} />
               </Col>
               <Col md='8' className='mt-1'>
-                <RecentTrans />
+                <RecentTrans isRotate={isRotate} />
               </Col>
             </Row>
             <Row>

@@ -15,7 +15,7 @@ import { TiRefreshOutline } from 'react-icons/ti'
 import "react-toggle/style.css"
 import Toggle from 'react-toggle'
 
-const Assests = ({ cols = 0, globalAdrs }) => {
+const Assests = ({ cols = 0, globalAdrs, isRotate }) => {
 
   const { account, chainId } = useEthers()
 
@@ -50,6 +50,10 @@ const Assests = ({ cols = 0, globalAdrs }) => {
       setAssetList([])
       console.log(`Asset [getTokkenBalance]`, error)
     }
+  }
+
+  if (isRotate) {
+    getTokenBalance()
   }
 
   useEffect(() => {
