@@ -36,7 +36,6 @@ const DeleteContact = ({ item, dispatch, globalFavFlag, globalVaultFlag }) => {
     const handleConfirmDelete = () => {
         return MySwal.fire({
             title: 'Are you sure, you want to delete this address?',
-            text: "You won't be able to revert this!",
             icon: 'warning',
             input: 'checkbox',
             inputValue: 0,
@@ -49,22 +48,13 @@ const DeleteContact = ({ item, dispatch, globalFavFlag, globalVaultFlag }) => {
                 cancelButton: 'btn btn-primary m-1',
             },
             buttonsStyling: false,
-            inputValidator: (result) => {
-                console.log('result', result)
-                if (result === 1) {
-                    handleDelete()
-                    MySwal.fire({
-                        icon: 'success',
-                        title: 'Deleted!',
-                        text: 'Your file has been deleted.',
-                        customClass: {
-                            confirmButton: 'btn btn-success'
-                        }
-                    })
-                } else {
-                    return !result && 'You need to check the box'
-                }
+            showClass: {
+                popup: 'animate__animated animate__flipInX'
             },
+        }).then(function (result) {
+            if (result.isConfirmed) {
+                handleDelete()
+            }
         })
     }
 

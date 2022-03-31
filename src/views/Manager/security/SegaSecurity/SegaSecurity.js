@@ -335,7 +335,7 @@ const SegaSecurity = ({ opensegasec, handleSegaSecModal }) => {
                                                 <Label for='days' style={{ fontSize: "1.2em" }}>Operator Status</Label>
                                                 <div className='text-center'>
                                                     {/* {console.log(activeStatus)} */}
-                                                    {activeStatus ? (<p><strong><u>Active</u></strong></p>) : (<p><strong><u>Frozen</u></strong></p>)}
+                                                    {activeStatus ? (<p><strong>Active</strong></p>) : (<p><strong>Frozen</strong></p>)}
                                                     {/* <p><strong>{activeStatus}</strong></p> */}
                                                 </div>
                                                 <div className='text-center'>

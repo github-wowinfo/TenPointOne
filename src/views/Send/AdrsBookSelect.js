@@ -5,14 +5,17 @@ import NonVandS from "./NonVandS"
 import VandS from "./VandS"
 
 const AdrsBookSelect = ({ openadrsbookselect, handleadrsbookModal, setAdrsBookValue }) => {
-
+    const bgstyle = {
+        backgroundColor: '#000000',
+        backgroundImage: 'linear-gradient(147deg, #000000 66%, #0f3070e8 94%)'
+    }
     return (
         <>
             <Modal scrollable className='modal-lg modal-dialog-centered' isOpen={openadrsbookselect} toggle={() => handleadrsbookModal()}>
                 <ModalHeader tag='h2' toggle={() => handleadrsbookModal()}>
                     Select Address
                 </ModalHeader>
-                <ModalBody>
+                <ModalBody style={bgstyle}>
                     <Row className='d-flex flex-row justify-content-center'>
                         <Col md='6'><NonVandS handleadrsbookModal={handleadrsbookModal} setAdrsBookValue={setAdrsBookValue} /></Col>
                         <Col md='6'><VandS handleadrsbookModal={handleadrsbookModal} setAdrsBookValue={setAdrsBookValue} /></Col>

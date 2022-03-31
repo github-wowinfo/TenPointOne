@@ -486,7 +486,7 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
                             <div className='d-flex align-items-center'>
                                 <Input
                                     // style={{ width: 'fit-content' }}
-                                    className='w-50  dataTable-select'
+                                    className='w-25 dataTable-select'
                                     type='select'
                                     id='sort-select'
                                     value={selection}

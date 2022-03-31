@@ -15,7 +15,7 @@ import { TiRefreshOutline } from 'react-icons/ti'
 import "react-toggle/style.css"
 import Toggle from 'react-toggle'
 
-const Assests = ({ cols = 0, globalAdrs, isRotate }) => {
+const Assests = ({ cols = 0, globalAdrs, trigger }) => {
 
   const { account, chainId } = useEthers()
 
@@ -52,13 +52,9 @@ const Assests = ({ cols = 0, globalAdrs, isRotate }) => {
     }
   }
 
-  if (isRotate) {
-    getTokenBalance()
-  }
-
   useEffect(() => {
     getTokenBalance()
-  }, [account, chainId, globalAdrs])
+  }, [account, chainId, globalAdrs, trigger])
 
   console.log('assetList', assetList)
 
@@ -157,9 +153,6 @@ const Assests = ({ cols = 0, globalAdrs, isRotate }) => {
       )}
       {data.length === 0 ? null : (
         <Col className='d-flex flex-row justify-content-between' >
-          {/* <RefreshCw className='ml-2 mb-1' size={20} /> */}
-          {/* <IoRefreshCircleOutline className='ml-2 mb-1' size={25} /> */}
-          <TiRefreshOutline title='Refresh' style={{ cursor: 'pointer' }} className='ml-2' size={25} onClick={() => getTokenBalance()} />
           <label className='text-right px-2'>
             <Toggle
               defaultChecked={showDollar}
