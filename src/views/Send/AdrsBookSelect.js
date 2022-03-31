@@ -10,7 +10,7 @@ const AdrsBookSelect = ({ openadrsbookselect, handleadrsbookModal, setAdrsBookVa
         <>
             <Modal scrollable className='modal-lg modal-dialog-centered' isOpen={openadrsbookselect} toggle={() => handleadrsbookModal()}>
                 <ModalHeader tag='h2' toggle={() => handleadrsbookModal()}>
-                    Select Address.
+                    Select Address
                 </ModalHeader>
                 <ModalBody>
                     <Row className='d-flex flex-row justify-content-center'>

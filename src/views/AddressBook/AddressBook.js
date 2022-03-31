@@ -284,8 +284,8 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
 
     const columns = [
         {
-            name: 'Type',
-            maxWidth: '80px',
+            name: '',
+            maxWidth: '50px',
             selector: row => (
                 <div>
                     {vaultadrs.includes(row.adrs) ? (
@@ -325,12 +325,14 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
             right: true,
             maxWidth: '400px',
             cell: row => (
-                <span className='d-flex felx-row justify-content-start align-items-center'>
+                <span className='d-flex felx-row justify-content-around align-items-center'>
                     {(getVaultList && getVaultList.find(i => i.address === row.adrs && i.network === row.network)) || (getSegaList && getSegaList.find(i => i.address === row.adrs && i.network === row.network)) ? <Heart item={row} /> : null}
-                    {<CopyAdrs item={row} />}
-                    {<a href={getExplorerAddressLink(row.adrs, chainId ? chainId : 1)} target='_blank'><GoLinkExternal className='mr-1' size={25} /></a>}
+                    <div className='mx-2 d-flex flex-row justify-content-around align-items-center'>
+                        {<ChangeName item={row} />}
+                        {<CopyAdrs item={row} />}
+                        {<a href={getExplorerAddressLink(row.adrs, chainId ? chainId : 1)} target='_blank'><GoLinkExternal size={25} /></a>}
+                    </div>
                     {<DeleteContact item={row} />}
-                    {<ChangeName item={row} />}
                 </span>
             )
         },
@@ -482,16 +484,15 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
                     <Row className='mx-0 mt-1 mb-50'>
                         <Col sm='6'>
                             <div className='d-flex align-items-center'>
-                                <Label style={{ fontSize: '1.2em' }} for='sort-select'>Type</Label>
                                 <Input
                                     // style={{ width: 'fit-content' }}
-                                    className='ml-1 w-50 dataTable-select'
+                                    className='w-25  dataTable-select'
                                     type='select'
                                     id='sort-select'
                                     value={selection}
                                     onChange={e => handleFilterTable(e)}
                                 >
-                                    <option value='' selected>Select a type</option>
+                                    <option value='all' selected>All</option>
                                     <option value='vault'>Vault</option>
                                     <option value='sega'>Sega</option>
                                     <option value='external'>External</option>
@@ -499,14 +500,12 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
                             </div>
                         </Col>
                         <Col className='d-flex align-items-center justify-content-sm-end mt-sm-0 mt-1' sm='6'>
-                            <Label style={{ fontSize: '1.2em' }} className='mr-1' for='search-input'>
-                                Search
-                            </Label>
                             <Input
                                 className='dataTable-filter'
                                 type='text'
                                 bsSize='sm'
                                 id='search-input'
+                                placeholder='Search'
                                 value={searchValue}
                                 onChange={handleFilter}
                             />
