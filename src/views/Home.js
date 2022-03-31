@@ -17,6 +17,7 @@ import * as AppData from '../redux/actions/cookies/appDataType'
 import axios from 'axios'
 import { BsArrowRightCircle } from 'react-icons/bs'
 import LoginModal from './LoginModal'
+import RefreshButton from './RefreshButton'
 
 const Home = ({ globalVaultFlag, globalAdrs, dispatch, globalNickName }) => {
 
@@ -204,8 +205,9 @@ const Home = ({ globalVaultFlag, globalAdrs, dispatch, globalNickName }) => {
               <Col>
                 <Card className='mb-0'>
                   <CardHeader>
-                    <CardTitle className='d-flex flex-row justify-content-between text-truncate' style={{ width: '100%', fontSize: '3.5em' }}>
+                    <CardTitle className='d-flex flex-row justify-content-between align-items-center text-truncate' style={{ width: '100%', fontSize: '3.5em' }}>
                       $ {sum.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                      <RefreshButton />
                     </CardTitle>
                   </CardHeader>
                 </Card>

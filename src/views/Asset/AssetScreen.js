@@ -251,7 +251,7 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
             maxWidth: '150px',
             right: true,
             selector: row => (
-                <span className='align-middle font-weight-bold'>
+                <span className='font-weight-bold'>
                     {
 
                         (row.balance && (row.balance / (10 ** row.contract_decimals))).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 6 })
@@ -259,6 +259,14 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                     }
                 </span>
 
+            )
+        },
+        {
+            name: 'Price',
+            minWidth: '150px',
+            right: true,
+            selector: row => (
+                <span className='font-weight-bold'>{row.quote_rate > 1 ? row.quote_rate.toFixed(2) : row.quote_rate.toFixed(6)}</span>
             )
         },
         {

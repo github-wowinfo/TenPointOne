@@ -8,6 +8,7 @@ import { getExplorerAddressLink, shortenIfAddress, useEthers } from '@usedapp/co
 import { FaRegCopy } from 'react-icons/fa'
 import { GoLinkExternal } from 'react-icons/go'
 import { GiCircleCage, GiHobbitDoor, GiShipWheel } from 'react-icons/gi'
+import { BsArrowDown } from 'react-icons/bs'
 import Avatar from '@components/avatar'
 import helperConfig from '../../helper-config.json'
 import { toast } from 'react-toastify'
@@ -144,6 +145,12 @@ const Swap = ({ globalAdrs, globalNickName }) => {
                                 <FaRegCopy style={{ cursor: 'pointer' }} className='mx-1' size={25} onClick={copy} />
                                 <a href={getExplorerAddressLink(globalAdrs, chainId)} target='_blank'><GoLinkExternal size={25} /></a>
                             </Col> */}
+                        </Col>
+                    </Row>
+                    <Row className='mt-1 d-flex flex-row'>
+                        <Col xs='1' sm='1' md='1' className='mx-1'><BsArrowDown size={30} /></Col>
+                        <Col>
+                            <hr />
                         </Col>
                     </Row>
                     <Form className='form mt-2' onSubmit={e => e.preventDefault()}>
