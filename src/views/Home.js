@@ -150,6 +150,7 @@ const Home = ({ globalVaultFlag, globalAdrs, dispatch, globalNickName }) => {
   const [assetList, setAssetList] = useState([])
   const [sum, setSum] = useState(0)
   const getTokenBalance = async () => {
+    console.log('gg')
     try {
       const response = await axios.get(`https://api.unmarshal.com/v1/${helperConfig.unmarshal[chainId]}/address/${globalAdrs}/assets?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
       // const response = await axios.get(`https://api.unmarshal.com/v1/${helperConfig.unmarshal[chainId]}/address/${account}/assets?auth_key=CE2OvLT9dk2YgYAYfb3jR1NqCGWGtdRd1eoikUYs`)
@@ -169,20 +170,29 @@ const Home = ({ globalVaultFlag, globalAdrs, dispatch, globalNickName }) => {
 
   const icon = {
     cursor: 'pointer',
-    transform: 'rotate(180deg)',
-    transition: 'all ease-in-out 1s'
+    transform: 'rotate(540deg)',
+    transition: 'all ease-in-out 0.7s'
   }
   const [isRotate, setIsRotate] = useState(false)
+  const [trigger, setTrigger] = useState(0)
 
   const handleBtnClick = () => {
     getTokenBalance()
-    setIsRotate(!isRotate)
-    setTimeout(() => {
-      setIsRotate(!isRotate)
-      // lazy(() => window.location.reload())
-      // window.location.reload()
-    }, 1001)
+    setIsRotate(true)
+    if (trigger === 0) {
+      setTrigger(1)
+    } else {
+      setTrigger(0)
+    }
   }
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (isRotate === true) {
+        setIsRotate(false)
+      }
+    }, 1001)
+  }, [trigger])
 
   return (
 
@@ -238,10 +248,10 @@ const Home = ({ globalVaultFlag, globalAdrs, dispatch, globalNickName }) => {
             </Row>
             <Row>
               <Col md='4' className='mt-1'>
-                <Assests isRotate={isRotate} />
+                <Assests trigger={trigger} />
               </Col>
               <Col md='8' className='mt-1'>
-                <RecentTrans isRotate={isRotate} />
+                <RecentTrans trigger={trigger} />
               </Col>
             </Row>
             <Row>

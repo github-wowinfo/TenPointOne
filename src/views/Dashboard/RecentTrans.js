@@ -18,7 +18,7 @@ import { FiXCircle } from 'react-icons/fi'
 import { BiErrorCircle } from 'react-icons/bi'
 import ReceivedValue from '../Activity/ReceivedValue'
 
-const RecentTrans = ({ globalAdrs, globalNickName, isRotate }) => {
+const RecentTrans = ({ globalAdrs, globalNickName, trigger }) => {
 
   const { account, chainId } = useEthers()
 
@@ -58,13 +58,9 @@ const RecentTrans = ({ globalAdrs, globalNickName, isRotate }) => {
 
   console.log('data', data)
 
-  if (isRotate) {
-    getTokenTransaction()
-  }
-
   useEffect(() => {
     getTokenTransaction()
-  }, [account, chainId, globalAdrs])
+  }, [account, chainId, globalAdrs, trigger])
 
   const addDefaultSrc = (ev) => {
     ev.target.src = require(`@src/assets/images/logo/question.jpg`).default
