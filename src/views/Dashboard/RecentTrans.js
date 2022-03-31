@@ -18,7 +18,7 @@ import { FiXCircle } from 'react-icons/fi'
 import { BiErrorCircle } from 'react-icons/bi'
 import ReceivedValue from '../Activity/ReceivedValue'
 
-const RecentTrans = ({ globalAdrs, globalNickName }) => {
+const RecentTrans = ({ globalAdrs, globalNickName, isRotate }) => {
 
   const { account, chainId } = useEthers()
 
@@ -57,6 +57,10 @@ const RecentTrans = ({ globalAdrs, globalNickName }) => {
   const data = dataList.slice(0, 5)
 
   console.log('data', data)
+
+  if (isRotate) {
+    getTokenBalance()
+  }
 
   useEffect(() => {
     getTokenTransaction()
