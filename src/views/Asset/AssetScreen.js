@@ -47,7 +47,7 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
 
     const [loginModal, setLoginModal] = useState(false)
     const disconnect = () => {
-        window.location.href = 'home'
+        window.location.href = '/home'
         setLoginModal(!loginModal)
     }
 
@@ -266,7 +266,13 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
             minWidth: '150px',
             right: true,
             selector: row => (
-                <span className='font-weight-bold'>{row.quote_rate > 1 ? row.quote_rate.toFixed(2) : row.quote_rate.toFixed(6)}</span>
+                <span className='font-weight-bold'>
+                    $ {row.quote_rate > 1 ? (
+                        row.quote_rate.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })
+                    ) : (
+                        row.quote_rate.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 6 })
+                    )}
+                </span>
             )
         },
         {
@@ -275,7 +281,7 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
             selector: row => (
                 <span className='align-middle font-weight-bold'>
                     {
-                        row.balance && `$${(row.balance / (10 ** row.contract_decimals) * row.quote_rate).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`
+                        row.balance && `$ ${(row.balance / (10 ** row.contract_decimals) * row.quote_rate).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`
                     }
                 </span>
             )
@@ -355,7 +361,7 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
                             </CardHeader>
                             <hr />
                             <Col style={{ fontSize: '2em' }} className='d-flex flex-row justify-content-center align-items-center'>
-                                <NavLink href='manager' >
+                                <NavLink href='/manager' >
                                     CREATE A VAULT <BsArrowRightCircle size={35} />
                                 </NavLink>
                             </Col>
@@ -377,7 +383,7 @@ const Asset = ({ globalAdrs, globalNickName, globalVaultFlag, dispatch }) => {
 
                                     <Col className='d-flex flex-column align-items-end pb-0'>
                                         <CardBody className='px-0 pb-0 pt-2'>
-                                            <h3 className='mb-0 pb-1'>${sum.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</h3>
+                                            <h3 className='mb-0 pb-1'>$ {sum.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</h3>
                                         </CardBody>
                                         <CardHeader className='pr-0 pt-0'>
                                             <CardTitle>Total Balance</CardTitle>
