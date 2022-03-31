@@ -16,6 +16,7 @@ import { connect } from 'react-redux'
 import * as AppData from '../redux/actions/cookies/appDataType'
 import axios from 'axios'
 import { BsArrowRightCircle } from 'react-icons/bs'
+import { RiRefreshLine } from 'react-icons/ri'
 import LoginModal from './LoginModal'
 import RefreshButton from './RefreshButton'
 
