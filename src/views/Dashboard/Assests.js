@@ -152,8 +152,8 @@ const Assests = ({ cols = 0, globalAdrs, trigger }) => {
         </CardBody>
       )}
       {data.length === 0 ? null : (
-        <Col className='d-flex flex-row justify-content-between' >
-          <label className='text-right px-2'>
+        <Col className='d-flex flex-row justify-content-end' >
+          <label className='text-right pr-1'>
             <Toggle
               defaultChecked={showDollar}
               icons={{

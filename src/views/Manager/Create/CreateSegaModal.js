@@ -242,8 +242,8 @@ const CreateSegaModal = ({ opensega, handleSegaModal }) => {
             }}>
                 Create New Sega
             </ModalHeader>
-            <ModalBody style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+            <ModalBody>
+                <Row className='d-flex flex-column justify-content-center align-items-center'>
                     {/* <Col>
                         <h3>Create a new independent Sega linked to any of your Vault.</h3>
                     </Col> */}

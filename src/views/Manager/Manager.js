@@ -147,7 +147,7 @@ const Manager = ({ globalAdrs, globalNickName, dispatch, globalVaultFlag }) => {
 
     return (
         <div>
-            <div className="my-1"><ManageSecurity /><CreateVs /><AddRemove /><RecoverAcc /><ImportExport /></div>
+            <div className="my-1"><CreateVs /><ManageSecurity /><AddRemove /><RecoverAcc /><ImportExport /></div>
             <LoginModal openloginmodal={loginModal} disconnect={disconnect} />
         </div>
     )
