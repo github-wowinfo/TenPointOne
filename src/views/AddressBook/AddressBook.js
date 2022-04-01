@@ -485,8 +485,8 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
                         <Col sm='6'>
                             <div className='d-flex align-items-center'>
                                 <Input
-                                    // style={{ width: 'fit-content' }}
-                                    className='w-25 dataTable-select'
+                                    style={{ width: 'fit-content' }}
+                                    className='dataTable-select'
                                     type='select'
                                     id='sort-select'
                                     value={selection}
@@ -501,11 +501,11 @@ const AdddressBook = ({ globalFavFlag, globalVaultFlag, dispatch, globalNickName
                         </Col>
                         <Col className='d-flex align-items-center justify-content-sm-end mt-sm-0 mt-1' sm='6'>
                             <Input
-                                className='dataTable-filter'
+                                className='mr-2 text-right dataTable-filter'
                                 type='text'
-                                bsSize='sm'
+                                bsSize='md'
                                 id='search-input'
-                                placeholder='Search'
+                                placeholder='Search by name or address'
                                 value={searchValue}
                                 onChange={handleFilter}
                             />

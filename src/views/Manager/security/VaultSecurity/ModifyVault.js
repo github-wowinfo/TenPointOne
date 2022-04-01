@@ -168,9 +168,9 @@ const ModifyVault = ({ openmodifyvaultmodal, handleModifyVaultModal, vault, vaul
                 Modify Vault Settings
             </ModalHeader>
             <ModalBody >
-                <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                <Row className='d-flex flex-column justify-content-center align-items-center'>
                     <Col>
-                        <h3>Update your Vault with new security parameters and modify.</h3>
+                        <p>Update your Vault with new security parameters and modify.</p>
                     </Col>
                     <Col className='my-1'>
                         <Row className='d-flex flex-row justify-content-evenly'>

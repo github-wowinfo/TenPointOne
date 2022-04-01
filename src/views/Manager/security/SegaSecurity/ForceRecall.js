@@ -331,7 +331,7 @@ const ForceRecall = ({ openrecallmodal, handlRecoverModal, selectSega, sega_name
             <ModalBody className='p-1'>
                 <Row className='d-flex flex-column justify-content-center align-items-center' >
                     <Col>
-                        <h3>For Risk Officers and Vault operators to pull Sega assests back into its Parent Vault bypassing the Sega operator.</h3>
+                        <p>For Risk Officers and Vault operators to pull Sega assests back into its Parent Vault bypassing the Sega operator.</p>
                     </Col>
                     <Col className='my-1'>
                         <Row className='d-flex flex-row align-items-center'>
